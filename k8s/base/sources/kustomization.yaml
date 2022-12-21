@@ -30,3 +30,4 @@ resources:
   - openldap.yaml
   - minio.yaml
   - pihole.yaml
+  - cilium.yaml
