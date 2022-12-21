@@ -1,0 +1,6 @@
+charts
+clusterconfig
+### SOPS ###
+.decrypted~*.yaml
+### KUBECONFIG ###
+provision

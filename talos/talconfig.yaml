@@ -1,0 +1,123 @@
+---
+clusterName: k8s
+domain: cluster.local
+allowSchedulingOnMasters: true
+clusterPodNets:
+  - 10.244.0.0/16
+clusterSvcNets:
+  - 10.96.0.0/12
+talosVersion: v1.3.0
+kubernetesVersion: 1.25.5
+endpoint: https://k8s.dom.lan:6443
+
+cniConfig:
+  name: none
+#  urls:
+#    - https://raw.githubusercontent.com/gucio1200/homelab/main/talos/cilium/quick-install.yaml
+
+additionalApiServerCertSans:
+  - 172.16.99.3
+
+additionalMachineCertSans:
+  - 172.16.99.3
+  - k8s.dom.lan
+
+nodes:
+  - hostname: cp-0
+    controlPlane: true
+    ipAddress: 192.168.2.11
+    installDisk: /dev/sda
+    nameservers:
+      - 192.168.0.151
+      - 1.1.1.1
+      - 8.8.8.8
+    networkInterfaces:
+      - interface: eth0
+        dhcp: true
+        mtu: 1500
+
+  - hostname: cp-1
+    controlPlane: true
+    ipAddress: 192.168.2.12
+    installDisk: /dev/sda
+    nameservers:
+      - 192.168.0.151
+      - 1.1.1.1
+      - 8.8.8.8
+    networkInterfaces:
+      - interface: eth0
+        dhcp: true
+        mtu: 1500
+
+  - hostname: cp-2
+    controlPlane: true
+    ipAddress: 192.168.2.13
+    installDisk: /dev/sda
+    nameservers:
+      - 192.168.0.151
+      - 1.1.1.1
+      - 8.8.8.8
+    networkInterfaces:
+      - interface: eth0
+        dhcp: true
+        mtu: 1500
+
+controlPlane:
+  inlinePatch:
+    cluster:
+      etcd:
+        extraArgs:
+          listen-metrics-urls: http://0.0.0.0:2381
+          election-timeout: "5000"
+          heartbeat-interval: 250
+      apiServer:
+        disablePodSecurityPolicy: true
+        admissionControl: []
+        extraArgs:
+          feature-gates: MixedProtocolLBService=true,EphemeralContainers=True
+      discovery:
+        registries:
+          service:
+            disabled: true
+      scheduler:
+        extraArgs:
+          feature-gates: MixedProtocolLBService=true,EphemeralContainers=True
+          bind-address: 0.0.0.0
+      controllerManager:
+        extraArgs:
+          feature-gates: MixedProtocolLBService=true,EphemeralContainers=True
+          bind-address: 0.0.0.0
+      proxy:
+        disabled: true
+        extraArgs:
+          feature-gates: MixedProtocolLBService=true,EphemeralContainers=True
+          bind-address: 0.0.0.0
+#      extraManifests:
+#        - "https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/v0.6.3/deploy/ha-install.yaml"
+    machine:
+      files:
+        - content: |
+            [plugins."io.containerd.grpc.v1.cri"]
+              enable_unprivileged_ports = true
+              enable_unprivileged_icmp = true
+          path: /var/cri/conf.d/allow-unpriv-ports.toml
+          op: create
+      kubelet:
+        nodeIP:
+          validSubnets:
+            - 192.168.2.0/24
+        extraArgs:
+          feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true,EphemeralContainers=true,ServerSideApply=true
+          rotate-server-certificates: "true"
+      time:
+        disabled: false
+        servers:
+          - pool.ntp.org
+      sysctls:
+        fs.inotify.max_user_watches: "1048576"
+        fs.inotify.max_user_instances: "8192"
+      network:
+        extraHostEntries:
+          - ip: 172.16.99.3
+            aliases:
+              - k8s.dom.lan
