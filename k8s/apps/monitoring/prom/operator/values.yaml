@@ -41,6 +41,9 @@ alertmanager:
             storage: 1Gi
 
 kube-state-metrics:
+  enabled: true
+  metricLabelsAllowlist:
+    - "persistentvolumeclaims=[*]"
   prometheus:
     monitor:
       enabled: true
