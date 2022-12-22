@@ -1,6 +1,5 @@
 ---
 clusterName: k8s
-domain: cluster.local
 allowSchedulingOnMasters: true
 clusterPodNets:
   - 10.244.0.0/16
