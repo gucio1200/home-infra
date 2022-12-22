@@ -31,3 +31,4 @@ resources:
   - minio.yaml
   - pihole.yaml
   - cilium.yaml
+  - postfinance.yaml
