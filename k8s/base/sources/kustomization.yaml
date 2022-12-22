@@ -33,3 +33,4 @@ resources:
   - cilium.yaml
   - postfinance.yaml
   - rook-ceph.yaml
+  - bjw-s.yaml
