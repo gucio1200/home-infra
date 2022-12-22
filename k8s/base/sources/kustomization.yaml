@@ -32,3 +32,4 @@ resources:
   - pihole.yaml
   - cilium.yaml
   - postfinance.yaml
+  - rook-ceph.yaml
