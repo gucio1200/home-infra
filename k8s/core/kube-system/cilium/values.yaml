@@ -30,3 +30,4 @@ hubble:
   enabled: false
 ipv6:
   enabled: false
+tunnel: disabled
