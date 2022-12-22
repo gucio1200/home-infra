@@ -12,7 +12,6 @@ prometheusOperator:
   configReloaderCpu: 200m
   resources:
     requests:
-      cpu: 100m
       memory: 164Mi
   admissionWebhooks:
     enabled: true
@@ -58,7 +57,6 @@ nodeExporter:
 prometheus-node-exporter:
   resources:
     requests:
-      cpu: 23m
       memory: 64M
     limits:
       memory: 64M
@@ -100,10 +98,8 @@ prometheus:
     walCompression: true
     resources:
       requests:
-        cpu: 500m
         memory: 1500Mi
       limits:
-        cpu: 500m
         memory: 2500Mi
     storageSpec:
       volumeClaimTemplate:
