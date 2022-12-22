@@ -23,6 +23,3 @@ spec:
   valuesFrom:
     - kind: ConfigMap
       name: prom-values
-    - kind: Secret
-      name: prom-slack
-      valuesKey: notesPlain
