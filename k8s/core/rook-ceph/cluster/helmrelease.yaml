@@ -147,8 +147,8 @@ spec:
               limits:
                 memory: "600M"
         storageClass:
-          enabled: true
-          isDefault: true
+          enabled: false
+          isDefault: false
           name: rook-ceph-filesystem
           reclaimPolicy: Delete
           allowVolumeExpansion: true
@@ -188,6 +188,7 @@ spec:
 #              interval: 60s
         storageClass:
           enabled: true
+          isDefault: true
           name: rook-ceph-bucket
           reclaimPolicy: Delete
 #          parameters:
