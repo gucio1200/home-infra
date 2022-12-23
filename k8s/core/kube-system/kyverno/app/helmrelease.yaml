@@ -16,6 +16,7 @@ spec:
         namespace: flux-system
       interval: 30m
   values:
+    installCRDs: true
     replicaCount: 1
 
     updateStrategy:
