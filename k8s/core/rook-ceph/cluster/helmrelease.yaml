@@ -112,9 +112,9 @@ spec:
           replicated:
             size: 3
         storageClass:
-          enabled: true
+          enabled: false
           name: rook-ceph-block
-          isDefault: true
+          isDefault: false
           reclaimPolicy: Delete
           allowVolumeExpansion: true
           parameters:
@@ -148,7 +148,7 @@ spec:
                 memory: "600M"
         storageClass:
           enabled: true
-          isDefault: false
+          isDefault: true
           name: rook-ceph-filesystem
           reclaimPolicy: Delete
           allowVolumeExpansion: true
@@ -161,34 +161,34 @@ spec:
             csi.storage.k8s.io/node-stage-secret-name: rook-csi-cephfs-node
             csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
             csi.storage.k8s.io/fstype: ext4
-#    cephObjectStores:
-#      - name: rook-ceph-objectstore
-#        spec:
-#          metadataPool:
-#            failureDomain: host
-#            replicated:
-#              size: 3
-#          dataPool:
-#            failureDomain: host
-#            erasureCoded:
-#              dataChunks: 2
-#              codingChunks: 1
-#          preservePoolsOnDelete: true
-#          gateway:
-#            port: 80
-#            resources:
-#              requests:
-#                cpu: 50m
-#                memory: 128M
-#              limits:
-#                memory: 2Gi
-#            instances: 1
+    cephObjectStores:
+      - name: rook-ceph-objectstore
+        spec:
+          metadataPool:
+            failureDomain: host
+            replicated:
+              size: 3
+          dataPool:
+            failureDomain: host
+            erasureCoded:
+              dataChunks: 2
+              codingChunks: 1
+          preservePoolsOnDelete: true
+          gateway:
+            port: 80
+            resources:
+              requests:
+                cpu: 50m
+                memory: 128M
+              limits:
+                memory: 2Gi
+            instances: 1
 #          healthCheck:
 #            bucket:
 #              interval: 60s
-#        storageClass:
-#          enabled: false
-#          name: rook-ceph-bucket
-#          reclaimPolicy: Delete
+        storageClass:
+          enabled: true
+          name: rook-ceph-bucket
+          reclaimPolicy: Delete
 #          parameters:
 #            region: us-east-1

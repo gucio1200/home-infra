@@ -18,6 +18,8 @@ spec:
     crds:
       enabled: false
     pspEnable: false
+    csi:
+      enableRbdDriver: false
     monitoring:
       enabled: true
     resources:
