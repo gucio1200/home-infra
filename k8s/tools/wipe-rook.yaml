@@ -8,16 +8,28 @@ spec:
   nodeName: cp-0
   containers:
     - name: disk-wipe
-      image: busybox@sha256:3b3128d9df6bbbcc92e2358e596c9fbd722a437a62bafbc51607970e9e3b8869
+      image: rook/ceph:v1.10.7
       securityContext:
         privileged: true
       command:
         [
           "/bin/sh",
           "-c",
-          "blkdiscard /dev/nvme0n1",
+          "sgdisk --zap-all /dev/nvme0n1",
           "dd if=/dev/zero bs=1M count=10000 oflag=direct of=/dev/nvme0n1",
+          "blkdiscard /dev/nvme0n1",
+          "partprobe /dev/nvme0n1",
         ]
+      volumeMounts:
+        - mountPath: /dev
+          name: dev
+  securityContext:
+    runAsUser: 0
+    runAsGroup: 0
+  volumes:
+    - name: dev
+      hostPath:
+        path: /dev
 ---
 apiVersion: v1
 kind: Pod
@@ -28,16 +40,28 @@ spec:
   nodeName: cp-1
   containers:
     - name: disk-wipe
-      image: busybox@sha256:3b3128d9df6bbbcc92e2358e596c9fbd722a437a62bafbc51607970e9e3b8869
+      image: rook/ceph:v1.10.7
       securityContext:
         privileged: true
       command:
         [
           "/bin/sh",
           "-c",
-          "blkdiscard /dev/nvme0n1",
+          "sgdisk --zap-all /dev/nvme0n1",
           "dd if=/dev/zero bs=1M count=10000 oflag=direct of=/dev/nvme0n1",
+          "blkdiscard /dev/nvme0n1",
+          "partprobe /dev/nvme0n1",
         ]
+      volumeMounts:
+        - mountPath: /dev
+          name: dev
+  securityContext:
+    runAsUser: 0
+    runAsGroup: 0
+  volumes:
+    - name: dev
+      hostPath:
+        path: /dev
 ---
 apiVersion: v1
 kind: Pod
@@ -48,13 +72,25 @@ spec:
   nodeName: cp-2
   containers:
     - name: disk-wipe
-      image: busybox@sha256:3b3128d9df6bbbcc92e2358e596c9fbd722a437a62bafbc51607970e9e3b8869
+      image: rook/ceph:v1.10.7
       securityContext:
         privileged: true
       command:
         [
           "/bin/sh",
           "-c",
-          "blkdiscard /dev/nvme0n1",
+          "sgdisk --zap-all /dev/nvme0n1",
           "dd if=/dev/zero bs=1M count=10000 oflag=direct of=/dev/nvme0n1",
+          "blkdiscard /dev/nvme0n1",
+          "partprobe /dev/nvme0n1",
         ]
+      volumeMounts:
+        - mountPath: /dev
+          name: dev
+  securityContext:
+    runAsUser: 0
+    runAsGroup: 0
+  volumes:
+    - name: dev
+      hostPath:
+        path: /dev
