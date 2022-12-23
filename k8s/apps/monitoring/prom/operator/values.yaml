@@ -106,6 +106,7 @@ prometheus:
     storageSpec:
       volumeClaimTemplate:
         spec:
+          storageClassName: rook-ceph-bucket
           resources:
             requests:
               storage: 20Gi
