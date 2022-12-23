@@ -6,3 +6,6 @@ resources:
   - cilium
   - kubelet-csr-approver
   - metrics-server
+  - descheduler
+  - kyverno
+  - reloader

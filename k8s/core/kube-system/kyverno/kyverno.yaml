@@ -1,0 +1,38 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kyverno
+  namespace: kube-system
+spec:
+  interval: 10m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./k8s/core/kube-system/kyverno/app
+  prune: true
+  wait: true
+  timeout: 5m
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: kyverno
+      namespace: kube-system
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kyverno-policies
+  namespace: kube-system
+spec:
+  dependsOn:
+    - name: kyverno
+  interval: 10m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./k8s/core/kube-system/kyverno/policies
+  prune: true
+  timeout: 5m
