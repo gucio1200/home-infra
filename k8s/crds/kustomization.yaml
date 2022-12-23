@@ -4,4 +4,4 @@ resources:
 #  - cert-manager
   - kube-prometheus-stack
 #  - metallb
-#  - rook-ceph
+  - rook-ceph
