@@ -20,6 +20,9 @@ spec:
     pspEnable: false
     csi:
       enableRbdDriver: false
+      enableCephfsSnapshotter: false
+      enableNFSSnapshotter: false
+      enableRBDSnapshotter: false
       enableCephfsDriver: true
     monitoring:
       enabled: true
