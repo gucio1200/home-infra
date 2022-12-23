@@ -20,7 +20,7 @@ spec:
     pspEnable: false
     csi:
       enableRbdDriver: false
-      enableCephfsDriver: false
+      enableCephfsDriver: true
     monitoring:
       enabled: true
     resources:
