@@ -7,6 +7,48 @@ defaultRules:
     kubeApiserverAvailability: true
     kubeApiserver: true
 
+kubeApiServer:
+  enabled: true
+
+kubeControllerManager:
+  enabled: false
+
+kubeEtcd:
+  enabled: false
+
+kubeProxy:
+  enabled: false
+
+kubelet:
+  enabled: true
+  serviceMonitor:
+    metricRelabelings:
+      - action: replace
+        sourceLabels:
+          - node
+        targetLabel: instance
+
+kubeScheduler:
+  enabled: false
+
+kube-state-metrics:
+  enabled: true
+  metricLabelsAllowlist:
+    - "persistentvolumeclaims=[*]"
+  prometheus:
+    monitor:
+      enabled: true
+      relabelings:
+        - action: replace
+          regex: (.*)
+          replacement: $1
+          sourceLabels:
+            - __meta_kubernetes_pod_node_name
+          targetLabel: kubernetes_node
+
+nodeExporter:
+      enabled: true
+
 prometheusOperator:
   createCustomResource: true
   configReloaderCpu: 200m
@@ -39,30 +81,6 @@ alertmanager:
         resources:
           requests:
             storage: 1Gi
-
-kube-state-metrics:
-  enabled: true
-  metricLabelsAllowlist:
-    - "persistentvolumeclaims=[*]"
-  prometheus:
-    monitor:
-      enabled: true
-      relabelings:
-        - action: replace
-          regex: (.*)
-          replacement: $1
-          sourceLabels:
-            - __meta_kubernetes_pod_node_name
-          targetLabel: kubernetes_node
-
-kubelet:
-  enabled: true
-  serviceMonitor:
-    metricRelabelings:
-      - action: replace
-        sourceLabels:
-          - node
-        targetLabel: instance
 
 prometheus:
   prometheusSpec:
