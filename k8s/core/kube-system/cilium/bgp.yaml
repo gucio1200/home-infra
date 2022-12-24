@@ -9,7 +9,7 @@ data:
     peers:
       - peer-address: 192.168.0.151
         peer-asn: 65530
-        my-asn: 64500
+        my-asn: 64501
     address-pools:
       - name: default
         protocol: bgp
