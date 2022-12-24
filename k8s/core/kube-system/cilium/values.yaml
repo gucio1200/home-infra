@@ -28,7 +28,24 @@ bgp:
   announce:
     loadbalancerIP: false
 hubble:
-  enabled: false
+  enabled: true
+  metrics:
+    enabled:
+      - dns:query;ignoreAAAA
+      - drop
+      - tcp
+      - flow
+      - port-distribution
+      - icmp
+      - http
+  relay:
+    enabled: true
+    rollOutPods: true
+  serviceMonitor:
+    enabled: true
+  ui:
+    enabled: true
+    rollOutPods: true
 ipv6:
   enabled: false
 tunnel: disabled
