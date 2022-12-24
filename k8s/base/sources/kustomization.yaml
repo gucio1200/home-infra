@@ -34,3 +34,4 @@ resources:
   - postfinance.yaml
   - rook-ceph.yaml
   - bjw-s.yaml
+  - lwolf-charts.yaml
