@@ -24,9 +24,9 @@ k8sServicePort: 6443
 ipam:
   mode: kubernetes
 bgp:
-  enabled: false
+  enabled: true
   announce:
-    loadbalancerIP: false
+    loadbalancerIP: true
 hubble:
   enabled: true
   metrics:
