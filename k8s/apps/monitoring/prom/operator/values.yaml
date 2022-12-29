@@ -95,7 +95,7 @@ prometheus:
     podMonitorSelector: {}
     podMonitorNamespaceSelector: {}
     podMonitorSelectorNilUsesHelmValues: false
-    retention: 24h
+    retention: 168h
     enableAdminAPI: true
     walCompression: true
     resources:
