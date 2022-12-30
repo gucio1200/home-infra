@@ -35,3 +35,4 @@ resources:
   - rook-ceph.yaml
   - bjw-s.yaml
   - lwolf-charts.yaml
+  - node-feature-discovery.yaml

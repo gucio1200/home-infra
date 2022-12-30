@@ -8,3 +8,4 @@ resources:
   - metrics-server
   - descheduler
   - reloader
+  - node-feature-discovery
