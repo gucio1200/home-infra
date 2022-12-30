@@ -9,3 +9,4 @@ resources:
   - descheduler
   - reloader
   - node-feature-discovery
+  - intel-gpu-plugin
