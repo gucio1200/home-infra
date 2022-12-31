@@ -9,7 +9,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./k8s/core/kyverno/app
+  path: ./k8s/apps/kyverno/app
   prune: true
   wait: true
   timeout: 5m
@@ -33,6 +33,6 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./k8s/core/kyverno/policies
+  path: ./k8s/apps/kyverno/policies
   prune: true
   timeout: 5m
