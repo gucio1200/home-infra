@@ -4,4 +4,3 @@ resources:
   - namespace.yaml
   - operator
   - cluster
-#  - rook-toolbox

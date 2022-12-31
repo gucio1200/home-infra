@@ -106,27 +106,6 @@ spec:
     cephBlockPoolsVolumeSnapshotClass:
       enabled: false
     cephBlockPools: []
-#      - name: replicapool
-#        spec:
-#          failureDomain: host
-#          replicated:
-#            size: 3
-#        storageClass:
-#          enabled: false
-#          name: rook-ceph-block
-#          isDefault: false
-#          reclaimPolicy: Delete
-#          allowVolumeExpansion: true
-#          parameters:
-#            imageFormat: "2"
-#            imageFeatures: layering
-#            csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
-#            csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
-#            csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
-#            csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
-#            csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
-#            csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
-#            csi.storage.k8s.io/fstype: ext4
     cephFileSystems:
       - name: rook-ceph-filesystem
         spec:
@@ -162,33 +141,3 @@ spec:
             csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
             csi.storage.k8s.io/fstype: ext4
     cephObjectStores: []
-#      - name: rook-ceph-objectstore
-#        spec:
-#          metadataPool:
-#            failureDomain: host
-#            replicated:
-#              size: 3
-#          dataPool:
-#            failureDomain: host
-#            erasureCoded:
-#              dataChunks: 2
-#              codingChunks: 1
-#          preservePoolsOnDelete: true
-#          gateway:
-#            port: 80
-#            resources:
-#              requests:
-#                cpu: 50m
-#                memory: 128M
-#              limits:
-#                memory: 2Gi
-#            instances: 1
-#          healthCheck:
-#            bucket:
-#              interval: 60s
-#        storageClass:
-#          enabled: false
-#          name: rook-ceph-bucket
-#          reclaimPolicy: Delete
-#          parameters:
-#            region: us-east-1
