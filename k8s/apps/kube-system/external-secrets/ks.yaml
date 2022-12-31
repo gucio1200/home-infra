@@ -7,7 +7,7 @@ metadata:
   labels:
     substitution.flux.home.arpa/enabled: "true"
 spec:
-  path: ./k8s/core/kube-system/external-secrets/app
+  path: ./k8s/apps/kube-system/external-secrets/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -32,7 +32,7 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-external-secrets
-  path: ./k8s/core/kube-system/external-secrets/stores
+  path: ./k8s/apps/kube-system/external-secrets/stores
   prune: true
   sourceRef:
     kind: GitRepository
