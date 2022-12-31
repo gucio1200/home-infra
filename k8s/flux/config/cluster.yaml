@@ -11,6 +11,11 @@ spec:
   secretRef:
     name: flux-system
   url: ssh://git@github.com/gucio1200/home-infra
+  ignore: |
+    # exclude all
+    /*
+    # include kubernetes directory
+    !/k8s
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
@@ -22,6 +27,7 @@ spec:
   interval: 5m0s
   path: ./k8s/base
   prune: true
+  wait: false
   sourceRef:
     kind: GitRepository
     name: flux-system
