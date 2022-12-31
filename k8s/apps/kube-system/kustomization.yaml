@@ -12,4 +12,4 @@ resources:
   - intel-gpu-plugin
   - csi-driver-nfs
   - kube-cleanup-operator
-  - ./external-secrets/ks.yaml
+#  - external-secrets/ks.yaml
