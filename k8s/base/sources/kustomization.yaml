@@ -37,3 +37,5 @@ resources:
   - lwolf-charts.yaml
   - node-feature-discovery.yaml
   - csi-driver-nfs.yaml
+  - external-secrets.yaml
+  - external-dns.yaml
