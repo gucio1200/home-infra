@@ -25,7 +25,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m0s
-  path: ./k8s/base
+  path: ./k8s/flux
   prune: true
   wait: false
   sourceRef:
