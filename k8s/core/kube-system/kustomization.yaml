@@ -10,3 +10,5 @@ resources:
   - reloader
   - node-feature-discovery
   - intel-gpu-plugin
+  - csi-driver-nfs
+  - kube-cleanup-operator
