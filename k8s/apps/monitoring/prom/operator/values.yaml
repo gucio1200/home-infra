@@ -133,3 +133,9 @@ grafana:
         gnetId: 15202
         revision: 1
         datasource: Prometheus
+      flux-cluster:
+        url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/cluster.json
+        datasource: Prometheus
+      flux-control-plane:
+        url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/control-plane.json
+        datasource: Prometheus
