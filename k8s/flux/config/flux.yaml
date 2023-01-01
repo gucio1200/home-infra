@@ -55,6 +55,22 @@ spec:
         kind: Deployment
         labelSelector: control-plane=controller
     - patch: |
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: not-used
+        spec:
+          template:
+            spec:
+              containers:
+                - name: manager
+                  resources:
+                    requests:
+                      cpu: 10m
+      target:
+        kind: Deployment
+        name: "(image-reflector-controller|image-automation-controller)"
+    - patch: |
         - op: add
           path: /spec/template/spec/containers/0/args/-
           value: --concurrent=20
