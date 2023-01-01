@@ -112,9 +112,30 @@ prometheus:
 
 grafana:
   defaultDashboardsTimezone: "Europe/Warsaw"
+  dashboardProviders:
+    dashboardproviders.yaml:
+      apiVersion: 1
+      providers:
+      - name: 'default'
+        orgId: 1
+        type: file
+        disableDeletion: false
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/default
   dashboards:
     default:
-      kubernetes-monitoring-1:
+      node-exporter:
         gnetId: 15172
         revision: 6
+        datasource: Prometheus
+      temp:
+        gnetId: 15202
+        revision: 1
+        datasource: Prometheus
+      flux-cluster:
+        url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/cluster.json
+        datasource: Prometheus
+      flux-control-plane:
+        url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/control-plane.json
         datasource: Prometheus
