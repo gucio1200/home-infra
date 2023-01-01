@@ -125,7 +125,11 @@ grafana:
           path: /var/lib/grafana/dashboards/default
   dashboards:
     default:
-      kubernetes-monitoring-1:
+      node-exporter:
         gnetId: 15172
         revision: 6
+        datasource: Prometheus
+      temp:
+        gnetId: 15202
+        revision: 1
         datasource: Prometheus
