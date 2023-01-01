@@ -109,3 +109,12 @@ prometheus:
           resources:
             requests:
               storage: 20Gi
+
+grafana:
+  defaultDashboardsTimezone: "Europe/Warsaw"
+  dashboards:
+    default:
+      kubernetes-monitoring-1:
+        gnetId: 15172
+        revision: 6
+        datasource: Prometheus
