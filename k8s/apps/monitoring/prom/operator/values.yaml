@@ -11,10 +11,10 @@ kubeApiServer:
   enabled: true
 
 kubeControllerManager:
-  enabled: false
+  enabled: true
 
 kubeEtcd:
-  enabled: false
+  enabled: true
 
 kubeProxy:
   enabled: false
@@ -29,7 +29,7 @@ kubelet:
         targetLabel: instance
 
 kubeScheduler:
-  enabled: false
+  enabled: true
 
 kube-state-metrics:
   enabled: true
