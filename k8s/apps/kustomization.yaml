@@ -6,3 +6,4 @@ resources:
   - rook-ceph
   - kyverno
   - monitoring
+  - networking

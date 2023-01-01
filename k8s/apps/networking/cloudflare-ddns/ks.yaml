@@ -10,11 +10,11 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-onepassword-connect
-  path: ./kubernetes/apps/networking/cloudflare-ddns/app
+  path: ./k8s/apps/networking/cloudflare-ddns/app
   prune: true
   sourceRef:
     kind: GitRepository
-    name: home-ops-kubernetes
+    name: flux-system
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2beta1
       kind: HelmRelease
