@@ -67,6 +67,7 @@ spec:
                   resources:
                     requests:
                       cpu: 5m
+                      memory: 32Mi
       target:
         kind: Deployment
         name: "(image-reflector-controller|image-automation-controller)"
