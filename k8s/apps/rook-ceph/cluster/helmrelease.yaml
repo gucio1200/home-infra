@@ -21,6 +21,8 @@ spec:
   upgrade:
     remediation:
       retries: 5
+  uninstall:
+    keepHistory: false
   dependsOn:
     - name: rook-ceph-operator
       namespace: rook-ceph
@@ -35,6 +37,8 @@ spec:
     cephClusterSpec:
       mgr:
         count: 1
+      network:
+        provider: host
       dashboard:
         enabled: true
         urlPrefix: /
