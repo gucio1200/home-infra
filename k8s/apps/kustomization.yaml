@@ -8,3 +8,4 @@ resources:
   - monitoring
   - networking
   - flux-system
+  - cert-manager
