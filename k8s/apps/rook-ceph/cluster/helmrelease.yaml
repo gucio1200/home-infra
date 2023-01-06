@@ -30,6 +30,18 @@ spec:
     monitoring:
       enabled: true
       createPrometheusRules: true
+    ingress:
+      dashboard:
+        ingressClassName: nginx
+        annotations:
+          hajimari.io/appName: "Rook"
+          hajimari.io/icon: mdi:chess-rook
+        host:
+          name: &host rook.k8sj.io
+          path: /
+        tls:
+          - hosts:
+              - *host
     configOverride: |
       [global]
       bdev_enable_discard = true
