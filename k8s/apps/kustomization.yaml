@@ -9,3 +9,4 @@ resources:
   - networking
   - flux-system
   - cert-manager
+  - default

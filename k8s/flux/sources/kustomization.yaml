@@ -39,3 +39,4 @@ resources:
   - csi-driver-nfs.yaml
   - external-secrets.yaml
   - external-dns.yaml
+  - hajimari.yaml
