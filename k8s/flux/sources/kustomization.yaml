@@ -40,3 +40,4 @@ resources:
   - external-secrets.yaml
   - external-dns.yaml
   - hajimari.yaml
+  - piraeus.yaml
