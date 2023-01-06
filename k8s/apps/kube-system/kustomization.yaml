@@ -9,7 +9,7 @@ resources:
   - reloader
   - node-feature-discovery
   - intel-gpu-plugin
-  - csi-driver-nfs
+#  - csi-driver-nfs
   - kube-cleanup-operator
   - external-secrets/ks.yaml
   - snapshot-controller/ks.yaml
