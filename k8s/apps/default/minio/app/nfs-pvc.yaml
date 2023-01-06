@@ -11,7 +11,7 @@ spec:
   storageClassName: nfs
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    server: nfs.dom.lan
+    server: 192.168.0.150
     path: /volume1/k8s/MinIO
   mountOptions:
     - nfsvers=4.2
