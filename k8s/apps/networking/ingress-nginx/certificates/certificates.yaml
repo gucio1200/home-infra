@@ -2,14 +2,14 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: devbu-io
+  name: k8sj-io
   namespace: networking
 spec:
-  secretName: devbu-io-tls
+  secretName: k8sj-io-tls
   issuerRef:
-    name: letsencrypt-production
+    name: le-prod
     kind: ClusterIssuer
-  commonName: devbu.io
+  commonName: k8sj.io
   dnsNames:
-    - devbu.io
-    - "*.devbu.io"
+    - k8sj.io
+    - "*.k8sj.io"

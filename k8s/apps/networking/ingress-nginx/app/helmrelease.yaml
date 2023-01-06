@@ -27,13 +27,13 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    tcp:
-      "8025": "default/mailrise:8025"
+#    tcp:
+#      "8025": "default/mailrise:8025"
     controller:
-      replicaCount: 3
+      replicaCount: 1
       extraEnvs:
         - name: TZ
-          value: America/New_York
+          value: Europe/Warsaw
       service:
         externalIPs: ["${SVC_NGINX_ADDR}"]
         externalTrafficPolicy: Local
@@ -68,7 +68,7 @@ spec:
             any: true
       extraArgs:
         default-ssl-certificate: |-
-          networking/devbu-io-tls
+          networking/k8sj-io-tls
       topologySpreadConstraints:
         - maxSkew: 1
           topologyKey: kubernetes.io/hostname

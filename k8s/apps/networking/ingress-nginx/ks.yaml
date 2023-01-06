@@ -10,11 +10,12 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-cert-manager-issuers
-  path: ./kubernetes/apps/networking/ingress-nginx/certificates
+  path: ./k8s/apps/networking/ingress-nginx/certificates
   prune: true
   sourceRef:
     kind: GitRepository
-    name: home-ops-kubernetes
+    name: flux-system
+    namespace: flux-system
   wait: true
   interval: 30m
   retryInterval: 1m
@@ -32,11 +33,12 @@ spec:
   dependsOn:
     - name: cluster-apps-ingress-nginx-certificates
     - name: cluster-apps-kyverno
-  path: ./kubernetes/apps/networking/ingress-nginx/app
+  path: ./k8s/apps/networking/ingress-nginx/app
   prune: true
   sourceRef:
     kind: GitRepository
-    name: home-ops-kubernetes
+    name: flux-system
+    namespace: flux-system
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2beta1
       kind: HelmRelease

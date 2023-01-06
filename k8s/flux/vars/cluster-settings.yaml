@@ -6,3 +6,4 @@ metadata:
   name: cluster-settings
 data:
   SVC_K8S_GATEWAY_ADDR: "172.16.99.101"
+  SVC_NGINX_ADDR: "172.16.99.102"
