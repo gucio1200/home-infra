@@ -41,3 +41,4 @@ resources:
   - external-dns.yaml
   - hajimari.yaml
   - piraeus.yaml
+  - backube.yaml

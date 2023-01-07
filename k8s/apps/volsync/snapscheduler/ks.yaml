@@ -10,11 +10,12 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-snapshot-controller
-  path: ./kubernetes/apps/volsync/snapscheduler/app
+  path: ./k8s/apps/volsync/snapscheduler/app
   prune: true
   sourceRef:
     kind: GitRepository
-    name: home-ops-kubernetes
+    name: flux-system
+    namespace: flux-system
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2beta1
       kind: HelmRelease
@@ -35,11 +36,12 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-snapscheduler
-  path: ./kubernetes/apps/volsync/snapscheduler/schedules
+  path: ./k8s/apps/volsync/snapscheduler/schedules
   prune: true
   sourceRef:
     kind: GitRepository
-    name: home-ops-kubernetes
+    name: flux-system
+    namespace: flux-system
   wait: true
   interval: 30m
   retryInterval: 1m

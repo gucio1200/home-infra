@@ -14,4 +14,4 @@ spec:
     expires: 48h
   schedule: "@daily"
   snapshotTemplate:
-    snapshotClassName: csi-ceph-blockpool
+    snapshotClassName: csi-ceph-filesystem

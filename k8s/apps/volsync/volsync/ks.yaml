@@ -9,13 +9,13 @@ metadata:
     substitution.flux.home.arpa/enabled: "true"
 spec:
   dependsOn:
-    - name: cluster-apps-minio-app
     - name: cluster-apps-snapshot-controller
-  path: ./kubernetes/apps/volsync/volsync/app
+  path: ./k8s/apps/volsync/volsync/app
   prune: true
   sourceRef:
     kind: GitRepository
-    name: home-ops-kubernetes
+    name: flux-system
+    namespace: flux-system
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2beta1
       kind: HelmRelease

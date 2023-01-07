@@ -10,3 +10,4 @@ resources:
   - flux-system
   - cert-manager
   - default
+  - volsync
