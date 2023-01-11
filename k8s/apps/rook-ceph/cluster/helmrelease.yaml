@@ -51,6 +51,9 @@ spec:
         count: 1
       network:
         provider: host
+        connections:
+          compression:
+            enabled: false
       dashboard:
         enabled: true
         urlPrefix: /
