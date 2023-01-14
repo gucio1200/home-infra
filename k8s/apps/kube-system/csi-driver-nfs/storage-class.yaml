@@ -9,6 +9,6 @@ parameters:
   share: /volume1/k8s
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
-mountOptions:
-  - nfsvers=3
-  - nolock
+#mountOptions:
+#  - nfsvers=3
+#  - nolock
