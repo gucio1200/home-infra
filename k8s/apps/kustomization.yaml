@@ -11,3 +11,4 @@ resources:
   - cert-manager
   - default
   - volsync
+  - home-automation

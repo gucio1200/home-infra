@@ -1,0 +1,85 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: mosquitto
+  namespace: home-automation
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.3.2
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+
+  values:
+    controller:
+      type: statefulset
+      annotations:
+        reloader.stakater.com/auto: "true"
+
+    image:
+      repository: public.ecr.aws/docker/library/eclipse-mosquitto
+      tag: 2.0.15
+
+    initContainers:
+      copy-config:
+        image: public.ecr.aws/docker/library/eclipse-mosquitto:2.0.15@sha256:0e0886befecf2bf77e2e613f926f6ee0b77b93f76e49847471177143a8b3863c
+        command:
+          - "/bin/sh"
+          - -c
+        args:
+          - cp /data/mosquitto_secret/* /data/external_config/ && mosquitto_passwd -U /data/external_config/mosquitto_pwd
+        volumeMounts:
+          - name: mosquitto-secret
+            mountPath: /data/mosquitto_secret
+          - name: external-config
+            mountPath: /data/external_config
+
+    service:
+      main:
+        type: LoadBalancer
+        loadBalancerIP: "172.16.99.103"
+        annotations:
+          coredns.io/hostname: "mqtt.k8sj.io"
+        externalTrafficPolicy: Local
+        ports:
+          http:
+            enabled: false
+          mqtt:
+            enabled: true
+            port: 1883
+
+    persistence:
+      mosquitto-config:
+        enabled: true
+        type: configMap
+        name: mosquitto-configmap
+        mountPath: /mosquitto/config/mosquitto.conf
+        subPath: mosquitto.conf
+      mosquitto-secret:
+        enabled: true
+        type: secret
+        name: mosquitto-secret
+        mountPath: "-"
+      external-config:
+        enabled: true
+        type: emptyDir
+        mountPath: /mosquitto/external_config
+
+    resources:
+      requests:
+        cpu: 15m
+        memory: 64M
+      limits:
+        memory: 124M
+
+    volumeClaimTemplates:
+      - name: data
+        mountPath: /data
+        accessMode: ReadWriteOnce
+        size: 512Mi
