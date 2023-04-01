@@ -43,3 +43,4 @@ resources:
   - hajimari.yaml
   - piraeus.yaml
   - backube.yaml
+  - zalando-postgres-operator.yaml
