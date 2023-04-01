@@ -44,3 +44,4 @@ resources:
   - piraeus.yaml
   - backube.yaml
   - zalando-postgres-operator.yaml
+  - ext-postgres-operator.yaml
