@@ -8,11 +8,11 @@ metadata:
     substitution.flux.home.arpa/enabled: "true"
 spec:
   interval: 10m
-  path: "./kubernetes/cluster-0/apps/home-automation/esphome/app"
+  path: "./k8s/apps/home-automation/esphome/app"
   prune: true
   sourceRef:
     kind: GitRepository
-    name: home-ops-kubernetes
+    name: flux-system
   wait: true
   dependsOn:
     - name: cluster-apps-multus
