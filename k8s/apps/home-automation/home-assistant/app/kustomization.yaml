@@ -6,7 +6,7 @@ resources:
   - ./database.yaml
 #  - ./volsync.yaml
 #  - ./externalsecret.yaml
-#  - ./helmrelease.yaml
+  - ./helmrelease.yaml
   - ./networkattachmentdefinition.yaml
 commonLabels:
   app.kubernetes.io/name: home-assistant

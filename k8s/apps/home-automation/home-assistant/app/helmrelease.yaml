@@ -29,16 +29,16 @@ spec:
     podAnnotations:
       k8s.v1.cni.cncf.io/networks: macvlan-static-iot-hass
 
-    env:
-      SECRET_RECORDER_DB_URL:
-        valueFrom:
-          secretKeyRef:
-            name: database-home-assistant-user
-            key: POSTGRES_URL
+#    env:
+#      SECRET_RECORDER_DB_URL:
+#        valueFrom:
+#          secretKeyRef:
+#            name: database-home-assistant-user
+#            key: POSTGRES_URL
 
-    envFrom:
-      - secretRef:
-          name: home-assistant-secret
+#    envFrom:
+#      - secretRef:
+#          name: home-assistant-secret
 
     service:
       main:
@@ -51,24 +51,24 @@ spec:
         enabled: true
         ingressClassName: "nginx"
         annotations:
-          external-dns.alpha.kubernetes.io/target: ingress.bjw-s.dev
+          external-dns.alpha.kubernetes.io/target: ingress.k8sj.io
         hosts:
-          - host: &host "domo.bjw-s.dev"
+          - host: &host "domo.k8sj.io"
             paths:
               - path: /
         tls:
           - hosts:
               - *host
 
-    persistence:
-      deploy-key:
-        enabled: true
-        type: secret
-        name: home-assistant-secret
-        defaultMode: 256
-        subPath:
-          - path: GH_DEPLOY_KEY
-            mountPath: /root/.ssh/id_rsa
+#    persistence:
+#      deploy-key:
+#        enabled: true
+#        type: secret
+#        name: home-assistant-secret
+#        defaultMode: 256
+#        subPath:
+#          - path: GH_DEPLOY_KEY
+#            mountPath: /root/.ssh/id_rsa
 
     probes:
       liveness:
@@ -89,5 +89,4 @@ spec:
       - name: config
         mountPath: /config
         accessMode: ReadWriteOnce
-        size: 1Gi
-        storageClass: ceph-block
+        size: 10Gi
