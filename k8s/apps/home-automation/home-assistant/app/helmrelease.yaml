@@ -36,9 +36,9 @@ spec:
             name: database-home-assistant-user
             key: POSTGRES_URL
 
-#    envFrom:
-#      - secretRef:
-#          name: home-assistant-secret
+    envFrom:
+      - secretRef:
+          name: home-assistant-secret
 
     service:
       main:
@@ -62,15 +62,15 @@ spec:
           - hosts:
               - *host
 
-#    persistence:
-#      deploy-key:
-#        enabled: true
-#        type: secret
-#        name: home-assistant-secret
-#        defaultMode: 256
-#        subPath:
-#          - path: GH_DEPLOY_KEY
-#            mountPath: /root/.ssh/id_rsa
+    persistence:
+      deploy-key:
+        enabled: true
+        type: secret
+        name: home-assistant-secret
+        defaultMode: 256
+        subPath:
+          - path: GH_DEPLOY_KEY
+            mountPath: /root/.ssh/id_rsa
 
     probes:
       liveness:
