@@ -53,9 +53,10 @@ spec:
 #        annotations:
 #          external-dns.alpha.kubernetes.io/target: ingress.k8sj.io
         hosts:
-          - host: &host "domo.k8sj.io"
+          - host: &host domo.k8sj.io
             paths:
               - path: /
+                pathType: Prefix
         tls:
           - hosts:
               - *host
