@@ -47,6 +47,7 @@ spec:
           - monitoring
           - networking
           - rook-ceph
+          - home-automation
     ingress:
       main:
         enabled: true
