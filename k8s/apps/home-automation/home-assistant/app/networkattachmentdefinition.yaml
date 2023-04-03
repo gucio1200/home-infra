@@ -10,6 +10,7 @@ spec:
       "master": "eth0",
       "mode": "bridge",
       "ipam": {
-        "type": "dhcp",
+        "type": "dhcp"
       }
     }'
+
