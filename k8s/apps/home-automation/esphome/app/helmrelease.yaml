@@ -32,7 +32,7 @@ spec:
       main:
         ports:
           http:
-            port: 6052
+            port: &port 6052
 
     ingress:
       main:
@@ -67,6 +67,37 @@ spec:
         subPath:
           - path: id_ed25519
             mountPath: /root/.ssh/id_ed25519
+
+    probes:
+      liveness:
+        enabled: true
+        custom: true
+        spec:
+          httpGet:
+            path: /ping
+            port: *port
+          initialDelaySeconds: 15
+          periodSeconds: 30
+          failureThreshold: 3
+      readiness:
+        enabled: true
+        custom: true
+        spec:
+          httpGet:
+            path: /ping
+            port: *port
+          initialDelaySeconds: 15
+      startup:
+        enabled: true
+        custom: true
+        spec:
+          httpGet:
+            path: /ping
+            port: *port
+          failureThreshold: 30
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 1
 
     resources:
       requests:
