@@ -36,6 +36,7 @@ spec:
 
       pod_environment_configmap: zalando-postgres-pod-configmap
       pod_environment_secret: zalando-postgres-pod-secrets
+      enable_sidecars: true
 
     # configure resource requests for the Postgres pods
     configPostgresPodResources:
