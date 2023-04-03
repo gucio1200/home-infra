@@ -91,4 +91,4 @@ spec:
       - name: config
         mountPath: /config
         accessMode: ReadWriteOnce
-        size: 10Gi
+        size: 1Gi
