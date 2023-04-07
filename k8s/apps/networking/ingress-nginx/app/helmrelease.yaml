@@ -52,6 +52,7 @@ spec:
         http-snippet: |-
           modsecurity_transaction_id "$request_id";
         modsecurity-snippet: |-
+          SecRuleEngine On
           SecRequestBodyAccess On
           SecStatusEngine Off
           SecAuditEngine RelevantOnly
@@ -63,7 +64,6 @@ spec:
         client-body-buffer-size: "100M"
         client-body-timeout: 120
         client-header-timeout: 120
-#        custom-http-errors: 400,401,403,404,500,502,503,504
         enable-brotli: "true"
         enable-real-ip: "true"
         forwarded-for-header: "CF-Connecting-IP"
@@ -112,29 +112,6 @@ spec:
 
     defaultBackend:
       enabled: false
-#      image:
-#        repository: ghcr.io/tarampampam/error-pages
-#        tag: 2.19.0
-#      replicaCount: 1
-#      extraEnvs:
-#        - name: TEMPLATE_NAME
-#          value: ghost
-#        - name: SHOW_DETAILS
-#          value: "false"
-#      affinity:
-#        podAntiAffinity:
-#          preferredDuringSchedulingIgnoredDuringExecution:
-#            - weight: 100
-#              podAffinityTerm:
-#                labelSelector:
-#                  matchExpressions:
-#                    - key: app.kubernetes.io/name
-#                      operator: In
-#                      values: ["ingress-nginx"]
-#                    - key: app.kubernetes.io/component
-#                      operator: In
-#                      values: ["default-backend"]
-#                topologyKey: kubernetes.io/hostname
 
   valuesFrom:
     # Cloudflare Networks
