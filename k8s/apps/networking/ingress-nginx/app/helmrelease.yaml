@@ -28,17 +28,23 @@ spec:
     keepHistory: false
   values:
     controller:
-      replicaCount: 1
-      extraEnvs:
-        - name: TZ
-          value: Europe/Warsaw
+      replicaCount: 2
+
+      updateStrategy:
+        type: RollingUpdate
+
       service:
+        enabled: true
+        type: LoadBalancer
         externalIPs: 172.16.99.102
         externalTrafficPolicy: Local
+
       publishService:
         enabled: true
+
       ingressClassResource:
         default: true
+
       config:
         enable-modsecurity: "true"
         modsecurity-snippet: |
@@ -68,6 +74,7 @@ spec:
         proxy-body-size: "100M"
         ssl-protocols: "TLSv1.3 TLSv1.2"
         use-forwarded-headers: "true"
+
       metrics:
         enabled: true
         serviceMonitor:
@@ -75,9 +82,11 @@ spec:
           namespace: networking
           namespaceSelector:
             any: true
+
       extraArgs:
         default-ssl-certificate: |-
           networking/k8sj-io-tls
+
       topologySpreadConstraints:
         - maxSkew: 1
           topologyKey: kubernetes.io/hostname
@@ -86,14 +95,17 @@ spec:
             matchLabels:
               app.kubernetes.io/name: ingress-nginx
               app.kubernetes.io/component: controller
+
       podAnnotations:
         configmap.reloader.stakater.com/reload: "cloudflare-proxied-networks"
+
       resources:
         requests:
           cpu: 10m
           memory: 250Mi
         limits:
           memory: 500Mi
+
     defaultBackend:
       enabled: true
       image:
@@ -119,6 +131,7 @@ spec:
                       operator: In
                       values: ["default-backend"]
                 topologyKey: kubernetes.io/hostname
+
   valuesFrom:
     # Cloudflare Networks
     # https://www.cloudflare.com/ips/
