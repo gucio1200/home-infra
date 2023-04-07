@@ -15,8 +15,8 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  postBuild:
-    substituteFrom:
+#  postBuild:
+#    substituteFrom:
       - kind: ConfigMap
         name: cluster-settings
   patches:
@@ -30,10 +30,10 @@ spec:
             provider: sops
             secretRef:
               name: sops-age
-          postBuild:
-            substituteFrom:
-              - kind: ConfigMap
-                name: cluster-settings
+#          postBuild:
+#            substituteFrom:
+#              - kind: ConfigMap
+#                name: cluster-settings
       target:
         group: kustomize.toolkit.fluxcd.io
         version: v1beta2
