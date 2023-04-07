@@ -54,6 +54,7 @@ spec:
         modsecurity-snippet: |-
           SecRequestBodyAccess On
           SecStatusEngine Off
+          SecAuditLogType Concurrent
           SecAuditEngine RelevantOnly
           SecAuditLog /dev/stdout
           SecAuditLogFormat JSON
