@@ -57,6 +57,7 @@ spec:
           SecAuditLogFormat JSON
           Include /etc/nginx/owasp-modsecurity-crs/nginx-modsecurity.conf
           SecRule REMOTE_ADDR "@ipMatch 127.0.0.1" "id:87,phase:1,pass,nolog,ctl:ruleEngine=Off"
+          SecAction "id:900200,phase:1,nolog,pass,t:none,setvar:tx.allowed_methods=GET HEAD POST OPTIONS PUT PATCH DELETE"
         client-body-buffer-size: "100M"
         client-body-timeout: 120
         client-header-timeout: 120
