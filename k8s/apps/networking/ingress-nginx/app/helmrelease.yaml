@@ -110,8 +110,8 @@ spec:
         limits:
           memory: 500Mi
 
-#    defaultBackend:
-#      enabled: true
+    defaultBackend:
+      enabled: false
 #      image:
 #        repository: ghcr.io/tarampampam/error-pages
 #        tag: 2.19.0
