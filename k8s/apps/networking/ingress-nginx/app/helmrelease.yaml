@@ -60,8 +60,6 @@ spec:
           SecAuditLog /dev/stdout
           SecAuditLogFormat JSON
           SecRule REMOTE_ADDR "@ipMatch 127.0.0.1" "id:87,phase:1,pass,nolog,ctl:ruleEngine=Off"
-          SecDefaultAction "phase:1,log,auditlog,deny,status:403"
-          SecDefaultAction "phase:2,log,auditlog,deny,status:403"
         client-body-buffer-size: "100M"
         client-body-timeout: 120
         client-header-timeout: 120
@@ -112,31 +110,31 @@ spec:
         limits:
           memory: 500Mi
 
-    defaultBackend:
-      enabled: true
-      image:
-        repository: ghcr.io/tarampampam/error-pages
-        tag: 2.19.0
-      replicaCount: 1
-      extraEnvs:
-        - name: TEMPLATE_NAME
-          value: ghost
-        - name: SHOW_DETAILS
-          value: "false"
-      affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 100
-              podAffinityTerm:
-                labelSelector:
-                  matchExpressions:
-                    - key: app.kubernetes.io/name
-                      operator: In
-                      values: ["ingress-nginx"]
-                    - key: app.kubernetes.io/component
-                      operator: In
-                      values: ["default-backend"]
-                topologyKey: kubernetes.io/hostname
+#    defaultBackend:
+#      enabled: true
+#      image:
+#        repository: ghcr.io/tarampampam/error-pages
+#        tag: 2.19.0
+#      replicaCount: 1
+#      extraEnvs:
+#        - name: TEMPLATE_NAME
+#          value: ghost
+#        - name: SHOW_DETAILS
+#          value: "false"
+#      affinity:
+#        podAntiAffinity:
+#          preferredDuringSchedulingIgnoredDuringExecution:
+#            - weight: 100
+#              podAffinityTerm:
+#                labelSelector:
+#                  matchExpressions:
+#                    - key: app.kubernetes.io/name
+#                      operator: In
+#                      values: ["ingress-nginx"]
+#                    - key: app.kubernetes.io/component
+#                      operator: In
+#                      values: ["default-backend"]
+#                topologyKey: kubernetes.io/hostname
 
   valuesFrom:
     # Cloudflare Networks
