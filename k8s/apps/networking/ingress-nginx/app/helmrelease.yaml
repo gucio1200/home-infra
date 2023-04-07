@@ -27,8 +27,6 @@ spec:
   uninstall:
     keepHistory: false
   values:
-#    tcp:
-#      "8025": "default/mailrise:8025"
     controller:
       replicaCount: 1
       extraEnvs:
