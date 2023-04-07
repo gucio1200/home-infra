@@ -36,7 +36,7 @@ spec:
       service:
         enabled: true
         type: LoadBalancer
-        externalIPs: 172.16.99.102
+        loadBalancerIP: 172.16.99.102
         externalTrafficPolicy: Local
 
       publishService:
