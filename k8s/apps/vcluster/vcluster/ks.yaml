@@ -1,0 +1,13 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/kustomization_v1beta2.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: cluster-apps-vcluster
+  namespace: flux-system
+spec:
+  path: ./k8s/apps/vcluster/vcluster/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
