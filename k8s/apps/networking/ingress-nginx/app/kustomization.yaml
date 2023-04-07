@@ -7,7 +7,6 @@ resources:
   - ./dashboard
   - ./helmrelease.yaml
   - ./clusterpolicy.yaml
-  - ./configmap.yaml
 configMapGenerator:
   - name: cloudflare-networks
     files:

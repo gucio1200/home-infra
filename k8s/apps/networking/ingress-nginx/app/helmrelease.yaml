@@ -29,18 +29,6 @@ spec:
   values:
     controller:
 
-      extraVolumeMounts:
-        - name: modsecurity-nginx-config
-          mountPath: /etc/nginx/modsecurity/modsecurity.conf
-          readOnly: false
-          subPath: modsecurity.conf
-
-      extraVolumes:
-        - name: modsecurity-nginx-config
-          configMap:
-            defaultMode: 0644
-            name: modsecurity-nginx-config
-
       replicaCount: 2
 
       updateStrategy:
@@ -60,8 +48,16 @@ spec:
 
       config:
         enable-modsecurity: "true"
-        modsecurity-snippet: |
-          Include /etc/nginx/modsecurity/modsecurity.conf
+        http-snippet: |-
+          modsecurity_transaction_id "$request_id";
+        modsecurity-snippet: |-
+          SecRuleEngine On
+          SecStatusEngine Off
+          SecRequestBodyAccess On
+          SecAuditEngine RelevantOnly
+          SecAuditLog /var/log/audit/mod.log
+          SecAuditLogParts AH
+          SecAuditLogFormat JSON
           Include /etc/nginx/owasp-modsecurity-crs/nginx-modsecurity.conf
           SecRule REMOTE_ADDR "@ipMatch 127.0.0.1" "id:87,phase:1,pass,nolog,ctl:ruleEngine=Off"
         client-body-buffer-size: "100M"
