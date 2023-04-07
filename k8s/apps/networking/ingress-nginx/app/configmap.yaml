@@ -5,7 +5,7 @@ metadata:
   namespace: networking
 data:
   modsecurity.conf: |-
-    # -- Rule engine initialization ----------------------------------------------
+    # --- Rule engine initialization ----------------------------------------------
 
     # Enable ModSecurity, attaching it to every transaction. Use detection
     # only to start with, because that minimises the chances of post-installation
