@@ -35,7 +35,7 @@ spec:
         - name: TZ
           value: Europe/Warsaw
       service:
-        externalIPs: ["${SVC_NGINX_ADDR}"]
+        externalIPs: 172.16.99.102
         externalTrafficPolicy: Local
       publishService:
         enabled: true
