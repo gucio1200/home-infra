@@ -48,7 +48,7 @@ spec:
 
       config:
         enable-modsecurity: true
-        enable-owasp-modsecurity-crs: true
+#        enable-owasp-modsecurity-crs: true
         http-snippet: |-
           modsecurity_transaction_id "$request_id";
         modsecurity-snippet: |-
@@ -58,6 +58,7 @@ spec:
           SecAuditLog /dev/stdout
           SecAuditLogFormat JSON
           SecRule REMOTE_ADDR "@ipMatch 127.0.0.1" "id:87,phase:1,pass,nolog,ctl:ruleEngine=Off"
+          Include /etc/nginx/owasp-modsecurity-crs/nginx-modsecurity.conf
         client-body-buffer-size: "100M"
         client-body-timeout: 120
         client-header-timeout: 120
