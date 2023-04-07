@@ -60,8 +60,6 @@ spec:
           SecAuditLog /dev/stdout
           SecAuditLogFormat JSON
           SecRule REMOTE_ADDR "@ipMatch 127.0.0.1" "id:87,phase:1,pass,nolog,ctl:ruleEngine=Off"
-          SecDefaultAction "phase:1,log,deny,status:403"
-          SecRule ARGS "@streq block403" "id:4,phase:1,status:403,block"
         client-body-buffer-size: "100M"
         client-body-timeout: 120
         client-header-timeout: 120
