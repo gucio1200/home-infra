@@ -52,12 +52,10 @@ spec:
         http-snippet: |-
           modsecurity_transaction_id "$request_id";
         modsecurity-snippet: |-
-          SecRuleEngine On
           SecRequestBodyAccess On
           SecStatusEngine Off
           SecAuditEngine RelevantOnly
           SecAuditLog /dev/stdout
-          SecAuditLogParts AH
           SecAuditLogFormat JSON
           SecRule REMOTE_ADDR "@ipMatch 127.0.0.1" "id:87,phase:1,pass,nolog,ctl:ruleEngine=Off"
         client-body-buffer-size: "100M"
