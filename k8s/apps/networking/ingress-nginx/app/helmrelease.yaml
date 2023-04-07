@@ -52,6 +52,7 @@ spec:
         http-snippet: |-
           modsecurity_transaction_id "$request_id";
         modsecurity-snippet: |-
+          SecRuleEngine On
           SecRequestBodyAccess On
           SecStatusEngine Off
           SecAuditEngine RelevantOnly
