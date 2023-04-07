@@ -61,13 +61,7 @@ spec:
       config:
         enable-modsecurity: "true"
         modsecurity-snippet: |
-          SecRuleEngine On
-          SecRequestBodyAccess On
-          SecAuditEngine On
-          SecAuditLogRelevantStatus \"^(?:5|4(?!04))\"
-          SecAuditLogParts AKHZ
-          SecAuditLog /dev/stdout
-          SecAuditLogFormat JSON
+          Include /etc/nginx/modsecurity/modsecurity.conf
           Include /etc/nginx/owasp-modsecurity-crs/nginx-modsecurity.conf
           SecRule REMOTE_ADDR "@ipMatch 127.0.0.1" "id:87,phase:1,pass,nolog,ctl:ruleEngine=Off"
         client-body-buffer-size: "100M"
