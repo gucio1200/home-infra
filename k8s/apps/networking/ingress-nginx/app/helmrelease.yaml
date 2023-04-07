@@ -28,6 +28,19 @@ spec:
     keepHistory: false
   values:
     controller:
+
+      extraVolumeMounts:
+        - name: modsecurity-nginx-config
+          mountPath: /etc/nginx/modsecurity/modsecurity.conf
+          readOnly: false
+          subPath: modsecurity.conf
+
+      extraVolumes:
+        - name: modsecurity-nginx-config
+          configMap:
+            defaultMode: 0644
+            name: modsecurity-nginx-config
+
       replicaCount: 2
 
       updateStrategy:
@@ -132,18 +145,6 @@ spec:
                       operator: In
                       values: ["default-backend"]
                 topologyKey: kubernetes.io/hostname
-
-      extraVolumeMounts:
-        - name: modsecurity-nginx-config
-          mountPath: /etc/nginx/modsecurity/modsecurity.conf
-          readOnly: false
-          subPath: modsecurity.conf
-
-      extraVolumes:
-        - name: modsecurity-nginx-config
-          configMap:
-            defaultMode: 0644
-            name: modsecurity-nginx-config
 
   valuesFrom:
     # Cloudflare Networks
