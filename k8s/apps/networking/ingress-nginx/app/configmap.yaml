@@ -236,10 +236,10 @@ data:
     #
     SecAuditLogFormat JSON
     SecAuditLogType Concurrent
-    SecAuditLog /dev/stdout
+    SecAuditLog /var/log/modsec_audit.log
 
     # Specify the path for concurrent audit logging.
-    #SecAuditLogStorageDir /opt/modsecurity/var/audit/
+    SecAuditLogStorageDir /opt/modsecurity/var/audit/
 
 
     # -- Miscellaneous -----------------------------------------------------------
@@ -270,4 +270,4 @@ data:
     # version, Anonymous unique id for host.
     SecStatusEngine On
 
-    SecAuditLogStorageDir /dev/stdout
+    #SecAuditLogStorageDir /dev/stdout
