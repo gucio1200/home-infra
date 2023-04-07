@@ -42,6 +42,16 @@ spec:
       ingressClassResource:
         default: true
       config:
+        enable-modsecurity: "true"
+        modsecurity-snippet: |
+          SecRuleEngine On
+          SecRequestBodyAccess On
+          SecAuditEngine On
+          SecAuditLogRelevantStatus \"^(?:5|4(?!04))\"
+          SecAuditLogParts AKHZ
+          SecAuditLog /dev/stdout
+          SecAuditLogFormat JSON
+          Include /etc/nginx/owasp-modsecurity-crs/nginx-modsecurity.conf 
         client-body-buffer-size: "100M"
         client-body-timeout: 120
         client-header-timeout: 120
