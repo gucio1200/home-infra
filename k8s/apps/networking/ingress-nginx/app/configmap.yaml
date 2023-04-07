@@ -235,7 +235,7 @@ data:
     # assumes that you will use the audit log only ocassionally.
     #
     SecAuditLogFormat JSON
-    SecAuditLogType Serial
+    SecAuditLogType Concurrent
     SecAuditLog /dev/stdout
 
     # Specify the path for concurrent audit logging.
