@@ -27,21 +27,29 @@ spec:
   uninstall:
     keepHistory: false
   values:
-#    tcp:
-#      "8025": "default/mailrise:8025"
     controller:
       replicaCount: 1
       extraEnvs:
         - name: TZ
           value: Europe/Warsaw
       service:
-        externalIPs: ["${SVC_NGINX_ADDR}"]
+        externalIPs: 172.16.99.102
         externalTrafficPolicy: Local
       publishService:
         enabled: true
       ingressClassResource:
         default: true
       config:
+        enable-modsecurity: "true"
+        modsecurity-snippet: |
+          SecRuleEngine On
+          SecRequestBodyAccess On
+          SecAuditEngine On
+          SecAuditLogRelevantStatus \"^(?:5|4(?!04))\"
+          SecAuditLogParts AKHZ
+          SecAuditLog /dev/stdout
+          SecAuditLogFormat JSON
+          Include /etc/nginx/owasp-modsecurity-crs/nginx-modsecurity.conf 
         client-body-buffer-size: "100M"
         client-body-timeout: 120
         client-header-timeout: 120
