@@ -41,9 +41,10 @@ spec:
       enabled: true
       serviceMonitor:
         metricRelabelings:
-          - sourceLabels: ["node"]
+          - action: replace
+            sourceLabels:
+              - node
             targetLabel: instance
-            action: replace
 
     kubeProxy:
       enabled: false
@@ -65,7 +66,8 @@ spec:
             - action: replace
               regex: (.*)
               replacement: $1
-              sourceLabels: ["__meta_kubernetes_pod_node_name"]
+              sourceLabels:
+                - __meta_kubernetes_pod_node_name
               targetLabel: kubernetes_node
       resources:
         requests:
