@@ -101,7 +101,7 @@ alertmanager:
 prometheus:
   prometheusSpec:
     replicas: 1
-    replicaExternalLabelName: "__replica__"
+    replicaExternalLabelName: "replica"
     ruleSelector: {}
     ruleNamespaceSelector: {}
     ruleSelectorNilUsesHelmValues: false
