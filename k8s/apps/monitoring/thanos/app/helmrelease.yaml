@@ -31,10 +31,12 @@ spec:
       registry: quay.io
       repository: thanos/thanos
       tag: v0.31.0
+
     objstoreConfig:
       type: s3
       config:
         insecure: true
+
     queryFrontend:
       enabled: true
       replicaCount: 3
@@ -50,6 +52,7 @@ spec:
         extraTls:
           - hosts:
               - *host
+
     query:
       enabled: true
       replicaCount: 3
@@ -57,9 +60,19 @@ spec:
       dnsDiscovery:
         sidecarsService: kube-prometheus-stack-thanos-discovery
         sidecarsNamespace: monitoring
+      resources:
+        requests:
+          cpu: 15m
+          memory: 64M
+
     bucketweb:
       enabled: true
       replicaCount: 3
+      resources:
+        requests:
+          cpu: 15m
+          memory: 64M
+
     compactor:
       enabled: true
       extraFlags:
@@ -71,12 +84,22 @@ spec:
       persistence:
         enabled: true
         size: 20Gi
+      resources:
+        requests:
+          cpu: 15m
+          memory: 204M
+
     storegateway:
       enabled: true
       replicaCount: 3
       persistence:
         enabled: true
         size: 20Gi
+      resources:
+        requests:
+          cpu: 23m
+          memory: 204M
+
     ruler:
       enabled: true
       replicaCount: 3
@@ -97,6 +120,13 @@ spec:
       persistence:
         enabled: true
         size: 20Gi
+      resources:
+        requests:
+          cpu: 23m
+          memory: 94M
+        limits:
+          memory: 113M
+
     metrics:
       enabled: true
       serviceMonitor:
