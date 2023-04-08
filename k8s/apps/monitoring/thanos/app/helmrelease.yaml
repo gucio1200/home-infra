@@ -88,7 +88,7 @@ spec:
       enabled: true
       alertmanagers:
         - http://alertmanager.monitoring.svc.cluster.local:9093
-      clusterName: cluster-0 # must match with kube-prometheus-stack value `.prometheus.prometheusSpec.externalLabels.cluster`
+      clusterName: k8s # must match with kube-prometheus-stack value `.prometheus.prometheusSpec.externalLabels.cluster`
       config: |-
         groups:
           - name: "PrometheusWatcher"
