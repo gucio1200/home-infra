@@ -49,9 +49,6 @@ spec:
           hajimari.io/enable: "false"
         hostname: &host thanos-query-frontend.k8sj.io
         tls: true
-        extraTls:
-          - hosts:
-              - *host
 
     query:
       enabled: true
