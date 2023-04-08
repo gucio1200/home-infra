@@ -55,6 +55,7 @@ spec:
       replicaCount: 1
       replicaLabel: ["__replica__"]
       dnsDiscovery:
+        enable: true
         sidecarsService: kube-prometheus-stack-thanos-discovery
         sidecarsNamespace: monitoring
       resources:
