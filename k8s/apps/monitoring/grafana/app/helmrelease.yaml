@@ -31,61 +31,9 @@ spec:
               path: /var/lib/grafana/dashboards/default
             orgId: 1
             type: file
-          - name: node-exporter
-            disableDeletion: false
-            editable: true
-            folder: "node-exporter"
-            options:
-              path: /var/lib/grafana/dashboards/node-exporter
-            orgId: 1
-            type: file
-          - name: unpoller
-            disableDeletion: false
-            editable: true
-            folder: "UniFi Poller"
-            options:
-              path: /var/lib/grafana/dashboards/unpoller
-            orgId: 1
-            type: file
 
-    dashboards:
-      default:
-        speedtest-exporter-hub:
-          gnetId: 13665
-          revision: 4
-          datasource:
-            - name: "DS_PROMETHEUS"
-              value: Prometheus
-
-      node-exporter:
-        # Ref: https://grafana.com/grafana/dashboards/1860-node-exporter-full/
-        node-exporter:
-          gnetId: 1860
-          revision: 29
-          datasource: Prometheus
-
-      unpoller:
-        # Ref: https://grafana.com/grafana/dashboards/11315
-        clients:
-          gnetId: 11315
-          revision: 9
-          datasource:
-            - name: "DS_PROMETHEUS"
-              value: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/11312
-        usw:
-          gnetId: 11312
-          revision: 9
-          datasource:
-            - name: "DS_PROMETHEUS"
-              value: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/11314
-        uap:
-          gnetId: 11314
-          revision: 10
-          datasource:
-            - name: "DS_PROMETHEUS"
-              value: Prometheus
+#    dashboards:
+#      default:
 
     datasources:
       datasources.yaml:
@@ -128,32 +76,32 @@ spec:
       GF_PATHS_PROVISIONING: /etc/grafana/provisioning
       GF_SECURITY_ALLOW_EMBEDDING: true
       GF_SECURITY_COOKIE_SAMESITE: grafana
-      GF_SERVER_ROOT_URL: "https://grafana.bjw-s.dev"
+      GF_SERVER_ROOT_URL: "https://grafana.k8sj.io"
 
-    envFromSecret: grafana-secrets
+#    envFromSecret: grafana-secrets
 
     grafana.ini:
       analytics:
         check_for_updates: false
-      auth:
-        oauth_auto_login: true
+#      auth:
+#        oauth_auto_login: true
       auth.basic:
-        enabled: false
-      auth.generic_oauth:
         enabled: true
-        name: Auth0
-        scopes: "openid profile email"
-        client_id: # Set by env vars
-        client_secret: # Set by env vars
-        auth_url: # Set by env vars
-        token_url: # Set by env vars
-        api_url: # Set by env vars
-        use_pkce: true
+#      auth.generic_oauth:
+#        enabled: true
+#        name: Auth0
+#        scopes: "openid profile email"
+#        client_id: # Set by env vars
+#        client_secret: # Set by env vars
+#        auth_url: # Set by env vars
+#        token_url: # Set by env vars
+#        api_url: # Set by env vars
+#        use_pkce: true
 
-      auth.generic_oauth.group_mapping:
-        role_attribute_path: |
-          contains("https://bjw-s/groups"[*], 'grafana-admin') && 'Admin' || contains("https://bjw-s/groups"[*], 'grafana-viewer') && 'Viewer'
-        org_id: 1
+ #     auth.generic_oauth.group_mapping:
+ #       role_attribute_path: |
+ #         contains("https://bjw-s/groups"[*], 'grafana-admin') && 'Admin' || contains("https://bjw-s/groups"[*], 'grafana-viewer') && 'Viewer'
+ #       org_id: 1
       grafana_net:
         url: https://grafana.net
       log:
@@ -164,7 +112,7 @@ spec:
         plugins: /var/lib/grafana/plugins
         provisioning: /etc/grafana/provisioning
       server:
-        root_url: https://grafana.bjw-s.dev
+        root_url: https://grafana.k8sj.io
 
     imageRenderer:
       enabled: true
@@ -175,7 +123,7 @@ spec:
       annotations:
         nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
       hosts:
-        - &host grafana.bjw-s.dev
+        - &host grafana.k8sj.io
       tls:
         - hosts:
             - *host
