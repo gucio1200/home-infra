@@ -6,3 +6,7 @@ resources:
   - ./helmrelease.yaml
   - ./externalsecret.yaml
   - ./dashboard
+labels:
+  - pairs:
+      app.kubernetes.io/name: thanos
+      app.kubernetes.io/instance: thanos
