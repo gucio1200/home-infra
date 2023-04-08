@@ -17,15 +17,71 @@ spec:
   values:
     crds:
       enabled: true
+
     pspEnable: false
+
     csi:
+      kubeletDirPath: /var/lib/kubelet
+      enableCSIHostNetwork: true
+      pluginTolerations:
+        - effect: "NoExecute"
+          operator: "Exists"
+        - effect: "NoSchedule"
+          operator: "Exists"
+
+      csiCephFSProvisionerResource: |
+        - name : csi-provisioner
+          resource:
+            requests:
+              memory: 128Mi
+              cpu: 25m
+            limits:
+              memory: 256Mi
+        - name : csi-resizer
+          resource:
+            requests:
+              memory: 128Mi
+              cpu: 25m
+            limits:
+              memory: 256Mi
+        - name : csi-attacher
+          resource:
+            requests:
+              memory: 128Mi
+              cpu: 25m
+            limits:
+              memory: 256Mi
+        - name : csi-snapshotter
+          resource:
+            requests:
+              memory: 128Mi
+              cpu: 25m
+            limits:
+              memory: 256Mi
+        - name : csi-cephfsplugin
+          resource:
+            requests:
+              memory: 512Mi
+              cpu: 50m
+            limits:
+              memory: 1Gi
+        - name : liveness-prometheus
+          resource:
+            requests:
+              memory: 128Mi
+              cpu: 25m
+            limits:
+              memory: 256Mi
+
       enableRbdDriver: false
       enableCephfsSnapshotter: true
       enableNFSSnapshotter: false
       enableRBDSnapshotter: false
       enableCephfsDriver: true
+
     monitoring:
       enabled: true
+
     resources:
       requests:
         cpu: 10m
