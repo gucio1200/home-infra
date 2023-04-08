@@ -56,7 +56,7 @@ spec:
     query:
       enabled: true
       replicaCount: 1
-      replicaLabel: ["replica"]
+      replicaLabel: ["__replica__"]
       dnsDiscovery:
         sidecarsService: kube-prometheus-stack-thanos-discovery
         sidecarsNamespace: monitoring
@@ -103,7 +103,7 @@ spec:
     ruler:
       enabled: true
       replicaCount: 1
-      replicaLabel: replica
+      replicaLabel: __replica__
       alertmanagers: ["http://kube-prometheus-stack-alertmanager.monitoring.svc.cluster.local:9093"]
       extraFlags: ["--web.prefix-header=X-Forwarded-Prefix"]
       config: |-
