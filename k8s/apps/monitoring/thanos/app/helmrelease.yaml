@@ -79,7 +79,7 @@ spec:
       retentionResolution1h: 14d
       persistence:
         enabled: true
-        size: 15Gi
+        size: 20Gi
       resources:
         requests:
           cpu: 15m
@@ -115,7 +115,7 @@ spec:
         enabled: true
       persistence:
         enabled: true
-        size: 512Mi
+        size: 20Gi
       resources:
         requests:
           cpu: 23m
