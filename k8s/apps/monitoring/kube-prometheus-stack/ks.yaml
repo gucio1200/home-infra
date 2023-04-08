@@ -14,5 +14,3 @@ spec:
     kind: GitRepository
     name: flux-system
   wait: true
-  dependsOn:
-    - name: cluster-apps-alertmanager
