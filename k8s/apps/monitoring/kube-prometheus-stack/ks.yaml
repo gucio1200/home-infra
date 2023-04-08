@@ -21,9 +21,10 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-kube-prometheus-stack
-  interval: 5m
+  interval: 10m
   path: "./k8s/apps/monitoring/kube-prometheus-stack/crd"
   prune: true
+  wait: true
   sourceRef:
     kind: GitRepository
     name: flux-system
