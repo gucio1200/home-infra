@@ -1,16 +1,30 @@
----
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: cluster-apps-kube-prometheus-stack
+  name: prom-operator
   namespace: flux-system
-  labels:
-    substitution.flux.home.arpa/enabled: "true"
 spec:
-  interval: 10m
-  path: "./k8s/apps/monitoring/kube-prometheus-stack/app"
+  interval: 5m
+  path: "./k8s/apps/monitoring/kube-prometheus-stack/operator"
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
-  wait: true
+    namespace: flux-system
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: crd-prom
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: prom-operator
+  interval: 5m
+  path: "./k8s/apps/monitoring/kube-prometheus-stack/crd"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
