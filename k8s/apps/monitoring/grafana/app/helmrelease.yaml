@@ -43,15 +43,15 @@ spec:
             isDefault: true
             name: Prometheus
             type: prometheus
-            url: http://thanos-query.monitoring:9090
+            url: http://thanos-query-frontend.monitoring:9090
           - access: proxy
             name: Loki
             type: loki
-            url: http://loki-gateway.monitoring.svc.cluster.local:80
+            url: http://loki-gateway.monitoring:80
           - name: Alertmanager
             type: alertmanager
             access: proxy
-            url: http://prometheus-alertmanager.monitoring:9093
+            url: http://kube-prometheus-stack-alertmanager.monitoring:9093
             jsonData:
               implementation: prometheus
         deleteDatasources:
