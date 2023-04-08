@@ -4,7 +4,7 @@ resources:
   - namespace.yaml
 #  - ./alertmanager/ks.yaml
 #  - ./kube-prometheus-stack/ks.yaml
-#  - ./thanos/ks.yaml
+  - ./thanos/ks.yaml
 #  - ./node-exporter/ks.yaml
   - ./prom/ks.yaml
   - smartctl-exporter

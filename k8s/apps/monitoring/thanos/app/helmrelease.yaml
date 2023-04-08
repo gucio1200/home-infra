@@ -39,7 +39,7 @@ spec:
 
     queryFrontend:
       enabled: true
-      replicaCount: 3
+      replicaCount: 1
       ingress:
         enabled: true
         ingressClassName: nginx
@@ -55,7 +55,7 @@ spec:
 
     query:
       enabled: true
-      replicaCount: 3
+      replicaCount: 1
       replicaLabel: ["__replica__"]
       dnsDiscovery:
         sidecarsService: kube-prometheus-stack-thanos-discovery
@@ -67,7 +67,7 @@ spec:
 
     bucketweb:
       enabled: true
-      replicaCount: 3
+      replicaCount: 1
       resources:
         requests:
           cpu: 15m
@@ -83,7 +83,7 @@ spec:
       retentionResolution1h: 14d
       persistence:
         enabled: true
-        size: 20Gi
+        size: 15Gi
       resources:
         requests:
           cpu: 15m
@@ -91,10 +91,10 @@ spec:
 
     storegateway:
       enabled: true
-      replicaCount: 3
+      replicaCount: 1
       persistence:
         enabled: true
-        size: 20Gi
+        size: 1Gi
       resources:
         requests:
           cpu: 23m
@@ -102,7 +102,7 @@ spec:
 
     ruler:
       enabled: true
-      replicaCount: 3
+      replicaCount: 1
       replicaLabel: __replica__
       alertmanagers: ["http://kube-prometheus-stack-alertmanager.monitoring.svc.cluster.local:9093"]
       extraFlags: ["--web.prefix-header=X-Forwarded-Prefix"]
@@ -119,7 +119,7 @@ spec:
                   severity: critical
       persistence:
         enabled: true
-        size: 20Gi
+        size: 512Mi
       resources:
         requests:
           cpu: 23m
