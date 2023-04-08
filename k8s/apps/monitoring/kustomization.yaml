@@ -6,5 +6,5 @@ resources:
 #  - ./kube-prometheus-stack/ks.yaml
 #  - ./thanos/ks.yaml
 #  - ./node-exporter/ks.yaml
-#  - prom
+  - ./prom/ks.yaml
   - smartctl-exporter
