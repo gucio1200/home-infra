@@ -10,3 +10,7 @@ configMapGenerator:
       - values.yaml=values.yaml
 configurations:
   - kustomizeconfig.yaml
+labels:
+  - pairs:
+      app.kubernetes.io/name: kube-prometheus-stack
+      app.kubernetes.io/instance: kube-prometheus-stack

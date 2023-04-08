@@ -2,14 +2,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: prometheus
+  name: kube-prometheus-stack
   namespace: monitoring
 spec:
   interval: 5m
   chart:
     spec:
       chart: kube-prometheus-stack
-      version: 45.9.1 #42.2.1
+      version: 45.9.1
       sourceRef:
         kind: HelmRepository
         name: prometheus-community
@@ -18,7 +18,10 @@ spec:
   install:
     crds: CreateReplace
   upgrade:
+    cleanupOnFail: true
     crds: CreateReplace
+  uninstall:
+    keepHistory: false
   valuesFrom:
     - kind: ConfigMap
       name: prom-values

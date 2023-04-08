@@ -104,7 +104,7 @@ spec:
       enabled: true
       replicaCount: 1
       replicaLabel: __replica__
-      alertmanagers: ["http://kube-prometheus-stack-alertmanager.monitoring.svc.cluster.local:9093"]
+      alertmanagers: ["http://prometheus-alertmanager.monitoring.svc.cluster.local:9093"]
       extraFlags: ["--web.prefix-header=X-Forwarded-Prefix"]
       config: |-
         groups:

@@ -1,7 +1,6 @@
 ---
 # Default values
 # https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
-fullnameOverride: prometheus
 defaultRules:
   rules:
     kubeApiserverAvailability: true
@@ -21,7 +20,6 @@ kubeApiServer:
       - sourceLabels: ["__name__"]
         regex: (apiserver_response_sizes_bucket|apiserver_watch_events_sizes_bucket)
         action: drop
-
 
 kubeControllerManager:
   enabled: false
@@ -95,6 +93,20 @@ alertmanager:
         resources:
           requests:
             storage: 1Gi
+  ingress:
+    enabled: true
+    pathType: Prefix
+    ingressClassName: nginx
+    annotations:
+      nginx.ingress.kubernetes.io/whitelist-source-range: |
+        10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+      hajimari.io/appName: "Alert Manager"
+      hajimari.io/icon: mdi:alert-decagram-outline
+    hosts:
+      - &host alert-manager.k8sj.io
+    tls:
+      - hosts:
+          - *host
 
 prometheus:
   prometheusSpec:
@@ -124,6 +136,21 @@ prometheus:
           resources:
             requests:
               storage: 20Gi
+
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      nginx.ingress.kubernetes.io/whitelist-source-range: |
+        10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+      hajimari.io/appName: Prometheus
+      hajimari.io/icon: simple-icons:prometheus
+    pathType: Prefix
+    hosts:
+      - &host prometheus.k8sj.io
+    tls:
+      - hosts:
+          - *host
 
     thanos:
       image: quay.io/thanos/thanos:v0.31.0@sha256:e7d337d6ac2aea3f0f9314ec9830291789e16e2b480b9d353be02d05ce7f2a7e
