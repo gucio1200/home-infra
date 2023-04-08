@@ -50,10 +50,9 @@ spec:
 
     kubeScheduler:
       enabled: false
-
-    kubeStateMetrics:
-      enabled: true
+      
     kube-state-metrics:
+      enabled: true
       metricLabelsAllowlist:
         - "persistentvolumeclaims=[*]"
       prometheus:
