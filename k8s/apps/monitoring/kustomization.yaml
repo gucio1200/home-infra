@@ -3,5 +3,6 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - ./alertmanager/ks.yaml
+  - ./kube-prometheus-stack/ks.yaml
 #  - prom
   - smartctl-exporter
