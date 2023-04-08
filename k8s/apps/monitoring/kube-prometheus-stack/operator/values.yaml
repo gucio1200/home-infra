@@ -2,10 +2,10 @@
 # Default values
 # https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
 fullnameOverride: prometheus
-#defaultRules:
-#  rules:
-#    kubeApiserverAvailability: true
-#    kubeApiserver: true
+defaultRules:
+  rules:
+    kubeApiserverAvailability: true
+    kubeApiserver: true
 
 kubeApiServer:
   enabled: true
