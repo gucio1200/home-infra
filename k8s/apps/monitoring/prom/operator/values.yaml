@@ -97,7 +97,6 @@ prometheus:
     podMonitorSelectorNilUsesHelmValues: false
     retention: 2d
     retentionSize: "6GB"
-    scrapeInterval: 1m
     enableAdminAPI: true
     walCompression: true
     resources:
