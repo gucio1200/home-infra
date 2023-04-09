@@ -9,8 +9,8 @@
     "github>gucio1200/home-infra//.github/renovate/groups.json5",
   ],
   "platform": "github",
-  "username": "DoJob-bot[bot]",
-  "gitAuthor": "DoJob-bot[bot] <DoJob-bot[bot]@users.noreply.github.com>",
+  "username": "dojob-bot-bot[bot]",
+  "gitAuthor": "dojob-bot-bot[bot] <130267137+dojob-bot-bot[bot]@users.noreply.github.com>",
   "repositories": ["gucio1200/home-infra"],
   "flux": {
     "fileMatch": ["k8s/.+\\.ya?ml$"]
