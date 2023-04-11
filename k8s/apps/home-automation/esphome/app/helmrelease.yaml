@@ -49,14 +49,6 @@ spec:
               - *host
 
     persistence:
-      secrets:
-        enabled: true
-        readOnly: false
-        defaultMode: 0777
-        type: secret
-        name: esphome-secrets
-        mountPath: /config/secrets.yaml
-        subPath: secrets.yaml
       esphome-cache:
         enabled: true
         type: emptyDir
