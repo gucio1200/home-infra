@@ -52,6 +52,7 @@ spec:
       secrets:
         enabled: true
         readOnly: false
+        defaultMode: 0777
         type: secret
         name: esphome-secrets
         mountPath: /config/secrets.yaml
