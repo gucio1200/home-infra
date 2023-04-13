@@ -17,7 +17,18 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-  interval: 30m
+  interval: 15m
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
   values:
     controller:
       replicas: 1
@@ -34,7 +45,7 @@ spec:
     service:
       main:
         type: LoadBalancer
-        loadBalancerIP: 192.168.99.110
+        externalIPs: ["192.168.99.110"]
         annotations:
           coredns.io/hostname: "vector.k8sj.io"
         externalTrafficPolicy: Local
@@ -63,13 +74,6 @@ spec:
       geoip:
         enabled: true
         existingClaim: vector-geoipupdate-config
-
-    # resources:
-    #   requests:
-    #     cpu: 35m
-    #     memory: 381M
-    #   limits:
-    #     memory: 726M
 
     topologySpreadConstraints:
       - maxSkew: 1
