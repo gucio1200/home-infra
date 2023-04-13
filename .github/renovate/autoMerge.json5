@@ -19,5 +19,14 @@
       matchPackageNames: ["ghcr.io/onedr0p/prowlarr-nightly"],
       ignoreTests: true,
     },
+    {
+      "description": "Auto merge GitHub Actions",
+      "matchManagers": ["github-actions"],
+      "matchDatasources": ["github-tags"],
+      "automerge": true,
+      "ignoreTests": true,
+      "automergeType": "branch",
+      "matchUpdateTypes": ["minor", "patch"]
+    }
   ],
 }
