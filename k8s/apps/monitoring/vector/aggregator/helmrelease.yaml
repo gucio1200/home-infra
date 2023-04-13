@@ -44,9 +44,6 @@ spec:
           kubernetes-logs:
             enabled: true
             port: 6000
-          vyos-syslog:
-            enabled: true
-            port: 6001
           journald-logs:
             enabled: true
             port: 6002

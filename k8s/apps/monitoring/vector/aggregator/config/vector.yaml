@@ -16,11 +16,6 @@ sources:
     type: vector
     version: "2"
 
-  vyos_syslog:
-    type: syslog
-    mode: tcp
-    address: 0.0.0.0:6001
-
   journald_source:
     type: vector
     address: 0.0.0.0:6002
