@@ -42,7 +42,7 @@ metadata:
     substitution.flux.home.arpa/enabled: "true"
 spec:
   interval: 10m
-  path: "./k8s/cluster-0/apps/monitoring/vector/agent"
+  path: "./k8s/apps/monitoring/vector/agent"
   prune: true
   sourceRef:
     kind: GitRepository
