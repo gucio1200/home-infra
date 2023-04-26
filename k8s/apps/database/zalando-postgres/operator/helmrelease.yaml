@@ -22,6 +22,8 @@ spec:
       major_version_upgrade_mode: full
 
     configKubernetes:
+      ignored_annotations: 
+        - policies.kyverno.io/last-applied-patches
       enable_pod_antiaffinity: true
       enable_cross_namespace_secret: true
       #pod_environment_configmap: "postgres-pod-config"
