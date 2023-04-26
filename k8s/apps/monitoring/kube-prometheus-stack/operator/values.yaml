@@ -125,6 +125,12 @@ prometheus:
           - *host
 
   prometheusSpec:
+    additionalScrapeConfigs:
+    - job_name: minio-job
+      metrics_path: /minio/v2/metrics/cluster
+      scheme: http
+      static_configs:
+      - targets: [s3.dom.lan]
     replicas: 1
     replicaExternalLabelName: "__replica__"
     externalLabels:
