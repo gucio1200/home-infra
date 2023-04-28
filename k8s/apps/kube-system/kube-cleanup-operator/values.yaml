@@ -5,9 +5,11 @@ rbac:
   create: true
   global: true
 args:
-- --delete-failed-after=10m
-- --delete-successful-after=10m
-- --delete-pending-pods-after=10m
-- --delete-evicted-pods-after=10m
-- --delete-orphaned-pods-after=10m
+- --delete-failed-after=5m
+- --delete-successful-after=5m
+- --delete-pending-pods-after=5m
+- --delete-evicted-pods-after=5m
+- --delete-orphaned-pods-after=5m
+- --keep-failures=0
+- --keep-successful=0
 - --legacy-mode=false
