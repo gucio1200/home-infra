@@ -145,10 +145,12 @@ spec:
           metadataPool:
             replicated:
               size: 3
+              requireSafeReplicaSize: true
           dataPools:
             - failureDomain: host
               replicated:
                 size: 3
+                requireSafeReplicaSize: true
           metadataServer:
             activeCount: 1
             activeStandby: true
