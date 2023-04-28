@@ -27,4 +27,4 @@ spec:
     keepHistory: false
   values:
     vcluster:
-      image: rancher/k3s:v1.26.4-k3s1@sha256:ff61834317d7f0a58e3366546fe301b7e6802a36c39126de686d9eb9e64f81cf
+      image: rancher/k3s:v1.27.1-k3s1@sha256:b1b1e98ea5776124d74d8a68151b1eeb3a6f15d8bd596a88ac0d5c36d78b3ede
