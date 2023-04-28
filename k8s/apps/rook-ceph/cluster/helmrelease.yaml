@@ -183,6 +183,7 @@ spec:
             failureDomain: host
             replicated:
               size: 3
+              requireSafeReplicaSize: true
           dataPool:
             failureDomain: host
             erasureCoded:
