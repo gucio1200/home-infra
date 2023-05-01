@@ -58,7 +58,7 @@ spec:
           SecAuditEngine RelevantOnly
           SecAuditLogRelevantStatus "^(?:5|4(?!04))"
           SecAuditLogParts ABCIJDEFHZ
-          SecAuditLog /dev/stdout
+          SecAuditLog /dev/stderr
           SecAuditLogFormat JSON
           SecRule REMOTE_ADDR "@ipMatch 127.0.0.1" "id:87,phase:1,pass,nolog,ctl:ruleEngine=Off"
         client-body-buffer-size: "100M"
