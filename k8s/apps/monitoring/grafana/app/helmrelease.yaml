@@ -32,9 +32,21 @@ spec:
             orgId: 1
             type: file
 
-#    dashboards:
-#      default:
-
+    dashboards:
+      default:
+        ceph-cluster:
+          gnetId: 2842
+          revision: 16
+          datasource: Prometheus
+        ceph-osd:
+          gnetId: 5336
+          revision: 9
+          datasource: Prometheus
+        ceph-pools:
+          gnetId: 5342
+          revision: 9
+          datasource: Prometheus
+        
     datasources:
       datasources.yaml:
         apiVersion: 1
