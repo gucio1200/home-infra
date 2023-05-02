@@ -16,6 +16,7 @@ spec:
         namespace: flux-system
       interval: 30m
   values:
+    podPriorityClassName: system-node-critical
     image:
       repository: ghcr.io/k8snetworkplumbingwg/multus-cni
       tag: v3.9.3
