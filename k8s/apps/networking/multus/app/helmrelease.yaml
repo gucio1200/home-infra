@@ -15,17 +15,17 @@ spec:
         name: angelnu
         namespace: flux-system
       interval: 30m
-      postRenderers:
-        - kustomize:
-          patchesStrategicMerge:
-            - kind: DaemonSet
-              apiVersion: apps/v1
-              metadata:
-                name: multus
-              spec:
-                template:
-                  spec:
-                    podPriorityClassName: system-node-critical
+  postRenderers:
+    - kustomize:
+        patchesStrategicMerge:
+          - kind: DaemonSet
+            apiVersion: apps/v1
+            metadata:
+              name: multus
+            spec:
+              template:
+                spec:
+                  podPriorityClassName: system-node-critical
   values:
     image:
       repository: ghcr.io/k8snetworkplumbingwg/multus-cni
