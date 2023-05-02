@@ -63,6 +63,7 @@ spec:
           SecRule REMOTE_ADDR "@ipMatch 127.0.0.1" "id:87,phase:1,pass,nolog,ctl:ruleEngine=Off"
           SecRule REQUEST_HEADERS:Content-Type "@rx ^text/plain" "id:88,phase:1,pass,nolog,t:none,ctl:ruleRemoveById=920420,chain
           SecRule REQUEST_URI "@rx ^/auth/login_flow" "t:none"
+          SecRule REQUEST_HEADERS:Host "@rx esphome.k8sj.io" "t:none"
         client-body-buffer-size: "100M"
         client-body-timeout: 120
         client-header-timeout: 120
