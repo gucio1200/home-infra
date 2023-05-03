@@ -29,8 +29,8 @@ spec:
   values:
 
     monitoring:
-      enabled: true
-      createPrometheusRules: false
+      enabled: false
+      createPrometheusRules: true
 
     ingress:
       dashboard:
