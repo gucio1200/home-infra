@@ -53,7 +53,9 @@ spec:
         minio:
           gnetId: 13502
           revision: 22
-          datasource: Prometheus
+          datasource:
+          - name: DS_PROMETHEUS
+            value: Prometheus
     datasources:
       datasources.yaml:
         apiVersion: 1
