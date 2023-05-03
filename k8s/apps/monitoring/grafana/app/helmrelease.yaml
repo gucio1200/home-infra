@@ -46,7 +46,10 @@ spec:
           gnetId: 5342
           revision: 9
           datasource: Prometheus
-        
+        temp:
+          gnetId: 15202
+          revision: 1
+          datasource: Prometheus
     datasources:
       datasources.yaml:
         apiVersion: 1
