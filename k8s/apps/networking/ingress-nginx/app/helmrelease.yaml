@@ -60,6 +60,7 @@ spec:
           SecAuditLogParts ABCIJDEFHZ
           SecAuditLog /dev/stderr
           SecAuditLogFormat JSON
+          SecRule REMOTE_ADDR "@ipMatch 192.168.0.0/16" "phase:1,id:1,nolog,allow"
           SecRule REMOTE_ADDR "@ipMatch 127.0.0.1" "id:87,phase:1,pass,nolog,ctl:ruleEngine=Off"
         client-body-buffer-size: "100M"
         client-body-timeout: 120
