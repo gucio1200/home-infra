@@ -80,7 +80,7 @@ spec:
       enableCephfsDriver: true
 
     monitoring:
-      enabled: true
+      enabled: false
 
     resources:
       requests:
