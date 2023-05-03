@@ -41,7 +41,7 @@ spec:
         annotations:
           nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           nginx.ingress.kubernetes.io/modsecurity-snippet: |
-            SecRule REQUEST_HEADERS:Content-Type "@rx ^text/plain" "id:2,phase:1,pass,nolog,t:none,ctl:ruleRemoveById=920420,chain"
+            SecRule REQUEST_HEADERS:Content-Type "@rx ^text/plain" "id:10,phase:1,pass,nolog,t:none,ctl:ruleRemoveById=920420,chain"
             SecRule REQUEST_HEADERS:Host "@rx esphome.k8sj.io" "t:none"
         hosts:
           - host: &host "esphome.k8sj.io"
