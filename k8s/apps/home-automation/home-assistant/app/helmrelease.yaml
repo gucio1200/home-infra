@@ -54,7 +54,6 @@ spec:
           external-dns.alpha.kubernetes.io/target: ipv4.k8sj.io
           hajimari.io/icon: mdi:home-assistant
           nginx.ingress.kubernetes.io/modsecurity-snippet: |
-            SecRule REMOTE_ADDR "@ipMatch 192.168.0.0/16" "phase:1,id:1,nolog,allow"
             SecRule REQUEST_HEADERS:Content-Type "@rx ^text/plain" "id:2,phase:1,pass,nolog,t:none,ctl:ruleRemoveById=920420,chain"
             SecRule REQUEST_URI "@rx ^/auth/login_flow" "t:none"
         hosts:
