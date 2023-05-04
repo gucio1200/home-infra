@@ -42,7 +42,7 @@ spec:
       showBookmarks: false
       showAppUrls: false
       defaultEnable: false
-#      namespaceSelector:
+      namespaceSelector: any
 #        matchNames:
 #          - default
 #          - flux-system
