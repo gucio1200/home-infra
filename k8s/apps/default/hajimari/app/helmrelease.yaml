@@ -44,13 +44,6 @@ spec:
       defaultEnable: false
       namespaceSelector: 
         any: true
-#        matchNames:
-#          - default
-#          - flux-system
-#          - monitoring
-#          - networking
-#          - rook-ceph
-#          - home-automation
     ingress:
       main:
         enabled: true
