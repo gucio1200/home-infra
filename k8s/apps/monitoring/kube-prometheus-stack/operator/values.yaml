@@ -133,12 +133,9 @@ prometheus:
       scheme: http
       static_configs:
         - targets: [s3.dom.lan]
-    - job_name: openwrt-main
+    - job_name: openwrt
       static_configs:
-        - targets: [192.168.2.5:9100]
-    - job_name: openwrt-gucio
-      static_configs:
-        - targets: [192.168.2.6:9100]
+        - targets: [192.168.2.5:9100,192.168.2.6:9100]
     - job_name: 'kubernetes-pods'
       kubernetes_sd_configs:
         - role: pod
