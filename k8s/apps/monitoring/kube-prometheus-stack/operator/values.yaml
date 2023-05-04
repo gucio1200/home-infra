@@ -132,13 +132,13 @@ prometheus:
       metrics_path: /minio/v2/metrics/cluster
       scheme: http
       static_configs:
-      - targets: [s3.dom.lan]
-    - job_name: 'openwrt-main'
+        - targets: [s3.dom.lan]
+    - job_name: openwrt-main
       static_configs:
-        - targets: ['192.168.2.5:9100']
-    - job_name: 'openwrt-gucio'
+        - targets: [192.168.2.5:9100]
+    - job_name: openwrt-gucio
       static_configs:
-        - targets: ['192.168.2.6:9100']
+        - targets: [192.168.2.6:9100]
     - job_name: 'kubernetes-pods'
       kubernetes_sd_configs:
         - role: pod
