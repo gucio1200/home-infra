@@ -42,7 +42,8 @@ spec:
       showBookmarks: false
       showAppUrls: false
       defaultEnable: false
-      namespaceSelector: any
+      namespaceSelector: 
+        any: true
 #        matchNames:
 #          - default
 #          - flux-system
