@@ -38,16 +38,17 @@ spec:
       showAppStatus: false
       showBookmarkGroups: false
       showGlobalBookmarks: false
+      showBookmarks: false
       showAppUrls: false
       defaultEnable: false
-      namespaceSelector:
-        matchNames:
-          - default
-          - flux-system
-          - monitoring
-          - networking
-          - rook-ceph
-          - home-automation
+#      namespaceSelector:
+#        matchNames:
+#          - default
+#          - flux-system
+#          - monitoring
+#          - networking
+#          - rook-ceph
+#          - home-automation
     ingress:
       main:
         enabled: true
