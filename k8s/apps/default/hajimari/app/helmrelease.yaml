@@ -32,6 +32,7 @@ spec:
     hajimari:
       title: Apps
       darkTheme: espresso
+      showSearch: false
       alwaysTargetBlank: true
       showGreeting: false
       showAppGroups: false
