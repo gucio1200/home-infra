@@ -54,6 +54,10 @@ spec:
           gnetId: 11147
           revision: 1
           datasource: Prometheus
+        klipper:
+          gnetId: 18467
+          revision: 3
+          datasource: Prometheus
         minio:
           gnetId: 13502
           revision: 22
