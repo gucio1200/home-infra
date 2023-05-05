@@ -71,19 +71,21 @@ spec:
         useAllDevices: false
         config:
           osdsPerDevice: "1"
-        nodes:
-          - name: "cp-0"
-            devices:
-              - name: "nvme0n1"
-          - name: "cp-1"
-            devices:
-              - name: "nvme0n1"
-          - name: "cp-2"
-            devices:
-              - name: "nvme0n1"
-          - name: "cp-3"
-            devices:
-              - name: "nvme0n1"
+        deviceFilter: "nvme0n1"
+        
+#        nodes:
+#          - name: "cp-0"
+#            devices:
+#              - name: "nvme0n1"
+#          - name: "cp-1"
+#            devices:
+#              - name: "nvme0n1"
+#          - name: "cp-2"
+#            devices:
+#              - name: "nvme0n1"
+#          - name: "cp-3"
+#            devices:
+#              - name: "nvme0n1"
 
       resources:
         mgr:
