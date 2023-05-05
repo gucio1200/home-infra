@@ -81,6 +81,9 @@ spec:
           - name: "cp-2"
             devices:
               - name: "nvme0n1"
+          - name: "cp-3"
+            devices:
+              - name: "nvme0n1"
 
       resources:
         mgr:
