@@ -53,7 +53,7 @@ spec:
 
     cephClusterSpec:
       mgr:
-        count: 1
+        count: 2
 
       network:
         provider: host
@@ -148,15 +148,15 @@ spec:
         spec:
           metadataPool:
             replicated:
-              size: 3
+              size: 4
               requireSafeReplicaSize: true
           dataPools:
             - failureDomain: host
               replicated:
-                size: 3
+                size: 4
                 requireSafeReplicaSize: true
           metadataServer:
-            activeCount: 1
+            activeCount: 2
             activeStandby: true
             resources:
               requests:
@@ -186,13 +186,13 @@ spec:
           metadataPool:
             failureDomain: host
             replicated:
-              size: 3
+              size: 4
               requireSafeReplicaSize: true
           dataPool:
             failureDomain: host
             erasureCoded:
               dataChunks: 2
-              codingChunks: 1
+              codingChunks: 2
           preservePoolsOnDelete: true
           gateway:
             port: 80
@@ -202,7 +202,7 @@ spec:
                 memory: 128M
               limits:
                 memory: 2Gi
-            instances: 1
+            instances: 2
           healthCheck:
             bucket:
               interval: 60s
