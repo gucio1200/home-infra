@@ -148,12 +148,12 @@ spec:
         spec:
           metadataPool:
             replicated:
-              size: 4
+              size: 3
               requireSafeReplicaSize: true
           dataPools:
             - failureDomain: host
               replicated:
-                size: 4
+                size: 3
                 requireSafeReplicaSize: true
           metadataServer:
             activeCount: 2
@@ -186,13 +186,13 @@ spec:
           metadataPool:
             failureDomain: host
             replicated:
-              size: 4
+              size: 3
               requireSafeReplicaSize: true
           dataPool:
             failureDomain: host
             erasureCoded:
               dataChunks: 2
-              codingChunks: 2
+              codingChunks: 1
           preservePoolsOnDelete: true
           gateway:
             port: 80
