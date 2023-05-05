@@ -54,6 +54,9 @@ spec:
     cephClusterSpec:
       mgr:
         count: 1
+        modules:
+          - name: rook
+            enabled: true
 
       network:
         provider: host
