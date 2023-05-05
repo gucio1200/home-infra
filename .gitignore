@@ -1,5 +1,5 @@
 charts
-clusterconfig
+infrastructure/talos/**/clusterconfig
 ### SOPS ###
 .decrypted~*.yaml
 ### KUBECONFIG ###
