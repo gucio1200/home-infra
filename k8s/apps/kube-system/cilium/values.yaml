@@ -46,6 +46,17 @@ hubble:
   ui:
     enabled: true
     rollOutPods: true
+    annotations:
+      hajimari.io/enable: "true"
+      hajimari.io/appName: "Hubble"
+      hajimari.io/icon: mdi:local-area-network
+      nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+    className: "nginx"
+    hosts:
+      - &host hubble.k8sj.io
+    tls:
+      - hosts:
+          - *host
 ipv6:
   enabled: false
 tunnel: disabled
