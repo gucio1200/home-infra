@@ -61,11 +61,11 @@ spec:
           params:
             nodeResourceUtilizationThresholds:
               targetThresholds:
-                cpu: 45
-                memory: 45
+                cpu: 60
+                memory: 60
               thresholds:
-                cpu: 20
-                memory: 20
+                cpu: 40
+                memory: 40
 
         RemoveFailedPods:
           enabled: true
