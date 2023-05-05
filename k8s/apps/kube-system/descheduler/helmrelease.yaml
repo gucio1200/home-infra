@@ -61,8 +61,8 @@ spec:
           params:
             nodeResourceUtilizationThresholds:
               targetThresholds:
-                cpu: 75
-                memory: 75
+                cpu: 60
+                memory: 60
               thresholds:
                 cpu: 50
                 memory: 50
