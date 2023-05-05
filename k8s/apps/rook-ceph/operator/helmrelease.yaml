@@ -78,7 +78,8 @@ spec:
       enableNFSSnapshotter: false
       enableRBDSnapshotter: false
       enableCephfsDriver: true
-      enableDiscoveryDaemon: true
+      
+    enableDiscoveryDaemon: true
 
     monitoring:
       enabled: true
