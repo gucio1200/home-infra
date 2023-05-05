@@ -144,7 +144,7 @@ spec:
                 size: 3
                 requireSafeReplicaSize: true
           metadataServer:
-            activeCount: 2
+            activeCount: 1
             activeStandby: true
             resources:
               requests:
