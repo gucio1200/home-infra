@@ -64,8 +64,8 @@ spec:
                 cpu: 75
                 memory: 75
               thresholds:
-                cpu: 40
-                memory: 40
+                cpu: 50
+                memory: 50
 
         RemoveFailedPods:
           enabled: true
