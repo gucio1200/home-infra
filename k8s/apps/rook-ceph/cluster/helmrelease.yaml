@@ -32,6 +32,9 @@ spec:
       enabled: true
       createPrometheusRules: false
 
+    toolbox:
+      enabled: true
+
     ingress:
       dashboard:
         ingressClassName: nginx
