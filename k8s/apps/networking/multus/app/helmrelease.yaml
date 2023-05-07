@@ -47,7 +47,7 @@ spec:
         operator: Exists
 
     affinity:
-      podAffinity:
+      nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
           - labelSelector:
               matchLabels:
