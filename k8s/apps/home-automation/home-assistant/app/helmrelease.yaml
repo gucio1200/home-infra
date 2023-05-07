@@ -5,17 +5,27 @@ metadata:
   name: home-assistant
   namespace: home-automation
 spec:
-  interval: 30m
+  interval: 15m
   chart:
     spec:
       chart: app-template
       version: 1.4.0
-      interval: 30m
+      interval: 15m
       sourceRef:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-
+  maxHistory: 2
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
   values:
     controller:
       type: statefulset
