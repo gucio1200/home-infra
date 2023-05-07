@@ -54,6 +54,13 @@ spec:
                 k8s-app: cilium
             namespaceSelector: {}
             topologyKey: kubernetes.io/hostname
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                app.kubernetes.io/name: multus
+            topologyKey: kubernetes.io/hostname
+
     cni:
       image:
         repository: ghcr.io/onedr0p/cni-plugins
