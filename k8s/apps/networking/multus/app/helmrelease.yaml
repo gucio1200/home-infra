@@ -46,16 +46,14 @@ spec:
       - effect: NoExecute
         operator: Exists
 
-#    affinity:
-#      podAffinity:
-#        requiredDuringSchedulingIgnoredDuringExecution:
-#        - labelSelector:
-#            matchExpressions:
-#            - key: k8s-app
-#              operator: In
-#              values:
-#              - cilium
-#          topologyKey: kubernetes.io/hostname
+    affinity:
+      podAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                k8s-app: cilium
+            namespaceSelector: {}
+            topologyKey: kubernetes.io/hostname
     cni:
       image:
         repository: ghcr.io/onedr0p/cni-plugins
