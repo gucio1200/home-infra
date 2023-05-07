@@ -55,7 +55,6 @@ spec:
               operator: In
               values:
               - cilium
-          topologyKey: kubernetes.io/hostname
 
     cni:
       image:
