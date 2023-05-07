@@ -40,7 +40,7 @@ spec:
         requiredDuringSchedulingIgnoredDuringExecution:
           - labelSelector:
               matchLabels:
-	        k8s-app: cilium
+                k8s-app: cilium
             topologyKey: kubernetes.io/hostname
 
     cni:
