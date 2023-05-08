@@ -60,9 +60,6 @@ kube-state-metrics:
 
 nodeExporter:
       enabled: true
-      extraArgs:
-        - --collector.systemd 
-        - --collector.processes
 
 prometheusOperator:
   createCustomResource: true
