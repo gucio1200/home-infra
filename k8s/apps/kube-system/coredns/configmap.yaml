@@ -23,7 +23,9 @@ data:
             pods insecure
             fallthrough in-addr.arpa ip6.arpa
         }
-        forward . 192.168.0.151
+        forward dom.lan 192.168.0.151
+        forward k8sj.io 192.168.0.151
+        forward . /etc/resolv.conf
         cache 30
         loop
         reload
