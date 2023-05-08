@@ -6,6 +6,7 @@ resources:
   - kubelet-csr-approver
   - metrics-server
   - descheduler
+  - coredns
   - reloader
   - node-feature-discovery
   - intel-gpu-plugin
