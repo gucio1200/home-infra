@@ -60,6 +60,12 @@ spec:
           datasource:
           - name: DS_PROMETHEUS
             value: Prometheus
+        node_exporter_full:
+          gnetId: 1860
+          revision: 31
+          datasource:
+          - name: DS_PROMETHEUS
+            value: Prometheus
     datasources:
       datasources.yaml:
         apiVersion: 1
