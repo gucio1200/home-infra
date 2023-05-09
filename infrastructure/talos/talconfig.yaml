@@ -23,6 +23,7 @@ additionalMachineCertSans:
 
 nodes:
   - hostname: cp-0
+    disableSearchDomain: true
     controlPlane: true
     ipAddress: 192.168.2.11
     installDisk: /dev/sda
@@ -36,6 +37,7 @@ nodes:
         mtu: 1500
 
   - hostname: cp-1
+    disableSearchDomain: true
     controlPlane: true
     ipAddress: 192.168.2.12
     installDisk: /dev/sda
@@ -49,6 +51,7 @@ nodes:
         mtu: 1500
 
   - hostname: cp-2
+    disableSearchDomain: true
     controlPlane: true
     ipAddress: 192.168.2.13
     installDisk: /dev/sda
@@ -62,6 +65,7 @@ nodes:
         mtu: 1500
 
   - hostname: cp-3
+    disableSearchDomain: true
     controlPlane: true
     ipAddress: 192.168.2.14
     installDisk: /dev/sda
