@@ -40,6 +40,8 @@ spec:
     queryFrontend:
       enabled: true
       replicaCount: 1
+      podAnnotations:
+        kyverno-no-tz: "true"
       ingress:
         enabled: true
         ingressClassName: nginx
