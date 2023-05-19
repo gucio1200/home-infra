@@ -57,8 +57,12 @@ spec:
       bdev_async_discard = true
 
     cephClusterSpec:
+
+      mon:
+        count: 4
+
       mgr:
-        count: 1
+        count: 2
 
       network:
         provider: host
@@ -77,6 +81,8 @@ spec:
         config:
           osdsPerDevice: "1"
         deviceFilter: "nvme0n1"
+        
+      removeOSDsIfOutAndSafeToRemove: true
 
       resources:
         mgr:
