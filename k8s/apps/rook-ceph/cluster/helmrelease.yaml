@@ -100,7 +100,7 @@ spec:
         osd:
           requests:
             cpu: "200m"
-            memory: "512Mi"
+            memory: "2560Mi"
           limits:
             memory: "6Gi"
         mgr-sidecar:
