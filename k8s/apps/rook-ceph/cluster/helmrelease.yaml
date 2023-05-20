@@ -57,6 +57,9 @@ spec:
       bdev_async_discard = true
 
     cephClusterSpec:
+      annotations:
+        mgr:
+          prometheus.io/scrape: false
 
       mon:
         count: 4
