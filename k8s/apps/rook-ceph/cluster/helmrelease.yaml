@@ -59,7 +59,7 @@ spec:
     cephClusterSpec:
       annotations:
         mgr:
-          prometheus.io/scrape: false
+          prometheus.io/scrape: "false"
 
       mon:
         count: 4
