@@ -160,6 +160,15 @@ spec:
           metadataServer:
             activeCount: 1
             activeStandby: true
+            placement:
+              podAntiAffinity:
+                preferredDuringSchedulingIgnoredDuringExecution:
+                  - weight: 1
+                    podAffinityTerm:
+                      labelSelector:
+                        matchLabels:
+                          app.kubernetes.io/name: ceph-mds
+                      topologyKey: kubernetes.io/hostname
             resources:
               requests:
                 cpu: "35m"
