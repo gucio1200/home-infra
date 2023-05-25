@@ -5,7 +5,7 @@ metadata:
   name: kyverno
   namespace: kyverno
 spec:
-  interval: 30m
+  interval: 10m
   chart:
     spec:
       chart: kyverno
@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: kyverno
         namespace: flux-system
-      interval: 30m
+      interval: 10m
   values:
     installCRDs: true
     replicaCount: 1
