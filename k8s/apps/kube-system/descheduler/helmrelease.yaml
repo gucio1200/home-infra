@@ -5,7 +5,7 @@ metadata:
   name: descheduler
   namespace: kube-system
 spec:
-  interval: 30m
+  interval: 10m
   chart:
     spec:
       chart: descheduler
@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: descheduler
         namespace: flux-system
-      interval: 30m
+      interval: 10m
   values:
     kind: Deployment
     replicas: 1
