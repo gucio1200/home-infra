@@ -5,7 +5,7 @@ metadata:
   name: kube-prometheus-stack
   namespace: monitoring
 spec:
-  interval: 30m
+  interval: 10m
   maxHistory: 2
   timeout: 20m
   chart:
@@ -16,7 +16,7 @@ spec:
         kind: HelmRepository
         name: prometheus-community
         namespace: flux-system
-      interval: 30m
+      interval: 10m
   install:
     crds: CreateReplace
   upgrade:
