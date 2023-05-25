@@ -6,7 +6,7 @@ metadata:
   name: volsync
   namespace: volsync
 spec:
-  interval: 15m
+  interval: 10m
   chart:
     spec:
       chart: volsync
@@ -15,7 +15,7 @@ spec:
         kind: HelmRepository
         name: backube
         namespace: flux-system
-      interval: 30m
+      interval: 10m
   values:
     manageCRDs: true
     metrics:
