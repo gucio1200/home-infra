@@ -32,9 +32,19 @@ nodes:
       - 1.1.1.1
       - 8.8.8.8
     networkInterfaces:
-      - interface: eth0
+      - interface: bond0
         dhcp: true
         mtu: 1500
+        bond:
+          mode: 802.3ad
+          lacpRate: fast
+          xmitHashPolicy: layer3+4
+          miimon: 100
+          updelay: 200
+          downdelay: 200
+          deviceSelectors:
+            - hardwareAddr: '00:1e:06:45:11:da'
+            - hardwareAddr: '00:1e:06:45:11:db'
 
   - hostname: cp-1
     disableSearchDomain: true
@@ -46,9 +56,19 @@ nodes:
       - 1.1.1.1
       - 8.8.8.8
     networkInterfaces:
-      - interface: eth0
+      - interface: bond0
         dhcp: true
         mtu: 1500
+        bond:
+          mode: 802.3ad
+          lacpRate: fast
+          xmitHashPolicy: layer3+4
+          miimon: 100
+          updelay: 200
+          downdelay: 200
+          deviceSelectors:
+            - hardwareAddr: '00:1e:06:45:11:5e'
+            - hardwareAddr: '00:1e:06:45:11:5f'
 
   - hostname: cp-2
     disableSearchDomain: true
@@ -60,9 +80,19 @@ nodes:
       - 1.1.1.1
       - 8.8.8.8
     networkInterfaces:
-      - interface: eth0
+      - interface: bond0
         dhcp: true
         mtu: 1500
+        bond:
+          mode: 802.3ad
+          lacpRate: fast
+          xmitHashPolicy: layer3+4
+          miimon: 100
+          updelay: 200
+          downdelay: 200
+          deviceSelectors:
+            - hardwareAddr: '00:1e:06:45:13:e8'
+            - hardwareAddr: '00:1e:06:45:13:e9'
 
   - hostname: cp-3
     disableSearchDomain: true
@@ -74,9 +104,19 @@ nodes:
       - 1.1.1.1
       - 8.8.8.8
     networkInterfaces:
-      - interface: eth0
+      - interface: bond0
         dhcp: true
         mtu: 1500
+        bond:
+          mode: 802.3ad
+          lacpRate: fast
+          xmitHashPolicy: layer3+4
+          miimon: 100
+          updelay: 200
+          downdelay: 200
+          deviceSelectors:
+            - hardwareAddr: '00:1e:06:45:16:0c'
+            - hardwareAddr: '00:1e:06:45:16:0d'
 
 controlPlane:
   inlinePatch:
