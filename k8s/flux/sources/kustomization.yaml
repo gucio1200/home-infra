@@ -38,6 +38,7 @@ resources:
   - lwolf-charts.yaml
   - node-feature-discovery.yaml
   - csi-driver-nfs.yaml
+  - csi-driver-smb.yaml
   - external-secrets.yaml
   - external-dns.yaml
   - hajimari.yaml
