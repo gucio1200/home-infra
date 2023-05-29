@@ -9,7 +9,7 @@ resources:
   - coredns
   - reloader
   - node-feature-discovery
-  - intel-device-plugins
+  - intel-device-plugins/ks.yaml
   - csi-driver-nfs
   - kube-cleanup-operator
   - external-secrets/ks.yaml
