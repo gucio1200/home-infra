@@ -13,3 +13,4 @@ resources:
   - default
   - volsync
   - home-automation
+  - media
