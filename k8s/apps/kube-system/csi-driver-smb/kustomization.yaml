@@ -6,4 +6,4 @@ namespace: kube-system
 resources:
   - ./helmrelease.yaml
   - ./externalsecret.yaml
-#  - ./storage-class.yaml
+  - ./storage-class.yaml
