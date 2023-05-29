@@ -65,6 +65,10 @@ spec:
         cpu: 100m
         gpu.intel.com/i915: 1
         memory: 6144M
+      limits:
+        cpu: 100m
+        gpu.intel.com/i915: 1
+        memory: 6144M
 
     volumeClaimTemplates:
       - name: config
