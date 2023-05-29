@@ -11,7 +11,7 @@ resources:
   - node-feature-discovery/ks.yaml
   - intel-device-plugins/ks.yaml
   - csi-driver-nfs
-#  - csi-driver-smb
+  - csi-driver-smb
   - kube-cleanup-operator
   - external-secrets/ks.yaml
   - snapshot-controller/ks.yaml
