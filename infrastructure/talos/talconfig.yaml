@@ -38,7 +38,7 @@ nodes:
         bond:
           mode: 802.3ad
           lacpRate: fast
-          xmitHashPolicy: layer3+4
+          xmitHashPolicy: layer2+3
           miimon: 100
           updelay: 200
           downdelay: 200
@@ -62,7 +62,7 @@ nodes:
         bond:
           mode: 802.3ad
           lacpRate: fast
-          xmitHashPolicy: layer3+4
+          xmitHashPolicy: layer2+3
           miimon: 100
           updelay: 200
           downdelay: 200
@@ -86,7 +86,7 @@ nodes:
         bond:
           mode: 802.3ad
           lacpRate: fast
-          xmitHashPolicy: layer3+4
+          xmitHashPolicy: layer2+3
           miimon: 100
           updelay: 200
           downdelay: 200
@@ -110,7 +110,7 @@ nodes:
         bond:
           mode: 802.3ad
           lacpRate: fast
-          xmitHashPolicy: layer3+4
+          xmitHashPolicy: layer2+3
           miimon: 100
           updelay: 200
           downdelay: 200
