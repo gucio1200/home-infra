@@ -15,21 +15,21 @@ spec:
   timeout: 5m
   wait: true
 
-#---
-#apiVersion: kustomize.toolkit.fluxcd.io/v1
-#kind: Kustomization
-#metadata:
-#  name: cluster-apps-external-secrets-stores
-#  namespace: flux-system
-#spec:
-#  dependsOn:
-#    - name: cluster-apps-external-secrets
-#  path: ./k8s/apps/kube-system/external-secrets/stores
-#  prune: true
-#  sourceRef:
-#    kind: GitRepository
-#    name: flux-system
-#  interval: 10m
-#  retryInterval: 1m
-#  timeout: 5m
-#  wait: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-apps-external-secrets-stores
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: cluster-apps-external-secrets
+  path: ./k8s/apps/kube-system/external-secrets/stores
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 10m
+  retryInterval: 1m
+  timeout: 5m
+  wait: true
