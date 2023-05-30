@@ -13,7 +13,9 @@ spec:
   mountOptions:
     - dir_mode=0777
     - file_mode=0777
-    - vers=3.0
+    - vers=2.0
+    - uid=0
+    - gid=0
   csi:
     driver: smb.csi.k8s.io
     readOnly: false
