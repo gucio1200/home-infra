@@ -5,12 +5,12 @@ metadata:
   name: onepassword-connect
   namespace: kube-system
 spec:
-  interval: 30m
+  interval: 10m
   chart:
     spec:
       chart: app-template
       version: 1.4.0
-      interval: 30m
+      interval: 10m
       sourceRef:
         kind: HelmRepository
         name: bjw-s
