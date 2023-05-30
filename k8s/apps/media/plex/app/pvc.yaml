@@ -23,7 +23,7 @@ spec:
       source: "//192.168.0.150/minio"
     nodeStageSecretRef:
       name: smbcreds
-      namespace: kubesystem
+      namespace: kube-system
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
