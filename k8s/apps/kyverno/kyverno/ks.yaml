@@ -11,7 +11,6 @@ spec:
   path: ./k8s/apps/kyverno/kyverno/app
   prune: true
   wait: true
-  interval: 10m
   retryInterval: 1m
   timeout: 5m
 
@@ -31,6 +30,5 @@ spec:
   path: ./k8s/apps/kyverno/kyverno/policies
   prune: true
   wait: true
-  interval: 10m
   retryInterval: 1m
   timeout: 5m
