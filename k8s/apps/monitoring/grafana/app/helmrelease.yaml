@@ -15,7 +15,7 @@ spec:
         namespace: flux-system
       version: 6.56.6
   interval: 10m
-  timeout: 20m
+  timeout: 5m
   values:
     replicas: 1
 
