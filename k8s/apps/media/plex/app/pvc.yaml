@@ -19,6 +19,7 @@ spec:
     readOnly: false
     volumeHandle: 192.168.0.150/minio
     volumeAttributes:
+      createSubDir: "false"
       source: "//192.168.0.150/minio"
     nodeStageSecretRef:
       name: smbcreds
