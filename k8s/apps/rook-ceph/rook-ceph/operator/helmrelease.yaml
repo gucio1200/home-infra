@@ -85,10 +85,10 @@ spec:
             limits:
               memory: 256Mi
 
-      enableRbdDriver: false
+      enableRbdDriver: true
       enableCephfsSnapshotter: true
       enableNFSSnapshotter: false
-      enableRBDSnapshotter: false
+      enableRBDSnapshotter: true
       enableCephfsDriver: true
       
     monitoring:
