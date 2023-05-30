@@ -12,7 +12,7 @@ spec:
     name: flux-system
   interval: 10m
   retryInterval: 1m
-  timeout: 3m
+  timeout: 5m
   wait: true
 
 ---
@@ -31,5 +31,5 @@ spec:
     name: flux-system
   interval: 10m
   retryInterval: 1m
-  timeout: 3m
+  timeout: 5m
   wait: true
