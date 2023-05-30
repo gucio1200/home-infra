@@ -21,7 +21,6 @@ spec:
       type: statefulset
       annotations:
         reloader.stakater.com/auto: "true"
-        volsync.backube/privileged-movers: "true"
 
     image:
       repository: public.ecr.aws/docker/library/eclipse-mosquitto
