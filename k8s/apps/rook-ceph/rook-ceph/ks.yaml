@@ -1,5 +1,5 @@
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: cluster-apps-rook-ceph
@@ -12,9 +12,11 @@ spec:
     kind: GitRepository
     name: flux-system
   wait: true
+  retryInterval: 1m
+  timeout: 5m
 
 #---
-#apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+#apiVersion: kustomize.toolkit.fluxcd.io/v1
 #kind: Kustomization
 #metadata:
 #  name: cluster-apps-rook-ceph-cluster
@@ -29,3 +31,5 @@ spec:
 #  wait: true
 #  dependsOn:
 #    - name: cluster-apps-rook-ceph
+#  retryInterval: 1m
+#  timeout: 5m

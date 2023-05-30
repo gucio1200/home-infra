@@ -1,11 +1,9 @@
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: cluster-apps-loki
   namespace: flux-system
-  labels:
-    substitution.flux.home.arpa/enabled: "true"
 spec:
   interval: 10m
   path: "./k8s/apps/monitoring/loki/app"
@@ -14,5 +12,7 @@ spec:
     kind: GitRepository
     name: flux-system
   wait: true
+  retryInterval: 1m
+  timeout: 5m
   dependsOn:
     - name: cluster-apps-kube-prometheus-stack

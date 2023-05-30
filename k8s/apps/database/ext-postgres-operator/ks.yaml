@@ -1,11 +1,9 @@
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: cluster-apps-ext-postgres-operator
   namespace: flux-system
-  labels:
-    substitution.flux.home.arpa/enabled: "true"
 spec:
   interval: 10m
   path: "./k8s/apps/database/ext-postgres-operator/app"
@@ -14,5 +12,8 @@ spec:
     kind: GitRepository
     name: flux-system
   wait: true
+  retryInterval: 1m
+  timeout: 5m
   dependsOn:
     - name: cluster-apps-zalando-postgres-cluster
+    - name: cluster-apps-external-secrets-stores

@@ -1,19 +1,20 @@
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: cluster-apps-kube-prometheus-stack
   namespace: flux-system
 spec:
-  interval: 5m
+  interval: 10m
   path: "./k8s/apps/monitoring/kube-prometheus-stack/operator"
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
-    namespace: flux-system
-
+  retryInterval: 1m
+  timeout: 5m
+  wait: true
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: cluster-apps-kube-prometheus-stack-crd
@@ -28,4 +29,5 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-    namespace: flux-system
+  retryInterval: 1m
+  timeout: 5m

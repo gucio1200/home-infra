@@ -1,4 +1,4 @@
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: cluster-apps-kyverno
@@ -8,19 +8,15 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-    namespace: flux-system
-  path: ./k8s/apps/kyverno/app
+  path: ./k8s/apps/kyverno/kyverno/app
   prune: true
   wait: true
+  interval: 10m
+  retryInterval: 1m
   timeout: 5m
-  healthChecks:
-    - apiVersion: apps/v1
-      kind: Deployment
-      name: kyverno
-      namespace: kyverno
 
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: cluster-apps-cluster-policies
@@ -32,7 +28,9 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-    namespace: flux-system
-  path: ./k8s/apps/kyverno/policies
+  path: ./k8s/apps/kyverno/kyverno/policies
   prune: true
+  wait: true
+  interval: 10m
+  retryInterval: 1m
   timeout: 5m
