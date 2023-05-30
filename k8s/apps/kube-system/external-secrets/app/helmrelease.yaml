@@ -32,6 +32,18 @@ spec:
     leaderElect: true
     serviceMonitor:
       enabled: true
+    backgroundController:
+      serviceMonitor:
+        enabled: true
+        interval: 1m
+    cleanupController:
+      serviceMonitor:
+        enabled: true
+        interval: 1m
+    reportsController:
+      serviceMonitor:
+        enabled: true
+        interval: 1m
     webhook:
       serviceMonitor:
         enabled: true

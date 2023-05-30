@@ -1,11 +1,12 @@
 ---
-# yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: kube-system
+namespace: security
 resources:
   - ./secret.sops.yaml
-  - ./helmrelease.yaml
   - ./clustersecretstore.yaml
-patchesStrategicMerge:
-  - ./patches/sync.yaml
+labels:
+  - pairs:
+      app.kubernetes.io/name: stores
+      app.kubernetes.io/instance: onepassword
+      app.kubernetes.io/part-of: external-secrets
