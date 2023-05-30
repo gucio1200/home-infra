@@ -65,6 +65,11 @@ spec:
         - 65539
         
     persistence:
+      smb-nas-media:
+        enabled: true
+        mountPath: /storage/media
+        type: pvc
+        existingClaim: plex-media
       transcode:
         enabled: true
         type: emptyDir
