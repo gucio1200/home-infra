@@ -12,5 +12,5 @@ resources:
   - cert-manager
   - default
   - system
-#  - home-automation
+  - home-automation
 #  - media
