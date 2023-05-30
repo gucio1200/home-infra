@@ -10,7 +10,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  interval: 30m
+  interval: 10m
   retryInterval: 1m
   timeout: 3m
   wait: true
@@ -29,7 +29,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  interval: 30m
+  interval: 10m
   retryInterval: 1m
   timeout: 3m
   wait: true

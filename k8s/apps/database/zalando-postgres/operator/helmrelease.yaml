@@ -5,7 +5,7 @@ metadata:
   name: zalando-postgres
   namespace: database
 spec:
-  interval: 30m
+  interval: 10m
   chart:
     spec:
       chart: postgres-operator
