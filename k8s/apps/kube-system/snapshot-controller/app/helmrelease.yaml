@@ -1,5 +1,4 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/helmrelease_v2beta1.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -10,7 +9,7 @@ spec:
   chart:
     spec:
       chart: snapshot-controller
-      version: 1.7.2
+      version: 1.8.0
       sourceRef:
         kind: HelmRepository
         name: piraeus
@@ -31,10 +30,19 @@ spec:
   values:
     replicaCount: 3
     volumeSnapshotClasses:
+      - name: csi-ceph-blockpool
+        driver: rook-ceph.rbd.csi.ceph.com
+        annotations:
+          snapshot.storage.kubernetes.io/is-default-class: "true"
+        parameters:
+          clusterID: rook-ceph
+          csi.storage.k8s.io/snapshotter-secret-name: rook-csi-rbd-provisioner
+          csi.storage.k8s.io/snapshotter-secret-namespace: rook-ceph
+        deletionPolicy: Delete
       - name: csi-ceph-filesystem
         driver: rook-ceph.cephfs.csi.ceph.com
         annotations:
-          snapshot.storage.kubernetes.io/is-default-class: "true"
+          snapshot.storage.kubernetes.io/is-default-class: "false"
         parameters:
           clusterID: rook-ceph
           csi.storage.k8s.io/snapshotter-secret-name: rook-csi-cephfs-provisioner
@@ -43,7 +51,6 @@ spec:
     serviceMonitor:
       create: true
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/helmrelease_v2beta1.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -54,7 +61,7 @@ spec:
   chart:
     spec:
       chart: snapshot-validation-webhook
-      version: 1.7.1
+      version: 1.7.2
       sourceRef:
         kind: HelmRepository
         name: piraeus
