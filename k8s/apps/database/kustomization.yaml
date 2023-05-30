@@ -5,5 +5,5 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
-#  - ./ext-postgres-operator/ks.yaml
+  - ./ext-postgres-operator/ks.yaml
   - ./zalando-postgres/ks.yaml
