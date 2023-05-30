@@ -6,7 +6,7 @@ resources:
 #  - database
   - rook-ceph
   - kyverno
-#  - monitoring
+  - monitoring
   - networking
   - flux-system
   - cert-manager
