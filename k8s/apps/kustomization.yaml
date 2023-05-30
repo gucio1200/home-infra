@@ -11,5 +11,6 @@ resources:
   - flux-system
   - cert-manager
   - default
+  - system
 #  - home-automation
 #  - media
