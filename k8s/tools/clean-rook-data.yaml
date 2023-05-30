@@ -74,3 +74,29 @@ spec:
         - /bin/sh
         - -c
         - rm -rf /node/rook-data/*
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: disk-clean-cp-3
+  namespace: kube-system
+spec:
+  restartPolicy: Never
+  nodeName: cp-3
+  volumes:
+    - name: rook-data-dir
+      hostPath:
+        path: /var/lib/rook
+  containers:
+    - name: disk-clean
+      image: busybox@sha256:560af6915bfc8d7630e50e212e08242d37b63bd5c1ccf9bd4acccf116e262d5b
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - name: rook-data-dir
+          mountPath: /node/rook-data
+      command:
+        - /bin/sh
+        - -c
+        - rm -rf /node/rook-data/*
