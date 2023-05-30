@@ -13,5 +13,5 @@ resources:
   - csi-driver-nfs
   - csi-driver-smb
   - kube-cleanup-operator
-#  - external-secrets/ks.yaml
+  - external-secrets/ks.yaml
   - snapshot-controller/ks.yaml
