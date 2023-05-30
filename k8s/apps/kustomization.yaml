@@ -11,6 +11,5 @@ resources:
   - flux-system
   - cert-manager
   - default
-#  - volsync
 #  - home-automation
 #  - media
