@@ -3,6 +3,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: disk-wipe-cp-0
+  namespace: rook-ceph
 spec:
   restartPolicy: Never
   nodeName: cp-0
@@ -35,6 +36,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: disk-wipe-cp-1
+  namespace: rook-ceph
 spec:
   restartPolicy: Never
   nodeName: cp-1
@@ -67,6 +69,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: disk-wipe-cp-2
+  namespace: rook-ceph
 spec:
   restartPolicy: Never
   nodeName: cp-2
@@ -100,6 +103,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: disk-wipe-cp-3
+  namespace: rook-ceph
 spec:
   restartPolicy: Never
   nodeName: cp-3
