@@ -28,9 +28,9 @@ spec:
     service:
       main:
         type: LoadBalancer
+        loadBalancerIP: "192.168.99.180"
         externalTrafficPolicy: Local
         annotations:
-          metallb.universe.tf/loadBalancerIPs: "192.168.99.180"
           nginx.ingress.kubernetes.io/backend-protocol: HTTPS
         ports:
           http:
