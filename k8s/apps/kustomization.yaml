@@ -3,14 +3,14 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - kube-system
-  - database
+#  - database
   - rook-ceph
   - kyverno
-  - monitoring
+#  - monitoring
   - networking
   - flux-system
   - cert-manager
   - default
-  - volsync
-  - home-automation
-  - media
+#  - volsync
+#  - home-automation
+#  - media
