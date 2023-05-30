@@ -13,4 +13,4 @@ resources:
   - default
   - system
   - home-automation
-#  - media
+  - media
