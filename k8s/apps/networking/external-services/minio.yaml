@@ -1,0 +1,47 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio
+  namespace: networking
+  labels:
+    app.kubernetes.io/name: minio
+    app.kubernetes.io/instance: minio
+spec:
+  type: ExternalName
+  externalName: console.s3.dom.lan
+  ports:
+    - name: http
+      port: &port 80
+      protocol: TCP
+      targetPort: *port
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: minio
+  namespace: networking
+  annotations:
+    hajimari.io/enable: "true"
+    hajimari.io/appName: "Minio"
+    hajimari.io/icon: simple-icons:amazons3
+    nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+  labels:
+    app.kubernetes.io/name: minio
+    app.kubernetes.io/instance: minio
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: &host minio.k8sj.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: minio
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - *host
