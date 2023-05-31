@@ -63,6 +63,9 @@ spec:
 
       mgr:
         count: 2
+        modules:
+          - name: rook
+            enabled: true
 
       network:
         provider: host
