@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: descheduler
-      version: 0.27.0
+      version: 0.27.1
       sourceRef:
         kind: HelmRepository
         name: descheduler
@@ -61,11 +61,11 @@ spec:
           params:
             nodeResourceUtilizationThresholds:
               targetThresholds:
-                cpu: 60
-                memory: 60
+                cpu: 85
+                memory: 85
               thresholds:
-                cpu: 50
-                memory: 50
+                cpu: 65
+                memory: 65
 
         RemoveFailedPods:
           enabled: true

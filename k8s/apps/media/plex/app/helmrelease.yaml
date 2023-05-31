@@ -28,9 +28,9 @@ spec:
     service:
       main:
         type: LoadBalancer
+        loadBalancerIP: "172.16.99.180"
         externalTrafficPolicy: Local
         annotations:
-          metallb.universe.tf/loadBalancerIPs: "192.168.99.180"
           nginx.ingress.kubernetes.io/backend-protocol: HTTPS
         ports:
           http:
@@ -39,10 +39,12 @@ spec:
     ingress:
       main:
         enabled: true
+        ingressClassName: nginx
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/appName: "Plex"
-        ingressClassName: nginx
+          hajimari.io/icon: simple-icons:plex
+          nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
         hosts:
           - host: &host plex.k8sj.io
             paths:
@@ -63,6 +65,11 @@ spec:
         - 65539
         
     persistence:
+      smb-nas-media:
+        enabled: true
+        mountPath: /storage/media
+        type: pvc
+        existingClaim: plex-media
       transcode:
         enabled: true
         type: emptyDir
