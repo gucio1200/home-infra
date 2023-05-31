@@ -19,10 +19,11 @@ spec:
   csi:
     driver: smb.csi.k8s.io
     readOnly: false
-    volumeHandle: 192.168.0.150/minio
+    volumeHandle: 192.168.0.150/BACKUP/gv0/smb#plex
     volumeAttributes:
       createSubDir: "false"
-      source: "//192.168.0.150/minio"
+      source: "//192.168.0.150/BACKUP/"
+      subDir: "gv0/smb"
     nodeStageSecretRef:
       name: smbcreds
       namespace: kube-system
