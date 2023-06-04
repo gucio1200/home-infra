@@ -5,7 +5,7 @@ clusterPodNets:
   - 10.244.0.0/16
 clusterSvcNets:
   - 10.96.0.0/12
-talosVersion: v1.4.1
+talosVersion: v1.4.5
 kubernetesVersion: 1.26.4
 endpoint: https://k8s.dom.lan:6443
 
