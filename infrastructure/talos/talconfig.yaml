@@ -151,6 +151,9 @@ controlPlane:
 #      extraManifests:
 #        - "https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/v0.7.0/deploy/ha-install.yaml"
     machine:
+      install:
+        extraKernelArgs:
+          - cpufreq.default_governor=performance
       files:
         - content: |
             [plugins."io.containerd.grpc.v1.cri"]
