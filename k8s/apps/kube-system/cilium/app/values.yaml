@@ -2,6 +2,8 @@
 cluster:
   name: "k8s"
   id: "1"
+cni:
+  exclusive: false
 securityContext:
   privileged: true
 rollOutCiliumPods: true
