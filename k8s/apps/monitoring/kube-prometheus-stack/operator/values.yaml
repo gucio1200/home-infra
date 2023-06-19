@@ -56,7 +56,7 @@ kube-state-metrics:
           regex: (.*)
           replacement: $1
           sourceLabels: ["__meta_kubernetes_pod_node_name"]
-          targetLabel: node
+          targetLabel: kubernetes_node
 
 nodeExporter:
       enabled: true
