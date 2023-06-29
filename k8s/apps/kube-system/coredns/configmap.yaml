@@ -25,6 +25,7 @@ data:
         }
         forward dom.lan 192.168.0.151
         forward k8sj.io 192.168.0.151
+        forward vcore 192.168.0.151
         forward . /etc/resolv.conf
         cache 30
         loop
