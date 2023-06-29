@@ -1,0 +1,47 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mainsail
+  namespace: networking
+  labels:
+    app.kubernetes.io/name: mainsail
+    app.kubernetes.io/instance: mainsail
+spec:
+  type: ExternalName
+  externalName: mainsail.vcore
+  ports:
+    - name: http
+      port: &port 80
+      protocol: TCP
+      targetPort: *port
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mainsail
+  namespace: networking
+  annotations:
+    hajimari.io/enable: "true"
+    hajimari.io/appName: "mainsail"
+    hajimari.io/icon: mdi:printer-3d
+    nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+  labels:
+    app.kubernetes.io/name: mainsail
+    app.kubernetes.io/instance: mainsail
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: &host mainsail.k8sj.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: mainsail
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - *host
