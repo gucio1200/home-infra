@@ -14,4 +14,4 @@ resources:
   - system
   - home-automation
   - media
-#  - vcluster
+  - vcluster
