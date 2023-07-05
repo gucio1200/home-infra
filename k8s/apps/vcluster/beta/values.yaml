@@ -25,6 +25,7 @@ vcluster:
 syncer:
   extraArgs:
   - --tls-san=beta.k8sj.io
+  - --out-kube-config-server=https://beta.k8sj.io
 
 ingress:
   enabled: true
