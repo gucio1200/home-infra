@@ -1,0 +1,45 @@
+vcluster:
+  # Image to use for the virtual cluster
+  image: rancher/k3s:v1.27.2-k3s1
+  command:
+    - /bin/k3s
+  baseArgs:
+    - server
+    - --write-kubeconfig=/data/k3s-config/kube-config.yaml
+    - --data-dir=/data
+    - --disable=traefik,servicelb,metrics-server,local-storage,coredns
+    - --disable-network-policy
+    - --disable-agent
+    - --disable-cloud-controller
+    - --flannel-backend=none
+  volumeMounts:
+    - mountPath: /data
+      name: data
+  resources:
+    limits:
+      memory: 2Gi
+    requests:
+      cpu: 200m
+      memory: 256Mi
+
+syncer:
+  extraArgs:
+  - --tls-san=alpha.k8sj.io
+
+ingress:
+  enabled: true
+  # Ingress path type
+  pathType: ImplementationSpecific
+  apiVersion: networking.k8s.io/v1
+  ingressClassName: "nginx"
+  host: alpha.k8sj.io
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+
+sync:
+  ingresses:
+    enabled: true
+  storageclasses:
+    enabled: true
