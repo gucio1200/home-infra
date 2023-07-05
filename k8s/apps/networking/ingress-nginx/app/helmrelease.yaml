@@ -90,6 +90,7 @@ spec:
             any: true
 
       extraArgs:
+        enable-ssl-passthrough
         default-ssl-certificate: |-
           networking/k8sj-io-tls
 
