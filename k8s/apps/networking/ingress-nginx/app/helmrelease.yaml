@@ -79,7 +79,9 @@ spec:
           "http_user_agent": "$http_user_agent" }'
         proxy-body-size: "100M"
         ssl-protocols: "TLSv1.3 TLSv1.2"
-        use-forwarded-headers: "true"
+        enable-real-ip: true
+        forwarded-for-header: proxy_protocol
+#        use-forwarded-headers: "true"
 
       metrics:
         enabled: true
