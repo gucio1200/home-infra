@@ -68,8 +68,8 @@ spec:
         client-header-timeout: 120
         enable-brotli: "true"
         enable-real-ip: "true"
-#        forwarded-for-header: "CF-Connecting-IP"
-        forwarded-for-header: proxy_protocol
+        forwarded-for-header: "CF-Connecting-IP"
+#        forwarded-for-header: proxy_protocol
         hsts-max-age: "31449600"
         keep-alive-requests: 10000
         keep-alive: 120
@@ -91,7 +91,7 @@ spec:
             any: true
 
       extraArgs:
-        enable-ssl-passthrough: ""
+#        enable-ssl-passthrough: ""
         default-ssl-certificate: networking/k8sj-io-tls
 
       topologySpreadConstraints:
