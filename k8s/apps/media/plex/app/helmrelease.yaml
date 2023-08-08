@@ -76,17 +76,17 @@ spec:
 
 #    nodeSelector:
 #      intel.feature.node.kubernetes.io/gpu: "true"
-#    affinity:
-#      nodeAffinity:
-#        requiredDuringSchedulingIgnoredDuringExecution:
-#          nodeSelectorTerms:
-#            - matchExpressions:
-#              - key: node-role.kubernetes.io/control-plane
-#                operator: DoesNotExist
-#              - key: intel.feature.node.kubernetes.io/gpu
-#                operator: in
-#                values:
-#                  - true
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/control-plane
+                operator: DoesNotExist
+              - key: intel.feature.node.kubernetes.io/gpu
+                operator: in
+                values:
+                  - true
 
     resources:
       requests:
