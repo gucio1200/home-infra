@@ -57,14 +57,14 @@ spec:
       bdev_async_discard = true
 
     cephClusterSpec:
-      placement:
-        all:
-          nodeAffinity:
-            requiredDuringSchedulingIgnoredDuringExecution:
-              nodeSelectorTerms:
-                - matchExpressions:
-                  - key: node-role.kubernetes.io/control-plane
-                    operator: Exists
+#      placement:
+#        all:
+#          nodeAffinity:
+#            requiredDuringSchedulingIgnoredDuringExecution:
+#              nodeSelectorTerms:
+#                - matchExpressions:
+#                  - key: node-role.kubernetes.io/control-plane
+#                    operator: Exists
                     
       mon:
         count: 4
