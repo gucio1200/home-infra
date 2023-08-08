@@ -118,6 +118,20 @@ nodes:
             - hardwareAddr: '00:1e:06:45:16:0c'
             - hardwareAddr: '00:1e:06:45:16:0d'
 
+  - hostname: wr-1
+    disableSearchDomain: true
+    controlPlane: false
+    ipAddress: 192.168.2.21
+    installDisk: /dev/sda
+    nameservers:
+      - 192.168.0.151
+      - 1.1.1.1
+      - 8.8.8.8
+    networkInterfaces:
+      - interface: eth0
+        dhcp: true
+        mtu: 1500
+
 controlPlane:
   inlinePatch:
     cluster:
