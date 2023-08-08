@@ -74,8 +74,8 @@ spec:
         enabled: true
         type: emptyDir
 
-#    nodeSelector:
-#      intel.feature.node.kubernetes.io/gpu: "true"
+    nodeSelector:
+      intel.feature.node.kubernetes.io/gpu: "true"
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
