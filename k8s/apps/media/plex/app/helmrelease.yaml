@@ -86,7 +86,7 @@ spec:
 #              - key: intel.feature.node.kubernetes.io/gpu
 #                operator: in
 #                values:
-#                  - true
+#                  - "true"
 
     resources:
       requests:
