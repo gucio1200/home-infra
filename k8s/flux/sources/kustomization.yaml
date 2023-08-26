@@ -49,3 +49,4 @@ resources:
   - loft-sh.yaml
   - grafana.yaml
   - intel.yaml
+  - crunchydata.yaml
