@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: home-automation
 resources:
   - ./database.yaml
-#  - ./postgresCluster.yaml
+  - ./postgresCluster.yaml
   - ./volsync.yaml
   - ./externalsecret.yaml
   - ./helmrelease.yaml
