@@ -19,7 +19,7 @@ spec:
         name: repo1
         s3:
           bucket: "crunchy-postgres"
-          endpoint: "http://s3.dom.lan"
+          endpoint: "s3.dom.lan"
           region: "us-east-1"
   patroni:
     dynamicConfiguration:
@@ -62,5 +62,5 @@ spec:
             differential: "0 1 * * 1-6"
           s3:
             bucket: "crunchy-postgres"
-            endpoint: "http://s3.dom.lan"
+            endpoint: "s3.dom.lan"
             region: "us-east-1"
