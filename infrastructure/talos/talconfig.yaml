@@ -132,6 +132,14 @@ nodes:
         dhcp: true
         mtu: 1500
 
+    patches:
+      - |-
+        machine:
+          install:
+            extraKernelArgs:
+              - pcie_aspm=off
+              - cpufreq.default_governor=performance
+
 controlPlane:
   inlinePatch:
     cluster:
