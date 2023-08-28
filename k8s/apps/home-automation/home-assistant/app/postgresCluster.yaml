@@ -6,22 +6,22 @@ metadata:
   namespace: home-automation
 spec:
   postgresVersion: 15
-#  dataSource:
-#    pgbackrest:
-#      stanza: db
-#      configuration:
-#        - secret:
-#            name: pgo-s3-creds
-#      global:
-#        repo1-path: /home-assistant/repo1
-#        repo1-s3-uri-style: path
-#        repo1-storage-verify-tls: "n"
-#      repo:
-#        name: repo1
-#        s3:
-#          bucket: "crunchy-postgres"
-#          endpoint: "s3.dom.lan"
-#          region: "us-east-1"
+  dataSource:
+    pgbackrest:
+      stanza: db
+      configuration:
+        - secret:
+            name: pgo-s3-creds
+      global:
+        repo1-path: /home-assistant/repo1
+        repo1-s3-uri-style: path
+        repo1-storage-verify-tls: "n"
+      repo:
+        name: repo1
+        s3:
+          bucket: "crunchy-postgres"
+          endpoint: "s3.dom.lan"
+          region: "us-east-1"
   patroni:
     dynamicConfiguration:
       synchronous_mode: true
