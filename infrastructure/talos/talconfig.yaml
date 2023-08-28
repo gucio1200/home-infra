@@ -131,7 +131,6 @@ nodes:
       - interface: eth0
         dhcp: true
         mtu: 1500
-
     patches:
       - |-
         machine:
