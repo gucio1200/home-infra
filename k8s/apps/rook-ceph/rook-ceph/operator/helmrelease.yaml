@@ -33,6 +33,8 @@ spec:
     pspEnable: false
 
     csi:
+      csiAddons:
+        enabled: true
       kubeletDirPath: /var/lib/kubelet
       enableCSIHostNetwork: true
       pluginTolerations:
