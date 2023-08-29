@@ -15,4 +15,5 @@ resources:
   - system
   - home-automation
   - media
+  - csi-addons-system
 #  - vcluster
