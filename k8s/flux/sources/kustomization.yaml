@@ -50,3 +50,4 @@ resources:
   - grafana.yaml
   - intel.yaml
   - crunchydata.yaml
+  - kubernetes-csi-addons.yaml
