@@ -170,7 +170,7 @@ controlPlane:
           feature-gates: MixedProtocolLBService=true,EphemeralContainers=True
           bind-address: 0.0.0.0
 #      extraManifests:
-#        - "https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/v0.7.2/deploy/ha-install.yaml"
+#        - "https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/v0.7.3/deploy/ha-install.yaml"
     machine:
       install:
         extraKernelArgs:
