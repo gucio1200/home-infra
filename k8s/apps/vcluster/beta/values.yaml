@@ -1,6 +1,6 @@
 vcluster:
   # Image to use for the virtual cluster
-  image: rancher/k3s:v1.27.5-k3s1@sha256:62b0b8d1505cffa316ce3ae44889d76f40c2dcbe9c4dce6d4698a8c6188e549a
+  image: rancher/k3s:v1.28.1-k3s1@sha256:acc055c23c303457cf6d54d42de06269cbe26bd8c56554541fb21e6b6a19542d
   command:
     - /bin/k3s
   baseArgs:
