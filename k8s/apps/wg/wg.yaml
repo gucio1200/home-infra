@@ -567,7 +567,7 @@ spec:
         - --agent-image=ghcr.io/jodevsa/wireguard-operator/agent:v1.2.20
         command:
         - /manager
-        image: ghcr.io/jodevsa/wireguard-operator/manager:v1.2.20
+        image: ghcr.io/jodevsa/wireguard-operator/manager:v2.0.0@sha256:64c2c1fa7a4d96ef5a150a29367479afe1b993b7d158289eab279fea9651507c
         livenessProbe:
           httpGet:
             path: /healthz
