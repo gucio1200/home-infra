@@ -16,5 +16,4 @@ resources:
   - home-automation
   - media
   - csi-addons-system
-  - wg
 #  - vcluster
