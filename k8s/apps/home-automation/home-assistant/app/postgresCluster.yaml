@@ -44,7 +44,7 @@ spec:
               topologyKey: kubernetes.io/hostname
               labelSelector:
                 matchLabels:
-                  postgres-operator.crunchydata.com/instance-set: postgres
+                  postgres-operator.crunchydata.com/cluster: home-assistant
   users:
     - name: home-assistant
       databases:
