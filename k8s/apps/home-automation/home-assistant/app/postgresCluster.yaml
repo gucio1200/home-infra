@@ -29,7 +29,7 @@ spec:
         synchronous_commit: "on"
   instances:
     - name: postgres
-      replicas: 1
+      replicas: 2
       dataVolumeClaimSpec:
         accessModes:
           - ReadWriteOnce
