@@ -36,6 +36,12 @@ spec:
         resources:
           requests:
             storage: 5Gi
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            podAffinityTerm:
+              topologyKey: kubernetes.io/hostname
   users:
     - name: home-assistant
       databases:
