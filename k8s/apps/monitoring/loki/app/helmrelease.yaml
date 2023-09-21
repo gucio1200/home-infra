@@ -163,8 +163,6 @@ spec:
                   matchLabels:
                     {{- include "loki.readSelectorLabels" . | nindent 12 }}
                 topologyKey: kubernetes.io/hostname
-      persistence:
-        size: 20Gi
 
     backend:
       replicas: 3
