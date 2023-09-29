@@ -24,7 +24,7 @@ spec:
 
     image:
       repository: ghcr.io/onedr0p/vector
-      tag: 0.32.1-debian@sha256:3da36899112841b8e4b7905be2e478b079c8d3f51437d032ad257461cdb7bbf2
+      tag: 0.33.0-debian@sha256:85449f3961ec0f6fb3881e8fda9a2f20c7ec583a03e9d0f2e4850c424e9e9a35
 
     args: ["--config", "/etc/vector/vector.yaml"]
 
