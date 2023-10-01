@@ -48,6 +48,7 @@ spec:
         default: true
 
       config:
+        allow-snippet-annotations: true
         enable-modsecurity: true
         enable-owasp-modsecurity-crs: true
         http-snippet: |-
