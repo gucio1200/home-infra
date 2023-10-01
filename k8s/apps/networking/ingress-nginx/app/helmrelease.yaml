@@ -47,6 +47,8 @@ spec:
       ingressClassResource:
         default: true
 
+      allowSnippetAnnotations: true
+
       config:
         enable-modsecurity: true
         enable-owasp-modsecurity-crs: true
