@@ -1,0 +1,3 @@
+providerRegex: ^(lb-)\d\d?$
+bypassDnsResolution: true
+replicas: 1

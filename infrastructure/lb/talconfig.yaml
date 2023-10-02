@@ -1,0 +1,103 @@
+---
+clusterName: lb
+allowSchedulingOnMasters: true
+clusterPodNets:
+  - 10.244.0.0/16
+clusterSvcNets:
+  - 10.96.0.0/12
+talosVersion: v1.5.3
+kubernetesVersion: 1.28.2
+endpoint: https://lb.dom.lan:6443
+
+cniConfig:
+  name: none
+#  urls:
+#    - https://raw.githubusercontent.com/gucio1200/homelab/main/talos/cilium/quick-install.yaml
+
+additionalApiServerCertSans:
+  - 192.168.200.1
+
+additionalMachineCertSans:
+  - 192.168.200.1
+  - lb.dom.lan
+
+nodes:
+  - hostname: lb-1
+    disableSearchDomain: true
+    controlPlane: true
+    ipAddress: 192.168.200.10
+    installDisk: /dev/sda
+    nameservers:
+      - 192.168.0.151
+      - 1.1.1.1
+      - 8.8.8.8
+    networkInterfaces:
+      - interface: eth0
+        dhcp: true
+        mtu: 1500
+    patches:
+      - |-
+        machine:
+          install:
+            extraKernelArgs:
+              - pcie_aspm=off
+              - cpufreq.default_governor=performance
+
+controlPlane:
+  inlinePatch:
+    cluster:
+      etcd:
+        extraArgs:
+          listen-metrics-urls: http://0.0.0.0:2381
+          election-timeout: "5000"
+          heartbeat-interval: 250
+      apiServer:
+        admissionControl: []
+      discovery:
+        registries:
+          service:
+            disabled: true
+      scheduler:
+        extraArgs:
+          bind-address: 0.0.0.0
+      controllerManager:
+        extraArgs:
+          bind-address: 0.0.0.0
+      proxy:
+        disabled: true
+        extraArgs:
+          bind-address: 0.0.0.0
+#      extraManifests:
+#        - "https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/v0.7.4/deploy/ha-install.yaml"
+    machine:
+      install:
+        extraKernelArgs:
+          - cpufreq.default_governor=performance
+      files:
+        - content: |
+            [plugins."io.containerd.grpc.v1.cri"]
+              enable_unprivileged_ports = true
+              enable_unprivileged_icmp = true
+          path: /var/cri/conf.d/allow-unpriv-ports.toml
+          op: create
+      kubelet:
+        nodeIP:
+          validSubnets:
+            - 192.168.200.0/24
+        extraArgs:
+          feature-gates: GracefulNodeShutdown=true,CronJobTimeZone=true,NewVolumeManagerReconstruction=false
+          rotate-server-certificates: "true"
+        extraConfig:
+          maxPods: 150
+      time:
+        disabled: false
+        servers:
+          - pool.ntp.org
+      sysctls:
+        fs.inotify.max_user_watches: "1048576"
+        fs.inotify.max_user_instances: "8192"
+      network:
+        extraHostEntries:
+          - ip: 192.168.200.10
+            aliases:
+              - lb.dom.lan
