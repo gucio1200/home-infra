@@ -1,5 +1,4 @@
 ---
----
 cluster:
   name: "lb"
   id: "1"
