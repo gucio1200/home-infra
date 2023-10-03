@@ -8,5 +8,4 @@ resources:
   - coredns
   - reloader
   - node-feature-discovery/ks.yaml
-  - intel-device-plugins/ks.yaml
   - kube-cleanup-operator
