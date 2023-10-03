@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
   - cert-manager
   - kube-system
-  - flux-system
+#  - flux-system
