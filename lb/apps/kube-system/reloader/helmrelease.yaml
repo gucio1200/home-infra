@@ -29,7 +29,7 @@ spec:
   values:
     reloader:
       podMonitor:
-        enabled: true
+        enabled: false
 
       reloadStrategy: annotations
 
