@@ -51,6 +51,7 @@ ingressController:
 
 operator:
   replicas: 1
+  affinity: []
 
 autoDirectNodeRoutes: true
 ipv4NativeRoutingCIDR: 10.244.0.0/16
