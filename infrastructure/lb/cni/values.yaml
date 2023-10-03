@@ -64,16 +64,6 @@ hubble:
   serviceMonitor:
     enabled: false
 
-  relay:
-    enabled: true
-    rollOutPods: true
-
-  ui:
-    enabled: false
-    ingress:
-      enabled: false
-    rollOutPods: false
-
 securityContext:
   capabilities:
     ciliumAgent:
