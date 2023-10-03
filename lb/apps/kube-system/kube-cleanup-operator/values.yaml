@@ -1,0 +1,15 @@
+---
+# Default values
+# https://github.com/lwolf/kube-cleanup-operator/blob/master/deploy/helm/kube-cleanup-operator/values.yaml
+rbac:
+  create: true
+  global: true
+args:
+- --delete-failed-after=5m
+- --delete-successful-after=5m
+- --delete-pending-pods-after=5m
+- --delete-evicted-pods-after=5m
+- --delete-orphaned-pods-after=5m
+- --keep-failures=0
+- --keep-successful=0
+- --legacy-mode=false

@@ -1,0 +1,102 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: disk-clean-cp-0
+  namespace: kube-system
+spec:
+  restartPolicy: Never
+  nodeName: cp-0
+  volumes:
+    - name: rook-data-dir
+      hostPath:
+        path: /var/lib/rook
+  containers:
+    - name: disk-clean
+      image: busybox@sha256:3fbc632167424a6d997e74f52b878d7cc478225cffac6bc977eedfe51c7f4e79
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - name: rook-data-dir
+          mountPath: /node/rook-data
+      command:
+        - /bin/sh
+        - -c
+        - rm -rf /node/rook-data/*
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: disk-clean-cp-1
+  namespace: kube-system
+spec:
+  restartPolicy: Never
+  nodeName: cp-1
+  volumes:
+    - name: rook-data-dir
+      hostPath:
+        path: /var/lib/rook
+  containers:
+    - name: disk-clean
+      image: busybox@sha256:3fbc632167424a6d997e74f52b878d7cc478225cffac6bc977eedfe51c7f4e79
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - name: rook-data-dir
+          mountPath: /node/rook-data
+      command:
+        - /bin/sh
+        - -c
+        - rm -rf /node/rook-data/*
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: disk-clean-cp-2
+  namespace: kube-system
+spec:
+  restartPolicy: Never
+  nodeName: cp-2
+  volumes:
+    - name: rook-data-dir
+      hostPath:
+        path: /var/lib/rook
+  containers:
+    - name: disk-clean
+      image: busybox@sha256:3fbc632167424a6d997e74f52b878d7cc478225cffac6bc977eedfe51c7f4e79
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - name: rook-data-dir
+          mountPath: /node/rook-data
+      command:
+        - /bin/sh
+        - -c
+        - rm -rf /node/rook-data/*
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: disk-clean-cp-3
+  namespace: kube-system
+spec:
+  restartPolicy: Never
+  nodeName: cp-3
+  volumes:
+    - name: rook-data-dir
+      hostPath:
+        path: /var/lib/rook
+  containers:
+    - name: disk-clean
+      image: busybox@sha256:3fbc632167424a6d997e74f52b878d7cc478225cffac6bc977eedfe51c7f4e79
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - name: rook-data-dir
+          mountPath: /node/rook-data
+      command:
+        - /bin/sh
+        - -c
+        - rm -rf /node/rook-data/*

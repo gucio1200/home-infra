@@ -1,0 +1,42 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: reloader
+  namespace: kube-system
+spec:
+  interval: 10m
+  chart:
+    spec:
+      chart: reloader
+      version: 1.0.41
+      sourceRef:
+        kind: HelmRepository
+        name: stakater-charts
+        namespace: flux-system
+      interval: 10m
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    reloader:
+      podMonitor:
+        enabled: true
+
+      reloadStrategy: annotations
+
+      deployment:
+        resources:
+          requests:
+            cpu: 15m
+            memory: 184M
+          limits:
+            memory: 184M
