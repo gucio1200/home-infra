@@ -9,7 +9,7 @@ spec:
   path: "./lb/apps/kube-system/democratic-csi/local-path"
   sourceRef:
     kind: GitRepository
-    name: kube-system
+    name: flux-system
   interval: 10m
   prune: true
   wait: true
