@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: "./k8s/apps/monitoring/kube-prometheus-stack/operator"
+  path: "./lb/apps/monitoring/kube-prometheus-stack/operator"
   prune: true
   sourceRef:
     kind: GitRepository
@@ -21,7 +21,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: "./k8s/apps/monitoring/kube-prometheus-stack/crd"
+  path: "./lb/apps/monitoring/kube-prometheus-stack/crd"
   prune: true
   wait: true
   sourceRef:

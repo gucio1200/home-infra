@@ -94,51 +94,13 @@ alertmanager:
           requests:
             storage: 1Gi
   ingress:
-    enabled: true
-    pathType: Prefix
-    ingressClassName: nginx
-    annotations:
-      hajimari.io/enable: "true"
-      nginx.ingress.kubernetes.io/whitelist-source-range: |
-        10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
-      hajimari.io/appName: "Alert Manager"
-      hajimari.io/icon: mdi:alert-decagram-outline
-    hosts:
-      - &host alert-manager.k8sj.io
-    tls:
-      - hosts:
-          - *host
+    enabled: false
 
 prometheus:
   ingress:
-    enabled: true
-    ingressClassName: nginx
-    annotations:
-      hajimari.io/enable: "true"
-      nginx.ingress.kubernetes.io/whitelist-source-range: |
-        10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
-      hajimari.io/appName: Prometheus
-      hajimari.io/icon: simple-icons:prometheus
-    pathType: Prefix
-    hosts:
-      - &host prometheus.k8sj.io
-    tls:
-      - hosts:
-          - *host
-
+    enabled: false
   prometheusSpec:
     additionalScrapeConfigs:
-    
-    - job_name: minio-job
-      metrics_path: /minio/v2/metrics/cluster
-      scheme: http
-      static_configs:
-        - targets: [s3.dom.lan]
-        
-#    - job_name: openwrt
-#      static_configs:
-#        - targets: [192.168.2.5:9100,192.168.2.6:9100,192.168.2.2:9100]
-        
     - job_name: 'kubernetes-pods'
       kubernetes_sd_configs:
         - role: pod
@@ -166,13 +128,13 @@ prometheus:
     replicas: 1
     replicaExternalLabelName: "__replica__"
     externalLabels:
-      cluster: k8s
+      cluster: lb
     ruleSelectorNilUsesHelmValues: false
     serviceMonitorSelectorNilUsesHelmValues: false
     podMonitorSelectorNilUsesHelmValues: false
     probeSelectorNilUsesHelmValues: false
-    retention: 2d
-    retentionSize: "6GB"
+    retention: 3h
+    retentionSize: "2GB"
     enableAdminAPI: true
     walCompression: true
     resources:
@@ -185,21 +147,13 @@ prometheus:
         spec:
           resources:
             requests:
-              storage: 20Gi
-
-    thanos:
-      image: quay.io/thanos/thanos:v0.32.4@sha256:f020de546269b62d3b7f2b0fe5cd815d632d1e11878708bd0d83a5c3f10747ad
-      objectStorageConfig:
-        name: thanos-objstore-secret
-        key: objstore.yml
-      # renovate: datasource=docker depName=quay.io/thanos/thanos
-      version: "v0.31.0"
+              storage: 5Gi
 
   thanosService:
-    enabled: true
+    enabled: false
 
   thanosServiceMonitor:
-    enabled: true
+    enabled: false
 
 grafana:
   enabled: false
@@ -209,5 +163,3 @@ grafana:
       multicluster:
         etcd:
           enabled: true
-
-
