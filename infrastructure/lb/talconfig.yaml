@@ -38,6 +38,15 @@ nodes:
     patches:
       - |-
         machine:
+          kubelet:
+            extraMounts:
+              - destination: /var/mnt/sata
+                type: bind
+                source: /var/mnt/sata
+                options:
+                  - rbind
+                  - rshared
+                  - rw
           install:
             extraKernelArgs:
               - pcie_aspm=off
