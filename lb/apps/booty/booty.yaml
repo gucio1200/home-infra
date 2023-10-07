@@ -42,7 +42,7 @@ spec:
       containers:
       - name: booty
         imagePullPolicy: Always
-        image: ghcr.io/jeefy/booty:main
+        image: ghcr.io/jeefy/booty:v0.1
         ports:
         - containerPort: 8080
         volumeMounts:
