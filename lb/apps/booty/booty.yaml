@@ -45,6 +45,7 @@ spec:
         image: ghcr.io/jeefy/booty:v0.1
         ports:
         - containerPort: 8080
+        - containerPort: 80
         volumeMounts:
         - name: booty-config
           mountPath: /srv/algernon
