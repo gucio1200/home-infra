@@ -42,10 +42,11 @@ spec:
       containers:
       - name: booty
         imagePullPolicy: Always
-        image: ghcr.io/jeefy/booty:v0.1
+        image: ghcr.io/jeefy/booty:sha256-11f14883c5902c2648996c0f27965913ca044903c861a44c398a325b8fea2da7
         ports:
         - containerPort: 8080
         - containerPort: 80
+        - containerPort: 3030
         volumeMounts:
         - name: booty-config
           mountPath: /srv/algernon
