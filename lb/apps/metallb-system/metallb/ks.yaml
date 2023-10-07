@@ -1,0 +1,38 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/kustomization_v1beta2.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-apps-metallb-operator
+  namespace: flux-system
+spec:
+  path: ./lb/apps/metallb-system/metallb/operator
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 10m
+  retryInterval: 1m
+  timeout: 5m
+  wait: true
+
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/kustomization_v1beta2.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-apps-cert-metallb-crd
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: cluster-apps-metallb-operator
+  path: ./lb/apps/metallb-system/metallb/crd
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  interval: 10m
+  retryInterval: 1m
+  timeout: 5m
+  wait: true
