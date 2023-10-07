@@ -42,7 +42,7 @@ spec:
       containers:
       - name: booty
         imagePullPolicy: Always
-        image: gucio1200/algernon:latest
+        image: ghcr.io/jeefy/booty:main
         ports:
         - containerPort: 3000
         volumeMounts:
@@ -56,23 +56,23 @@ spec:
       - name: booty-config
         configMap:
           name: booty-config
-#---
-#apiVersion: v1
-#kind: Service
-#metadata:
-#  namespace: booty
-#  annotations:
-#    metallb.universe.tf/allow-shared-ip: booty-svc # If you have a metallb setup, you need this to attach two services to the same IP
-#  labels:
-#    app: booty
-#  name: booty-tcp
-#spec:
-#  ports:
-#  - name: http
-#    port: 80
-#    protocol: TCP
-#    targetPort: 3000
-#  selector:
-#    app: booty
-#  type: LoadBalancer
-#  loadBalancerIP: 172.16.99.2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: booty
+  annotations:
+    metallb.universe.tf/allow-shared-ip: booty-svc # If you have a metallb setup, you need this to attach two services to the same IP
+  labels:
+    app: booty
+  name: booty-tcp
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app: booty
+  type: LoadBalancer
+  loadBalancerIP: 172.16.99.2
