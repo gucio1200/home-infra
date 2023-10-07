@@ -8,5 +8,5 @@ resources:
   - monitoring
   - metallb-system
   - lb
-  - booty
+#  - booty
     #  - flux-system
