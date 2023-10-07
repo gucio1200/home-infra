@@ -1,0 +1,78 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: booty-config
+  namespace: booty
+data:
+  boot.ipxe: |
+    #!ipxe
+    set base-url https://github.com/siderolabs/talos/releases/latest/download
+    set boot_params page_poison=1 printk.devkmsg=on slab_nomerge slub_debug=P pti=on talos.platform=metal ${talos_config} initrd=initrd.magic
+    imgfree
+    kernel ${base-url}/vmlinuz-amd64 ${boot_params}
+    initrd ${base-url}/initramfs-amd64.xz
+    echo
+    echo Booting with the following kernel args:
+    echo ${boot_params}
+    echo ${boot_params_addition}
+    boot
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: booty
+  namespace: booty
+  annotations:
+    reloader.stakater.com/auto: "true"
+  labels:
+    app: booty
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: booty
+  template:
+    metadata:
+      labels:
+        app: booty
+    spec:
+      containers:
+      - name: booty
+        imagePullPolicy: Always
+        image: gucio1200/algernon:latest
+        ports:
+        - containerPort: 3000
+        volumeMounts:
+        - name: booty-config
+          mountPath: /srv/algernon
+        resources:
+          limits:
+            cpu: "500m" # This could probably be tuned lower
+            memory: "512Mi" # This could probably be tuned lower
+      volumes:
+      - name: booty-config
+        configMap:
+          name: booty-config
+#---
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  namespace: booty
+#  annotations:
+#    metallb.universe.tf/allow-shared-ip: booty-svc # If you have a metallb setup, you need this to attach two services to the same IP
+#  labels:
+#    app: booty
+#  name: booty-tcp
+#spec:
+#  ports:
+#  - name: http
+#    port: 80
+#    protocol: TCP
+#    targetPort: 3000
+#  selector:
+#    app: booty
+#  type: LoadBalancer
+#  loadBalancerIP: 172.16.99.2
