@@ -6,4 +6,5 @@ resources:
   - kube-system
   - csi-addons-system
   - monitoring
+  - metallb-system
     #  - flux-system
