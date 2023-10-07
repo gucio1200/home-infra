@@ -7,4 +7,5 @@ resources:
   - csi-addons-system
   - monitoring
   - metallb-system
+  - lb
     #  - flux-system
