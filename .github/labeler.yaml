@@ -3,3 +3,4 @@ area/ci:
   - ".github/**/*"
 area/kubernetes:
   - "k8s/**/*"
+  - "lb/**/*"

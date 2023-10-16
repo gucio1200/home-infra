@@ -4,7 +4,7 @@ name: "Flux Diff"
 on:
   pull_request:
     branches: ["main"]
-    paths: ["k8s/**.yaml"]
+    paths: ["k8s/**.yaml", "lb/**.yaml"]
 
 jobs:
   flux-diff:
@@ -14,7 +14,7 @@ jobs:
       pull-requests: write
     strategy:
       matrix:
-        path: ["k8s"]
+        path: ["k8s", "lb"]
         resource: ["helmrelease", "kustomization"]
     steps:
       - name: Generate Token
