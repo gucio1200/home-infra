@@ -13,18 +13,18 @@
   "gitAuthor": "dojob-bot-bot[bot] <130267137+dojob-bot-bot[bot]@users.noreply.github.com>",
   "repositories": ["gucio1200/home-infra"],
   "flux": {
-    "fileMatch": ["k8s/.+\\.ya?ml$"]
+    "fileMatch": ["(k8s|lb)/.+\\.ya?ml$"]
   },
   "helm-values": {
-    "fileMatch": ["k8s/.+\\.ya?ml$"]
+    "fileMatch": ["(k8s|lb)/.+\\.ya?ml$"]
   },
   "kubernetes": {
-    "fileMatch": ["k8s/.+\\.ya?ml$"]
+    "fileMatch": ["(k8s|lb)/.+\\.ya?ml$"]
   },
   "regexManagers": [
     {
       "description": ["Process CRD dependencies - Chart and Github Release are the same version"],
-      "fileMatch": ["k8s/.+\\.ya?ml$"],
+      "fileMatch": ["(k8s|lb)/.+\\.ya?ml$"],
       "matchStrings": [
         "# renovate: registryUrl=(?<registryUrl>\\S+) chart=(?<depName>\\S+)\n.*?(?<currentValue>[^-\\s]*)\n",
       ],
@@ -46,7 +46,7 @@
       "description": ["Raw GitHub URL Regex manager"],
       "fileMatch": [
         "infrastructure/.+\\.ya?ml$",
-        "k8s/.+\\.ya?ml$"
+        "(k8s|lb)/.+\\.ya?ml$"
       ],
       "matchStrings": [
         "https:\\/\\/raw.githubusercontent.com\\/(?<depName>[\\w\\d\\-_]+\\/[\\w\\d\\-_]+)\\/(?<currentValue>[\\w\\d\\.\\-_]+)\\/.*",
