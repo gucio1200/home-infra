@@ -24,6 +24,14 @@ spec:
       repository: ghcr.io/esphome/esphome
       tag: 2023.9.3@sha256:07cbbe0cc9d82d505dedbd40238fd9b800be6f1683d71e1a637456c474f2857e
 
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/control-plane
+                operator: Exist
+
     podAnnotations:
       secret.reloader.stakater.com/reload: esphome-secrets,esphome-deploykey
       k8s.v1.cni.cncf.io/networks: |
