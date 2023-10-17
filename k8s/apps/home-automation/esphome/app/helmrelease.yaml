@@ -30,7 +30,7 @@ spec:
           nodeSelectorTerms:
             - matchExpressions:
               - key: node-role.kubernetes.io/control-plane
-                operator: Exist
+                operator: Exists
 
     podAnnotations:
       secret.reloader.stakater.com/reload: esphome-secrets,esphome-deploykey
