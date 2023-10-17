@@ -42,7 +42,7 @@ spec:
           nodeSelectorTerms:
             - matchExpressions:
               - key: node-role.kubernetes.io/control-plane
-                operator: Exist
+                operator: Exists
 
     podAnnotations:
       k8s.v1.cni.cncf.io/networks: |
