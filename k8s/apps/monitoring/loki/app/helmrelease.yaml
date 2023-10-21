@@ -95,6 +95,7 @@ spec:
 
         ingester:
           max_chunk_age: 1h
+          autoforget_unhealthy: true
           lifecycler:
             ring:
               kvstore:
