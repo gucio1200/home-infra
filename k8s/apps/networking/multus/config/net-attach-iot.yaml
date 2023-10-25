@@ -23,8 +23,20 @@ spec:
               { "dst": "192.168.0.0/16", "gw": "192.168.0.151" }
             ]
           }
+        },
+        {
+          "type": "macvlan",
+          "master": "eth0",
+          "mode": "bridge",
+          "capabilities": {
+            "ips": true
+          },
+          "ipam": {
+            "type": "static",
+            "routes": [
+              { "dst": "192.168.0.0/16", "gw": "192.168.0.151" }
+            ]
+          }
         }
       ]
     }
-
-
