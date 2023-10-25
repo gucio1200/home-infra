@@ -32,9 +32,14 @@ nodes:
       - 1.1.1.1
       - 8.8.8.8
     networkInterfaces:
-      - interface: eth0
+      - interface: br0
         dhcp: true
         mtu: 1500
+        bridge:
+          stp:
+            enabled: true
+          interfaces:
+            - enp1s0
     patches:
       - |-
         machine:
