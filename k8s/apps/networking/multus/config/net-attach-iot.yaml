@@ -40,9 +40,8 @@ spec:
       "name": "kubevirt",
       "plugins": [
         {
-          "type": "macvlan",
-          "master": "eth0",
-          "mode": "bridge",
+          "type": "bridge",
+          "bridge": "br0",
           "ipam": {
             "type": "host-local",
             "subnet": "192.168.0.0/16",
