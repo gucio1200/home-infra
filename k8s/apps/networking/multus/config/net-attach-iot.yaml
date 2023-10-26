@@ -45,8 +45,6 @@ spec:
           "ipam": {
             "type": "host-local",
             "subnet": "192.168.0.0/16",
-            "rangeStart": "192.168.5.1",
-            "rangeEnd": "192.168.5.100",
             "gateway": "192.168.0.151"
           }
         }
