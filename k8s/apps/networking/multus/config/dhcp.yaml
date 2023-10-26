@@ -37,6 +37,7 @@ spec:
       containers:
       - name: kube-dhcp
         image: quay.io/aneeshkp/cni-dhcp-daemon:latest
+        command: ["./dhcp", "daemon", "-hostprefix", "/host", "-broadcast", "true"]
         resources:
           requests:
             cpu: "100m"
