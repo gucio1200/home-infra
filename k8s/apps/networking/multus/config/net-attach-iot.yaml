@@ -40,9 +40,8 @@ spec:
       "name": "kubevirt",
       "plugins": [
         {
-          "type": "macvlan",
-          "master": "br0",
-          "mode": "bridge",
+          "type": "bridge",
+          "bridge": "br0",
           "ipam": { "type": "dhcp" }
         }
       ]
