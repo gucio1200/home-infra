@@ -43,7 +43,7 @@ spec:
           "type": "bridge",
           "bridge": "br0",
           "ipam": {
-            "type": "dhcp",
+            "type": "dhcp"
           }
         }
       ]
