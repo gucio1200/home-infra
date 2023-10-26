@@ -4,3 +4,4 @@ kind: Kustomization
 namespace: networking
 resources:
   - ./net-attach-iot.yaml
+  - ./dhcp.yaml
