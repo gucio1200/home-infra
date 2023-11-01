@@ -26,7 +26,7 @@ apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
   name: node-red
-  namespace: selfhosted
+  namespace: home-automation
 spec:
   sourcePVC: data-node-red-0
   trigger:
