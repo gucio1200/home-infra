@@ -66,7 +66,6 @@ spec:
     ingress:
       main:
         enabled: true
-        className: "internal-nginx"
         hosts:
           - host: &host "nodered.k8sj.io"
             paths:
