@@ -73,7 +73,7 @@ spec:
           hajimari.io/icon: mdi:resistor-nodes
         enabled: true
         hosts:
-          - host: &host "nodered.k8sj.io"
+          - host: &host nodered.k8sj.io
             paths:
               - path: /
                 service:
