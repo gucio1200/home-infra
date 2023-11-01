@@ -43,4 +43,3 @@ spec:
       daily: 14
     volumeSnapshotClassName: csi-ceph-blockpool
     storageClassName: ceph-block
-    cacheStorageClassName: local-hostpath
