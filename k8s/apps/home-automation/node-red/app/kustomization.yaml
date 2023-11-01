@@ -9,10 +9,10 @@ resources:
 commonLabels:
   app.kubernetes.io/name: node-red
   app.kubernetes.io/instance: node-red
-#configMapGenerator:
-#  - name: node-red-configmap
-#    files:
-#      - config/settings.js
+configMapGenerator:
+  - name: node-red-configmap
+    files:
+      - config/settings.js
 generatorOptions:
   disableNameSuffixHash: true
   annotations:
