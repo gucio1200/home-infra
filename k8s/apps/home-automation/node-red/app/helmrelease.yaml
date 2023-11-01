@@ -65,6 +65,10 @@ spec:
 
     ingress:
       main:
+        ingressClassName: "nginx"
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/icon: mdi:resistor-nodes
         enabled: true
         hosts:
           - host: &host "nodered.k8sj.io"
