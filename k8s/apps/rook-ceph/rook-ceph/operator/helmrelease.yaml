@@ -137,12 +137,6 @@ spec:
               cpu: 25m
             limits:
               memory: 256Mi
-
-      enableRbdDriver: true
-      enableCephfsSnapshotter: true
-      enableNFSSnapshotter: false
-      enableRBDSnapshotter: true
-      enableCephfsDriver: true
       
     monitoring:
       enabled: true
