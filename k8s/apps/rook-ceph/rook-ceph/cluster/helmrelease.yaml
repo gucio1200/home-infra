@@ -149,7 +149,7 @@ spec:
         disable: false
 
     cephBlockPoolsVolumeSnapshotClass:
-      enabled: false
+      enabled: true
 
     cephBlockPools:
       - name: ceph-blockpool
