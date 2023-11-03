@@ -37,3 +37,5 @@ spec:
     repository: esphome-restic-secret
     retain:
       daily: 14
+    volumeSnapshotClassName: csi-ceph-blockpool
+    storageClassName: ceph-block
