@@ -149,9 +149,9 @@ spec:
         disable: false
 
     cephBlockPoolsVolumeSnapshotClass:
-      enabled: true
+      enabled: false
     cephFileSystemVolumeSnapshotClass:
-      enabled: true
+      enabled: false
 
     cephBlockPools:
       - name: ceph-blockpool
