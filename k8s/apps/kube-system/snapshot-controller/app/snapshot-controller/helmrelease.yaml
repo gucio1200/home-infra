@@ -23,7 +23,7 @@ spec:
     controller:
       args:
         leaderElection: true
-        leaderElectionNamespace: "system-controllers"
+        leaderElectionNamespace: "kube-system"
         httpEndpoint: ":8080"
         enableDistributedSnapshotting: true
 
