@@ -150,6 +150,8 @@ spec:
 
     cephBlockPoolsVolumeSnapshotClass:
       enabled: true
+    cephFileSystemVolumeSnapshotClass:
+      enabled: true
 
     cephBlockPools:
       - name: ceph-blockpool
