@@ -1,0 +1,16 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: wireguard-operator
+  namespace: flux-system
+spec:
+  interval: 30m
+  url: https://github.com/jodevsa/wireguard-operator
+  ref:
+    tag: v2.0.10
+  ignore: |
+    # exclude all
+    /*
+    # include files
+    !release.yaml
