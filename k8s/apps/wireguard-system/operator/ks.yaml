@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-wg-operator
   namespace: flux-system
 spec:
-  path: ./release.yaml
+  path: ./
   prune: true
   sourceRef:
     kind: GitRepository
