@@ -14,7 +14,7 @@ metadata:
   namespace: cert-manager
 spec:
   isCA: true
-  commonName: k8sj.io
+  commonName: "ROOT CA TEST"
   secretName: selfsigned-ca-secret
   privateKey:
     algorithm: ECDSA
@@ -37,10 +37,10 @@ spec:
 apiVersion: trust.cert-manager.io/v1alpha1
 kind: Bundle
 metadata:
-  name: k8sj.io.pem
+  name: internal-ca
 spec:
   sources:
-  - useDefaultCAs: true
+  - useDefaultCAs: false
   - secret:
       name: "selfsigned-ca-secret"
       key: "tls.crt"
