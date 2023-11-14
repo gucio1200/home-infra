@@ -17,4 +17,5 @@ resources:
   - media
   - csi-addons-system
   - wireguard-system
+  - test
 #  - vcluster
