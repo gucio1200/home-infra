@@ -37,7 +37,7 @@ spec:
 apiVersion: trust.cert-manager.io/v1alpha1
 kind: Bundle
 metadata:
-  name: k8sj.io
+  name: k8sj.io.pem
 spec:
   sources:
   - useDefaultCAs: true
@@ -46,4 +46,4 @@ spec:
       key: "tls.crt"
   target:
     configMap:
-      key: "k8sj.io.pem"
+      key: "ca.crt"
