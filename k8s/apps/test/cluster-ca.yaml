@@ -32,3 +32,18 @@ metadata:
 spec:
   ca:
     secretName: selfsigned-ca-secret
+
+---
+apiVersion: trust.cert-manager.io/v1alpha1
+kind: Bundle
+metadata:
+  name: k8sj.io
+spec:
+  sources:
+  - useDefaultCAs: true
+  - secret:
+      name: "selfsigned-ca-secret"
+      key: "tls.crt"
+  target:
+    configMap:
+      key: "k8sj.io.pem"
