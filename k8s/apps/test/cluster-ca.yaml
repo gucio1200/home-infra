@@ -17,8 +17,8 @@ spec:
   commonName: "ROOT CA TEST"
   secretName: selfsigned-ca-secret
   privateKey:
-    algorithm: ECDSA
-    size: 256
+    algorithm: RSA
+    size: 4096
   issuerRef:
     name: selfsigned-issuer
     kind: ClusterIssuer
