@@ -27,6 +27,10 @@ nodes:
     controlPlane: true
     ipAddress: 192.168.200.10
     installDisk: /dev/sda
+    machineDisks:
+      - device: /dev/sdb
+        partitions:
+          - mountpoint: /var/mnt/sata
     nameservers:
       - 192.168.0.151
       - 1.1.1.1
@@ -84,6 +88,10 @@ controlPlane:
 #      extraManifests:
 #        - "https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/v0.7.6/deploy/ha-install.yaml"
     machine:
+      features:
+        kubePrism:
+          enabled: true
+          port: 7445
       install:
         extraKernelArgs:
           - cpufreq.default_governor=performance
