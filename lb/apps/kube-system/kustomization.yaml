@@ -10,4 +10,4 @@ resources:
   - node-feature-discovery/ks.yaml
   - kube-cleanup-operator
   - democratic-csi/ks.yaml
-#  - external-secrets
+  - external-secrets/ks.yaml
