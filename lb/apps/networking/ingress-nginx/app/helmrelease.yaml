@@ -25,7 +25,7 @@ spec:
       service:
         enabled: true
         type: LoadBalancer
-        loadBalancerIP: 172.16.99.105
+        loadBalancerIP: 172.16.99.5
         externalTrafficPolicy: Cluster
 
       publishService:
