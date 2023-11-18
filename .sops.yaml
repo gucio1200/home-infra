@@ -1,5 +1,5 @@
 creation_rules:
-    - path_regex: (talos\/flux|k8s)\/.*\.sops\.ya?ml
+    - path_regex: (talos\/flux|k8s|lb)\/.*\.sops\.ya?ml
       encrypted_regex: ^(data|stringData)$
       key_groups:
         - age:
