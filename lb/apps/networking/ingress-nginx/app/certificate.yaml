@@ -1,0 +1,15 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: k8sj-io
+  namespace: networking
+spec:
+  secretName: k8sj-io-tls
+  issuerRef:
+    name: le-prod
+    kind: ClusterIssuer
+  commonName: k8sj.io
+  dnsNames:
+    - k8sj.io
+    - "*.k8sj.io"
