@@ -177,9 +177,91 @@ controlPlane:
 #      extraManifests:
 #        - "https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/v0.7.6/deploy/ha-install.yaml"
     machine:
+      registries:
+        mirrors:
+          docker.io:
+            endpoints:
+              - https://reg.k8sj.io/v2/docker.io
+            overridePath: true
+          ghcr.io:
+            endpoints:
+              - https://reg.k8sj.io/v2/ghcr.io
+            overridePath: true
+          quay.io:
+            endpoints:
+              - https://reg.k8sj.io/v2/quay.io
+            overridePath: true
+          gcr.io:
+            endpoints:
+              - https://reg.k8sj.io/v2/gcr.io
+            overridePath: true
+          registry.k8s.io:
+            endpoints:
+              - https://reg.k8sj.io/v2/registry.k8s.io
+            overridePath: true
+          public.ecr.aws:
+            endpoints:
+              - https://reg.k8sj.io/v2/public.ecr.aws
+            overridePath: true
       install:
         extraKernelArgs:
           - cpufreq.default_governor=performance
+      files:
+        - content: |
+            [plugins."io.containerd.grpc.v1.cri"]
+              enable_unprivileged_ports = true
+              enable_unprivileged_icmp = true
+          path: /var/cri/conf.d/allow-unpriv-ports.toml
+          op: create
+      kubelet:
+        nodeIP:
+          validSubnets:
+            - 192.168.2.0/24
+        extraArgs:
+          feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true,EphemeralContainers=true,ServerSideApply=true
+          rotate-server-certificates: "true"
+      time:
+        disabled: false
+        servers:
+          - pool.ntp.org
+      sysctls:
+        fs.inotify.max_user_watches: "1048576"
+        fs.inotify.max_user_instances: "8192"
+      network:
+        extraHostEntries:
+          - ip: 172.16.99.3
+            aliases:
+              - k8s.dom.lan
+
+worker:
+  inlinePatch:
+    machine:
+      registries:
+        mirrors:
+          docker.io:
+            endpoints:
+              - https://reg.k8sj.io/v2/docker.io
+            overridePath: true
+          ghcr.io:
+            endpoints:
+              - https://reg.k8sj.io/v2/ghcr.io
+            overridePath: true
+          quay.io:
+            endpoints:
+              - https://reg.k8sj.io/v2/quay.io
+            overridePath: true
+          gcr.io:
+            endpoints:
+              - https://reg.k8sj.io/v2/gcr.io
+            overridePath: true
+          registry.k8s.io:
+            endpoints:
+              - https://reg.k8sj.io/v2/registry.k8s.io
+            overridePath: true
+          public.ecr.aws:
+            endpoints:
+              - https://reg.k8sj.io/v2/public.ecr.aws
+            overridePath: true
       files:
         - content: |
             [plugins."io.containerd.grpc.v1.cri"]
