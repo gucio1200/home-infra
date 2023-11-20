@@ -53,3 +53,4 @@ resources:
   - kubernetes-csi-addons.yaml
   - wireguard-operator.yaml
   - traefik.yaml
+  - linkerd.yaml
