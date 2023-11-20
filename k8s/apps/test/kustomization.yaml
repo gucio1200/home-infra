@@ -3,4 +3,7 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - cluster-ca.yaml
-  - deployment.yaml
+#  - deployment.yaml
+  - helmrelease-podinfo.yaml
+  - helmrelease-podinfo2.yaml
+  - helmrelease-traefik.yaml

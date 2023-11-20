@@ -52,3 +52,4 @@ resources:
   - crunchydata.yaml
   - kubernetes-csi-addons.yaml
   - wireguard-operator.yaml
+  - traefik.yaml
