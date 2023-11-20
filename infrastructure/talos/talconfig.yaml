@@ -220,6 +220,8 @@ controlPlane:
         extraArgs:
           feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true,EphemeralContainers=true,ServerSideApply=true
           rotate-server-certificates: "true"
+        extraConfig:
+          maxPods: 150
       time:
         disabled: false
         servers:
@@ -276,6 +278,8 @@ worker:
         extraArgs:
           feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true,EphemeralContainers=true,ServerSideApply=true
           rotate-server-certificates: "true"
+        extraConfig:
+          maxPods: 150
       time:
         disabled: false
         servers:
