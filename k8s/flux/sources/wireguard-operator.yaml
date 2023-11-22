@@ -8,7 +8,7 @@ spec:
   interval: 30m
   url: https://github.com/jodevsa/wireguard-operator
   ref:
-    tag: v2.0.14
+    tag: v2.0.15
   ignore: |
     # exclude all
     /*
