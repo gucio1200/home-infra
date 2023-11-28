@@ -19,4 +19,5 @@ resources:
   - wireguard-system
   - test
   - linkerd
+  - linkerd-viz
 #  - vcluster
