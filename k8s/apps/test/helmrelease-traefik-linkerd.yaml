@@ -19,6 +19,9 @@ spec:
     deployment:
       podAnnotations:
         linkerd.io/inject: enabled
+    service:
+      annotations:
+        linkerd.io/inject: enabled
     ingressClass:
       enabled: true
       isDefaultClass: false
