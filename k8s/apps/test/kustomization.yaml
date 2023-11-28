@@ -7,3 +7,4 @@ resources:
   - helmrelease-podinfo.yaml
   - helmrelease-podinfo2.yaml
   - helmrelease-traefik.yaml
+  - helmrelease-traefik-linkerd.yaml
