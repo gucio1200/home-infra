@@ -46,3 +46,35 @@ spec:
     controllerLogLevel: info
     controllerLogFormat: plain
     enablePodAntiAffinity: true
+
+    policyController:
+      # -- The default allow policy to use when no `Server` selects a pod.  One of: "all-authenticated",
+      # "all-unauthenticated", "cluster-authenticated", "cluster-unauthenticated", "deny"
+      # @default -- "all-unauthenticated"
+      defaultAllowPolicy: "all-unauthenticated"
+
+      logLevel: debug
+
+      probeNetworks:
+        - 0.0.0.0/0
+
+    proxyInit:
+      iptablesMode: nft
+      # -- Default set of outbound ports to skip via iptables
+      # - Galera (4567,4568)
+      # k3s issue https://github.com/linkerd/linkerd2/issues/7970
+      ignoreOutboundPorts: "4567,4568,6443"
+
+    # proxy configuration
+    proxy:
+      # -- Enable service profiles for non-Kubernetes services
+      enableExternalProfiles: true
+      # -- Default set of opaque ports
+      # - SMTP (25,587) server-first
+      # - MYSQL (3306) server-first
+      # - Galera (4444) server-first
+      # - PostgreSQL (5432) server-first
+      # - Redis (6379) server-first
+      # - ElasticSearch (9300) server-first
+      # - Memcached (11211) clients do not issue any preamble, which breaks detection
+      opaquePorts: "25,587,3306,4444,5432,6379,9300,11211"
