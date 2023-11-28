@@ -42,7 +42,7 @@ spec:
     podAnnotations:
       configmap.reloader.stakater.com/reload: "linkerd-identity-trust-roots"
     clusterDomain: cluster.local
-    clusterNetworks: "10.244.0.0/16, 10.96.0.0/12"
+    clusterNetworks: "10.244.0.0/16,10.96.0.0/12"
     controllerLogLevel: info
     controllerLogFormat: plain
     enablePodAntiAffinity: true
