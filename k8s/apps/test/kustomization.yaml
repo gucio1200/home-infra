@@ -6,5 +6,6 @@ resources:
 #  - deployment.yaml
   - helmrelease-podinfo.yaml
   - helmrelease-podinfo2.yaml
+  - helmrelease-podinfo-linkerd.yaml
   - helmrelease-traefik.yaml
   - helmrelease-traefik-linkerd.yaml
