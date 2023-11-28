@@ -21,6 +21,9 @@ spec:
     ui:
       color: "#34577c"
       message: "Linkerd"
+    service:
+      annotations:
+        linkerd.io/inject: enabled
     ingress:
       enabled: true
       className: "traefik-linkerd"
