@@ -19,7 +19,7 @@ spec:
     prometheusUrl: "http://thanos-query.monitoring:9090"
     grafanaUrl: "http://grafana.monitoring.svc:80"
     jaegerUrl: ""
-   metricsAPI:
+    metricsAPI:
       logLevel: info
     tap:
       resources:
