@@ -34,6 +34,10 @@ spec:
         namespace: flux-system
       interval: 10m
   values:
+    deploymentStrategy:
+      rollingUpdate:
+        maxUnavailable: 25%
+        maxSurge: 25%
     identity:
       externalCA: true
       issuer:
