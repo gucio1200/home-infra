@@ -25,7 +25,7 @@ spec:
       enabled: true
       className: "traefik-linkerd"
       annotations:
-        ingress.kubernetes.io/custom-request-headers: l5d-dst-override:podinfo-linkerd:80
+        ingress.kubernetes.io/custom-request-headers: l5d-dst-override:podinfo-linkerd.test.svc.cluster.local:80
     hosts:
       - host: podinfo-linkerd.test
         paths:
