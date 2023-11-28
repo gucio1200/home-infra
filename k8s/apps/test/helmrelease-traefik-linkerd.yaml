@@ -17,7 +17,7 @@ spec:
       interval: 10m
   values:
     deployment:
-      annotations:
+      podAnnotations:
         linkerd.io/inject: enabled
     ingressClass:
       enabled: true
