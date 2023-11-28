@@ -20,4 +20,5 @@ resources:
   - test
   - linkerd
   - linkerd-viz
+  - linkerd-jaeger
 #  - vcluster

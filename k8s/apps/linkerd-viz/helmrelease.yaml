@@ -18,7 +18,7 @@ spec:
   values:
     prometheusUrl: "http://thanos-query.monitoring:9090"
     grafanaUrl: "http://grafana.monitoring.svc:80"
-    jaegerUrl: ""
+    jaegerUrl: "jaeger.linkerd-jaeger.svc:16686"
     metricsAPI:
       logLevel: info
     tap:
