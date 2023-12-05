@@ -12,7 +12,7 @@ spec:
         path: /var/lib/rook
   containers:
     - name: disk-clean
-      image: busybox@sha256:11898760e1e5bb9379d908c7b54a9ec67eeae589b7391abb00501084595dc32f
+      image: busybox@sha256:6cd7c0a7db6ba8f4c162d2dfb81ceb7b626ce5b6bf1dc0bdc03a0cf543688057
       securityContext:
         privileged: true
       volumeMounts:
@@ -38,7 +38,7 @@ spec:
         path: /var/lib/rook
   containers:
     - name: disk-clean
-      image: busybox@sha256:11898760e1e5bb9379d908c7b54a9ec67eeae589b7391abb00501084595dc32f
+      image: busybox@sha256:6cd7c0a7db6ba8f4c162d2dfb81ceb7b626ce5b6bf1dc0bdc03a0cf543688057
       securityContext:
         privileged: true
       volumeMounts:
@@ -64,7 +64,7 @@ spec:
         path: /var/lib/rook
   containers:
     - name: disk-clean
-      image: busybox@sha256:11898760e1e5bb9379d908c7b54a9ec67eeae589b7391abb00501084595dc32f
+      image: busybox@sha256:6cd7c0a7db6ba8f4c162d2dfb81ceb7b626ce5b6bf1dc0bdc03a0cf543688057
       securityContext:
         privileged: true
       volumeMounts:
@@ -90,7 +90,7 @@ spec:
         path: /var/lib/rook
   containers:
     - name: disk-clean
-      image: busybox@sha256:11898760e1e5bb9379d908c7b54a9ec67eeae589b7391abb00501084595dc32f
+      image: busybox@sha256:6cd7c0a7db6ba8f4c162d2dfb81ceb7b626ce5b6bf1dc0bdc03a0cf543688057
       securityContext:
         privileged: true
       volumeMounts:
