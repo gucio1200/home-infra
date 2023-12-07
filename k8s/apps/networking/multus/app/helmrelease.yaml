@@ -50,7 +50,7 @@ spec:
     cni:
       image:
         repository: ghcr.io/angelnu/cni-plugins
-        tag: 1.3.0
+        tag: 1.4.0@sha256:9475eed4c370ec031107b085f34118787de97073acfc7c953d2bace07aca85a2
 
       paths:
         config: /etc/cni/net.d
