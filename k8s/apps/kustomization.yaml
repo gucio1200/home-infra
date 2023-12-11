@@ -17,8 +17,3 @@ resources:
   - media
   - csi-addons-system
   - wireguard-system
-  - test
-  - linkerd
-  - linkerd-viz
-  - linkerd-jaeger
-#  - vcluster
