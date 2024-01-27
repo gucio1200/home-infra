@@ -24,11 +24,11 @@ spec:
 
     image:
       repository: public.ecr.aws/docker/library/eclipse-mosquitto
-      tag: 2.0.18@sha256:fa9822d3e9bdb12c80f6cb7ddd22922b26c1cd4ffa071815242ac156f9559d7d
+      tag: 2.0.18@sha256:2f977d2d99c5c7cb0ad7a489cfee2d5607c8cabd49224c61dac05270f5f2ea0a
 
     initContainers:
       copy-config:
-        image: public.ecr.aws/docker/library/eclipse-mosquitto:2.0.18@sha256:fa9822d3e9bdb12c80f6cb7ddd22922b26c1cd4ffa071815242ac156f9559d7d
+        image: public.ecr.aws/docker/library/eclipse-mosquitto:2.0.18@sha256:2f977d2d99c5c7cb0ad7a489cfee2d5607c8cabd49224c61dac05270f5f2ea0a
         command:
           - "/bin/sh"
           - -c
