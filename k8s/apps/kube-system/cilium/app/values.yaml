@@ -64,3 +64,4 @@ hubble:
 ipv6:
   enabled: false
 tunnel: disabled
+devices: br0,bond0
