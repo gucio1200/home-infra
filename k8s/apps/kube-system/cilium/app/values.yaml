@@ -64,3 +64,4 @@ hubble:
 ipv6:
   enabled: false
 routingMode: native
+devices: br0,bond0
