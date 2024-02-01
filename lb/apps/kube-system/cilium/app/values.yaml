@@ -54,7 +54,10 @@ operator:
 
 autoDirectNodeRoutes: true
 ipv4NativeRoutingCIDR: 10.244.0.0/16
-tunnel: "disabled"
+routingMode: native
+devices: "b+"
+k8sNetworkPolicy:
+  enabled: false
 containerRuntime:
   integration: containerd
 
