@@ -63,5 +63,4 @@ hubble:
             - *host
 ipv6:
   enabled: false
-routingMode: native
-devices: br0,bond0
+tunnel: disabled
