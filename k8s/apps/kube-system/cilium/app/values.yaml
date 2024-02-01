@@ -65,3 +65,5 @@ ipv6:
   enabled: false
 tunnel: disabled
 devices: "b+"
+k8sNetworkPolicy:
+  enabled: false
