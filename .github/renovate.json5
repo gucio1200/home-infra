@@ -3,6 +3,12 @@
   "extends": [
     "github>gucio1200/renovate-config",
     "github>gucio1200/renovate-config:automerge-github-actions",
+    "github>gucio1200/home-infra//.github/renovate/allowedVersions.json5",
+    "github>gucio1200/home-infra//.github/renovate/autoMerge.json5",
+    "github>gucio1200/home-infra//.github/renovate/versioning.json5",
+    "github>gucio1200/home-infra//.github/renovate/groups.json5",
+    "github>gucio1200/home-infra//.github/renovate/clusters.json5",
+    "github>gucio1200/home-infra//.github/renovate/grafanaDashboards.json5",
   ],
   "flux": {
     "fileMatch": ["(k8s|lb)/.+\\.ya?ml$"]
