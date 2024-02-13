@@ -1,0 +1,15 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  packageRules: [
+    {
+      description: "Separate PRs for main cluster",
+      matchFileNames: ["**/k8s/**"],
+      additionalBranchPrefix: "main-",
+    },
+    {
+      description: "Separate PRs for nas cluster",
+      matchFileNames: ["**/lb/**"],
+      additionalBranchPrefix: "lb-",
+    },
+  ],
+}
