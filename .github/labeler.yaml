@@ -8,12 +8,10 @@ area/kubernetes:
       - any-glob-to-any-file: 
         - "k8s/**/*"
         - "lb/**/*"
-
 # Cluster
 cluster/main:
   - changed-files:
       - any-glob-to-any-file: k8s/**/*
-
 cluster/lb:
   - changed-files:
       - any-glob-to-any-file: lb/**/*
