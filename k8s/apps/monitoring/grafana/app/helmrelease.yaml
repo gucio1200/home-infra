@@ -36,7 +36,7 @@ spec:
       default:
         ceph-cluster:
           gnetId: 2842
-          revision: 16
+          revision: 17
           datasource: Prometheus
         ceph-osd:
           gnetId: 5336
