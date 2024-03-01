@@ -33,8 +33,10 @@ spec:
     pspEnable: false
 
     csi:
+      provisioner:
+        image: registry.k8s.io/sig-storage/csi-provisioner:v4.0.0
       csiAddons:
-        enabled: true
+        enabled: false
 
       enableLiveness: true
       serviceMonitor:
