@@ -5,3 +5,4 @@ namespace: wireguard-system
 resources:
   - server.yaml
   - openwrt.yaml
+  - gucio-tp.yaml
