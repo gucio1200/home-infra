@@ -18,7 +18,6 @@ spec:
   values:
     podAnnotations:
       linkerd.io/inject: enabled
-      config.linkerd.io/default-inbound-policy: deny
     ui:
       color: "#34577c"
       message: "Linkerd"
