@@ -17,3 +17,6 @@ resources:
   - media
   - csi-addons-system
   - wireguard-system
+  - linkerd
+  - linkerd-viz
+  - test

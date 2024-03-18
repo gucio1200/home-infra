@@ -1,0 +1,52 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: linkerd-viz
+  namespace: linkerd-viz
+spec:
+  interval: 10m
+  chart:
+    spec:
+      chart: linkerd-viz
+      version: 30.12.7
+      sourceRef:
+        kind: HelmRepository
+        name: linkerd
+        namespace: flux-system
+      interval: 10m
+  values:
+    prometheusUrl: "http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090"
+    grafanaUrl: "http://grafana.monitoring.svc.cluster.local:80"
+    jaegerUrl: "jaeger.linkerd-jaeger.svc.cluster.local:16686"
+    metricsAPI:
+      logLevel: info
+    tap:
+      resources:
+        cpu:
+          limit: 50m
+          request: 10m
+        memory:
+          limit: 100Mi
+          request: 50Mi
+    tapInjector:
+      resources:
+        cpu:
+          limit: 50m
+          request: 10m
+        memory:
+          limit: 100Mi
+          request: 50Mi
+    dashboard:
+      resources:
+        cpu:
+          limit: 50m
+          request: 10m
+        memory:
+          limit: 100Mi
+          request: 50Mi
+    grafana:
+      enabled: false
+    # https://linkerd.io/2.12/tasks/external-prometheus/
+    prometheus:
+      enabled: false
