@@ -80,6 +80,6 @@ spec:
 
     volumeClaimTemplates:
       - name: data
-        mountPath: /mosquitto/data
+        mountPath: /data
         accessMode: ReadWriteOnce
         size: 512Mi
