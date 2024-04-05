@@ -6,3 +6,4 @@ resources:
 #  - deployment.yaml
   - helmrelease-podinfo.yaml
   - helmrelease-podinfo-linkerd.yaml
+  - np.yaml
