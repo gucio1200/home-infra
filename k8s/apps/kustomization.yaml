@@ -20,3 +20,4 @@ resources:
   - linkerd
   - linkerd-viz
   - test
+  - test-ingress
