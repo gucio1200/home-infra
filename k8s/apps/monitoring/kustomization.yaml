@@ -6,4 +6,5 @@ resources:
   - ./kube-prometheus-stack/ks.yaml
   - ./grafana/ks.yaml
   - ./vector/ks.yaml
+  - ./loki/ks.yaml
   - smartctl-exporter
