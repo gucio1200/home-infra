@@ -86,7 +86,7 @@ controlPlane:
         extraArgs:
           bind-address: 0.0.0.0
 #      extraManifests:
-#        - "https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/v0.8.1/deploy/ha-install.yaml"
+#        - "https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/v0.8.2/deploy/ha-install.yaml"
     machine:
       features:
         kubePrism:
