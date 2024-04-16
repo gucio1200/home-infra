@@ -5,9 +5,7 @@ metadata:
   namespace: test2
   name: linkerd-podinfo
 spec:
-  podSelector:
-    matchExpressions:
-    - {key: app.kubernetes.io/name, operator: In, values: [podinfo-linkerd, test-svc]}
+  podSelector: {}
   port: 9898
 
 ---
