@@ -1,0 +1,53 @@
+---
+apiVersion: policy.linkerd.io/v1beta1
+kind: Server
+metadata:
+  namespace: test2
+  name: linkerd-podinfo
+spec:
+  podSelector:
+    matchExpressions:
+    - {key: app.kubernetes.io/name, operator: In, values: [podinfo-linkerd, test-svc]}
+  port: 9898
+
+---
+apiVersion: policy.linkerd.io/v1alpha1
+kind: MeshTLSAuthentication
+metadata:
+  name: authors-get-authn
+  namespace: test2
+spec:
+  identities:
+    - "traefik-linkerd.test-ingress.serviceaccount.identity.linkerd.cluster.local"
+
+---
+apiVersion: policy.linkerd.io/v1alpha1
+kind: AuthorizationPolicy
+metadata:
+  name: svc-acc-policy
+  namespace: test2
+spec:
+  targetRef:
+    group: policy.linkerd.io
+    kind: Server
+    name: linkerd-podinfo
+  requiredAuthenticationRefs:
+    - name: authors-get-authn
+      kind: MeshTLSAuthentication
+      group: policy.linkerd.io
+
+#---
+#apiVersion: policy.linkerd.io/v1alpha1
+#kind: AuthorizationPolicy
+#metadata:
+#  name: svc-acc-policy
+#  namespace: test2
+#spec:
+#  targetRef:
+#    group: policy.linkerd.io
+#    kind: Server
+#    name: linkerd-podinfo
+#  requiredAuthenticationRefs:
+#    - name: traefik-linkerd
+#      kind: ServiceAccount
+#      namespace: test-ingress
