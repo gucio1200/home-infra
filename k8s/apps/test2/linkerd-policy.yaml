@@ -19,6 +19,7 @@ metadata:
 spec:
   identities:
     - "traefik-linkerd.test-ingress.serviceaccount.identity.linkerd.cluster.local"
+    - "tap.linkerd-viz.serviceaccount.identity.linkerd.cluster.local"
 
 ---
 apiVersion: policy.linkerd.io/v1alpha1
