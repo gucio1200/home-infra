@@ -3,5 +3,6 @@ kind: Namespace
 metadata:
   name: test2
   annotations:
-    linkerd.io/inject: enabled
-    config.linkerd.io/default-inbound-policy: deny
+    linkerd.io/inject: enabled #inject linkerd
+    config.linkerd.io/default-inbound-policy: deny #Set default policy for namespace
+    config.linkerd.io/proxy-await: enabled #Wait for proxy to start serving traffic
