@@ -14,7 +14,7 @@ spec:
 apiVersion: policy.linkerd.io/v1alpha1
 kind: MeshTLSAuthentication
 metadata:
-  name: authors-get-authn
+  name: mtls-auth
   namespace: test2
 spec:
   identities:
@@ -25,7 +25,7 @@ spec:
 apiVersion: policy.linkerd.io/v1alpha1
 kind: AuthorizationPolicy
 metadata:
-  name: svc-acc-policy
+  name: policy
   namespace: test2
 spec:
   targetRef:
@@ -33,7 +33,7 @@ spec:
     kind: Server
     name: linkerd-podinfo
   requiredAuthenticationRefs:
-    - name: authors-get-authn
+    - name: mtls-auth
       kind: MeshTLSAuthentication
       group: policy.linkerd.io
 
