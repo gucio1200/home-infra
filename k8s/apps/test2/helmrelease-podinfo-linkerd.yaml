@@ -1,4 +1,15 @@
 ---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: l5d-header-middleware
+  namespace: test2
+spec:
+  headers:
+    customRequestHeaders:
+      l5d-dst-override: "podinfo-linkerd.test2.svc.cluster.local:9898"
+
+---
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -23,7 +34,7 @@ spec:
       enabled: true
       className: "traefik-linkerd"
       annotations:
-        ingress.kubernetes.io/custom-request-headers: l5d-dst-override:podinfo-linkerd.test2.svc.cluster.local:9898
+        traefik.ingress.kubernetes.io/router.middlewares: l5d-header-middleware
       hosts:
         - host: podinfo-linkerd.test2
           paths:
