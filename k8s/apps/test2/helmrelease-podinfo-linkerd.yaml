@@ -2,8 +2,8 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: l5d-header-middleware
-  namespace: test-ingress
+  name: header
+  namespace: test2
 spec:
   headers:
     customRequestHeaders:
@@ -34,7 +34,7 @@ spec:
       enabled: true
       className: "traefik-linkerd"
       annotations:
-        traefik.ingress.kubernetes.io/router.middlewares: l5d-header-middleware
+        traefik.ingress.kubernetes.io/router.middlewares: header
       hosts:
         - host: podinfo-linkerd.test2
           paths:
