@@ -35,6 +35,7 @@ spec:
       className: "traefik-linkerd"
       annotations:
         traefik.ingress.kubernetes.io/router.middlewares: header
+        namespace: test2
       hosts:
         - host: podinfo-linkerd.test2
           paths:
