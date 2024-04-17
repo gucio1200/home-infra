@@ -3,7 +3,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: l5d-header-middleware
-  namespace: test2
+  namespace: test-ingress
 spec:
   headers:
     customRequestHeaders:
