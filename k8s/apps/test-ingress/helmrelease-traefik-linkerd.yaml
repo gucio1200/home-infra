@@ -33,3 +33,8 @@ spec:
     ports:
       traefik:
         expose: true
+    ingressRoute:
+      dashboard:
+        enabled: true
+        matchRule: PathPrefix(`/dashboard`) || PathPrefix(`/api`)
+        entryPoints: ["web"]
