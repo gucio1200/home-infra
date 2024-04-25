@@ -26,9 +26,13 @@ spec:
             matchLabels:
               eboNamespace: "True"
     mutate:
+      target:
+        - apiVersion: v1
+          kind: namespace
+          namespace: "{{ request.namespace }}"
       patchStrategicMerge:
         metadata:
           annotations:
             +(linkerd.io/inject): enabled
             +(config.linkerd.io/proxy-await): enabled
-            +(config.linkerd.io/default-inbound-policy): deny
+            +(config.linkerd.io/default-inbound-policy): all-unauthenticated
