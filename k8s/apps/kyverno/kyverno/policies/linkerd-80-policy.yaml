@@ -4,7 +4,7 @@ kind: ClusterPolicy
 metadata:
   name: generate-linkerd-80
   annotations:
-    policies.kyverno.io/title: Generate linkerd server for Namespaces
+    policies.kyverno.io/title: Generate linkerd network policy for Namespaces
     policies.kyverno.io/category: Other
     policies.kyverno.io/severity: medium
     policies.kyverno.io/subject: Namespace, NetworkPolicy, linkerd
