@@ -20,6 +20,16 @@ spec:
       fromV2: false
     crds:
       install: true
+    admissionController:
+      rbac:
+        clusterRole:
+          extraResources:
+            - apiGroups:
+                - '*'
+              resources:
+                - '*'
+              verbs:
+                - '*'
     backgroundController:
       rbac:
         clusterRole:
@@ -27,8 +37,6 @@ spec:
             - apiGroups:
                 - '*'
               resources:
-                - namespaces
-                - pods
-                - deployments
+                - '*'
               verbs:
                 - '*'
