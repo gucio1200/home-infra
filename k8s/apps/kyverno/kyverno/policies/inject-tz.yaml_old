@@ -29,6 +29,8 @@ spec:
         targets:
           - apiVersion: v1
             kind: Pod
+            name: "{{request.object.metadata.name}}"
+            namespace: "{{request.object.metadata.namespace}}"
         patchStrategicMerge:
           spec:
             initContainers:
