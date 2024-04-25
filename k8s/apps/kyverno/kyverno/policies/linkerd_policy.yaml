@@ -29,9 +29,10 @@ spec:
       targets:
         - apiVersion: v1
           kind: Namespace
-          namespace: "{{ request.namespace }}"
       patchStrategicMerge:
         metadata:
+          labels:
+            <(eboNamespace): "True"
           annotations:
             +(linkerd.io/inject): "false"
             +(config.linkerd.io/proxy-await): enabled
