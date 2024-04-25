@@ -26,9 +26,6 @@ spec:
             matchLabels:
               eboNamespace: "True"
     mutate:
-      targets:
-        - apiVersion: v1
-          kind: Namespace
       patchStrategicMerge:
         metadata:
           annotations:
