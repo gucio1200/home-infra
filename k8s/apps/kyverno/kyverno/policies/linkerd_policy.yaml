@@ -15,6 +15,7 @@ metadata:
       to `enabled` on all new Namespaces.      
 spec:
   mutateExistingOnPolicyUpdate: true
+  generateExisting: true
   rules:
   - name: add-mesh-annotations
     match:
@@ -30,6 +31,7 @@ spec:
       targets:
         - apiVersion: v1
           kind: Namespace
+          name: "{{ request.object.metadata.name }}"
       patchStrategicMerge:
         metadata:
           labels:
