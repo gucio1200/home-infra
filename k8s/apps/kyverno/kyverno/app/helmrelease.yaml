@@ -18,7 +18,8 @@ spec:
   values:
     upgrade:
       fromV2: true
-    installCRDs: true
+    crds:
+      install: true
     replicaCount: 1
 
     updateStrategy:
