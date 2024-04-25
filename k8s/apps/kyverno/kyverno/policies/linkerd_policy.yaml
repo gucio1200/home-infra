@@ -34,8 +34,6 @@ spec:
           name: "{{ request.object.metadata.name }}"
       patchStrategicMerge:
         metadata:
-          labels:
-            <(eboNamespace): "True"
           annotations:
             +(linkerd.io/inject): disabled
             +(config.linkerd.io/proxy-await): enabled
