@@ -35,6 +35,6 @@ spec:
       patchStrategicMerge:
         metadata:
           annotations:
-            linkerd.io/inject: disabled
+            linkerd.io/inject: enabled
             config.linkerd.io/proxy-await: enabled
-            config.linkerd.io/default-inbound-policy: all-unauthenticated
+            config.linkerd.io/default-inbound-policy: deny
