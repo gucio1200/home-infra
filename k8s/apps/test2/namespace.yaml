@@ -7,4 +7,4 @@ metadata:
     config.linkerd.io/default-inbound-policy: deny #Set default policy for namespace
     config.linkerd.io/proxy-await: enabled #Wait for proxy to start serving traffic
   labels:
-    eboNamespace: True
+    eboNamespace: "True"
