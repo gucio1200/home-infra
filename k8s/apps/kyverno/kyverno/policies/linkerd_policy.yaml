@@ -15,6 +15,7 @@ metadata:
       to `enabled` on all new Namespaces.      
 spec:
   mutateExistingOnPolicyUpdate: true
+  skipBackgroundRequests: false
   rules:
   - name: add-mesh-annotations
     match:
@@ -26,7 +27,6 @@ spec:
             matchLabels:
               eboNamespace: "True"
     mutate:
-      skipBackgroundRequests: false
       targets:
         - apiVersion: v1
           kind: Namespace
