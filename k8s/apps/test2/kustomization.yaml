@@ -4,4 +4,4 @@ resources:
   - namespace.yaml
   - helmrelease-podinfo-linkerd.yaml
   - np.yaml
-  - linkerd-policy.yaml
+#  - linkerd-policy.yaml
