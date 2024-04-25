@@ -2,7 +2,7 @@
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  name: generate-linkerd-server
+  name: generate-linkerd-9898
   annotations:
     policies.kyverno.io/title: Generate linkerd server for Namespaces
     policies.kyverno.io/category: Other
