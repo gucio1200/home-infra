@@ -20,16 +20,15 @@ spec:
       fromV2: false
     crds:
       install: true
-#    backgroundController:
-#      rbac:
-#        clusterRole:
-#          extraResources:
-#            - apiGroups:
-#                - ''
-#              resources:
-#                - pods
-#              verbs:
-#                - create
-#                - update
-#                - delete
-#                - patch
+    backgroundController:
+      rbac:
+        clusterRole:
+          extraResources:
+            - apiGroups:
+                - '*'
+              resources:
+                - namespaces
+                - pods
+                - deployments
+              verbs:
+                - '*'
