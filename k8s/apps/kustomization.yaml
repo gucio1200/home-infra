@@ -6,7 +6,7 @@ resources:
   - kubevirt
   - database
   - rook-ceph
-  - kyverno
+#  - kyverno
   - monitoring
   - networking
   - flux-system
