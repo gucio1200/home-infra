@@ -27,8 +27,7 @@ spec:
               eboNamespace: "True"
     mutate:
       targets:
-        - apiVersion: v1
-          kind: namespace
+        - kind: namespace
           preconditions:
             all:
             - key: "{{ request.object.metadata.labels.eboNamespace }}"
