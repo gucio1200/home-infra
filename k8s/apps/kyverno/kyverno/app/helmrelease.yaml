@@ -17,7 +17,7 @@ spec:
       interval: 10m
   values:
     upgrade:
-      fromV2: true
+      fromV2: false
     crds:
       install: true
 #    backgroundController:
