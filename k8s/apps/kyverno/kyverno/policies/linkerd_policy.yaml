@@ -29,11 +29,7 @@ spec:
       targets:
         - apiVersion: v1
           kind: Namespace
-          preconditions:
-            all:
-            - key: "{{ request.namespace.metadata.labels.eboNamespace }}"
-              operator: Equals
-              value: "True"
+          namespace: "{{ request.namespace }}"
       patchStrategicMerge:
         metadata:
           annotations:
