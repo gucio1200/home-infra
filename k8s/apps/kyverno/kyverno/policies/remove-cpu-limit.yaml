@@ -24,6 +24,8 @@ spec:
         targets:
           - apiVersion: v1
             kind: Pod
+            name: "{{request.object.metadata.name}}"
+            namespace: "{{request.object.metadata.namespace}}"
         foreach:
           - list: "request.object.spec.containers"
             patchesJson6902: |-
@@ -44,6 +46,8 @@ spec:
         targets:
           - apiVersion: v1
             kind: Pod
+            name: "{{request.object.metadata.name}}"
+            namespace: "{{request.object.metadata.namespace}}"
         foreach:
           - list: "request.object.spec.initContainers"
             patchesJson6902: |-
