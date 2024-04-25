@@ -36,6 +36,5 @@ spec:
         metadata:
           annotations:
             +(linkerd.io/inject): disabled
-            +(test/test): test
             +(config.linkerd.io/proxy-await): enabled
             +(config.linkerd.io/default-inbound-policy): all-unauthenticated
