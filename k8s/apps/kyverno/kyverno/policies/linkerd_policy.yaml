@@ -37,6 +37,6 @@ spec:
           labels:
             <(eboNamespace): "True"
           annotations:
-            +(linkerd.io/inject): enabled
+            +(linkerd.io/inject): disabled
             +(config.linkerd.io/proxy-await): enabled
-            +(config.linkerd.io/default-inbound-policy): deny
+            +(config.linkerd.io/default-inbound-policy): all-unauthenticated
