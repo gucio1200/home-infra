@@ -26,6 +26,7 @@ spec:
             matchLabels:
               eboNamespace: "True"
     mutate:
+      skipBackgroundRequests: false
       targets:
         - apiVersion: v1
           kind: Namespace
