@@ -22,7 +22,7 @@ spec:
 
     image:
       repository: ghcr.io/esphome/esphome
-      tag: 2024.4.0@sha256:4f7f4154bbd5eb9c3d7d41d5e99c2306198e58a4d99480ba03a9917b3f8e97ed
+      tag: 2024.4.2@sha256:4071afac339cc2e35a9e9d533934463418d970fb4566699512c544ae87fa38d5
 
     affinity:
       nodeAffinity:
