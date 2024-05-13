@@ -10,7 +10,7 @@ spec:
       l5d-dst-override: "podinfo-linkerd.test2.svc.cluster.local:9898"
 
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta2
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: podinfo-linkerd
