@@ -11,7 +11,7 @@ spec:
     branch: master
 
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta1
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmChart
 metadata:
   name: kubelived
