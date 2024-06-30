@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-multus
   namespace: flux-system
 spec:
-  interval: 10m
+  interval: 20m
   path: "./k8s/apps/networking/multus/app"
   prune: true
   sourceRef:
@@ -13,7 +13,7 @@ spec:
     name: flux-system
   wait: true
   retryInterval: 1m
-  timeout: 5m
+  timeout: 15m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -21,7 +21,7 @@ metadata:
   name: cluster-apps-multus-config
   namespace: flux-system
 spec:
-  interval: 10m
+  interval: 20m
   path: "./k8s/apps/networking/multus/config"
   prune: true
   sourceRef:
@@ -29,6 +29,6 @@ spec:
     name: flux-system
   wait: true
   retryInterval: 1m
-  timeout: 5m
+  timeout: 15m
   dependsOn:
     - name: cluster-apps-multus
