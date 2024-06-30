@@ -28,7 +28,7 @@ spec:
     keepHistory: false
   values:
     crds:
-      enabled: true
+      enabled: false
 
     pspEnable: false
 
