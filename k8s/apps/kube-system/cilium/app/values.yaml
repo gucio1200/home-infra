@@ -67,3 +67,8 @@ routingMode: native
 devices: "b+"
 k8sNetworkPolicy:
   enabled: false
+
+updateStrategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxUnavailable: 1
