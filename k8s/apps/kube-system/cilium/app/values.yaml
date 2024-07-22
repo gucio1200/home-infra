@@ -64,7 +64,7 @@ hubble:
 ipv6:
   enabled: false
 routingMode: native
-devices: "b+,eth0"
+devices: ""
 k8sNetworkPolicy:
   enabled: false
 
