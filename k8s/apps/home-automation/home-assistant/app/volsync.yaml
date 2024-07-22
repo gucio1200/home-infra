@@ -37,5 +37,5 @@ spec:
     repository: home-assistant-restic-secret
     retain:
       daily: 14
-    volumeSnapshotClassName: csi-ceph-blockpool
+    volumeSnapshotClassName: ceph-block
     storageClassName: ceph-block
