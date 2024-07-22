@@ -36,6 +36,7 @@ spec:
     copyMethod: Snapshot
     pruneIntervalDays: 14
     repository: plex-restic-secret
+    volumeSnapshotClassName: ceph-filesystem
     moverSecurityContext:
       runAsUser: 568
       runAsGroup: 568
