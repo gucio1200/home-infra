@@ -41,5 +41,5 @@ spec:
       fsGroup: 568
     retain:
       daily: 14
-    volumeSnapshotClassName: csi-ceph-blockpool
+    volumeSnapshotClassName: ceph-block
     storageClassName: ceph-block
