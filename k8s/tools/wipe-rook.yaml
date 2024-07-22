@@ -31,6 +31,7 @@ spec:
     - name: dev
       hostPath:
         path: /dev
+
 ---
 apiVersion: v1
 kind: Pod
@@ -64,6 +65,7 @@ spec:
     - name: dev
       hostPath:
         path: /dev
+
 ---
 apiVersion: v1
 kind: Pod
@@ -131,4 +133,3 @@ spec:
     - name: dev
       hostPath:
         path: /dev
-

@@ -54,3 +54,4 @@ resources:
   - wireguard-operator.yaml
   - traefik.yaml
   - linkerd.yaml
+  - spegel.yaml
