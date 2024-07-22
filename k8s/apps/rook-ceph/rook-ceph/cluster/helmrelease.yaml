@@ -57,8 +57,8 @@ spec:
       bdev_async_discard = true
 
     cephClusterSpec:
-      cleanupPolicy:
-        confirmation: "yes-really-destroy-data"
+#      cleanupPolicy:
+#        confirmation: "yes-really-destroy-data"
       placement:
         all:
           nodeAffinity:
