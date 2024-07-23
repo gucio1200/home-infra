@@ -37,6 +37,7 @@ spec:
     pruneIntervalDays: 14
     repository: plex-restic-secret
     storageClassName: ceph-block
+    volumeSnapshotClassName: ceph-block
     moverSecurityContext:
       runAsUser: 568
       runAsGroup: 568
