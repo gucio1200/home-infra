@@ -9,6 +9,6 @@ resources:
   - metallb-system
   - lb
   - networking
-  - storage
+#  - storage
 #  - booty
     #  - flux-system
