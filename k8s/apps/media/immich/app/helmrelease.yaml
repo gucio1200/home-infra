@@ -127,17 +127,17 @@ spec:
             size: 10Gi
         type: statefulset
     persistence:
-#      upload:
-#        type: nfs
-#        server: syno.sko.ai
-#        path: /volume3/k8s-volumes/immich
-#        advancedMounts:
-#          server:
-#            app:
-#            - path: /usr/src/app/upload
-#          microservices:
-#            app:
-#            - path: /usr/src/app/upload
+      upload:
+        type: nfs
+        server: nas
+        path: /volume1/PICTURES
+        advancedMounts:
+          server:
+            app:
+            - path: /usr/src/app/upload
+          microservices:
+            app:
+            - path: /usr/src/app/upload
 #      photos:
 #        type: nfs
 #        server: syno.sko.ai
