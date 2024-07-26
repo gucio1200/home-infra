@@ -129,7 +129,7 @@ spec:
     persistence:
       upload:
         type: nfs
-        server: nas.dom.lan
+        server: 192.168.0.150
         path: /volume1/PICTURES
         advancedMounts:
           server:
