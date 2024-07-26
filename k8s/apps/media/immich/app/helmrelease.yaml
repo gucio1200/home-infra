@@ -125,7 +125,7 @@ spec:
             name: pgdata
             size: 1Mi
         type: statefulset
-#    persistence:
+    persistence:
 #      upload:
 #        type: nfs
 #        server: syno.sko.ai
