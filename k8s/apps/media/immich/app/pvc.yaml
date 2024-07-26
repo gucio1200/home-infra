@@ -13,7 +13,12 @@ spec:
   mountOptions:
     - dir_mode=0777
     - file_mode=0777
-    - vers=3.0
+    - nfsvers=4.2
+    - nconnect=8
+    - hard
+    - noatime
+    - rsize=131072
+    - wsize=131072
   csi:
     driver: smb.csi.k8s.io
     readOnly: false
