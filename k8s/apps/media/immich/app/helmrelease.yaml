@@ -124,7 +124,7 @@ spec:
             globalMounts:
             - path: /var/lib/postgresql/data
             name: pgdata
-            size: 1Mi
+            size: 10Gi
         type: statefulset
     persistence:
 #      upload:
