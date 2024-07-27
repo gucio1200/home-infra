@@ -46,11 +46,9 @@ spec:
               capabilities:
                 drop: ["ALL"]
             resources:
-              limits:
-                memory: 300Mi
               requests:
-                cpu: 65m
-                memory: 300Mi
+                cpu: 100m
+                memory: 1Gi
       microservices:
         containers:
           app:
@@ -62,8 +60,6 @@ spec:
               IMMICH_WORKERS_EXCLUDE: *server-include
             securityContext: *security
             resources:
-              limits:
-                memory: 950Mi
               requests:
                 cpu: 50m
                 memory: 950Mi
@@ -78,8 +74,6 @@ spec:
               MPLCONFIGDIR: /tmp/matplotlib
             securityContext: *security
             resources:
-              limits:
-                memory: 1860Mi
               requests:
                 cpu: 70m
                 memory: 1860Mi
@@ -92,8 +86,6 @@ spec:
             securityContext: *security
             args: [--save, '', --appendonly, 'no']
             resources:
-              limits:
-                memory: 30Mi
               requests:
                 cpu: 10m
                 memory: 30Mi
@@ -112,8 +104,6 @@ spec:
               repository: registry.hub.docker.com/tensorchord/pgvecto-rs
               tag: pg14-v0.2.0@sha256:90724186f0a3517cf6914295b5ab410db9ce23190a2d9d0b9dd6463e3fa298f0
             resources:
-              limits:
-                memory: 450Mi
               requests:
                 cpu: 10m
                 memory: 450Mi
