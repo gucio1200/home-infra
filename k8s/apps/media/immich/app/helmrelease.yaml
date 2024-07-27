@@ -129,7 +129,7 @@ spec:
     persistence:
       upload:
         type: persistentVolumeClaim
-        existingClaim: immich
+        existingClaim: immich-upload
         advancedMounts:
           server:
             app:
@@ -137,19 +137,18 @@ spec:
           microservices:
             app:
             - path: /usr/src/app/upload
-#      photos:
-#        type: nfs
-#        server: syno.sko.ai
-#        path: /volume3/photo
-#        advancedMounts:
-#          server:
-#            app:
-#            - path: /mnt/syno-photos
-#              readOnly: true
-#          microservices:
-#            app:
-#            - path: /mnt/syno-photos
-#              readOnly: true
+      photos:
+        type: persistentVolumeClaim
+        existingClaim: immich-storage
+        advancedMounts:
+          server:
+            app:
+            - path: /mnt/syno-photos
+              readOnly: true
+          microservices:
+            app:
+            - path: /mnt/syno-photos
+              readOnly: true
       model-cache:
         type: emptyDir
         advancedMounts:
