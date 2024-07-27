@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: immich
+  name: immich-upload
   namespace: media
 spec:
   capacity:
@@ -19,7 +19,50 @@ spec:
   csi:
     driver: smb.csi.k8s.io
     readOnly: false
-    volumeHandle: 192.168.0.150/PICTURES#immich
+    volumeHandle: 192.168.0.150/IMMICH#upload
+    volumeAttributes:
+      createSubDir: "false"
+      source: "//192.168.0.150/IMMICH"
+    nodeStageSecretRef:
+      name: smbcreds
+      namespace: kube-system
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: immich-upload
+  namespace: media
+spec:
+  storageClassName: ""
+  volumeName: immich-upload
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: immich-storage
+  namespace: media
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  mountOptions:
+    - dir_mode=0777
+    - file_mode=0777
+    - uid=1000
+    - gid=1000
+    - vers=3.0
+  csi:
+    driver: smb.csi.k8s.io
+    readOnly: false
+    volumeHandle: 192.168.0.150/PICTURES#pictures
     volumeAttributes:
       createSubDir: "false"
       source: "//192.168.0.150/PICTURES"
@@ -30,11 +73,11 @@ spec:
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: immich
+  name: immich-storage
   namespace: media
 spec:
   storageClassName: ""
-  volumeName: immich
+  volumeName: immich-storage
   accessModes:
     - ReadWriteMany
   resources:
