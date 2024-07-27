@@ -144,11 +144,9 @@ spec:
           server:
             app:
             - path: /mnt/syno-photos
-              readOnly: true
           microservices:
             app:
             - path: /mnt/syno-photos
-              readOnly: true
       model-cache:
         type: emptyDir
         advancedMounts:
