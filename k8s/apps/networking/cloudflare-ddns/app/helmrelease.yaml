@@ -34,9 +34,9 @@ spec:
         schedule: "@hourly"
     restartPolicy: OnFailure
     image:
-      repository: bitnami/kubectl
-      tag: 1.27.4
-    command: ["/bin/bash", "/app/cloudflare-ddns.sh"]
+      repository: alpine/curl
+      tag: latest
+    command: ["/bin/sh", "-c", "/app/cloudflare-ddns.sh"]
     envFrom:
       - secretRef:
           name: cloudflare-ddns-secret
