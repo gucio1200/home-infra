@@ -1,7 +1,7 @@
 ---
 cluster:
-  name: "k8s"
-  id: "1"
+  name: k8s
+  id: 1
 
 securityContext:
   privileged: true
