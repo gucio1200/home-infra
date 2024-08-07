@@ -9,7 +9,7 @@ securityContext:
 rollOutCiliumPods: true
 localRedirectPolicy: true
 kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
-kubeProxyReplacement: "strict"
+kubeProxyReplacement: true
 ipv4NativeRoutingCIDR: 10.244.0.0/16
 autoDirectNodeRoutes: true
 loadBalancer:
