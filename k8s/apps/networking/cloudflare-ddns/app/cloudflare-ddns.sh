@@ -3,6 +3,8 @@
 set -o nounset
 set -o errexit
 
+apk update && apk add jq
+
 current_ipv4="$(curl -s https://ipv4.icanhazip.com/)"
 zone_id=$(curl -s -X GET \
     "https://api.cloudflare.com/client/v4/zones?name=${CLOUDFLARE_RECORD_NAME#*.}&status=active" \
