@@ -28,6 +28,9 @@ loadBalancer:
   algorithm: maglev
   mode: dsr
 
+envoy:
+  enabled: false
+
 bandwidthManager:
   enabled: true
   bbr: true
