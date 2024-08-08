@@ -29,9 +29,9 @@ spec:
       - name: AUTOPAUSE
         value: "false"
       - name: PUID
-        value: 1000
+        value: "1000"
       - name: PGID
-        value: 1000
+        value: "1000"
       - name: ROOTLESS
         value: "true"
 
