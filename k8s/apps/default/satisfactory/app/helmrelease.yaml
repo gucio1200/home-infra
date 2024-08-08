@@ -32,6 +32,8 @@ spec:
         value: 1000
       - name: PGID
         value: 1000
+      - name: ROOTLESS
+        value: "true"
 
     persistence:
       - name: config
