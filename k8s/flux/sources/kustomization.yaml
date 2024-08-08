@@ -55,3 +55,4 @@ resources:
   - traefik.yaml
   - linkerd.yaml
   - spegel.yaml
+  - 98jan.yaml
