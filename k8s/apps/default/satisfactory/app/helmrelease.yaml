@@ -41,11 +41,13 @@ spec:
         accessModes:
           - ReadWriteOnce
         size: 1Gi
+        storageClass: "ceph-block"
       - name: server-cache
         enabled: true
         accessModes:
           - ReadWriteOnce
         size: 20Gi
+        storageClass: "ceph-block"
 
     affinity:
       nodeAffinity:
