@@ -28,6 +28,10 @@ spec:
     env:
       - name: AUTOPAUSE
         value: "false"
+      - name: PUID
+        value: 1000
+      - name: PGID
+        value: 1000
 
     persistence:
       - name: config
