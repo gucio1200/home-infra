@@ -35,6 +35,11 @@ spec:
       - name: ROOTLESS
         value: "true"
 
+    service:
+      type: LoadBalancer
+      externalIPs:
+        - 172.16.99.107
+
     persistence:
       - name: config
         enabled: true
