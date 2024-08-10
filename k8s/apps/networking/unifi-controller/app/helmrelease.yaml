@@ -94,6 +94,9 @@ spec:
       main:
         annotations:
           nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+          hajimari.io/enable: "true"
+          hajimari.io/appName: "Unifi"
+          hajimari.io/icon: mdi:wifi
         enabled: true
         className: nginx
         hosts:
