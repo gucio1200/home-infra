@@ -12,3 +12,4 @@ resources:
   - ./k8s-gateway/ks.yaml
   - ./multus/ks.yaml
   - ./external-services
+  - ./unifi-controller/ks.yaml
