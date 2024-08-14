@@ -60,9 +60,12 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/icon: mdi:speedometer-slow
         hosts:
-          - host: openspeedtest.k8sj.io
+          - host: &host "openspeedtest.k8sj.io"
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
+        tls:
+          - hosts:
+              - *host
