@@ -34,6 +34,12 @@ spec:
         value: "1000"
       - name: ROOTLESS
         value: "true"
+      - name: AUTOSAVEINTERVAL
+        value: "300"
+      - name: AUTOSAVENUM
+        value: "10"
+      - name: AUTOSAVEONDISCONNECT
+        value: "true"
 
     service:
       type: LoadBalancer
