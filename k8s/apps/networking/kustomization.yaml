@@ -13,3 +13,4 @@ resources:
   - ./multus/ks.yaml
   - ./external-services
   - ./unifi-controller/ks.yaml
+  - ./openspeedtest/ks.yaml
