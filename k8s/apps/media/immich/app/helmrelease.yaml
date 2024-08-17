@@ -168,11 +168,17 @@ spec:
             port: 6379
     ingress:
       immich:
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/icon: mdi:image
         className: nginx
         hosts:
-        - host: immich.k8sj.io
+        - host: &host "immich.k8sj.io"
           paths:
           - path: /
             service:
               identifier: server
               port: http
+        tls:
+          - hosts:
+              - *host
