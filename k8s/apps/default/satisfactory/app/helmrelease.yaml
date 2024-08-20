@@ -35,9 +35,9 @@ spec:
       - name: ROOTLESS
         value: "true"
       - name: AUTOSAVEINTERVAL
-        value: "10800"
+        value: "900"
       - name: AUTOSAVENUM
-        value: "40"
+        value: "100"
       - name: AUTOSAVEONDISCONNECT
         value: "true"
 
