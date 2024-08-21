@@ -32,7 +32,7 @@ spec:
   trigger:
     schedule: "0 */2 * * *"
   restic:
-    copyMethod: Snapshot
+    copyMethod: Direct
     pruneIntervalDays: 14
     repository: satisfactory-restic-secret
     moverSecurityContext:
@@ -41,5 +41,3 @@ spec:
       fsGroup: 1000
     retain:
       daily: 14
-    volumeSnapshotClassName: ceph-block
-    storageClassName: ceph-block
