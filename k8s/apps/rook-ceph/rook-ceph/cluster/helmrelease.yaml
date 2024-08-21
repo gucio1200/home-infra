@@ -76,12 +76,13 @@ spec:
         modules:
           - name: rook
             enabled: true
+          - name: pg_autoscaler
+            enabled: true
 
       network:
         provider: host
         connections:
-          compression:
-            enabled: false
+          requireMsgr2: true
 
       dashboard:
         enabled: true
@@ -168,6 +169,7 @@ spec:
           isDefault: true
           reclaimPolicy: Delete
           allowVolumeExpansion: true
+          volumeBindingMode: Immediate
           parameters:
             imageFormat: "2"
             imageFeatures: layering
