@@ -30,7 +30,7 @@ metadata:
 spec:
   sourcePVC: satisfactory-config
   trigger:
-    schedule: "0 */12 * * *"
+    schedule: "0 */2 * * *"
   restic:
     copyMethod: Snapshot
     pruneIntervalDays: 14
