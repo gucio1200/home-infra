@@ -30,14 +30,16 @@ metadata:
 spec:
   sourcePVC: satisfactory-config
   trigger:
-    schedule: "0 */2 * * *"
+    schedule: "0 * * * *"
   restic:
     copyMethod: Direct
-    pruneIntervalDays: 14
     repository: satisfactory-restic-secret
     moverSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000
       fsGroup: 1000
+    pruneIntervalDays: 7
     retain:
-      daily: 14
+      hourly: 24
+      daily: 7
+      weekly: 5
