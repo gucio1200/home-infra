@@ -98,7 +98,7 @@ spec:
           osdsPerDevice: "1"
         deviceFilter: "nvme0n1"
         
-      removeOSDsIfOutAndSafeToRemove: true
+#      removeOSDsIfOutAndSafeToRemove: true
 
       resources:
         mgr:
