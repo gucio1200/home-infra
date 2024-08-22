@@ -28,16 +28,18 @@ metadata:
 spec:
   sourcePVC: config-unifi-controller-0
   trigger:
-    schedule: "0 */12 * * *"
+    schedule: "0 * * * *"
   restic:
     copyMethod: Snapshot
-    pruneIntervalDays: 14
     repository: unify-restic-secret
     moverSecurityContext:
       runAsUser: 999
       runAsGroup: 999
       fsGroup: 999
-    retain:
-      daily: 14
     volumeSnapshotClassName: ceph-block
     storageClassName: ceph-block
+    pruneIntervalDays: 14
+    retain:
+      hourly: 24
+      daily: 7
+      weekly: 5
