@@ -6,4 +6,4 @@ resources:
   - ./grafana/ks.yaml
   - ./fluent-bit/ks.yaml
   - ./loki/ks.yaml
-  - smartctl-exporter
+  - ./smartctl-exporter/ks.yaml

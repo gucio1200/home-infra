@@ -23,7 +23,11 @@ spec:
       retries: 5
   values:
     fullnameOverride: *app
+    config:
+      devices:
+        - /dev/sda
+        - /dev/nvme0n1
     serviceMonitor:
       enabled: true
     prometheusRules:
-      enabled: true
+      enabled: false
