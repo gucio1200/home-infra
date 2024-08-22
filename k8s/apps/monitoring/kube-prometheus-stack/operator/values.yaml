@@ -276,8 +276,8 @@ prometheus:
     serviceMonitorSelectorNilUsesHelmValues: false
     podMonitorSelectorNilUsesHelmValues: false
     probeSelectorNilUsesHelmValues: false
-    retention: 2d
-    retentionSize: "6GB"
+    retention: 14d
+    retentionSize: "30GB"
     enableAdminAPI: true
     walCompression: true
     resources:
@@ -290,7 +290,7 @@ prometheus:
         spec:
           resources:
             requests:
-              storage: 20Gi
+              storage: 35Gi
 
     thanos:
       image: quay.io/thanos/thanos:v0.36.1@sha256:e542959e1b36d5046083d1b64a7049c356b68a44a173c58b3ae7c0c9ada932d5
