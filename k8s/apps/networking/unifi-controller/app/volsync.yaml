@@ -38,7 +38,7 @@ spec:
       fsGroup: 999
     volumeSnapshotClassName: ceph-block
     storageClassName: ceph-block
-    pruneIntervalDays: 14
+    pruneIntervalDays: 7
     retain:
       hourly: 24
       daily: 7
