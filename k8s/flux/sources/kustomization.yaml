@@ -56,3 +56,4 @@ resources:
   - linkerd.yaml
   - spegel.yaml
   - 98jan.yaml
+  - fluent-bit.yaml
