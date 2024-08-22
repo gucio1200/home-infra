@@ -4,6 +4,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: fluent-bit
+  namespace: monitoring
 spec:
   interval: 30m
   chart:
@@ -14,6 +15,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: fluent
+        namespace: flux-system
   values:
     ## https://docs.fluentbit.io/manual/administration/configuring-fluent-bit/classic-mode/configuration-file
     config:
