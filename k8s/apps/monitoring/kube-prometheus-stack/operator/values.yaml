@@ -13,7 +13,7 @@ alertmanager:
       hajimari.io/appName: "Alert Manager"
       hajimari.io/icon: mdi:alert-decagram-outline
     ingressClassName: nginx
-    hosts: ["&host alert-manager.k8sj.io"]
+    hosts: [&host "alert-manager.k8sj.io"]
     tls:
       - hosts:
         - *host
@@ -51,7 +51,7 @@ prometheus:
       hajimari.io/appName: Prometheus
       hajimari.io/icon: simple-icons:prometheus
     ingressClassName: nginx
-    hosts: ["&host prometheus.k8sj.io"]
+    hosts: [&host "prometheus.k8sj.io"]
     tls:
       - hosts:
           - *host
