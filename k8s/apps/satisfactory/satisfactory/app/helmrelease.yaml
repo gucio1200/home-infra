@@ -1,0 +1,126 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: satisfactory
+  namespace: satisfactory
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                - key: node-role.kubernetes.io/control-plane
+                  operator: DoesNotExist
+
+    controllers:
+      main:
+        type: deployment
+        containers:
+          satisfactory:
+            image:
+              repository: wolveix/satisfactory-server
+              tag: v1.6.1
+            env:
+             - name: TZ
+               value: Europe/Warsaw
+             - name: AUTOPAUSE
+               value: 'false'
+             - name: PUID
+               value: '1000'
+             - name: PGID
+               value: '1000'
+             - name: ROOTLESS
+               value: 'true'
+             - name: AUTOSAVEINTERVAL
+               value: '900'
+             - name: AUTOSAVENUM
+               value: '100'
+             - name: AUTOSAVEONDISCONNECT
+               value: 'true'
+
+          syncthing:
+            dependsOn: satisfactory
+            image:
+              repository: syncthing/syncthing
+              tag: 1.27
+
+    service:
+      satisfactory:
+        controller: main
+        type: LoadBalancer
+        externalIPs:
+          - 172.16.99.109
+        ports:
+          beacon-port:
+            port: 15000
+            protocol: UDP
+          game-port:
+            port: 7777
+            protocol: UDP
+          query-port:
+            port: 15777
+            protocol: UDP
+          syncthing:
+            port: 8384
+            protocol: TCP
+
+    persistence:
+      satisfactory-config:
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        size: 20Gi
+        advancedMounts:
+          main:
+            syncthing:
+              - path: /var/syncthing/Sync
+            satisfactory:
+              - path: /config
+
+      satisfactory-cache:
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        size: 20Gi
+        advancedMounts:
+          main:
+            satisfactory:
+              - path: /config/gamefiles
+
+      syncthing-config:
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        size: 1Gi
+        advancedMounts:
+          main:
+            syncthing:
+              - path: /var/syncthing/config
+
+    serviceAccount:
+      create: false
