@@ -73,7 +73,7 @@ spec:
         count: 4
 
       mgr:
-        count: 2
+        count: 1
         modules:
           - name: rook
             enabled: true
