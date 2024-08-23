@@ -121,6 +121,11 @@ spec:
         flux-control-plane:
           url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/control-plane.json
           datasource: Prometheus
+        kubernetes-resources:
+          # renovate: depName="Kubernetes / System / API Server"
+          gnetId: 18394
+          revision: 1
+          datasource: Prometheus
         kubernetes-api-server:
           # renovate: depName="Kubernetes / System / API Server"
           gnetId: 15761
