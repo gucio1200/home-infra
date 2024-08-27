@@ -27,10 +27,6 @@ nodes:
     controlPlane: true
     ipAddress: 192.168.200.10
     installDisk: /dev/sda
-#    machineDisks:
-#      - device: /dev/sdb
-#        partitions:
-#          - mountpoint: /var/mnt/sata
     nameservers:
       - 192.168.0.151
       - 1.1.1.1
@@ -47,79 +43,117 @@ nodes:
     patches:
       - |-
         machine:
-#          kubelet:
-#            extraMounts:
-#              - destination: /var/mnt/sata
-#                type: bind
-#                source: /var/mnt/sata
-#                options:
-#                  - rbind
-#                  - rshared
-#                  - rw
           install:
             extraKernelArgs:
               - pcie_aspm=off
               - cpufreq.default_governor=performance
 
 controlPlane:
-  inlinePatch:
-    cluster:
-      etcd:
-        extraArgs:
-          listen-metrics-urls: http://0.0.0.0:2381
-          election-timeout: "5000"
-          heartbeat-interval: 250
-      apiServer:
-        admissionControl: []
-      discovery:
-        registries:
-          service:
-            disabled: true
-      scheduler:
-        extraArgs:
-          bind-address: 0.0.0.0
-      controllerManager:
-        extraArgs:
-          bind-address: 0.0.0.0
-      proxy:
-        disabled: true
-        extraArgs:
-          bind-address: 0.0.0.0
-#      extraManifests:
-#        - "https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/v0.8.5/deploy/ha-install.yaml"
-    machine:
-      features:
-        kubePrism:
-          enabled: true
-          port: 7445
-      install:
-        extraKernelArgs:
-          - cpufreq.default_governor=performance
-      files:
-        - content: |
-            [plugins."io.containerd.grpc.v1.cri"]
-              enable_unprivileged_ports = true
-              enable_unprivileged_icmp = true
-          path: /var/cri/conf.d/allow-unpriv-ports.toml
-          op: create
-      kubelet:
-        nodeIP:
-          validSubnets:
+  schematic:
+    customization:
+      extraKernelArgs:
+        - net.ifnames=1
+      systemExtensions:
+        officialExtensions:
+          - siderolabs/intel-ucode
+          - siderolabs/i915-ucode
+
+  patches:
+    # Disable search domain everywhere
+    - |-
+      machine:
+        network:
+          disableSearchDomain: true
+          extraHostEntries:
+            - ip: 192.168.200.10
+              aliases:
+                - lb.dom.lan
+
+    # Enable KubePrism
+    - |-
+      machine:
+        features:
+          kubePrism:
+            enabled: true
+            port: 7445
+
+    # Cluster configuration
+    - |-
+      cluster:
+        allowSchedulingOnMasters: true
+        proxy:
+          disabled: true
+
+    # ETCD configuration
+    - |-
+      cluster:
+        etcd:
+          advertisedSubnets:
             - 192.168.200.0/24
-        extraArgs:
-          feature-gates: GracefulNodeShutdown=true,CronJobTimeZone=true,NewVolumeManagerReconstruction=false
-          rotate-server-certificates: "true"
-        extraConfig:
-          maxPods: 150
-      time:
-        disabled: false
-        servers:
-          - pool.ntp.org
-      sysctls:
-        fs.inotify.max_user_watches: "1048576"
-        fs.inotify.max_user_instances: "8192"
-      network:
-        extraHostEntries:
-          - ip: 192.168.200.10
-            aliases:
-              - lb.dom.lan
+
+    # Configure containerd
+    - |-
+      machine:
+        files:
+          - op: create
+            path: /etc/cri/conf.d/20-customization.part
+            content: |
+              [plugins]
+                [plugins."io.containerd.grpc.v1.cri"]
+                  enable_unprivileged_ports = true
+                  enable_unprivileged_icmp = true
+
+    # Configure nfs mount options
+    - |
+      machine:
+        files:
+          - op: overwrite
+            path: /etc/nfsmount.conf
+            permissions: 0o644
+            content: |
+              [ NFSMount_Global_Options ]
+              nfsvers=4.2
+              hard=True
+              noatime=True
+              nodiratime=True
+              rsize=131072
+              wsize=131072
+              nconnect=8
+
+    # Disable default API server admission plugins.
+    - |-
+      - op: remove
+        path: /cluster/apiServer/admissionControl
+
+    # Enable K8s Talos API Access
+    - |-
+      machine:
+        features:
+          kubernetesTalosAPIAccess:
+            enabled: true
+            allowedRoles:
+              - os:admin
+            allowedKubernetesNamespaces:
+              - system-upgrade
+
+    # Kubelet configuration
+    - |-
+      machine:
+        kubelet:
+          extraArgs:
+            rotate-server-certificates: "true"
+          extraConfig:
+            maxPods: 150
+          nodeIP:
+            validSubnets:
+                - 192.168.200.0/24
+
+    # Custom sysctls
+    - |-
+      machine:
+        sysctls:
+          fs.inotify.max_queued_events: "65536"
+          fs.inotify.max_user_instances: "8192"
+          fs.inotify.max_user_watches: "524288"
+          net.core.rmem_max: "2500000"
+          net.core.wmem_max: "2500000"
