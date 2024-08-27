@@ -4,10 +4,10 @@ kind: Kustomization
 resources:
   - cilium/ks.yaml
   - kubelet-csr-approver
-  - metrics-server
+#  - metrics-server
   - coredns
   - reloader
-  - node-feature-discovery/ks.yaml
+#  - node-feature-discovery/ks.yaml
   - kube-cleanup-operator
-  - democratic-csi/ks.yaml
+#  - democratic-csi/ks.yaml
   - external-secrets/ks.yaml
