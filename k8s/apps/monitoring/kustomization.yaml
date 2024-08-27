@@ -4,6 +4,7 @@ resources:
   - namespace.yaml
   - ./kube-prometheus-stack/ks.yaml
   - ./grafana/ks.yaml
-  - ./fluent-bit/ks.yaml
+#  - ./fluent-bit/ks.yaml
+  - ./promtail/ks.yaml
   - ./loki/ks.yaml
   - ./smartctl-exporter/ks.yaml
