@@ -4,11 +4,7 @@ kind: Kustomization
 resources:
   - cert-manager
   - kube-system
-#  - csi-addons-system
   - monitoring
   - metallb-system
   - lb
   - networking
-#  - storage
-#  - booty
-    #  - flux-system
