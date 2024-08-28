@@ -5,8 +5,8 @@ clusterPodNets:
   - 10.244.0.0/16
 clusterSvcNets:
   - 10.96.0.0/12
-talosVersion: v1.7.5
-kubernetesVersion: v1.27.16
+talosVersion: v1.7.6
+kubernetesVersion: v1.30.4
 endpoint: "https://k8s.dom.lan:6443"
 
 cniConfig:
@@ -28,7 +28,7 @@ nodes:
   - hostname: cp-0
     controlPlane: true
     ipAddress: 192.168.2.11
-    installDisk: /dev/sdb
+    installDisk: /dev/sda
     nameservers:
       - 192.168.0.151
       - 1.1.1.1
@@ -41,7 +41,7 @@ nodes:
   - hostname: cp-1
     controlPlane: true
     ipAddress: 192.168.2.12
-    installDisk: /dev/sdb
+    installDisk: /dev/sda
     nameservers:
       - 192.168.0.151
       - 1.1.1.1
@@ -54,7 +54,7 @@ nodes:
   - hostname: cp-2
     controlPlane: true
     ipAddress: 192.168.2.13
-    installDisk: /dev/sdb
+    installDisk: /dev/sda
     nameservers:
       - 192.168.0.151
       - 1.1.1.1
@@ -67,7 +67,7 @@ nodes:
   - hostname: cp-3
     controlPlane: true
     ipAddress: 192.168.2.14
-    installDisk: /dev/sdb
+    installDisk: /dev/sda
     nameservers:
       - 192.168.0.151
       - 1.1.1.1
@@ -80,7 +80,7 @@ nodes:
   - hostname: wr-1
     controlPlane: false
     ipAddress: 192.168.2.21
-    installDisk: /dev/sdb
+    installDisk: /dev/sda
     nameservers:
       - 192.168.0.151
       - 1.1.1.1
@@ -105,7 +105,7 @@ nodes:
   - hostname: wr-2
     controlPlane: false
     ipAddress: 192.168.2.22
-    installDisk: /dev/sdb
+    installDisk: /dev/sda
     nameservers:
       - 192.168.0.151
       - 1.1.1.1
