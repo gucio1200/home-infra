@@ -1,8 +1,0 @@
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: olli-ai
-  namespace: flux-system
-spec:
-  interval: 30m
-  url: https://olli-ai.github.io/helm-charts

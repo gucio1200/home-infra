@@ -15,11 +15,13 @@ cniConfig:
 additionalApiServerCertSans:
   - "k8s.dom.lan"
   - "172.16.99.3"
+  - "172.99.0.2"
   - "127.0.0.1"
 
 additionalMachineCertSans:
   - "k8s.dom.lan"
   - "172.16.99.3"
+  - "172.99.0.2"
   - "127.0.0.1"
 
 nodes:
@@ -100,6 +102,31 @@ nodes:
               - pcie_aspm=off
               - cpufreq.default_governor=performance
 
+  - hostname: wr-2
+    controlPlane: false
+    ipAddress: 192.168.2.22
+    installDisk: /dev/sdb
+    nameservers:
+      - 192.168.0.151
+      - 1.1.1.1
+      - 8.8.8.8
+    networkInterfaces:
+      - interface: br0
+        dhcp: true
+        mtu: 1500
+        bridge:
+          stp:
+            enabled: true
+          interfaces:
+            - enp1s0
+    patches:
+      - |-
+        machine:
+          install:
+            extraKernelArgs:
+              - pcie_aspm=off
+              - cpufreq.default_governor=performance
+
 controlPlane:
   schematic:
     customization:
@@ -117,7 +144,7 @@ controlPlane:
         network:
           disableSearchDomain: true
           extraHostEntries:
-            - ip: 172.16.99.3
+            - ip: 172.99.0.2
               aliases:
                 - k8s.dom.lan
 
@@ -259,6 +286,6 @@ worker:
       machine:
         network:
           extraHostEntries:
-            - ip: 172.16.99.3
+            - ip: 172.99.0.2
               aliases:
                 - k8s.dom.lan
