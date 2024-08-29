@@ -15,7 +15,6 @@ spec:
         name: postfinance
         namespace: flux-system
       interval: 10m
-  values:
-    bypassDnsResolution: true
-    providerRegex: |
-      ^(cp-|wr-)\d\d?$
+  valuesFrom:
+    - kind: ConfigMap
+      name: kubelet-csr-approver-helm-values

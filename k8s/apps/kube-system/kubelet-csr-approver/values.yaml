@@ -1,0 +1,2 @@
+bypassDnsResolution: true
+providerRegex: ^(cp-|wr-)\d\d?$
