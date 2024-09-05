@@ -77,6 +77,32 @@ nodes:
         dhcp: true
         mtu: 1500
 
+  - hostname: cp-4
+    controlPlane: true
+    ipAddress: 192.168.2.15
+    installDisk: /dev/sda
+    nameservers:
+      - 192.168.0.151
+      - 1.1.1.1
+      - 8.8.8.8
+    networkInterfaces:
+      - interface: eth0
+        dhcp: true
+        mtu: 1500
+
+  - hostname: cp-5
+    controlPlane: true
+    ipAddress: 192.168.2.16
+    installDisk: /dev/sda
+    nameservers:
+      - 192.168.0.151
+      - 1.1.1.1
+      - 8.8.8.8
+    networkInterfaces:
+      - interface: eth0
+        dhcp: true
+        mtu: 1500
+
   - hostname: wr-1
     controlPlane: false
     ipAddress: 192.168.2.21
