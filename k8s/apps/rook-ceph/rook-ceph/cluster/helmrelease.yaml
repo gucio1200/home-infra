@@ -70,7 +70,7 @@ spec:
                     operator: Exists
                     
       mon:
-        count: 4
+        count: 6
 
       mgr:
         count: 1
