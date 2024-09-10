@@ -9,12 +9,12 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 3.2.1
+      version: 3.4.0
       interval: 1h
       sourceRef:
         kind: HelmRepository
         namespace: flux-system
-        name: bjw-s
+        name: bjw-s-oci
   values:
     # For intel iGPU
     defaultPodOptions:
