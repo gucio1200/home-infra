@@ -72,7 +72,7 @@ spec:
           - 172.16.99.109
         ports:
           game-port-udp:
-            port: 7777
+            port: 7778
             protocol: UDP
           game-port-tcp:
             port: 7777
