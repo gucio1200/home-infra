@@ -57,3 +57,4 @@ resources:
   - spegel.yaml
   - 98jan.yaml
   - fluent-bit.yaml
+  - bjw-s-oci.yaml
