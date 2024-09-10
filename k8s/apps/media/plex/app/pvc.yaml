@@ -41,3 +41,15 @@ spec:
   resources:
     requests:
       storage: 100Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: plex-cache
+  namespace: media
+spec:
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      storage: 50Gi
+  storageClassName: ceph-block

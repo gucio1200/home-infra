@@ -4,8 +4,5 @@ kind: Kustomization
 namespace: media
 resources:
   - ./helmrelease.yaml
-  - ./volsync.yaml
   - ./pvc.yaml
-commonLabels:
-  app.kubernetes.io/name: plex
-  app.kubernetes.io/instance: plex
+  - ../../../../templates/volsync
