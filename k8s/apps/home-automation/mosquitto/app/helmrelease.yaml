@@ -1,85 +1,109 @@
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: mosquitto
-  namespace: home-automation
 spec:
-  interval: 10m
+  interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
-      interval: 10m
+      version: 3.4.0
+      interval: 30m
       sourceRef:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
 
   values:
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
+    controllers:
+      mosquitto:
+        annotations:
+          reloader.stakater.com/auto: "true"
 
-    image:
-      repository: public.ecr.aws/docker/library/eclipse-mosquitto
-      tag: 2.0.18@sha256:d12c8f80dfc65b768bb9acecc7ef182b976f71fb681640b66358e5e0cf94e9e9
+        pod:
+          securityContext:
+            runAsUser: 2000
+            runAsGroup: 2000
+            fsGroup: 2000
+            fsGroupChangePolicy: OnRootMismatch
 
-    initContainers:
-      copy-config:
-        image: public.ecr.aws/docker/library/eclipse-mosquitto:2.0.18@sha256:d12c8f80dfc65b768bb9acecc7ef182b976f71fb681640b66358e5e0cf94e9e9
-        command:
-          - "/bin/sh"
-          - -c
-        args:
-          - cp /data/mosquitto_secret/* /data/external_config/ && mosquitto_passwd -U /data/external_config/mosquitto_pwd
-        volumeMounts:
-          - name: mosquitto-secret
-            mountPath: /data/mosquitto_secret
-          - name: external-config
-            mountPath: /data/external_config
+        initContainers:
+          init-config:
+            image:
+              repository: public.ecr.aws/docker/library/eclipse-mosquitto
+              tag: 2.0.18
+            command:
+              - "/bin/sh"
+              - "-c"
+            args:
+              - cp /tmp/secret/* /mosquitto/external_config/;
+                mosquitto_passwd -U /mosquitto/external_config/mosquitto_pwd;
+                chmod 0600 /mosquitto/external_config/mosquitto_pwd;
+
+        containers:
+          app:
+            image:
+              repository: public.ecr.aws/docker/library/eclipse-mosquitto
+              tag: 2.0.18
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+            resources:
+              requests:
+                cpu: 5m
+                memory: 10M
+              limits:
+                memory: 10M
 
     service:
-      main:
+      app:
+        controller: mosquitto
         type: LoadBalancer
-        loadBalancerIP: "172.16.99.103"
+        externalIPs:
+          - 172.16.99.103
         annotations:
           coredns.io/hostname: "mqtt.k8sj.io"
-        externalTrafficPolicy: Local
         ports:
-          http:
-            enabled: false
           mqtt:
             enabled: true
             port: 1883
 
     persistence:
-      mosquitto-config:
+      data:
+        nameOverride: data-mosquitto-0
         enabled: true
-        type: configMap
-        name: mosquitto-configmap
-        mountPath: /mosquitto/config/mosquitto.conf
-        subPath: mosquitto.conf
-      mosquitto-secret:
-        enabled: true
-        type: secret
-        name: mosquitto-secret
-        mountPath: "-"
-      external-config:
-        enabled: true
-        type: emptyDir
-        mountPath: /mosquitto/external_config
-
-    resources:
-      requests:
-        cpu: 15m
-        memory: 64M
-      limits:
-        memory: 124M
-
-    volumeClaimTemplates:
-      - name: data
-        mountPath: /data
+        type: persistentVolumeClaim
         accessMode: ReadWriteOnce
         size: 512Mi
+        advancedMounts:
+          mosquitto:
+            app:
+              - path: /data
+      mosquitto-configfile:
+        type: configMap
+        name: mosquitto-configmap
+        advancedMounts:
+          mosquitto:
+            app:
+              - path: /mosquitto/config/mosquitto.conf
+                subPath: mosquitto.conf
+      mosquitto-secret:
+        type: secret
+        name: mosquitto-secret
+        advancedMounts:
+          mosquitto:
+            init-config:
+              - path: /tmp/secret
+      mosquitto-externalconfig:
+        type: emptyDir
+        globalMounts:
+          - path: /mosquitto/external_config
