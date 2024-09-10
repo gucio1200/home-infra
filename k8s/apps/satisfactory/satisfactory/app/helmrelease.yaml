@@ -71,10 +71,10 @@ spec:
         externalIPs:
           - 172.16.99.109
         ports:
-          game-port-udp:
+          udp:
             port: 7778
             protocol: UDP
-          game-port-tcp:
+          tcp:
             port: 7777
             protocol: TCP
           syncthing:
