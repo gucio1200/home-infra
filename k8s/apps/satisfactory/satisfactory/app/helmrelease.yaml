@@ -72,7 +72,7 @@ spec:
           - 172.16.99.109
         ports:
           udp:
-            port: 7778
+            port: 7777
             protocol: UDP
           tcp:
             port: 7777
