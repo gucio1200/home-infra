@@ -86,9 +86,7 @@ spec:
 
     persistence:
       satisfactory-config:
-        type: persistentVolumeClaim
-        accessMode: ReadWriteOnce
-        size: 20Gi
+        existingClaim: satisfactory-config
         advancedMounts:
           main:
             syncthing:

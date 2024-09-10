@@ -16,6 +16,11 @@ spec:
     kind: GitRepository
     name: flux-system
   interval: 10m
-  retryInterval: 1m
-  timeout: 3m
-  wait: true
+  wait: false
+  postBuild:
+    substitute:
+      APP: *appname
+      APP_UID: "1000"
+      APP_GID: "1000"
+      VOLSYNC_CLAIM: satisfactory-config
+      VOLSYNC_CAPACITY: 20Gi
