@@ -45,9 +45,6 @@ spec:
 
         pod:
           restartPolicy: OnFailure
-          envFrom:
-            - secretRef:
-              name: cloudflare-ddns-secret
 
         containers:
           main:
@@ -55,6 +52,9 @@ spec:
               repository: alpine/curl
               tag: latest
             command: ["/bin/sh", "-c", "/app/cloudflare-ddns.sh"]
+            envFrom:
+              - secretRef:
+                  name: cloudflare-ddns-secret
 
     persistence:
       config:
