@@ -4,11 +4,6 @@ kind: Kustomization
 namespace: home-automation
 resources:
   - ./postgresCluster.yaml
-  - ./volsync.yaml
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-patchesStrategicMerge:
-  - ./patches/addons.yaml
-commonLabels:
-  app.kubernetes.io/name: home-assistant
-  app.kubernetes.io/instance: home-assistant
+  - ../../../../templates/volsync
