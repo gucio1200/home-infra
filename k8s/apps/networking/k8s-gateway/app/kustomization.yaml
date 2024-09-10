@@ -5,7 +5,7 @@ kind: Kustomization
 namespace: networking
 resources:
   - ./rbac.yaml
-#  - ./helmrelease.yaml
+  - ./helmrelease.yaml
 configMapGenerator:
   - name: k8s-gateway-configmap
     files:
