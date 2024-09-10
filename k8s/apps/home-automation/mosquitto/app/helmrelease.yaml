@@ -80,10 +80,7 @@ spec:
 
     persistence:
       data:
-        enabled: true
-        type: persistentVolumeClaim
-        accessMode: ReadWriteOnce
-        size: 512Mi
+        existingClaim: mosquitto-data
         advancedMounts:
           mosquitto:
             app:
