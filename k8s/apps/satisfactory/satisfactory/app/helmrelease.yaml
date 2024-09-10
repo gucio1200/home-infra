@@ -71,15 +71,12 @@ spec:
         externalIPs:
           - 172.16.99.109
         ports:
-          beacon-port:
-            port: 15000
-            protocol: UDP
-          game-port:
+          game-port-udp:
             port: 7777
             protocol: UDP
-          query-port:
-            port: 15777
-            protocol: UDP
+          game-port-tcp:
+            port: 7777
+            protocol: TCP
           syncthing:
             port: 8384
             protocol: TCP
