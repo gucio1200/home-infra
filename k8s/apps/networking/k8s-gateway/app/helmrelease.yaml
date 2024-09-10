@@ -92,9 +92,7 @@ spec:
       config-file:
         type: configMap
         name: k8s-gateway-configmap
-        advancedMounts:
-          main:
-            k8s-gateway:
-              - path: /etc/coredns/Corefile
-                subPath: Corefile
-                readOnly: true
+        globalMounts:
+          - path: /etc/coredns/Corefile
+            subPath: Corefile
+            readOnly: true
