@@ -80,7 +80,6 @@ spec:
 
     persistence:
       data:
-        nameOverride: data-mosquitto-0
         enabled: true
         type: persistentVolumeClaim
         accessMode: ReadWriteOnce
