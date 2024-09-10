@@ -6,5 +6,5 @@ resources:
   - ./helmrelease.yaml
   - ./externalsecret.yaml
   - ../../../../templates/volsync
-patchesStrategicMerge:
-  - ./patches/addons.yaml
+#patchesStrategicMerge:
+#  - ./patches/addons.yaml
