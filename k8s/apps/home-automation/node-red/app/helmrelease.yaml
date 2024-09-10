@@ -1,39 +1,25 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2beta1.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: node-red
-  namespace: selfhosted
 spec:
   interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 2.0.3
+      version: 3.4.0
       interval: 30m
       sourceRef:
         kind: HelmRepository
-        name: bjw-s
+        name: bjw-s-oci
         namespace: flux-system
 
   values:
     controllers:
-      main:
-        type: statefulset
-        strategy: RollingUpdate
-
+      node-red:
         annotations:
           reloader.stakater.com/auto: "true"
-
-        statefulset:
-          volumeClaimTemplates:
-            - name: data
-              accessMode: ReadWriteOnce
-              size: 1Gi
-              storageClass: ceph-block
-              globalMounts:
-                - path: /data
 
         pod:
           securityContext:
@@ -43,13 +29,13 @@ spec:
             fsGroupChangePolicy: "OnRootMismatch"
 
         containers:
-          main:
+          app:
             image:
               repository: docker.io/nodered/node-red
-              tag: 4.0.2@sha256:5df8027df1f7f1bc2e87f7b78f6caa5edb1b4f2ddf9e7321cb9358b27f3d51b3
-#            envFrom:
-#              - secretRef:
-#                  name: node-red-secret
+              tag: 4.0.2
+            envFrom:
+              - secretRef:
+                  name: node-red-secret
             resources:
               requests:
                 cpu: 5m
@@ -58,32 +44,38 @@ spec:
                 memory: 512Mi
 
     service:
-      main:
+      app:
+        controller: node-red
         ports:
           http:
             port: 1880
 
     ingress:
-      main:
-        ingressClassName: "nginx"
+      app:
+        className: "nginx"
         annotations:
           nginx.ingress.kubernetes.io/whitelist-source-range: |
             10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
           hajimari.io/enable: "true"
           hajimari.io/icon: mdi:resistor-nodes
-        enabled: true
         hosts:
           - host: &host nodered.k8sj.io
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
               - *host
 
     persistence:
+      data:
+        existingClaim: node-red-data
+        advancedMounts:
+          node-red:
+            app:
+              - path: /data
       config-file:
         type: configMap
         name: node-red-configmap
