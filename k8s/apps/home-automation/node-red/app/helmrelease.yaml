@@ -34,9 +34,6 @@ spec:
             image:
               repository: docker.io/nodered/node-red
               tag: 4.0.2
-            envFrom:
-              - secretRef:
-                  name: node-red-secret
             resources:
               requests:
                 cpu: 5m
