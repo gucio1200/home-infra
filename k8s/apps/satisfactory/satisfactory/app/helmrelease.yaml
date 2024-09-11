@@ -71,15 +71,15 @@ spec:
         externalIPs:
           - 172.16.99.109
         ports:
-          gameudp:
-            port: 7777
-            protocol: UDP
           gametcp:
             port: 7777
             protocol: TCP
           syncthing:
             port: 8384
             protocol: TCP
+          gameudp:
+            port: 7777
+            protocol: UDP
 
     persistence:
       satisfactory-config:
