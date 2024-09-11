@@ -72,9 +72,11 @@ spec:
           - 172.16.99.109
         ports:
           udp:
+            name: udp
             port: 7777
             protocol: UDP
           tcp:
+            name: tcp
             port: 7777
             protocol: TCP
           syncthing:
