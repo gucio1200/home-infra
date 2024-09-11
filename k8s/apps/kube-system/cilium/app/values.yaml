@@ -1,4 +1,14 @@
 ---
+bandwidthManager:
+  bbr: true
+  enabled: true
+bpf:
+  masquerade: true
+  tproxy: true
+cgroup:
+  autoMount:
+    enabled: false
+  hostRoot: /sys/fs/cgroup
 cluster:
   name: k8s
   id: 1
