@@ -88,7 +88,7 @@ spec:
         annotations:
           metallb.universe.tf/allow-shared-ip: "satisfactory"
         ports:
-          gametcp:
+          gameudp:
             port: 7777
             protocol: UDP
 
