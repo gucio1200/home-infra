@@ -72,7 +72,6 @@ spec:
           - 172.16.99.109
         ports:
           tcp:
-            name: tcp
             port: 7777
             protocol: TCP
           syncthing:
