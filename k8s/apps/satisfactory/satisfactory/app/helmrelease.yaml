@@ -78,7 +78,7 @@ spec:
             port: 8384
             protocol: TCP
           gameudp:
-            port: 7777
+            port: 7778
             protocol: UDP
 
     persistence:
