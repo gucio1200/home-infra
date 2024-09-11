@@ -65,7 +65,7 @@ spec:
               tag: 1.27
 
     service:
-      satisfactory-tcp:
+      tcp:
         controller: main
         type: LoadBalancer
         externalIPs:
@@ -77,7 +77,7 @@ spec:
           syncthing:
             port: 8384
             protocol: TCP
-      satisfactory-udp:
+      udp:
         controller: main
         type: LoadBalancer
         externalIPs:
