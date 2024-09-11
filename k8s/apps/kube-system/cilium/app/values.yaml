@@ -67,6 +67,7 @@ ipv6:
   enabled: false
 routingMode: native
 devices: b+ enp+
+enableRuntimeDeviceDetection: true
 k8sNetworkPolicy:
   enabled: false
 
