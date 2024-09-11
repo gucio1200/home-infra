@@ -71,7 +71,7 @@ spec:
         externalIPs:
           - 172.16.99.109
         annotations:
-          metallb.universe.tf/allow-shared-ip: satisfactory
+          metallb.universe.tf/allow-shared-ip: "satisfactory"
         ports:
           gametcp:
             port: 7777
