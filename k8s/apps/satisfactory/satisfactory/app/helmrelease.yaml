@@ -71,7 +71,7 @@ spec:
         externalIPs:
           - 172.16.99.109
         ports:
-          tcp:
+          gametcp:
             port: 7777
             protocol: TCP
           syncthing:
