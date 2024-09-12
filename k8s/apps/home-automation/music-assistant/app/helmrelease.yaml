@@ -43,15 +43,20 @@ spec:
               repository: ghcr.io/music-assistant/server
               tag: 2.2.3
             probes:
-              liveness:
+              liveness: &probe
                 enabled: true
-              readiness:
-                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: 8095
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probe
               startup:
                 enabled: false
-                spec:
-                  failureThreshold: 30
-                  periodSeconds: 5
             resources:
               requests:
                 cpu: 47m
