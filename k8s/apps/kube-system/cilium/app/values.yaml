@@ -1,46 +1,86 @@
 ---
-#bandwidthManager:
-#  bbr: true
-#  enabled: true
-#bpf:
-#  masquerade: true
-#  tproxy: true
-#cgroup:
-#  autoMount:
-#    enabled: false
-#  hostRoot: /sys/fs/cgroup
+autoDirectNodeRoutes: true
+bandwidthManager:
+  bbr: true
+  enabled: true
+bpf:
+  masquerade: true
+  tproxy: true
+cgroup:
+  autoMount:
+    enabled: false
+  hostRoot: /sys/fs/cgroup
+
 cluster:
   name: k8s
   id: 1
 cni:
   exclusive: false
-securityContext:
-  privileged: true
-rollOutCiliumPods: true
-localRedirectPolicy: true
-kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
-kubeProxyReplacement: true
-ipv4NativeRoutingCIDR: 10.244.0.0/16
-autoDirectNodeRoutes: true
-loadBalancer:
-  algorithm: maglev
-  mode: dsr
-envoy:
-  enabled: false
-operator:
-  rollOutPods: true
-containerRuntime:
-  integration: containerd
+
+devices: b+ enp+
+enableRuntimeDeviceDetection: true
+
 endpointRoutes:
   enabled: true
-k8sServiceHost: 127.0.0.1
-k8sServicePort: 7445
+envoy:
+  enabled: false
 ipam:
   mode: kubernetes
+
+ipv4NativeRoutingCIDR: 10.244.0.0/16
+k8sServiceHost: 127.0.0.1
+k8sServicePort: 7445
+kubeProxyReplacement: true
+kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
+
 bgp:
   enabled: true
   announce:
     loadbalancerIP: true
+loadBalancer:
+  algorithm: maglev
+  mode: dsr
+
+localRedirectPolicy: true
+
+operator:
+  rollOutPods: true
+rollOutCiliumPods: true
+
+k8sServiceHost: 127.0.0.1
+k8sServicePort: 7445
+
+ipv6:
+  enabled: false
+
+routingMode: native
+k8sNetworkPolicy:
+  enabled: false
+
+securityContext:
+  capabilities:
+    ciliumAgent:
+      - CHOWN
+      - KILL
+      - NET_ADMIN
+      - NET_RAW
+      - IPC_LOCK
+      - SYS_ADMIN
+      - SYS_RESOURCE
+      - DAC_OVERRIDE
+      - FOWNER
+      - SETGID
+      - SETUID
+    cleanCiliumState:
+      - NET_ADMIN
+      - SYS_ADMIN
+      - SYS_RESOURCE
+
+updateStrategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxUnavailable: 1
+
 hubble:
   enabled: true
   metrics:
@@ -73,15 +113,3 @@ hubble:
       tls:
         - hosts:
             - *host
-ipv6:
-  enabled: false
-routingMode: native
-devices: b+ enp+
-enableRuntimeDeviceDetection: true
-k8sNetworkPolicy:
-  enabled: false
-
-updateStrategy:
-  type: RollingUpdate
-  rollingUpdate:
-    maxUnavailable: 1
