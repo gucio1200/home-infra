@@ -21,6 +21,9 @@ spec:
             "type": "static",
             "routes": []
           }
+        },
+        {
+          "type": "sbr"
         }
       ]
     }
