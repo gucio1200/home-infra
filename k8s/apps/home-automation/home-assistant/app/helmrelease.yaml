@@ -117,10 +117,14 @@ spec:
               - *host
 
       code-server:
+        enabled: true
+        className: "nginx"
         annotations:
           hajimari.io/enable: "true"
-          hajimari.io/icon: mdi:home-assistant
-        className: nginx
+          nginx.ingress.kubernetes.io/whitelist-source-range: |
+              10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+          hajimari.io/appName: "Hass Config"
+          hajimari.io/icon: cib:visual-studio-code
         hosts:
           - host: hass-code.k8sj.io
             paths:
