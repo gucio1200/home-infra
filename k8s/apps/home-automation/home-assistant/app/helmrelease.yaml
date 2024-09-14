@@ -115,13 +115,14 @@ spec:
         tls:
           - hosts:
               - *host
+
       code-server:
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/icon: mdi:home-assistant
         className: nginx
         hosts:
-          - host: &host hass-code.k8sj.io
+          - host: hass-code.k8sj.io
             paths:
               - path: /
                 service:
@@ -129,7 +130,7 @@ spec:
                   port: code-server
         tls:
           - hosts:
-              - *host
+              - hass-code.k8sj.io
 
 
     persistence:
