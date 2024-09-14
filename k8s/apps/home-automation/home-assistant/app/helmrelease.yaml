@@ -67,6 +67,22 @@ spec:
                 memory: 2Gi
               limits:
                 memory: 2Gi
+          code-server:
+            image:
+              repository: ghcr.io/coder/code-server
+              tag: 4.92.2@sha256:f32cfa5e7cc768f60969f1d2183fc4c7aa093b80b93c365535e83f79ccf004f2
+            args: [
+              "--auth", "none",
+              "--user-data-dir", "/config/.vscode",
+              "--extensions-dir", "/config/.vscode",
+              "--port", "12321",
+              "/config"
+            ]
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 512Mi
 
     service:
       app:
@@ -74,6 +90,8 @@ spec:
         ports:
           http:
             port: 8123
+          code-server:
+            port: 12321
 
     ingress:
       app:
@@ -97,14 +115,29 @@ spec:
         tls:
           - hosts:
               - *host
+      code-server:
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/icon: mdi:home-assistant
+        className: nginx
+        hosts:
+          - host: &host hass-code.k8sj.io
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: code-server
+        tls:
+          - hosts:
+              - *host
+
 
     persistence:
       config:
         existingClaim: home-assistant-config
-        advancedMounts:
-          home-assistant:
-            app:
-              - path: /config
+        globalMounts:
+          - path: /config
+
       deploy-key:
         type: secret
         name: home-assistant-secret
