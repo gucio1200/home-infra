@@ -126,7 +126,7 @@ spec:
           hajimari.io/appName: "Hass Config"
           hajimari.io/icon: cib:visual-studio-code
         hosts:
-          - host: hass-code.k8sj.io
+          - host: &host hass-code.k8sj.io
             paths:
               - path: /
                 service:
@@ -134,8 +134,7 @@ spec:
                   port: code-server
         tls:
           - hosts:
-              - hass-code.k8sj.io
-
+              - *host
 
     persistence:
       config:
