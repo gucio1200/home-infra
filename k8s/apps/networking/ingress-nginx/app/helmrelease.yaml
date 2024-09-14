@@ -50,12 +50,12 @@ spec:
       allowSnippetAnnotations: true
 
       config:
-        enable-modsecurity: true
+        enable-modsecurity: false
         enable-owasp-modsecurity-crs: true
         http-snippet: |-
           modsecurity_transaction_id "$request_id";
         modsecurity-snippet: |-
-          SecRuleEngine On
+          SecRuleEngine Off
           SecRequestBodyAccess On
           SecStatusEngine Off
           SecAuditEngine RelevantOnly
