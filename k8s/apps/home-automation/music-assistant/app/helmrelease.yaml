@@ -58,7 +58,7 @@ spec:
               readiness:
                 enabled: true
               startup:
-                enabled: false
+                enabled: true
             resources:
               requests:
                 cpu: 47m
