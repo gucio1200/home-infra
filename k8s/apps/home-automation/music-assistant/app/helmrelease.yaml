@@ -47,12 +47,6 @@ spec:
                 "namespace": "networking",
                 "ips": ["192.168.2.251/16"]
               }]
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            runAsNonRoot: true
-            fsGroup: 1000
-            fsGroupChangePolicy: OnRootMismatch
 
         containers:
           app:
