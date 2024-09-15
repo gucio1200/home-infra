@@ -97,3 +97,7 @@ spec:
           music-assistant:
             app:
               - path: /data
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
