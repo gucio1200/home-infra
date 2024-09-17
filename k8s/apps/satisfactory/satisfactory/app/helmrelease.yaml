@@ -39,7 +39,7 @@ spec:
           satisfactory:
             image:
               repository: wolveix/satisfactory-server
-              tag: v1.8.4
+              tag: v1.8.5
             env:
              - name: TZ
                value: Europe/Warsaw
