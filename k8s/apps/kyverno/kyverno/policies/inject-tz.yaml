@@ -23,6 +23,10 @@ spec:
           - resources:
               annotations:
                 kyverno-no-tz: "true"
+          - resources:
+              selector:
+                matchLabels:
+                  app.kubernetes.io/created-by: volsync
       mutate:
         patchStrategicMerge:
           spec:
