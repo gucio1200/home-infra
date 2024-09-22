@@ -41,7 +41,7 @@ spec:
 
         cronjob:
           concurrencyPolicy: Forbid
-          schedule: "@hourly"
+          schedule: "*/5 * * * *"
 
         pod:
           restartPolicy: OnFailure
