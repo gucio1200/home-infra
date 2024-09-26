@@ -12,17 +12,13 @@ endpoint: "https://k8s.dom.lan:6443"
 cniConfig:
   name: none
 
-additionalApiServerCertSans:
+additionalApiServerCertSans: &san
   - "k8s.dom.lan"
   - "172.16.99.3"
   - "172.99.0.2"
   - "127.0.0.1"
 
-additionalMachineCertSans:
-  - "k8s.dom.lan"
-  - "172.16.99.3"
-  - "172.99.0.2"
-  - "127.0.0.1"
+additionalMachineCertSans: *san
 
 nodes:
   - hostname: cp-0
@@ -188,6 +184,13 @@ controlPlane:
         allowSchedulingOnMasters: true
         proxy:
           disabled: true
+        discovery:
+          enabled: true
+          registries:
+            kubernetes:
+              disabled: false
+            service:
+              disabled: true
 
     # ETCD configuration
     - |-
