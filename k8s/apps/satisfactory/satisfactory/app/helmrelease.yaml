@@ -62,7 +62,7 @@ spec:
             dependsOn: satisfactory
             image:
               repository: syncthing/syncthing
-              tag: 1.27
+              tag: 1.28
 
     service:
       tcp:
