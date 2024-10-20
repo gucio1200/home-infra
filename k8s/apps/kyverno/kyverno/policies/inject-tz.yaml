@@ -27,6 +27,10 @@ spec:
               selector:
                 matchLabels:
                   app.kubernetes.io/created-by: volsync
+          - resources:
+              selector:
+                matchLabels:
+                  job-name: "?*"
       mutate:
         patchStrategicMerge:
           spec:
