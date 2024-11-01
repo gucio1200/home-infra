@@ -12,7 +12,6 @@ metadata:
       applies the nginx auth annotations for use with Authelia.
 spec:
   mutateExistingOnPolicyUpdate: true
-  generateExistingOnPolicyUpdate: true
   rules:
     - name: auth
       match:
@@ -49,7 +48,6 @@ metadata:
       application access.
 spec:
   mutateExistingOnPolicyUpdate: true
-  generateExistingOnPolicyUpdate: true
   rules:
     - name: external-dns
       match:
@@ -79,7 +77,6 @@ metadata:
       internal application access.
 spec:
   mutateExistingOnPolicyUpdate: true
-  generateExistingOnPolicyUpdate: true
   rules:
     - name: whitelist
       match:

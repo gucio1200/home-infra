@@ -12,7 +12,6 @@ metadata:
     policies.kyverno.io/minversion: 1.7.0
     kyverno.io/kubernetes-version: "1.23"
 spec:
-  generateExistingOnPolicyUpdate: true
   rules:
 
 # Server
@@ -30,6 +29,7 @@ spec:
       kind: Server
       name: linkerd-9898
       namespace: "{{request.object.metadata.name}}"
+      generateExisting: true
       synchronize: true
       data:
         metadata:
@@ -56,6 +56,7 @@ spec:
       kind: MeshTLSAuthentication
       name: linkerd-9898
       namespace: "{{request.object.metadata.name}}"
+      generateExisting: true
       synchronize: true
       data:
         metadata:
@@ -81,6 +82,7 @@ spec:
       kind: AuthorizationPolicy
       name: linkerd-9898
       namespace: "{{request.object.metadata.name}}"
+      generateExisting: true
       synchronize: true
       data:
         metadata:
