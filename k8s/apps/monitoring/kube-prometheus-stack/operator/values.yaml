@@ -58,12 +58,11 @@ prometheus:
     pathType: Prefix
   prometheusSpec:
     scrapeInterval: 1m # Must match interval in Grafana Helm chart
-    podMonitorSelector: &selector
-      matchLabels: null
-    probeSelector: *selector
-    ruleSelector: *selector
-    serviceMonitorSelector: *selector
-    scrapeConfigSelector: *selector
+    podMonitorSelectorNilUsesHelmValues: false
+    probeSelectorNilUsesHelmValues: false
+    ruleSelectorNilUsesHelmValues: false
+    scrapeConfigSelectorNilUsesHelmValues: false
+    serviceMonitorSelectorNilUsesHelmValues: false
     enableAdminAPI: true
     walCompression: true
     enableFeatures:
