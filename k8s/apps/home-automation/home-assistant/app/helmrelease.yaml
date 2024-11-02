@@ -156,3 +156,8 @@ spec:
         globalMounts:
           - path: /root/.ssh/id_rsa
             subPath: GH_DEPLOY_KEY
+
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
