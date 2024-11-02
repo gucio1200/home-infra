@@ -59,6 +59,7 @@ spec:
                   secretKeyRef:
                     name: home-assistant-pguser-home-assistant
                     key: uri
+              UV_CACHE_DIR: /config/.cache/uv/
             envFrom:
               - secretRef:
                   name: home-assistant-secret
