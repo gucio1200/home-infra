@@ -1,0 +1,109 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: sonarr
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.5.1
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+
+  values:
+    controllers:
+      sonarr:
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        pod:
+          securityContext:
+            runAsUser: 586
+            runAsGroup: 586
+            runAsNonRoot: true
+            fsGroup: 586
+            fsGroupChangePolicy: "OnRootMismatch"
+            supplementalGroups: [10000]
+            seccompProfile: { type: RuntimeDefault }
+        containers:
+          app:
+            image:
+              repository: ghcr.io/onedr0p/sonarr-develop
+              tag: 4.0.10.2624@sha256:550d8206663585710556de32e8656b4838e83c9dd79ec271af567b85fa724912
+            env:
+              COMPlus_EnableDiagnostics: "0"
+              SONARR__APP__INSTANCENAME: Sonarr
+#              SONARR__AUTH__APIKEY:
+#                valueFrom:
+#                  secretKeyRef:
+#                    name: sonarr-secret
+#                    key: api_key
+              SONARR__AUTH__METHOD: External
+              SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              SONARR__LOG__LEVEL: info
+              SONARR__SERVER__PORT: &port 8989
+              SONARR__UPDATE__BRANCH: develop
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+            resources:
+              requests:
+                cpu: 20m
+                memory: 384Mi
+              limits:
+                memory: 2Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+
+    service:
+      app:
+        controller: sonarr
+        ports:
+          http:
+            port: *port
+
+    ingress:
+      app:
+        className: "nginx"
+        annotations:
+        hosts:
+          - host: &host sonarr.k8sj.io
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+
+    persistence:
+      config:
+        existingClaim: sonarr-config
+      add-ons:
+        type: emptyDir
+      tmp:
+        type: emptyDir
+      media:
+        type: nfs
+        server: nfs.dom.lan
+        path: /volume1/Media
+        globalMounts:
+          - path: /data/nas-media
