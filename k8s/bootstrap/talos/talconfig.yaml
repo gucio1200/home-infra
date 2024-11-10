@@ -170,6 +170,15 @@ controlPlane:
               aliases:
                 - k8s.dom.lan
 
+    # Disable Host DNS
+    - |-
+      machine:
+        features:
+          hostDNS:
+            enabled: true
+            resolveMemberNames: true
+            forwardKubeDNSToHost: false
+
     # Enable KubePrism
     - |-
       machine:
@@ -277,6 +286,26 @@ controlPlane:
 
 worker:
   patches:
+
+    # Disable search domain everywhere
+    - |-
+      machine:
+        network:
+          disableSearchDomain: true
+          extraHostEntries:
+            - ip: 172.99.0.2
+              aliases:
+                - k8s.dom.lan
+
+    # Disable Host DNS
+    - |-
+      machine:
+        features:
+          hostDNS:
+            enabled: true
+            resolveMemberNames: true
+            forwardKubeDNSToHost: false
+
     # Configure containerd
     - |-
       machine:
