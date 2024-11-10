@@ -1,0 +1,110 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: radarr
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.5.1
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+
+  values:
+    controllers:
+      radarr:
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
+            supplementalGroups: [10000]
+            seccompProfile: { type: RuntimeDefault }
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/onedr0p/radarr-develop
+              tag: 5.15.0.9412@sha256:3d922f5f80935c1aadbe49597cb4cd509e2890ca0c01d6778ac54825012fdde4
+            env:
+              COMPlus_EnableDiagnostics: "0"
+              RADARR__INSTANCE_NAME: Radarr
+              RADARR__PORT: &port 7878
+              RADARR__AUTHENTICATION_METHOD: External
+              RADARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
+              RADARR__APPLICATION_URL: "https://radarr.k8sj.io"
+              RADARR__LOG_LEVEL: info
+#              RADARR__API_KEY:
+#                valueFrom:
+#                  secretKeyRef:
+#                    name: radarr-secret
+#                    key: api_key
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+            resources:
+              requests:
+                cpu: 20m
+                memory: 384Mi
+              limits:
+                memory: 2Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+
+    service:
+      app:
+        controller: radarr
+        ports:
+          http:
+            port: *port
+
+    ingress:
+      app:
+        className: "nginx"
+        annotations:
+        hosts:
+          - host: &host radarr.k8sj.io
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+
+    persistence:
+      config:
+        existingClaim: radarr-config
+      add-ons:
+        type: emptyDir
+      tmp:
+        type: emptyDir
+      media:
+        type: nfs
+        server: nfs.dom.lan
+        path: /volume1/Media
+        globalMounts:
+          - path: /data/nas-media
