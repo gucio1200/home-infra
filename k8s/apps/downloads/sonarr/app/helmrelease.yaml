@@ -39,11 +39,11 @@ spec:
             env:
               COMPlus_EnableDiagnostics: "0"
               SONARR__APP__INSTANCENAME: Sonarr
-#              SONARR__AUTH__APIKEY:
-#                valueFrom:
-#                  secretKeyRef:
-#                    name: sonarr-secret
-#                    key: api_key
+              SONARR__AUTH__APIKEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: sonarr-secret
+                    key: api_key
               SONARR__AUTH__METHOD: External
               SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
               SONARR__LOG__LEVEL: info
