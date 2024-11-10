@@ -77,7 +77,7 @@ spec:
         className: "nginx"
         annotations:
         hosts:
-          - host: bazarr.k8sj.io
+          - host: &host bazarr.k8sj.io
             paths:
               - path: /
                 service:
