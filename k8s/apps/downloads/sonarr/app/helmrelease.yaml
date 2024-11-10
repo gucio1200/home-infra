@@ -103,7 +103,7 @@ spec:
         type: emptyDir
       media:
         type: nfs
-        server: 192.168.0.150
+        server: nfs.dom.lan
         path: /volume1/Media
         globalMounts:
           - path: /data/nas-media
