@@ -213,10 +213,7 @@ controlPlane:
             permissions: 0o644
             content: |
               [ NFSMount_Global_Options ]
-              nfsvers=4.2
-              hard=True
-              noatime=True
-              nodiratime=True
+              nfsvers=4.1
               rsize=131072
               wsize=131072
               nconnect=8
@@ -270,6 +267,20 @@ controlPlane:
 
 worker:
   patches:
+
+    # Configure nfs mount options
+    - |-
+      machine:
+        files:
+          - op: overwrite
+            path: /etc/nfsmount.conf
+            permissions: 0o644
+            content: |
+              [ NFSMount_Global_Options ]
+              nfsvers=4.1
+              rsize=131072
+              wsize=131072
+              nconnect=8
 
     # Disable search domain everywhere
     - |-
