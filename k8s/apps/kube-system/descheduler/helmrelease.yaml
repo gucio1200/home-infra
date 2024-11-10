@@ -39,8 +39,15 @@ spec:
             - name: DefaultEvictor
               args:
                 ignorePvcPods: true
-                evictLocalStoragePods: true
+                evictLocalStoragePods: false
+                evictSystemCriticalPods: true
+                evictFailedBarePods: true
+                nodeFit: true
             - name: RemoveDuplicates
+            - name: "RemoveFailedPods"
+              args:
+                includingInitContainers: true
+                minPodLifetimeSeconds: 600
             - name: RemovePodsHavingTooManyRestarts
               args:
                 podRestartThreshold: 100
@@ -70,6 +77,7 @@ spec:
                 - LowNodeUtilization
             deschedule:
               enabled:
+                - RemoveFailedPods
                 - RemovePodsHavingTooManyRestarts
                 - RemovePodsViolatingNodeTaints
                 - RemovePodsViolatingNodeAffinity
