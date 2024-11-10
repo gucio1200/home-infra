@@ -6,5 +6,4 @@ resources:
   - ./namespace.yaml
   # Flux-Kustomizations
 #  - ./ext-postgres-operator/ks.yaml
-#  - ./zalando-postgres/ks.yaml
   - ./crunchy-postgres-operator/ks.yaml
