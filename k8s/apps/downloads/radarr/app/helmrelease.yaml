@@ -45,11 +45,11 @@ spec:
               RADARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
               RADARR__APPLICATION_URL: "https://radarr.k8sj.io"
               RADARR__LOG_LEVEL: info
-#              RADARR__API_KEY:
-#                valueFrom:
-#                  secretKeyRef:
-#                    name: radarr-secret
-#                    key: api_key
+              RADARR__API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: radarr-secret
+                    key: api_key
             probes:
               liveness:
                 enabled: true
