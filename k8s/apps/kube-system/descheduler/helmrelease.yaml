@@ -38,11 +38,10 @@ spec:
           pluginConfig:
             - name: DefaultEvictor
               args:
-                ignorePvcPods: true
+                ignorePvcPods: false
                 evictLocalStoragePods: false
                 evictSystemCriticalPods: true
                 evictFailedBarePods: true
-                nodeFit: true
             - name: RemoveDuplicates
             - name: "RemoveFailedPods"
               args:
