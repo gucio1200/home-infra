@@ -1,0 +1,142 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: qbittorrent
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.5.1
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+
+  values:
+    controllers:
+      qbittorrent:
+        annotations:
+          configmap.reloader.stakater.com/reload: qbittorrent-scripts,qbittorrent-dnsdist
+          secret.reloader.stakater.com/reload: qbittorrent-secret
+
+        pod:
+          securityContext:
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
+            supplementalGroups: [10000]
+          terminationGracePeriodSeconds: 120
+
+        initContainers:
+          dnsdist:
+            image:
+              repository: docker.io/powerdns/dnsdist-19
+              tag: 1.9.7
+            restartPolicy: Always
+
+        containers:
+          app:
+            nameOverride: qbittorrent
+            image:
+              repository: ghcr.io/onedr0p/qbittorrent-beta
+              tag: 5.0.1@sha256:684422cab9fe3cba04812cf4207398bb72aa0f0283c92fddecd833648ac3f7bf
+            env:
+              UMASK: "022"
+              QBT_WEBUI_PORT: &port 8080
+              XSEED_HOST: cross-seed.downloads.svc.cluster.local
+              XSEED_PORT: 2468
+              XSEED_APIKEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: sabnzbd-secret
+                    key: xseed_api_key
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+            resources:
+              requests:
+                cpu: 150m
+                memory: 2048Mi
+              limits:
+                memory: 8192Mi
+            securityContext:
+              runAsUser: 568
+              runAsGroup: 568
+              runAsNonRoot: true
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+
+    service:
+      app:
+        controller: qbittorrent
+        ports:
+          http:
+            port: *port
+
+    ingress:
+      app:
+        className: "nginx"
+        annotations:
+        hosts:
+          - host: &host qbittorrent.k8sj.io
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+
+    persistence:
+      config:
+        enabled: true
+        existingClaim: qbittorrent-config
+        advancedMounts:
+          qbittorrent:
+            app:
+              - path: /config
+      empty-config:
+        type: emptyDir
+        advancedMounts:
+          qbittorrent:
+            port-forward:
+              - path: /config
+      media:
+        type: nfs
+        server: nfs.dom.lan
+        path: /volume1/Media
+        advancedMounts:
+          qbittorrent:
+            app:
+              - path: /data/nas-media
+      dnsdist:
+        type: configMap
+        name: qbittorrent-dnsdist
+        advancedMounts:
+          qbittorrent:
+            dnsdist:
+              - path: /etc/dnsdist/dnsdist.conf
+                subPath: dnsdist.conf
+                readOnly: true
+      scripts:
+        type: configMap
+        name: qbittorrent-scripts
+        defaultMode: 0775
+        advancedMounts:
+          qbittorrent:
+            app:
+              - path: /config/scripts
