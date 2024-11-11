@@ -39,8 +39,8 @@ spec:
               AUTOBRR__PORT: &port 7474
               AUTOBRR__LOG_LEVEL: DEBUG
             envFrom:
-#              - secretRef:
-#                  name: autobrr-secret
+              - secretRef:
+                  name: autobrr-secret
               - secretRef:
                   name: autobrr-db-secret
             probes:
