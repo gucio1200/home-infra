@@ -23,4 +23,4 @@ spec:
     - name: cluster-apps-rook-ceph-cluster
     - name: crunchy-postgres-operator-cluster
     - name: crunchy-postgres-operator-secretstore
-#    - name: qbittorrent
+    - name: qbittorrent

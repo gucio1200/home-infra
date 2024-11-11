@@ -29,26 +29,26 @@ spec:
       VOLSYNC_CAPACITY: 2Gi
       VOLSYNC_ACCESSMODES: ReadWriteMany
       VOLSYNC_STORAGECLASS: ceph-filesystem
-      VOLSYNC_SNAPSHOTCLASS: csi-ceph-filesystem
----
-# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/kustomization-kustomize-v1.json
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: &appname qbtools
-  namespace: flux-system
-spec:
-  targetNamespace: downloads
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *appname
-  interval: 30m
-  timeout: 5m
-  path: "./k8s/apps/downloads/qbittorrent/tools"
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  wait: false
-  dependsOn:
-    - name: qbittorrent
+      VOLSYNC_SNAPSHOTCLASS: ceph-filesystem
+#---
+## yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/kustomization-kustomize-v1.json
+#apiVersion: kustomize.toolkit.fluxcd.io/v1
+#kind: Kustomization
+#metadata:
+#  name: &appname qbtools
+#  namespace: flux-system
+#spec:
+#  targetNamespace: downloads
+#  commonMetadata:
+#    labels:
+#      app.kubernetes.io/name: *appname
+#  interval: 30m
+#  timeout: 5m
+#  path: "./k8s/apps/downloads/qbittorrent/tools"
+#  prune: true
+#  sourceRef:
+#    kind: GitRepository
+#    name: flux-system
+#  wait: false
+#  dependsOn:
+#    - name: qbittorrent

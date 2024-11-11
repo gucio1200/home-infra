@@ -12,12 +12,12 @@ spec:
       app.kubernetes.io/name: *appname
   interval: 30m
   timeout: 5m
-  path: "./kubernetes/main/apps/downloads/cross-seed/app"
+  path: "./k8s/apps/downloads/cross-seed/app"
   prune: true
   sourceRef:
     kind: GitRepository
-    name: home-ops-kubernetes
+    name: flux-system
   wait: false
   dependsOn:
-    - name: external-secrets-stores
+    - name: cluster-apps-external-secrets-stores
     - name: qbittorrent
