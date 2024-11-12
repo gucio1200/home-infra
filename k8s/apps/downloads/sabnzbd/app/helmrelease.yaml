@@ -46,16 +46,16 @@ spec:
                 sabnzbd.downloads.svc.cluster,
                 sabnzbd.downloads.svc.cluster.local,
                 sabnzbd.k8sj.io
-#              SABNZBD__API_KEY:
-#                valueFrom:
-#                  secretKeyRef:
-#                    name: sabnzbd-secret
-#                    key: api_key
-#              SABNZBD__NZB_KEY:
-#                valueFrom:
-#                  secretKeyRef:
-#                    name: sabnzbd-secret
-#                    key: nzb_key
+              SABNZBD__API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: sabnzbd-secret
+                    key: api_key
+              SABNZBD__NZB_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: sabnzbd-secret
+                    key: nzb_key
               XSEED_HOST: cross-seed.downloads.svc.cluster.local
               XSEED_PORT: 2468
 #              XSEED_APIKEY:
