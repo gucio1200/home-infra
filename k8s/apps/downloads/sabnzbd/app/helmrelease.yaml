@@ -58,11 +58,11 @@ spec:
                     key: nzb_key
               XSEED_HOST: cross-seed.downloads.svc.cluster.local
               XSEED_PORT: 2468
-#              XSEED_APIKEY:
-#                valueFrom:
-#                  secretKeyRef:
-#                    name: sabnzbd-secret
-#                    key: xseed_api_key
+              XSEED_APIKEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: sabnzbd-secret
+                    key: xseed_api_key
             probes:
               liveness:
                 enabled: true
