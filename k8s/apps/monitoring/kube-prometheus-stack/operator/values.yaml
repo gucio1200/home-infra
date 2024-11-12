@@ -13,10 +13,10 @@ alertmanager:
       hajimari.io/appName: "Alert Manager"
       hajimari.io/icon: mdi:alert-decagram-outline
     ingressClassName: nginx
-    hosts: [&host "alert-manager.k8sj.io"]
+    hosts: ["alert-manager.k8sj.io"]
     tls:
       - hosts:
-        - *host
+        - "alert-manager.k8sj.io"
     pathType: Prefix
   alertmanagerSpec:
     podAntiAffinity: "hard"
@@ -66,10 +66,10 @@ prometheus:
       hajimari.io/appName: Prometheus
       hajimari.io/icon: simple-icons:prometheus
     ingressClassName: nginx
-    hosts: [&host "prometheus.k8sj.io"]
+    hosts: ["prometheus.k8sj.io"]
     tls:
       - hosts:
-          - *host
+          - "prometheus.k8sj.io"
     pathType: Prefix
   prometheusSpec:
     scrapeInterval: 1m # Must match interval in Grafana Helm chart
