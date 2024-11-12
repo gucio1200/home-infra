@@ -20,4 +20,4 @@ spec:
   wait: false
   dependsOn:
     - name: cluster-apps-external-secrets-stores
-    - name: qbittorrent
+#    - name: qbittorrent
