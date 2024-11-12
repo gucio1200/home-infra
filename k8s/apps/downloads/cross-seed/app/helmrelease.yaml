@@ -74,13 +74,13 @@ spec:
     persistence:
       config:
         type: emptyDir
-#      config-file:
-#        type: secret
-#        name: cross-seed-secret
-#        globalMounts:
-#          - path: /config/config.js
-#            subPath: config.js
-#            readOnly: true
+      config-file:
+        type: secret
+        name: cross-seed-secret
+        globalMounts:
+          - path: /config/config.js
+            subPath: config.js
+            readOnly: true
       qbittorrent:
         existingClaim: qbittorrent-config
         globalMounts:
