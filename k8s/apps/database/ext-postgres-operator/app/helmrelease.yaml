@@ -20,7 +20,7 @@ spec:
     podAnnotations:
       reloader.stakater.com/auto: "true"
 
-    existingSecret: ext-postgres-operator-secret
+#    existingSecret: ext-postgres-operator-secret
 
     resources:
       requests:
