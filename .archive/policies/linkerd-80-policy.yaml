@@ -1,0 +1,99 @@
+---
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: generate-linkerd-80
+  annotations:
+    policies.kyverno.io/title: Generate linkerd network policy for Namespaces
+    policies.kyverno.io/category: Other
+    policies.kyverno.io/severity: medium
+    policies.kyverno.io/subject: Namespace, NetworkPolicy, linkerd
+    kyverno.io/kyverno-version: 1.7.0
+    policies.kyverno.io/minversion: 1.7.0
+    kyverno.io/kubernetes-version: "1.23"
+spec:
+  rules:
+
+# Server
+  - name: linkerd-80-server
+    match:
+      any:
+      - resources:
+          kinds:
+          - Namespace
+          selector:
+            matchLabels:
+              eboNamespace: "True"
+    generate:
+      apiVersion: policy.linkerd.io/v1beta1
+      kind: Server
+      name: linkerd-80
+      namespace: "{{request.object.metadata.name}}"
+      generateExisting: true
+      synchronize: true
+      data:
+        metadata:
+          labels:
+            created-by: kyverno
+        spec:
+          podSelector:
+            matchExpressions:
+            - {key: app.kubernetes.io/name, operator: In, values: [podinfo-linkerd]}
+          port: 80
+
+# Mtlsauth
+  - name: linkerd-80-mtls
+    match:
+      any:
+      - resources:
+          kinds:
+          - Namespace
+          selector:
+            matchLabels:
+              eboNamespace: "True"
+    generate:
+      apiVersion: policy.linkerd.io/v1alpha1
+      kind: MeshTLSAuthentication
+      name: linkerd-80
+      namespace: "{{request.object.metadata.name}}"
+      generateExisting: true
+      synchronize: true
+      data:
+        metadata:
+          labels:
+            created-by: kyverno
+        spec:
+          identities:
+            - "traefik-linkerd.test-ingress.serviceaccount.identity.linkerd.cluster.local"
+            - "tap.linkerd-viz.serviceaccount.identity.linkerd.cluster.local"
+
+# Policy
+  - name: linkerd-80-policy
+    match:
+      any:
+      - resources:
+          kinds:
+          - Namespace
+          selector:
+            matchLabels:
+              eboNamespace: "True"
+    generate:
+      apiVersion: policy.linkerd.io/v1alpha1
+      kind: AuthorizationPolicy
+      name: linkerd-80
+      namespace: "{{request.object.metadata.name}}"
+      generateExisting: true
+      synchronize: true
+      data:
+        metadata:
+          labels:
+            created-by: kyverno
+        spec:
+          targetRef:
+            group: policy.linkerd.io
+            kind: Server
+            name: linkerd-80
+          requiredAuthenticationRefs:
+            - name: linkerd-80
+              kind: MeshTLSAuthentication
+              group: policy.linkerd.io
