@@ -28,7 +28,7 @@ jobs:
           private_key: "${{ secrets.APP_PRIVATE_KEY }}"
 
       - name: Diff Resources
-        uses: allenporter/flux-local/action/diff@4.3.1
+        uses: allenporter/flux-local/action/diff@6.0.2
         id: diff
         with:
           sources: flux-system
