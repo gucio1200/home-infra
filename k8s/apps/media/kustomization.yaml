@@ -7,3 +7,4 @@ resources:
   # Flux-Kustomizations
   - ./plex/ks.yaml
   - ./immich/ks.yaml
+  - ./audiobookshelf/ks.yaml
