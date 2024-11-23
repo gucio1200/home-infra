@@ -3,7 +3,7 @@ kind: Kustomization
 namespace: flux-system
 resources:
   - angelnu.yaml
-  - banzaicloud.yaml
+#  - banzaicloud.yaml
   - bitnami.yaml
   - jetstack.yaml
   - prometheus-community.yaml
