@@ -224,7 +224,7 @@ spec:
             - { name: VAR_REPLICATIONDESTNAME, value: .*-dst }
         minio:
           gnetId: 13502
-          revision: 22
+          revision: 26
           datasource:
           - name: DS_PROMETHEUS
             value: Prometheus
