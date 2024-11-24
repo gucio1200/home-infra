@@ -19,4 +19,4 @@ spec:
     name: flux-system
   wait: false
   dependsOn:
-    - name: external-secrets-stores
+    - name: cluster-apps-external-secrets-stores
