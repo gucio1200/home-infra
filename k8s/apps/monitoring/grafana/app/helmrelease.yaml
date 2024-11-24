@@ -222,6 +222,12 @@ spec:
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
             - { name: VAR_REPLICATIONDESTNAME, value: .*-dst }
+        minio:
+          gnetId: 13502
+          revision: 22
+          datasource:
+          - name: DS_PROMETHEUS
+            value: Prometheus
     sidecar:
       dashboards:
         enabled: true
