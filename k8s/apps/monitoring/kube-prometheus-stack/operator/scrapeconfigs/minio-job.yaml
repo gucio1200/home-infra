@@ -9,3 +9,7 @@ spec:
     - targets:
         - s3.dom.lan
   metricsPath: /minio/v2/metrics/cluster
+  relabelings:
+    - action: replace
+      targetLabel: job
+      replacement: *name
