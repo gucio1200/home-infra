@@ -1,0 +1,20 @@
+global:
+  domain: argocd.k8sj.io
+
+configs:
+  cm:
+    timeout.reconciliation: 120s
+    timeout.hard.reconciliation: 180s
+    kustomize.buildOptions: --enable-helm --load-restrictor=LoadRestrictionsNone
+  params:
+    server.insecure: true
+
+server:
+  ingress:
+    enabled: true
+    ingressClassName: "nginx"
+    tls: false
+    extraTls:
+      - hosts:
+        - argocd.k8sj.io
+          secretName: argocd-tls

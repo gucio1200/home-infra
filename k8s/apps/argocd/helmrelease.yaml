@@ -1,0 +1,22 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: argo-cd
+  namespace: argocd
+spec:
+  releaseName: argo-cd
+  chart:
+    spec:
+      chart: argo-cd
+      version: 7.7.6
+      sourceRef:
+        kind: HelmRepository
+        name: argo
+        namespace: flux-system
+  interval: 10m0s
+  install:
+    remediation:
+      retries: 3
+  valuesFrom:
+    - kind: ConfigMap
+      name: argo-cd-values
