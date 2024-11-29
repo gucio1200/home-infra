@@ -18,3 +18,6 @@ server:
       - hosts:
         - argocd.k8sj.io
         secretName: argocd-tls
+
+dex:
+  enabled: false
