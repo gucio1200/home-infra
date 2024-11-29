@@ -9,6 +9,16 @@ configs:
   params:
     server.insecure: true
 
+  clusterCredentials:
+    in-cluster-local:
+      server: https://kubernetes.default.svc
+      annotations:
+        location: useast2
+        stage: int
+      config:
+        tlsClientConfig:
+          insecure: false
+
 server:
   ingress:
     enabled: true
