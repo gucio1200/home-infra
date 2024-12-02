@@ -15,6 +15,7 @@ configs:
       annotations:
         location: useast2
         stage: int
+        source-branch: main
       config:
         tlsClientConfig:
           insecure: false
