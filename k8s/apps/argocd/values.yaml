@@ -13,7 +13,7 @@ configs:
     in-cluster-local:
       server: https://kubernetes.default.svc
       annotations:
-        location: useast2
+        location: eastus2
         stage: int
         source-branch: main
       config:
