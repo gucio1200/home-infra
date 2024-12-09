@@ -10,12 +10,11 @@ configs:
     server.insecure: true
 
   clusterCredentials:
-    in-cluster-local:
+    antipodes:
       server: https://kubernetes.default.svc
       annotations:
         location: eastus2
         stage: int
-        source-branch: main
       config:
         tlsClientConfig:
           insecure: false
