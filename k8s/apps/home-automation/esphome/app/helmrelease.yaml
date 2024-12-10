@@ -39,6 +39,11 @@ spec:
                 "namespace": "networking",
                 "ips": ["192.168.2.252/16"]
               }]
+          securityContext:
+            runAsUser: 586
+            runAsGroup: 586
+            fsGroup: 586
+            fsGroupChangePolicy: OnRootMismatch
 
         containers:
           app:
