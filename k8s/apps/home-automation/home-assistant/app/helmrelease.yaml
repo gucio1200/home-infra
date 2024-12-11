@@ -59,7 +59,6 @@ spec:
                   secretKeyRef:
                     name: home-assistant-pguser-home-assistant
                     key: uri
-#              UV_CACHE_DIR: /config/.cache/uv/
             envFrom:
               - secretRef:
                   name: home-assistant-secret
@@ -75,7 +74,7 @@ spec:
                 cpu: 47m
                 memory: 2Gi
               limits:
-                memory: 8Gi
+                memory: 4Gi
           code-server:
             image:
               repository: ghcr.io/coder/code-server
