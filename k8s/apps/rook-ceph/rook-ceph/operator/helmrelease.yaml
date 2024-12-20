@@ -33,6 +33,7 @@ spec:
       serviceMonitor:
         enabled: true
       enableCSIHostNetwork: true
+    enableDiscoveryDaemon: true
     monitoring:
       enabled: true
     resources:
