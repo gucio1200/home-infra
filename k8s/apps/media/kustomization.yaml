@@ -8,3 +8,4 @@ resources:
   - ./plex/ks.yaml
   - ./immich/ks.yaml
   - ./audiobookshelf/ks.yaml
+  - ./wallabag/ks.yaml
