@@ -58,5 +58,6 @@ spec:
       type: LoadBalancer
       externalIPs:
         - 172.16.99.105
-      annotations:
-        coredns.io/hostname: "mqtt2.k8sj.io"
+      metadata:
+        annotations:
+          coredns.io/hostname: "mqtt2.k8sj.io"
