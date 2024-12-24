@@ -54,10 +54,10 @@ spec:
           secret:
             secretName: emqx-init-user-secret
   listenersServiceTemplate:
+    metadata:
+      annotations:
+        coredns.io/hostname: "mqtt2.k8sj.io"
     spec:
       type: LoadBalancer
       externalIPs:
         - 172.16.99.105
-      metadata:
-        annotations:
-          coredns.io/hostname: "mqtt2.k8sj.io"
