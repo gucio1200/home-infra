@@ -36,7 +36,7 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
     spec:
-      replicas: 2
+      replicas: 3
       envFrom:
         - secretRef:
             name: emqx-secret
@@ -56,8 +56,8 @@ spec:
   listenersServiceTemplate:
     metadata:
       annotations:
-        coredns.io/hostname: "mqtt2.k8sj.io"
+        coredns.io/hostname: "mqtt.k8sj.io"
     spec:
       type: LoadBalancer
       externalIPs:
-        - 172.16.99.105
+        - 172.16.99.103
