@@ -3,12 +3,12 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: emqx-dashboard
-spec:
-  ingressClassName: nginx
   annotations:
     hajimari.io/enable: "true"
     hajimari.io/appName: "Mqtt"
     hajimari.io/icon: mdi:wifi
+spec:
+  ingressClassName: nginx
   rules:
     - host: &host emqx.k8sj.io
       http:
