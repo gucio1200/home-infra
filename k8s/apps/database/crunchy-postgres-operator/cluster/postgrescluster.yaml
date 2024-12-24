@@ -63,6 +63,11 @@ spec:
         - autobrr
       password:
         type: AlphaNumeric
+    - name: wallabag
+      databases:
+        - wallabag
+      password:
+        type: AlphaNumeric
 
   backups:
     pgbackrest:
