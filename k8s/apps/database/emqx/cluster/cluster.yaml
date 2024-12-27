@@ -6,6 +6,12 @@ metadata:
   name: emqx
 spec:
   image: public.ecr.aws/emqx/emqx:5.8.4
+  revisionHistoryLimit: 3
+  updateStrategy:
+    evacuationStrategy:
+      waitTakeover: 30
+    initialDelaySeconds: 30
+    type: Recreate
   config:
     data: |
       authentication {
@@ -30,6 +36,9 @@ spec:
           }
         ]
         no_match: "deny"
+      }
+      cluster {
+        autoclean = "10m"
       }
   coreTemplate:
     metadata:
