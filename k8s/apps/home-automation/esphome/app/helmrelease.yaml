@@ -39,17 +39,17 @@ spec:
                 "namespace": "networking",
                 "ips": ["192.168.2.252/16"]
               }]
-#          securityContext:
-#            runAsUser: 586
-#            runAsGroup: 586
-#            fsGroup: 586
-#            fsGroupChangePolicy: OnRootMismatch
+          securityContext:
+            runAsUser: 2000
+            runAsGroup: 2000
+            fsGroup: 2000
+            fsGroupChangePolicy: OnRootMismatch
 
         containers:
           app:
             image:
-              repository: ghcr.io/esphome/esphome
-              tag: 2024.12.2
+              repository: ghcr.io/bjw-s-labs/esphome
+              tag: 2024.12.2@sha256:cdc5a3f2a0efb321c143317fc1c0d914dc96e4f8d896db2f17632af7a9008814
             probes:
               liveness:
                 enabled: false
@@ -63,6 +63,12 @@ spec:
                 memory: 1374M
               limits:
                 memory: 2048M
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
 
           code-server:
             image:
