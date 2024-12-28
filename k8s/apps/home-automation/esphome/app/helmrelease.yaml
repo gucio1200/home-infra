@@ -144,17 +144,18 @@ spec:
               - path: /config
             code-server:
               - path: /config
-
       secrets:
         type: secret
         name: esphome-secrets
         globalMounts:
           - path: /config/secrets.yaml
             subPath: secrets.yaml
-      esphome-cache:
+      cache:
         type: emptyDir
-        globalMounts:
-          - path: /config/.esphome
+        advancedMounts:
+          esphome:
+            app:
+              - path: /cache
       deploy-key:
         type: secret
         name: esphome-deploykey
