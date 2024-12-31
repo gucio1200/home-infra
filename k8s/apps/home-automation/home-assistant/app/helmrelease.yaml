@@ -107,14 +107,14 @@ spec:
         enabled: true
         className: "nginx"
         annotations:
-#          external-dns.home.arpa/enabled: "true"
-#          external-dns.alpha.kubernetes.io/target: ipv4.k8sj.io
+          external-dns.home.arpa/enabled: "true"
+          external-dns.alpha.kubernetes.io/target: ipv4.k8sj.io
           hajimari.io/enable: "true"
           hajimari.io/appName: "Hass"
           hajimari.io/icon: mdi:home-assistant
-          nginx.ingress.kubernetes.io/modsecurity-snippet: |
-            SecRule REQUEST_HEADERS:Content-Type "@rx ^text/plain" "id:10,phase:1,pass,nolog,t:none,ctl:ruleRemoveById=920420,chain"
-            SecRule REQUEST_URI "@rx ^/auth/login_flow" "t:none"
+#          nginx.ingress.kubernetes.io/modsecurity-snippet: |
+#            SecRule REQUEST_HEADERS:Content-Type "@rx ^text/plain" "id:10,phase:1,pass,nolog,t:none,ctl:ruleRemoveById=920420,chain"
+#            SecRule REQUEST_URI "@rx ^/auth/login_flow" "t:none"
         hosts:
           - host: &host hass.k8sj.io
             paths:
