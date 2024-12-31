@@ -51,7 +51,7 @@ spec:
 
       config:
         enable-modsecurity: false
-        annotations-risk-level: Critical
+        annotations-risk-level: "Critical"
         enable-owasp-modsecurity-crs: false
 #        http-snippet: |-
 #          modsecurity_transaction_id "$request_id";
