@@ -4,7 +4,7 @@ bandwidthManager:
   bbr: true
   enabled: true
 bpf:
-#  datapathMode: netkit
+  datapathMode: netkit
   preallocateMaps: true
   masquerade: true
   tproxy: true
@@ -71,6 +71,7 @@ ipv6:
   enabled: false
 
 routingMode: native
+
 k8sNetworkPolicy:
   enabled: false
 
@@ -99,34 +100,4 @@ updateStrategy:
     maxUnavailable: 1
 
 hubble:
-  enabled: true
-  metrics:
-    enabled:
-      - dns:query;ignoreAAAA
-      - drop
-      - tcp
-      - flow
-      - port-distribution
-      - icmp
-      - http
-  relay:
-    enabled: true
-    rollOutPods: true
-  serviceMonitor:
-    enabled: true
-  ui:
-    enabled: true
-    rollOutPods: true
-    ingress:
-      enabled: true
-      annotations:
-        hajimari.io/enable: "true"
-        hajimari.io/appName: "Hubble"
-        hajimari.io/icon: mdi:local-area-network
-        nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
-      className: "nginx"
-      hosts:
-        - &host hubble.k8sj.io
-      tls:
-        - hosts:
-            - *host
+  enabled: false
