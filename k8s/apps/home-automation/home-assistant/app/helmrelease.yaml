@@ -51,10 +51,9 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/home-assistant/home-assistant
-              tag: 2025.1.0
+              repository: ghcr.io/onedr0p/home-assistant
+              tag: 2025.1.0@sha256:a3e6b1301107c5ca4dd3e1e7fa25edd0618acc9f812c75674cce7481fb05c759
             env:
-              PYTHONPATH: /config/deps
               SECRET_RECORDER_DB_URL:
                 valueFrom:
                   secretKeyRef:
@@ -150,15 +149,17 @@ spec:
         globalMounts:
           - path: /config
 
-      deploy-key:
-        type: secret
-        name: home-assistant-secret
-        defaultMode: 256
-        globalMounts:
-          - path: /root/.ssh/id_rsa
-            subPath: GH_DEPLOY_KEY
-
-      tmp:
+      tmpfs:
         type: emptyDir
-        globalMounts:
-          - path: /tmp
+        advancedMounts:
+          home-assistant:
+            app:
+              - path: /tmp
+                subPath: hass-tmp
+              - path: /config/.venv
+                subPath: hass-venv
+            code-server:
+              - path: /tmp
+                subPath: code-server-tmp
+              - path: /nonexistent
+                subPath: nonexistent
