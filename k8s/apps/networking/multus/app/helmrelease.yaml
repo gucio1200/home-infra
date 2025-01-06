@@ -17,6 +17,9 @@ spec:
         namespace: flux-system
 
   values:
+    defaultPodOptions:
+      priorityClassName: system-node-critical
+
     controllers:
       uninstall:
         type: job
