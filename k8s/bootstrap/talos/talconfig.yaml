@@ -1,6 +1,5 @@
 ---
 clusterName: &clusterName k8s
-allowSchedulingOnMasters: true
 clusterPodNets:
   - 10.244.0.0/16
 clusterSvcNets:
@@ -14,7 +13,6 @@ cniConfig:
 
 additionalApiServerCertSans: &san
   - "k8s.dom.lan"
-  - "172.16.99.3"
   - "172.99.0.2"
   - "127.0.0.1"
 
@@ -186,7 +184,7 @@ controlPlane:
     # Cluster configuration
     - |-
       cluster:
-        allowSchedulingOnMasters: true
+        allowSchedulingOnControlPlanes: true
         proxy:
           disabled: true
         discovery:
@@ -282,7 +280,7 @@ controlPlane:
         time:
           disabled: false
           servers:
-            - pool.ntp.org
+            - 192.168.0.151
 
 
     # Custom sysctls
@@ -385,7 +383,7 @@ worker:
         time:
           disabled: false
           servers:
-            - pool.ntp.org
+            - 192.168.0.151
 
     # Custom sysctls
     - |-
