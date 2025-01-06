@@ -28,27 +28,37 @@ spec:
                 evictFailedBarePods: true
                 evictLocalStoragePods: true
                 evictSystemCriticalPods: true
-                nodeFit: true
-            - name: RemovePodsViolatingInterPodAntiAffinity
+            - name: RemoveFailedPods
+              args:
+                reasons:
+                  - "NodeAffinity"
+                  - "Terminated"
+                includingInitContainers: true
+                excludeOwnerKinds:
+                  - "Job"
+                minPodLifetimeSeconds: 3600
+            - name: RemovePodsHavingTooManyRestarts
+              args:
+                podRestartThreshold: 100
+                includingInitContainers: true
             - name: RemovePodsViolatingNodeAffinity
               args:
                 nodeAffinityType:
                   - requiredDuringSchedulingIgnoredDuringExecution
-            - name: RemovePodsViolatingNodeTaints
+            #- name: RemovePodsViolatingNodeTaints
+            - name: RemovePodsViolatingInterPodAntiAffinity
             - name: RemovePodsViolatingTopologySpreadConstraint
-              args:
-                constraints:
-                  - DoNotSchedule
-                  - ScheduleAnyway
           plugins:
             balance:
               enabled:
                 - RemovePodsViolatingTopologySpreadConstraint
             deschedule:
               enabled:
-                - RemovePodsViolatingInterPodAntiAffinity
+                - RemoveFailedPods
+                - RemovePodsHavingTooManyRestarts
+                #- RemovePodsViolatingNodeTaints
                 - RemovePodsViolatingNodeAffinity
-                - RemovePodsViolatingNodeTaints
+                - RemovePodsViolatingInterPodAntiAffinity
     service:
       enabled: true
     serviceMonitor:
