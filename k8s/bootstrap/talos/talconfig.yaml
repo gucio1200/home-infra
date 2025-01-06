@@ -1,12 +1,12 @@
 ---
-clusterName: k8s
+clusterName: &clusterName k8s
 allowSchedulingOnMasters: true
 clusterPodNets:
   - 10.244.0.0/16
 clusterSvcNets:
   - 10.96.0.0/12
-talosVersion: v1.7.6
-kubernetesVersion: v1.30.4
+talosVersion: v1.9.1
+kubernetesVersion: v1.32.0
 endpoint: "https://k8s.dom.lan:6443"
 
 cniConfig:
@@ -134,14 +134,26 @@ nodes:
               - cpufreq.default_governor=performance
 
 controlPlane:
+  nodeLabels:
+    topology.kubernetes.io/region: *clusterName
+    topology.kubernetes.io/zone: m
+
   schematic:
     customization:
       extraKernelArgs:
-        - net.ifnames=1
+        - apparmor=0           # Less security, more speed
+        - init_on_alloc=0      # Less security, more speed
+        - init_on_free=0       # Less security, more speed
+        - intel_iommu=on       # PCI Passthrough
+        - iommu=pt             # PCI Passthrough
+        - mitigations=off      # Less security, more speed
+        - security=none        # Less security, more speed
+        - net.ifnames=1        # Enable predictable NIC naming
       systemExtensions:
         officialExtensions:
           - siderolabs/intel-ucode
-          - siderolabs/i915-ucode
+          - siderolabs/i915
+          - siderolabs/mei
 
   patches:
     # Disable search domain everywhere
@@ -184,6 +196,20 @@ controlPlane:
               disabled: false
             service:
               disabled: true
+        scheduler:
+          config:
+            apiVersion: kubescheduler.config.k8s.io/v1
+            kind: KubeSchedulerConfiguration
+            profiles:
+              - schedulerName: default-scheduler
+                pluginConfig:
+                  - name: PodTopologySpread
+                    args:
+                      defaultingType: List
+                      defaultConstraints:
+                        - maxSkew: 1
+                          topologyKey: kubernetes.io/hostname
+                          whenUnsatisfiable: ScheduleAnyway
 
     # ETCD configuration
     - |-
@@ -203,6 +229,10 @@ controlPlane:
                 [plugins."io.containerd.grpc.v1.cri"]
                   enable_unprivileged_ports = true
                   enable_unprivileged_icmp = true
+              [plugins."io.containerd.grpc.v1.cri".containerd]
+                discard_unpacked_layers = false
+              [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+                discard_unpacked_layers = false
 
     # Configure nfs mount options
     - |-
@@ -266,8 +296,28 @@ controlPlane:
           net.core.wmem_max: "2500000"
 
 worker:
-  patches:
+  nodeLabels:
+    topology.kubernetes.io/region: *clusterName
+    topology.kubernetes.io/zone: w
 
+  schematic:
+    customization:
+      extraKernelArgs:
+        - apparmor=0           # Less security, more speed
+        - init_on_alloc=0      # Less security, more speed
+        - init_on_free=0       # Less security, more speed
+        - intel_iommu=on       # PCI Passthrough
+        - iommu=pt             # PCI Passthrough
+        - mitigations=off      # Less security, more speed
+        - security=none        # Less security, more speed
+        - net.ifnames=1        # Enable predictable NIC naming
+      systemExtensions:
+        officialExtensions:
+          - siderolabs/intel-ucode
+          - siderolabs/i915
+          - siderolabs/mei
+
+  patches:
     # Configure nfs mount options
     - |-
       machine:
@@ -312,6 +362,10 @@ worker:
                 [plugins."io.containerd.grpc.v1.cri"]
                   enable_unprivileged_ports = true
                   enable_unprivileged_icmp = true
+              [plugins."io.containerd.grpc.v1.cri".containerd]
+                discard_unpacked_layers = false
+              [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+                discard_unpacked_layers = false
 
     # Kubelet configuration
     - |-
@@ -342,12 +396,3 @@ worker:
           fs.inotify.max_user_watches: "524288"
           net.core.rmem_max: "2500000"
           net.core.wmem_max: "2500000"
-
-    # Custom hosts
-    - |-
-      machine:
-        network:
-          extraHostEntries:
-            - ip: 172.99.0.2
-              aliases:
-                - k8s.dom.lan

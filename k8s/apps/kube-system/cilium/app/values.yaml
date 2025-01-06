@@ -4,6 +4,9 @@ bandwidthManager:
   bbr: true
   enabled: true
 bpf:
+# we need to make update here...
+#  datapathMode: netkit
+  preallocateMaps: true
   masquerade: true
   tproxy: true
 cgroup:
@@ -16,6 +19,11 @@ cluster:
   id: 1
 cni:
   exclusive: false
+
+dashboards:
+  enabled: true
+  annotations:
+    grafana_folder: Cilium
 
 devices: b+ enp+
 enableRuntimeDeviceDetection: true
@@ -44,7 +52,17 @@ loadBalancer:
 localRedirectPolicy: true
 
 operator:
+  dashboards:
+    enabled: true
+    annotations:
+      grafana_folder: Cilium
+  prometheus:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+  replicas: 2
   rollOutPods: true
+
 rollOutCiliumPods: true
 
 k8sServiceHost: 127.0.0.1
