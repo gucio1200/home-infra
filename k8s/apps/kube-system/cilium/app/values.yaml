@@ -4,7 +4,8 @@ bandwidthManager:
   bbr: true
   enabled: true
 bpf:
-  datapathMode: netkit
+# find why...
+#  datapathMode: netkit 
   preallocateMaps: true
   masquerade: true
   tproxy: true
