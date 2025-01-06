@@ -191,9 +191,9 @@ controlPlane:
           enabled: true
           registries:
             kubernetes:
-              disabled: false
-            service:
               disabled: true
+            service:
+              disabled: false
         scheduler:
           config:
             apiVersion: kubescheduler.config.k8s.io/v1
