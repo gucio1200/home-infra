@@ -4,8 +4,7 @@ bandwidthManager:
   bbr: true
   enabled: true
 bpf:
-# find why...
-#  datapathMode: netkit 
+  datapathMode: netkit
   preallocateMaps: true
   masquerade: true
   tproxy: true
@@ -25,6 +24,7 @@ dashboards:
   annotations:
     grafana_folder: Cilium
 
+enableIPv4BIGTCP: true
 devices: b+ enp+
 enableRuntimeDeviceDetection: true
 
