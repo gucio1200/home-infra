@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 3.6.0
+      version: 3.6.1
       interval: 30m
       sourceRef:
         kind: HelmRepository
@@ -49,7 +49,7 @@ spec:
           app:
             image:
               repository: ghcr.io/bjw-s-labs/esphome
-              tag: 2024.12.2@sha256:cdc5a3f2a0efb321c143317fc1c0d914dc96e4f8d896db2f17632af7a9008814
+              tag: 2024.12.2@sha256:9d3c0cc8273d235fd4eff658ad6e677b114a4f93593fbd0d2366ac19a28ca2cc
             probes:
               liveness:
                 enabled: false
@@ -60,9 +60,9 @@ spec:
             resources:
               requests:
                 cpu: 5m
-                memory: 1374M
-              limits:
                 memory: 2048M
+              limits:
+                memory: 4096M
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 3.6.0
+      version: 3.6.1
       interval: 30m
       sourceRef:
         kind: HelmRepository
@@ -33,7 +33,7 @@ spec:
           unpoller:
             image:
               repository: ghcr.io/unpoller/unpoller
-              tag: v2.13.1
+              tag: v2.14.0
             env:
               UP_UNIFI_DEFAULT_ROLE: home-ops
               UP_UNIFI_DEFAULT_URL: https://unifi.k8sj.io
