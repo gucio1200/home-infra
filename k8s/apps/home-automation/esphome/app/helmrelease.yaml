@@ -32,6 +32,14 @@ spec:
           secret.reloader.stakater.com/reload: esphome-secrets,esphome-deploykey
 
         pod:
+          affinity:
+            podAntiAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                - labelSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: multus
+                  topologyKey: kubernetes.io/hostname
+
           annotations:
             k8s.v1.cni.cncf.io/networks: |
               [{

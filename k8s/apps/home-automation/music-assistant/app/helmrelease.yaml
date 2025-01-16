@@ -33,6 +33,14 @@ spec:
           reloader.stakater.com/auto: "true"
 
         pod:
+          affinity:
+            podAntiAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                - labelSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: multus
+                  topologyKey: kubernetes.io/hostname
+
           annotations:
             k8s.v1.cni.cncf.io/networks: |
               [{
