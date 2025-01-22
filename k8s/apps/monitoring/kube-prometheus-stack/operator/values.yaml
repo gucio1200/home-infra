@@ -1,10 +1,6 @@
 ---
 # Default values
 # https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
-global:
-  scrape_interval: 10s
-  scrape_timeout: 10s
-  evaluation_interval: 10s
 crds:
   enabled: true
 cleanPrometheusOperatorObjectNames: true
@@ -76,7 +72,7 @@ prometheus:
           - "prometheus.k8sj.io"
     pathType: Prefix
   prometheusSpec:
-    scrapeInterval: 1m # Must match interval in Grafana Helm chart
+    scrapeInterval: 10s # Must match interval in Grafana Helm chart
     podMonitorSelectorNilUsesHelmValues: false
     probeSelectorNilUsesHelmValues: false
     ruleSelectorNilUsesHelmValues: false

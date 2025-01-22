@@ -53,7 +53,7 @@ spec:
             access: proxy
             url: http://prometheus-operated.monitoring.svc.cluster.local:9090
             jsonData:
-              timeInterval: 1m
+              timeInterval: 10s
             isDefault: true
           - name: Loki
             type: loki
