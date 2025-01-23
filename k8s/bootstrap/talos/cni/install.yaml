@@ -481,7 +481,7 @@ spec:
               value: 10.5.0.2
             - name: KUBERNETES_SERVICE_PORT
               value: "6443"
-          image: quay.io/cilium/operator-generic:v1.16.5@sha256:f7884848483bbcd7b1e0ccfd34ba4546f258b460cb4b7e2f06a1bcc96ef88039
+          image: quay.io/cilium/operator-generic:v1.16.6@sha256:13d32071d5a52c069fb7c35959a56009c6914439adc73e99e098917646d154fc
           imagePullPolicy: IfNotPresent
           livenessProbe:
             httpGet:
@@ -578,7 +578,7 @@ spec:
               value: 10.5.0.2
             - name: KUBERNETES_SERVICE_PORT
               value: "6443"
-          image: quay.io/cilium/cilium:v1.16.5@sha256:758ca0793f5995bb938a2fa219dcce63dc0b3fa7fc4ce5cc851125281fb7361d
+          image: quay.io/cilium/cilium:v1.16.6@sha256:1e0896b1c4c188b4812c7e0bed7ec3f5631388ca88325c1391a0ef9172c448da
           imagePullPolicy: IfNotPresent
           lifecycle:
             postStart:
@@ -668,7 +668,7 @@ spec:
               value: /run/cilium/cgroupv2
             - name: BIN_PATH
               value: /opt/cni/bin
-          image: quay.io/cilium/cilium:v1.16.5@sha256:758ca0793f5995bb938a2fa219dcce63dc0b3fa7fc4ce5cc851125281fb7361d
+          image: quay.io/cilium/cilium:v1.16.6@sha256:1e0896b1c4c188b4812c7e0bed7ec3f5631388ca88325c1391a0ef9172c448da
           imagePullPolicy: IfNotPresent
           name: mount-cgroup
           securityContext:
@@ -688,7 +688,7 @@ spec:
           env:
             - name: BIN_PATH
               value: /opt/cni/bin
-          image: quay.io/cilium/cilium:v1.16.5@sha256:758ca0793f5995bb938a2fa219dcce63dc0b3fa7fc4ce5cc851125281fb7361d
+          image: quay.io/cilium/cilium:v1.16.6@sha256:1e0896b1c4c188b4812c7e0bed7ec3f5631388ca88325c1391a0ef9172c448da
           imagePullPolicy: IfNotPresent
           name: apply-sysctl-overwrites
           securityContext:
@@ -717,7 +717,7 @@ spec:
               value: 10.5.0.2
             - name: KUBERNETES_SERVICE_PORT
               value: "6443"
-          image: quay.io/cilium/cilium:v1.16.5@sha256:758ca0793f5995bb938a2fa219dcce63dc0b3fa7fc4ce5cc851125281fb7361d
+          image: quay.io/cilium/cilium:v1.16.6@sha256:1e0896b1c4c188b4812c7e0bed7ec3f5631388ca88325c1391a0ef9172c448da
           imagePullPolicy: IfNotPresent
           name: clean-cilium-state
           resources:
