@@ -28,7 +28,7 @@ spec:
     keepHistory: false
   values:
     reloader:
-      isArgoRollouts: true
+      isArgoRollouts: false
       podMonitor:
         enabled: true
 
