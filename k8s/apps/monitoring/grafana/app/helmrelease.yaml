@@ -268,6 +268,7 @@ spec:
       - grafana-clock-panel
       - grafana-piechart-panel
       - grafana-worldmap-panel
+      - grafana-lokiexplore-app
       - natel-discrete-panel
       - pr0ps-trackmap-panel
       - vonage-status-panel
