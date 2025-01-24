@@ -99,7 +99,7 @@ spec:
           insecure: true
 
     gateway:
-      replicas: 2
+      replicas: 3
       enabled: true
       image:
         registry: ghcr.io
@@ -133,15 +133,15 @@ spec:
           - hosts:
               - *host
     write:
-      replicas: 2
+      replicas: 3
       persistence:
         size: 20Gi
 
     read:
-      replicas: 2
+      replicas: 3
 
     backend:
-      replicas: 2
+      replicas: 3
       persistence:
         size: 20Gi
 
