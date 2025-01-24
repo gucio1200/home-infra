@@ -28,19 +28,19 @@ spec:
     keepHistory: false
   values:
     reloader:
-      logLevel: debug
+      logLevel: "debug"
       isArgoRollouts: false
       podMonitor:
         enabled: true
 
-      reloadStrategy: annotations
+      reloadStrategy: "annotations"
       reloadOnDeletere: true
       reloadOnCreate: true
 
       deployment:
         resources:
           requests:
-            cpu: 15m
-            memory: 184M
+            cpu: "15m"
+            memory: "184M"
           limits:
-            memory: 184M
+            memory: "184M"
