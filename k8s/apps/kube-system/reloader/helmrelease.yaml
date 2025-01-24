@@ -33,6 +33,8 @@ spec:
         enabled: true
 
       reloadStrategy: annotations
+      reloadOnDeletere: true
+      reloadOnCreate: true
 
       deployment:
         resources:
