@@ -39,10 +39,15 @@ spec:
       ingester:
         chunk_encoding: snappy
 
+      pattern_ingester:
+        enabled: true
+
       commonConfig:
         replication_factor: 2
 
       limits_config:
+        allow_structured_metadata: true
+        volume_enabled: true
         ingestion_burst_size_mb: 128
         ingestion_rate_mb: 64
         max_query_parallelism: 100
