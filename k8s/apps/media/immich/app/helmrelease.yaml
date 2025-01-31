@@ -31,7 +31,7 @@ spec:
           app:
             image:
               repository: ghcr.io/immich-app/immich-server
-              tag: v1.125.1@sha256:9a7fdfb1679017ce853e5ef9d7280744a98369c72ff17a90957ae3cc68a1985a
+              tag: v1.125.6@sha256:07e45e10be9539f04dd3a819286b5b308b08142eeff7bc58a89bf21d97237d55
             env:
               <<: &env-common
                 REDIS_HOSTNAME: immich-redis
@@ -54,7 +54,7 @@ spec:
           app:
             image:
               repository: ghcr.io/immich-app/immich-server
-              tag: v1.125.1@sha256:9a7fdfb1679017ce853e5ef9d7280744a98369c72ff17a90957ae3cc68a1985a
+              tag: v1.125.6@sha256:07e45e10be9539f04dd3a819286b5b308b08142eeff7bc58a89bf21d97237d55
             env:
               <<: *env-common
               IMMICH_WORKERS_EXCLUDE: *server-include
@@ -68,7 +68,7 @@ spec:
           app:
             image:
               repository: ghcr.io/immich-app/immich-machine-learning
-              tag: v1.125.1@sha256:c0740b545ac84ca6cd73265f6beca2c65317b383dc7e4d89dc1d1daf63d895f6
+              tag: v1.125.6@sha256:0ca72dae460b7fd2dbd0ca146fdddfd26b1c1af783f37659c2f1bdd546fdf1e4
             env:
               <<: *env-common
               MPLCONFIGDIR: /tmp/matplotlib
