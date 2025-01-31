@@ -30,5 +30,6 @@ spec:
     kubeletDir: /var/lib/kubelet
     feature:
       enableInlineVolume: false
+      enableGetVolumeStats: false
     controller:
       replicas: 3
