@@ -28,5 +28,7 @@ spec:
     keepHistory: false
   values:
     kubeletDir: /var/lib/kubelet
+    feature:
+      enableInlineVolume: false
     controller:
       replicas: 3
