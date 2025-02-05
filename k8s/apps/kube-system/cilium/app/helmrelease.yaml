@@ -5,6 +5,7 @@ metadata:
   namespace: kube-system
 spec:
   interval: 15m
+  timeout: 20m
   chart:
     spec:
       chart: cilium
@@ -14,7 +15,6 @@ spec:
         name: cilium-charts
         namespace: flux-system
       interval: 15m
-      timeout: 20m
   install:
     createNamespace: false
     remediation:
