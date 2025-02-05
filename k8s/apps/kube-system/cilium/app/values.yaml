@@ -8,10 +8,6 @@ bpf:
   preallocateMaps: true
   masquerade: true
   tproxy: true
-
-bgpControlPlane:
-  enabled: true
-
 cgroup:
   autoMount:
     enabled: false
@@ -45,9 +41,10 @@ k8sServicePort: 7445
 kubeProxyReplacement: true
 kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
 
-l2announcements:
+bgp:
   enabled: true
-
+  announce:
+    loadbalancerIP: true
 loadBalancer:
   algorithm: maglev
   mode: dsr
@@ -97,8 +94,6 @@ securityContext:
       - IPC_LOCK
       - SYS_ADMIN
       - SYS_RESOURCE
-      - PERFMON
-      - BPF
       - DAC_OVERRIDE
       - FOWNER
       - SETGID
