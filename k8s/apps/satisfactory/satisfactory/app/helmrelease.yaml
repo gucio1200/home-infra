@@ -76,6 +76,9 @@ spec:
           gametcp:
             port: 7777
             protocol: TCP
+          messagetcp:
+            port: 8888
+            protocol: TCP
           syncthing:
             port: 8384
             protocol: TCP
