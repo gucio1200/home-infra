@@ -12,6 +12,6 @@ resources:
   - intel-device-plugins/ks.yaml
   - csi-driver-smb
   - kube-cleanup-operator
-  - external-secrets/ks.yaml
+#  - external-secrets/ks.yaml
   - snapshot-controller/ks.yaml
   - spegel/ks.yaml
