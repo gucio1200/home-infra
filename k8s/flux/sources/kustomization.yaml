@@ -59,4 +59,4 @@ resources:
   - 98jan.yaml
   - fluent-bit.yaml
   - bjw-s-oci.yaml
-#  - freqtrade.yaml
+  - freqtrade.yaml
