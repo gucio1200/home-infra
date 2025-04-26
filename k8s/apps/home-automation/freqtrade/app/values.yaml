@@ -78,3 +78,60 @@ testing:
         - "freqtrade-backtesting.k8sj.io"  # Replace with your domain
       tls: true  # Enable TLS for the ingress
       tlsSecretName: freqtrade-ui-tls  # Name of the TLS secret
+
+config:
+  bot_name: freqtrade  # Name of the bot as used in configuration
+  initial_state: running  # Initial state of the bot (running or stopped)
+
+  # Trade settings
+  max_open_trades: -1  # Maximum number of simultaneous open trades (-1 for unlimited)
+  stake_amount: 100  # Amount to stake per trade in the defined currency
+  stake_currency: USDT  # Currency used for staking (e.g., USDT, BTC, ETH)
+  timeframe: 1h  # Trading timeframe (e.g., 5m for 5 minutes)
+
+  tradable_balance_ratio: 0.999  # Percentage of balance available for trading
+  trading_mode: "futures"  # Trading mode (spot or futures)
+  margin_mode: "isolated"  # Margin mode (isolated or cross)
+
+  use_exit_signal: true  # Enable exit signals for closing trades
+  process_only_new_candles: true  # Process only new candles for efficiency
+  trailing_stop: false  # Enable trailing stop-loss
+  force_entry_enable: true  # Allow forced entry into trades
+
+  # Position adjustment (DCA)
+  position_adjustment_enable: true  # Enable Dollar-Cost Averaging (DCA)
+  max_entry_position_adjustment: 100  # Maximum number of position adjustments (DCA)
+
+  # Dry-run mode settings
+  dry_run: true  # Simulate trades without real funds (for testing)
+  dry_run_wallet: 10000  # Initial wallet balance for dry-run mode
+
+  # Entry pricing strategy
+  entry_pricing:
+    check_depth_of_market:
+      bids_to_ask_delta: 1  # Difference between bids and asks for market depth check
+      enabled: false  # Disable market depth checking
+    order_book_top: 1  # Use top of the order book for entry pricing
+    price_last_balance: 0  # Not used in this config, can be omitted
+    price_side: other  # Determines which side of the order book to use for pricing
+    use_order_book: true  # Enable the use of order book data for entry pricing
+
+  # Exit pricing strategy
+  exit_pricing:
+    order_book_top: 1  # Use top of the order book for exit pricing
+    price_side: other  # Determines the order book side for exit pricing
+    use_order_book: true  # Enable order book data for exit pricing
+
+  # Exchange configuration
+  exchange:
+    name: binance  # The exchange to use (e.g., Binance)
+    ccxt_async_config:
+      enableRateLimit: false  # Disable rate limiting for async requests
+      rateLimit: 100  # Rate limit for async requests
+    ccxt_config:
+      enableRateLimit: false  # Disable rate limiting for synchronous requests
+      rateLimit: 100  # Rate limit for synchronous requests
+    log_responses: false  # Disable logging of exchange responses for reduced verbosity
+    pair_blacklist: []  # List of pairs to avoid (currently empty)
+    pair_whitelist:  # List of pairs to trade (currently empty)
+      - "BTC/USDT
