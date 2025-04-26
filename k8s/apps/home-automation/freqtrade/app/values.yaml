@@ -5,12 +5,11 @@ image:
   pullPolicy: IfNotPresent
 
 pvc:
-  data:
-    enabled: true
-    size: 1Gi
-  strategy:
-    enabled: true
-    size: 1Gi
+  sharedData:
+    enabled: true  # Enable PVC for storing bot data
+    fixPermissions: true  # Fix permissions for the mounted volume
+    size: 1Gi  # Size of the PVC for data storage
+    accessMode: ReadWriteMany  # Access mode for the PVC (multiple writers)
 
 bot:
   enabled: true  # Enable or disable the bot deployment
