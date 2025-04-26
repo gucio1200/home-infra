@@ -8,11 +8,10 @@ spec:
   interval: 20m
   chart:
     spec:
-      chart: fretrade-testing
-      version: 2.0.7
+      chart: .
       interval: 20m
       sourceRef:
-        kind: HelmRepository
+        kind: GitRepository
         name: freqtrade
         namespace: flux-system
   valuesFrom:
