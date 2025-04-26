@@ -32,6 +32,7 @@ bot:
     tlsSecretName: freqtrade-bot-tls  # Name of the TLS secret
 
 testing:
+  enabled: true
   download_data:
     enabled: true  # Enable downloading of historical data
     days: 60  # Number of days to download
