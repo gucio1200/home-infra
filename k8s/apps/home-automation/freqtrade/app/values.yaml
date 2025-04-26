@@ -134,4 +134,4 @@ config:
     log_responses: false  # Disable logging of exchange responses for reduced verbosity
     pair_blacklist: []  # List of pairs to avoid (currently empty)
     pair_whitelist:  # List of pairs to trade (currently empty)
-      - "BTC/USDT
+      - "BTC/USDT"
