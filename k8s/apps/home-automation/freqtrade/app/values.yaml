@@ -1,7 +1,7 @@
 ---
 image:
   repository: freqtradeorg/freqtrade
-  tag: "2023.12"
+  tag: "2025.3"
   pullPolicy: IfNotPresent
 
 pvc:
