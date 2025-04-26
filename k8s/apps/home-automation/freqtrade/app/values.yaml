@@ -4,13 +4,6 @@ image:
   tag: "2023.12"
   pullPolicy: IfNotPresent
 
-pvc:
-  sharedData:
-    enabled: true  # Enable PVC for storing bot data
-    fixPermissions: true  # Fix permissions for the mounted volume
-    size: 1Gi  # Size of the PVC for data storage
-    accessMode: ReadWriteMany  # Access mode for the PVC (multiple writers)
-
 bot:
   enabled: true  # Enable or disable the bot deployment
   rollme: true  # Recreate the pod during helm upgrade to apply changes
@@ -29,6 +22,12 @@ bot:
       - "treqtrade-bot.k8sj.io"  # Replace with your domain
     tls: true  # Enable TLS for the ingress
     tlsSecretName: freqtrade-bot-tls  # Name of the TLS secret
+  pvc:
+    enabled: true  # Enable Persistent Volume Claim for bot data storage
+    # Mounts to /freqtrade/user_data
+    fixPermissions: true  # Fix permissions for the mounted volume
+    size: 1Gi  # Size of the PVC for data storage
+    accessMode: ReadWriteOnce  # Access mode for the PVC (single writer)
 
 testing:
   enabled: true
