@@ -67,7 +67,7 @@ testing:
       gpu.intel.com/i915: 1
 
     ingress:
-      enabled: false  # Enable ingress for external access to the UI
+      enabled: true  # Enable ingress for external access to the UI
       ingressClassName: nginx  # Ingress class name
       annotations:   # Additional annotations for the ingress
         hajimari.io/enable: "true"
