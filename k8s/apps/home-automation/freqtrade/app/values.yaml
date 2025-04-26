@@ -1,0 +1,79 @@
+---
+image:
+  repository: freqtradeorg/freqtrade
+  tag: "2023.12"
+  pullPolicy: IfNotPresent
+
+pvc:
+  data:
+    enabled: true
+    size: 1Gi
+  strategy:
+    enabled: true
+    size: 1Gi
+
+bot:
+  enabled: true  # Enable or disable the bot deployment
+  rollme: true  # Recreate the pod during helm upgrade to apply changes
+  resources:
+    requests:
+      gpu.intel.com/i915: 1
+    limits:
+      gpu.intel.com/i915: 1
+  ingress:
+    enabled: true  # Enable ingress for external access to the bot
+    ingressClassName: nginx  # Ingress class name
+    annotations:   # Additional annotations for the ingress
+      hajimari.io/enable: "true"
+      hajimari.io/appName: "Freqtrade-bot"
+    hosts:
+      - "treqtrade-bot.k8sj.io"  # Replace with your domain
+    tls: true  # Enable TLS for the ingress
+    tlsSecretName: freqtrade-bot-tls  # Name of the TLS secret
+
+testing:
+  download_data:
+    enabled: true  # Enable downloading of historical data
+    days: 60  # Number of days to download
+    timeframes:
+      - "5m"  # Timeframe(s) for which data is downloaded (e.g., 5m, 1d)
+    pair_whitelist:
+      - "BTC/USDT"  # List of pairs for which data should be downloaded
+    dl_trades: false  # Set to true if you want to download trade data from some exchanges (very slow)
+
+  backtesting:
+    enabled: true  # Enable backtesting
+    days: 30  # Number of historical days to use
+    breakdown: "day"  # Granularity of backtest results (day or month)
+    fee: 0.0005  # Trading fee applied during backtesting
+
+  hyperopt:
+    enabled: true
+    offset: 0 # Period x days ago
+    days: 30  # Number of days of historical data used for optimization
+    hyperoptStrategy: "SharpeHyperOptLossDaily"  # The optimization strategy to use
+    spaces:
+      - roi  # Optimize ROI parameters
+      - stoploss  # Optimize stoploss parameters
+      - trailing  # Optimize trailing stoploss parameters
+      - buy  # Optimize buy parameters
+      - sell  # Optimize sell parameters
+      - protection  # Optimize protection parameters
+
+  ui:
+    enabled: true  # Enable or disable the Freqtrade UI
+    extraArgs: []  # Additional arguments for the UI
+
+    resources:  # Resource limits for the UI
+      gpu.intel.com/i915: 1
+
+    ingress:
+      enabled: false  # Enable ingress for external access to the UI
+      ingressClassName: nginx  # Ingress class name
+      annotations:   # Additional annotations for the ingress
+        hajimari.io/enable: "true"
+        hajimari.io/appName: "Freqtrade-backtesting"
+      hosts:
+        - "freqtrade-backtesting.k8sj.io"  # Replace with your domain
+      tls: true  # Enable TLS for the ingress
+      tlsSecretName: freqtrade-ui-tls  # Name of the TLS secret

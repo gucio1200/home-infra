@@ -10,3 +10,4 @@ resources:
 #  - ./mosquitto/ks.yaml
   - ./node-red/ks.yaml
   - ./music-assistant/ks.yaml
+  - ./freqtrade/ks.yaml
