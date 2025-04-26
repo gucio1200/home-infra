@@ -17,7 +17,7 @@ metadata:
   name: freqtrade
   namespace: flux-system
 spec:
-  chart: ./
+  chart: fretrade-testing
   sourceRef:
     name: freqtrade
     kind: GitRepository
