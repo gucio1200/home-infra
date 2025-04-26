@@ -1,24 +1,9 @@
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
-kind: GitRepository
-metadata:
-  name: freqtrade
-  namespace: flux-system
-spec:
-  interval: 10m
-  url: https://github.com/maxkrukov/freqtrade-testing-helm
-  ref:
-    branch: main
-
----
-apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: freqtrade
   namespace: flux-system
 spec:
-  chart: fretrade-testing
-  sourceRef:
-    name: freqtrade
-    kind: GitRepository
+  url: https://raw.githubusercontent.com/maxkrukov/freqtrade-testing-helm/refs/heads/main/
   interval: 10m
