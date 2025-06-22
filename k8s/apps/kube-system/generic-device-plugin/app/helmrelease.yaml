@@ -21,7 +21,8 @@ spec:
   values:
     defaultPodOptions:
       priorityClassName: system-node-critical
-      configmap.reloader.stakater.com/auto: "true"
+      annotations:
+        configmap.reloader.stakater.com/auto: "true"
 
     controllers:
       generic-device-plugin:
