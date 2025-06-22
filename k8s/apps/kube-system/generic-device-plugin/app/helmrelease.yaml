@@ -23,6 +23,11 @@ spec:
       priorityClassName: system-node-critical
       annotations:
         configmap.reloader.stakater.com/auto: "true"
+      tolerations:
+      - operator: "Exists"
+        effect: "NoExecute"
+      - operator: "Exists"
+        effect: "NoSchedule"
 
     controllers:
       generic-device-plugin:
