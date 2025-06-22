@@ -23,7 +23,7 @@ spec:
       priorityClassName: system-node-critical
 
     controllers:
-      device-plugin:
+      generic-device-plugin:
         type: daemonset
         strategy: RollingUpdate
         containers:
