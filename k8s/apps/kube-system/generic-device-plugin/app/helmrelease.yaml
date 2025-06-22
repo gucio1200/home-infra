@@ -21,11 +21,10 @@ spec:
   values:
     defaultPodOptions:
       priorityClassName: system-node-critical
+      configmap.reloader.stakater.com/auto: "true"
 
     controllers:
       generic-device-plugin:
-        annotations:
-          configmap.reloader.stakater.com/auto: "true"
         type: daemonset
         strategy: RollingUpdate
         containers:
