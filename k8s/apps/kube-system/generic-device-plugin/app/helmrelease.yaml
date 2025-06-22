@@ -24,6 +24,8 @@ spec:
 
     controllers:
       generic-device-plugin:
+        annotations:
+          configmap.reloader.stakater.com/auto: "true"
         type: daemonset
         strategy: RollingUpdate
         containers:
