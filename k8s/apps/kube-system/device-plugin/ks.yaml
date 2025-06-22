@@ -6,7 +6,7 @@ metadata:
   name: &appname device-plugin
   namespace: &namespace flux-system
 spec:
-  targetNamespace: *namespace
+  targetNamespace: kube-system
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
