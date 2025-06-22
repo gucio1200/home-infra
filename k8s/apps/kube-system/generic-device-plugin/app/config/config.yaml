@@ -5,3 +5,9 @@ devices:
       - count: 1000
         paths:
           - path: /dev/net/tun
+  - name: coral
+    groups:
+      - count: 1000
+        usb:
+          - vendor: 1a6e
+          - vendor: 18d1
