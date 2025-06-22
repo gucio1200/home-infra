@@ -10,4 +10,6 @@ devices:
       - count: 1000
         usb:
           - vendor: 1a6e
+            product: 089a
           - vendor: 18d1
+            product: 9302
