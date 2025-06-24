@@ -81,12 +81,16 @@ spec:
       app:
         className: nginx
         hosts:
-          - host: go2rtc.k8sj.io
+          - host: &host go2rtc.k8sj.io
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
+        tls:
+          - hosts:
+              - *host
+
     persistence:
       config:
         type: secret
