@@ -12,3 +12,4 @@ resources:
   - ./music-assistant/ks.yaml
   - ./freqtrade/ks.yaml
   - ./go2rtc/ks.yaml
+  - ./frigate/ks.yaml

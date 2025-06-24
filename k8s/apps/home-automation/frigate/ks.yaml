@@ -1,0 +1,29 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &appname frigate
+  namespace: flux-system
+spec:
+  targetNamespace: home-automation
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname
+  dependsOn:
+    - name: cluster-apps-rook-ceph-cluster
+    - name: cluster-apps-node-feature-discovery
+    - name: emqx-cluster
+    - name: go2rtc
+    - name: generic-device-plugin
+  interval: 10m
+  retryInterval: 1m
+  path: "./k8s/apps/home-automation/frigate/app"
+  prune: true
+  wait: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  postBuild:
+    substitute:
+      APP: *appname
+      CAPACITY: 2Gi
