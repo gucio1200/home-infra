@@ -77,21 +77,21 @@ cameras:
         - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_4_hq
           roles:
             - record
-  camera_5:
-    ffmpeg:
-      inputs:
-        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_5_hq
-          roles:
-            - detect
-        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_5_hq
-          roles:
-            - record
-  camera_6:
-    ffmpeg:
-      inputs:
-        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_6_hq
-          roles:
-            - detect
-        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_6_hq
-          roles:
-            - record
+#  camera_5:
+#    ffmpeg:
+#      inputs:
+#        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_5_hq
+#          roles:
+#            - detect
+#        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_5_hq
+#          roles:
+#            - record
+#  camera_6:
+#    ffmpeg:
+#      inputs:
+#        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_6_hq
+#          roles:
+#            - detect
+#        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_6_hq
+#          roles:
+#            - record
