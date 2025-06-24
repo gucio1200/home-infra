@@ -54,6 +54,8 @@ spec:
 #                  timeoutSeconds: 1
 #                  failureThreshold: 3
 #              readiness: *probes
+            securityContext:
+              privileged: true
             resources:
               requests:
                 cpu: 250m
@@ -104,3 +106,13 @@ spec:
         path: /volume1/nvr
         globalMounts:
           - path: /media
+      dev:
+        type: hostPath
+        hostPath: /dev
+        globalMounts:
+          - path: /dev
+      sys:
+        type: hostPath
+        hostPath: /sys
+        globalMounts:
+          - path: /sys
