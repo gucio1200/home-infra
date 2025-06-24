@@ -64,8 +64,8 @@ spec:
       app:
         controller: go2rtc
         type: LoadBalancer
-        externalIPs:
-          - 172.16.99.111
+        annotations:
+          lbipam.cilium.io/ips: 172.16.99.106
         ports:
           http:
             port: *port
