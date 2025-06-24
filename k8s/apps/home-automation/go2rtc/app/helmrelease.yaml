@@ -92,6 +92,5 @@ spec:
         type: secret
         name: go2rtc-config
         globalMounts:
-          - path: /config/go2rtc.yaml
-            subPath: go2rtc.yaml
+          - path: /config
             readOnly: true
