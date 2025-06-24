@@ -4,7 +4,7 @@ clusterPodNets:
   - 10.244.0.0/16
 clusterSvcNets:
   - 10.96.0.0/12
-talosVersion: v1.9.1
+talosVersion: v1.10.4
 kubernetesVersion: v1.32.0
 endpoint: "https://k8s.dom.lan:6443"
 
@@ -85,6 +85,22 @@ nodes:
         dhcp: true
         mtu: 1500
 
+  - hostname: wr-0
+    controlPlane: false
+    ipAddress: 192.168.2.20
+    installDisk: /dev/sda
+    nameservers:
+      - 192.168.0.151
+    networkInterfaces:
+      - interface: br0
+        dhcp: true
+        mtu: 1500
+        bridge:
+          stp:
+            enabled: true
+          interfaces:
+            - enp1s0
+
   - hostname: wr-1
     controlPlane: false
     ipAddress: 192.168.2.21
@@ -100,36 +116,6 @@ nodes:
             enabled: true
           interfaces:
             - enp1s0
-    patches:
-      - |-
-        machine:
-          install:
-            extraKernelArgs:
-              - pcie_aspm=off
-              - cpufreq.default_governor=performance
-
-  - hostname: wr-2
-    controlPlane: false
-    ipAddress: 192.168.2.22
-    installDisk: /dev/sda
-    nameservers:
-      - 192.168.0.151
-    networkInterfaces:
-      - interface: br0
-        dhcp: true
-        mtu: 1500
-        bridge:
-          stp:
-            enabled: true
-          interfaces:
-            - enp1s0
-    patches:
-      - |-
-        machine:
-          install:
-            extraKernelArgs:
-              - pcie_aspm=off
-              - cpufreq.default_governor=performance
 
 controlPlane:
   nodeLabels:
