@@ -63,7 +63,7 @@ spec:
               limits:
                 memory: 4Gi
                 gpu.intel.com/i915: 1
-                squat.ai/coral: 1
+#                squat.ai/coral: 1
     service:
       app:
         controller: frigate
