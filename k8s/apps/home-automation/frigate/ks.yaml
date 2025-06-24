@@ -14,7 +14,6 @@ spec:
     - name: cluster-apps-node-feature-discovery
     - name: emqx-cluster
     - name: go2rtc
-    - name: generic-device-plugin
   interval: 10m
   timeout: 5m
   path: "./k8s/apps/home-automation/frigate/app"
