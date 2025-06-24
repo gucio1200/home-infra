@@ -15,4 +15,4 @@ resources:
   - external-secrets/ks.yaml
   - snapshot-controller/ks.yaml
   - spegel/ks.yaml
-  - generic-device-plugin/ks.yaml
+#  - generic-device-plugin/ks.yaml
