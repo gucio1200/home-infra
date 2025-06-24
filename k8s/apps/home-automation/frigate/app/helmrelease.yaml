@@ -41,19 +41,6 @@ spec:
             envFrom:
               - secretRef:
                   name: frigate
-#            probes:
-#              liveness: &probes
-#                enabled: true
-#                custom: true
-#                spec:
-#                  httpGet:
-#                    path: /api/version
-#                    port: &port 5000
-#                  initialDelaySeconds: 0
-#                  periodSeconds: 10
-#                  timeoutSeconds: 1
-#                  failureThreshold: 3
-#              readiness: *probes
             securityContext:
               privileged: true
             resources:
@@ -63,13 +50,12 @@ spec:
               limits:
                 memory: 4Gi
                 gpu.intel.com/i915: 1
-#                squat.ai/coral: 1
     service:
       app:
         controller: frigate
         ports:
           http:
-            port: *port
+            port: 5000
     ingress:
       app:
         className: nginx
