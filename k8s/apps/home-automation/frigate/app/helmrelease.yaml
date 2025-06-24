@@ -37,7 +37,7 @@ spec:
               repository: ghcr.io/blakeblackshear/frigate
               tag: 0.15.1
             env:
-              LIBVA_DRIVER_NAME: i965
+              LIBVA_DRIVER_NAME: iHD
             envFrom:
               - secretRef:
                   name: frigate
