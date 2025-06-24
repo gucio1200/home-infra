@@ -16,14 +16,14 @@ spec:
     - name: go2rtc
     - name: generic-device-plugin
   interval: 10m
-  retryInterval: 1m
   path: "./k8s/apps/home-automation/frigate/app"
   prune: true
-  wait: false
+  wait: true
   sourceRef:
     kind: GitRepository
     name: flux-system
   postBuild:
     substitute:
       APP: *appname
-      CAPACITY: 2Gi
+      VOLSYNC_CLAIM: frigate
+      VOLSYNC_CAPACITY: 2Gi
