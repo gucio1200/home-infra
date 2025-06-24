@@ -21,12 +21,14 @@ record:
   retain:
     days: 5
     mode: motion
-  events:
+  alerts:
     retain:
-      default: 15
+      days: 30
       mode: motion
-      objects:
-        person: 30
+  detections:
+    retain:
+      days: 30
+      mode: motion
 snapshots:
   enabled: true
   retain:
