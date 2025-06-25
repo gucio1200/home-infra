@@ -20,18 +20,18 @@ birdseye:
 record:
   enabled: true
   retain:
-    days: 5
+    days: 0
     mode: motion
   alerts:
     retain:
-      days: 30
-      mode: motion
+      days: 3
+      mode: active_objects
   detections:
     retain:
-      days: 30
-      mode: motion
+      days: 3
+      mode: active_objects
 snapshots:
-  enabled: true
+  enabled: false
   retain:
     default: 5
     objects:
