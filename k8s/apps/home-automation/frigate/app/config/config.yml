@@ -15,8 +15,8 @@ ffmpeg:
 birdseye:
   mode: continuous
   enabled: True
-  restream: True
-  quality: 4
+#  restream: True
+#  quality: 4
 record:
   enabled: true
   retain:
