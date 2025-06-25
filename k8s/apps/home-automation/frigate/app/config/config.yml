@@ -43,6 +43,10 @@ objects:
     - cat
 cameras:
   camera_1:
+    detect:
+      motion:
+        mask:
+          - 0.023,0.002,0.264,0.001,0.264,0.039,0.021,0.04
     ffmpeg:
       inputs:
         - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_1_lq
