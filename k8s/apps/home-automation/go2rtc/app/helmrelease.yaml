@@ -80,6 +80,10 @@ spec:
             protocol: UDP
     ingress:
       app:
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/appName: "go2rtc"
+          hajimari.io/icon: mdi:cctv
         className: nginx
         hosts:
           - host: &host go2rtc.k8sj.io
