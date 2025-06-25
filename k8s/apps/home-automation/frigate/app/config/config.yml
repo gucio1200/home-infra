@@ -9,9 +9,16 @@ detectors:
   coral:
     type: edgetpu
     device: usb
-  ov_0:
+  ov:
     type: openvino
     device: GPU
+model:
+  width: 300
+  height: 300
+  input_tensor: nhwc
+  input_pixel_format: bgr
+  path: /openvino-model/ssdlite_mobilenet_v2.xml
+  labelmap_path: /openvino-model/coco_91cl_bkgr.txt
 ffmpeg:
   global_args: ["-hide_banner", "-loglevel", "warning"]
   hwaccel_args: preset-intel-qsv-h264 #preset-vaapi #preset-intel-qsv-h264
