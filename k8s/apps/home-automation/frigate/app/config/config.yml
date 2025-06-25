@@ -17,7 +17,7 @@ birdseye:
   mode: continuous
   enabled: True
   restream: True
-#  quality: 4
+  quality: 1
 go2rtc:
   webrtc:
     candidates:
