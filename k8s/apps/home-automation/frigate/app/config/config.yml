@@ -12,7 +12,7 @@ detectors:
 ffmpeg:
   global_args: ["-hide_banner", "-loglevel", "warning"]
   hwaccel_args: preset-intel-qsv-h264 #preset-vaapi #preset-intel-qsv-h264
-  input_args: preset-rtmp-generic
+  input_args: preset-rtmp-generic #preset-rtsp-restream
 birdseye:
   mode: continuous
   enabled: True
@@ -55,11 +55,9 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_1_lq
-          input_args: preset-rtsp-restream
           roles:
             - detect
         - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_1_hq
-          input_args: preset-rtsp-restream
           roles:
             - record
   camera_2:
@@ -69,11 +67,9 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_2_lq
-          input_args: preset-rtsp-restream
           roles:
             - detect
         - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_2_hq
-          input_args: preset-rtsp-restream
           roles:
             - record
   camera_3:
@@ -83,11 +79,9 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_3_lq
-          input_args: preset-rtsp-restream
           roles:
             - detect
         - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_3_hq
-          input_args: preset-rtsp-restream
           roles:
             - record
   camera_4:
@@ -97,11 +91,9 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_4_lq
-          input_args: preset-rtsp-restream
           roles:
             - detect
         - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_4_hq
-          input_args: preset-rtsp-restream
           roles:
             - record
   camera_5:
@@ -112,11 +104,9 @@ cameras:
       hwaccel_args: ""
       inputs:
         - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_5_lq
-          input_args: preset-rtsp-restream
           roles:
             - detect
         - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_5_hq
-          input_args: preset-rtsp-restream
           roles:
             - record
   camera_6:
@@ -127,10 +117,8 @@ cameras:
       hwaccel_args: ""
       inputs:
         - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_6_lq
-          input_args: preset-rtsp-restream
           roles:
             - detect
         - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_6_hq
-          input_args: preset-rtsp-restream
           roles:
             - record
