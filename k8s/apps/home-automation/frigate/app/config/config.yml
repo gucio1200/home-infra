@@ -103,7 +103,7 @@ cameras:
       mask:
         - 0.015,0,0.015,0.083,0.265,0.083,0.265,0
     ffmpeg:
-      hwaccel_args: preset-intel-qsv-h265
+      hwaccel_args: ""
       inputs:
         - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_5_lq
           input_args: preset-rtsp-restream
@@ -118,7 +118,7 @@ cameras:
       mask:
         - 0.015,0,0.015,0.083,0.265,0.083,0.265,0
     ffmpeg:
-      hwaccel_args: preset-vaapi
+      hwaccel_args: ""
       inputs:
         - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_6_lq
           input_args: preset-rtsp-restream
