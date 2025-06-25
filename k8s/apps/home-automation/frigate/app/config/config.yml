@@ -17,6 +17,11 @@ birdseye:
   enabled: True
   restream: True
 #  quality: 4
+go2rtc:
+  webrtc:
+    candidates:
+      - 172.16.99.106:8555
+      - stun:8555
 record:
   enabled: true
   retain:
