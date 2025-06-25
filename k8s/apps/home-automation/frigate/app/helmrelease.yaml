@@ -36,8 +36,6 @@ spec:
             image:
               repository: ghcr.io/blakeblackshear/frigate
               tag: 0.15.1
-            env:
-              LIBVA_DRIVER_NAME: iHD
             envFrom:
               - secretRef:
                   name: frigate
@@ -51,7 +49,7 @@ spec:
                   httpGet:
                     path: /api/version
                     port: 5000
-                  initialDelaySeconds: 0
+                  initialDelaySeconds: 60
                   periodSeconds: 10
                   timeoutSeconds: 1
                   failureThreshold: 3
