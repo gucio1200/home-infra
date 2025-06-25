@@ -49,10 +49,10 @@ spec:
                   httpGet:
                     path: /api/version
                     port: 5000
-                  initialDelaySeconds: 180
+                  initialDelaySeconds: 60
                   periodSeconds: 10
                   timeoutSeconds: 1
-                  failureThreshold: 3
+                  failureThreshold: 5
               readiness: *probes
               startup:
                 enabled: false

@@ -11,7 +11,7 @@ detectors:
     device: usb
 ffmpeg:
   global_args: ["-hide_banner", "-loglevel", "warning"]
-  hwaccel_args: preset-vaapi #preset-vaapi #preset-intel-qsv-h264
+  hwaccel_args: preset-intel-qsv-h264 #preset-vaapi #preset-intel-qsv-h264
   input_args: preset-rtsp-restream #preset-rtmp-generic #preset-rtsp-restream
   output_args:
     detect: -f rawvideo -pix_fmt yuv420p
@@ -20,11 +20,6 @@ birdseye:
   enabled: True
   restream: True
   quality: 1
-go2rtc:
-  webrtc:
-    candidates:
-      - 172.16.99.106:8555
-      - stun:8555
 record:
   enabled: true
   retain:
