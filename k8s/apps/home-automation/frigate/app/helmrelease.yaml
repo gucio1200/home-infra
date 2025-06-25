@@ -43,13 +43,13 @@ spec:
               privileged: true
             probes:
               liveness: &probes
-                enabled: false
+                enabled: true
                 custom: true
                 spec:
                   httpGet:
                     path: /api/version
                     port: 5000
-                  initialDelaySeconds: 360
+                  initialDelaySeconds: 180
                   periodSeconds: 10
                   timeoutSeconds: 1
                   failureThreshold: 3
