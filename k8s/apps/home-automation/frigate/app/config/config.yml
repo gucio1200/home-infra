@@ -10,13 +10,13 @@ detectors:
     type: edgetpu
     device: usb
 ffmpeg:
-  global_args: ["-hide_banner", "-loglevel", "warning"]
+#  global_args: ["-hide_banner", "-loglevel", "warning"]
   hwaccel_args: preset-intel-qsv-h264 #preset-vaapi #preset-intel-qsv-h264
   input_args: preset-rtsp-restream #preset-rtmp-generic #preset-rtsp-restream
 birdseye:
   mode: continuous
   enabled: True
-#  restream: True
+  restream: True
 record:
   enabled: true
   retain:
@@ -91,6 +91,10 @@ cameras:
           roles:
             - record
   camera_5:
+    detect:
+      enabled: true
+      width: 1920
+      height: 526
     motion:
       mask:
         - 0.015,0,0.015,0.083,0.265,0.083,0.265,0
@@ -104,6 +108,10 @@ cameras:
           roles:
             - record
   camera_6:
+    detect:
+      enabled: true
+      width: 1920
+      height: 526
     motion:
       mask:
         - 0.015,0,0.015,0.083,0.265,0.083,0.265,0
