@@ -26,8 +26,8 @@ spec:
             - name: "HighNodeUtilization"
               args:
                 thresholds:
-                  "cpu" : 50
-                  "memory": 50
+                  "cpu" : 65
+                  "memory": 65
             - name: DefaultEvictor
               args:
                 evictFailedBarePods: true
