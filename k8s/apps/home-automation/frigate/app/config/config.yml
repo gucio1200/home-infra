@@ -13,13 +13,10 @@ ffmpeg:
   global_args: ["-hide_banner", "-loglevel", "warning"]
   hwaccel_args: preset-intel-qsv-h264 #preset-vaapi #preset-intel-qsv-h264
   input_args: preset-rtsp-restream #preset-rtmp-generic #preset-rtsp-restream
-  output_args:
-    detect: -f rawvideo -pix_fmt yuv420p
 birdseye:
   mode: continuous
   enabled: True
-  restream: True
-  quality: 1
+#  restream: True
 record:
   enabled: true
   retain:
