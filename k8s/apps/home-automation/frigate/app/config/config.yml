@@ -43,6 +43,10 @@ objects:
     - cat
 cameras:
   camera_1:
+    detect:
+      enabled: true
+      width: 1920
+      height: 1080
     motion:
       mask:
         - 0.018,0,0.268,0,0.267,0.049,0.017,0.046
@@ -55,6 +59,10 @@ cameras:
           roles:
             - record
   camera_2:
+    detect:
+      enabled: true
+      width: 1920
+      height: 1080
     motion:
       mask:
         - 0.018,0,0.268,0,0.267,0.049,0.017,0.046
@@ -67,6 +75,10 @@ cameras:
           roles:
             - record
   camera_3:
+    detect:
+      enabled: true
+      width: 1920
+      height: 1080
     motion:
       mask:
         - 0.018,0,0.268,0,0.267,0.049,0.017,0.046
@@ -79,6 +91,10 @@ cameras:
           roles:
             - record
   camera_4:
+    detect:
+      enabled: true
+      width: 1920
+      height: 1080
     motion:
       mask:
         - 0.018,0,0.268,0,0.267,0.049,0.017,0.046
