@@ -41,7 +41,6 @@ objects:
     - person
     - dog
     - cat
-    - car
     - bicycle
 cameras:
   camera_1:
