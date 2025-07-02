@@ -97,6 +97,11 @@ cameras:
       enabled: true
       width: 1920
       height: 1080
+    objects:
+      filters:
+        car:
+          mask:
+            - 0.143,1,0.389,0.378,0.726,0.378,0.973,1
     motion:
       mask:
         - 0.018,0,0.268,0,0.267,0.049,0.017,0.046
