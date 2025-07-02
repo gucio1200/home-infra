@@ -20,7 +20,7 @@ birdseye:
 record:
   enabled: true
   retain:
-    days: 3
+    days: 2
     mode: motion
   alerts:
     retain:
