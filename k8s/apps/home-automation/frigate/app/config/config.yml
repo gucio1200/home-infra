@@ -42,6 +42,7 @@ objects:
     - dog
     - cat
     - bicycle
+    - car
 cameras:
   camera_1:
     detect:
