@@ -25,6 +25,8 @@ spec:
       retries: 3
   values:
     defaultPodOptions:
+      nodeSelector:
+        topology.kubernetes.io/zone: w
       automountServiceAccountToken: false
       securityContext:
         runAsUser: 1000
