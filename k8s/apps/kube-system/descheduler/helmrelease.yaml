@@ -65,6 +65,10 @@ spec:
                 #- RemovePodsViolatingNodeTaints
                 - RemovePodsViolatingNodeAffinity
                 - RemovePodsViolatingInterPodAntiAffinity
+          podEvictionPolicy:
+            excludedOwnerKinds:
+              - "Job"
+              - "CronJob"
 
     service:
       enabled: true
