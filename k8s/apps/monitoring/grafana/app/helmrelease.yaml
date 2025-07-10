@@ -272,6 +272,7 @@ spec:
       - natel-discrete-panel
       - pr0ps-trackmap-panel
       - vonage-status-panel
+      - grafana-lokiexplore-app
     serviceMonitor:
       enabled: true
     ingress:
