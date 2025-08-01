@@ -1,6 +1,6 @@
 ---
 spegel:
-  appendMirrors: true
+  prependExisting: true
   containerdSock: /run/containerd/containerd.sock
   containerdRegistryConfigPath: /etc/cri/conf.d/hosts
 service:
