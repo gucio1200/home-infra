@@ -6,7 +6,7 @@ bandwidthManager:
 bpf:
   datapathMode: netkit
   preallocateMaps: true
-  masquerade: false
+  masquerade: true
 #  tproxy: false
 
 bgpControlPlane:
