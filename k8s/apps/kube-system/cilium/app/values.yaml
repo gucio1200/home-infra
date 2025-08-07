@@ -9,17 +9,19 @@ bpf:
   masquerade: true
 #  tproxy: false
 
+bpfClockProbe: true
 bgpControlPlane:
   enabled: true
 
 cgroup:
-  autoMount:
+  automount:
     enabled: false
   hostRoot: /sys/fs/cgroup
 
-cluster:
-  name: k8s
-  id: 1
+#cluster:
+#  name: k8s
+#  id: 1
+
 cni:
   exclusive: false
 
