@@ -29,6 +29,12 @@ servers:
       - name: autopath
         parameters: "@kubernetes"
       - name: forward
+        parameters: dom.lan 192.168.0.151
+      - name: forward
+        parameters: k8sj.io 192.168.0.151
+      - name: forward
+        parameters: vcore 192.168.0.151
+      - name: forward
         parameters: . /etc/resolv.conf
       - name: cache
         configBlock: |-
