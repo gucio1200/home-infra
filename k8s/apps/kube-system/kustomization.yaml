@@ -6,7 +6,7 @@ resources:
   - kubelet-csr-approver
   - metrics-server
   - descheduler
-#  - coredns
+  - coredns
   - reloader
   - node-feature-discovery/ks.yaml
   - intel-device-plugins/ks.yaml
@@ -14,5 +14,5 @@ resources:
   - kube-cleanup-operator
   - external-secrets/ks.yaml
   - snapshot-controller/ks.yaml
-#  - spegel/ks.yaml
+  - spegel/ks.yaml
 #  - generic-device-plugin/ks.yaml
