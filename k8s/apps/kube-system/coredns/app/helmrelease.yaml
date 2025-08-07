@@ -1,0 +1,14 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.bjw-s.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: coredns
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: coredns
+  interval: 30m
+  valuesFrom:
+    - kind: ConfigMap
+      name: coredns-values

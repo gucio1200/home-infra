@@ -144,6 +144,8 @@ controlPlane:
     - |-
       cluster:
         allowSchedulingOnControlPlanes: true
+        coreDNS:
+          disabled: true
         proxy:
           disabled: true
         scheduler:
