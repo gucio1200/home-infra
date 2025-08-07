@@ -15,9 +15,16 @@ spec:
         name: kyverno
         namespace: flux-system
       interval: 10m
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
   values:
-    upgrade:
-      fromV2: false
+#    upgrade:
+#      fromV2: false
     crds:
       install: true
     admissionController:
