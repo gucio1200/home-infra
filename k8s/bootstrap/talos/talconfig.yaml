@@ -4,7 +4,7 @@ clusterPodNets:
   - 10.244.0.0/16
 clusterSvcNets:
   - 10.96.0.0/12
-talosVersion: v1.10.4
+talosVersion: v1.10.6
 kubernetesVersion: v1.32.0
 endpoint: "https://k8s.dom.lan:6443"
 
@@ -24,6 +24,8 @@ nodes:
     ipAddress: 192.168.2.11
     installDisk: /dev/sda
     nameservers:
+      - 8.8.8.8
+      - 1.1.1.1
       - 192.168.0.151
     networkInterfaces:
       - interface: eth0
@@ -35,6 +37,8 @@ nodes:
     ipAddress: 192.168.2.12
     installDisk: /dev/sda
     nameservers:
+      - 8.8.8.8
+      - 1.1.1.1
       - 192.168.0.151
     networkInterfaces:
       - interface: eth0
@@ -46,6 +50,8 @@ nodes:
     ipAddress: 192.168.2.13
     installDisk: /dev/sda
     nameservers:
+      - 8.8.8.8
+      - 1.1.1.1
       - 192.168.0.151
     networkInterfaces:
       - interface: eth0
@@ -57,6 +63,8 @@ nodes:
     ipAddress: 192.168.2.14
     installDisk: /dev/sda
     nameservers:
+      - 8.8.8.8
+      - 1.1.1.1
       - 192.168.0.151
     networkInterfaces:
       - interface: eth0
@@ -68,6 +76,8 @@ nodes:
     ipAddress: 192.168.2.15
     installDisk: /dev/sda
     nameservers:
+      - 8.8.8.8
+      - 1.1.1.1
       - 192.168.0.151
     networkInterfaces:
       - interface: eth0
@@ -79,6 +89,8 @@ nodes:
     ipAddress: 192.168.2.16
     installDisk: /dev/sda
     nameservers:
+      - 8.8.8.8
+      - 1.1.1.1
       - 192.168.0.151
     networkInterfaces:
       - interface: eth0
@@ -90,6 +102,8 @@ nodes:
     ipAddress: 192.168.2.20
     installDisk: /dev/sda
     nameservers:
+      - 8.8.8.8
+      - 1.1.1.1
       - 192.168.0.151
     networkInterfaces:
       - interface: br0
@@ -106,6 +120,8 @@ nodes:
     ipAddress: 192.168.2.21
     installDisk: /dev/sda
     nameservers:
+      - 8.8.8.8
+      - 1.1.1.1
       - 192.168.0.151
     networkInterfaces:
       - interface: br0
@@ -133,6 +149,7 @@ controlPlane:
         - mitigations=off      # Less security, more speed
         - security=none        # Less security, more speed
         - net.ifnames=1        # Enable predictable NIC naming
+        - sysctl.kernel.kexec_load_disabled=1 
       systemExtensions:
         officialExtensions:
           - siderolabs/intel-ucode
@@ -237,6 +254,8 @@ controlPlane:
                   enable_unprivileged_icmp = true
                 [plugins."io.containerd.cri.v1.images"]
                   discard_unpacked_layers = false
+                [plugins."io.containerd.cri.v1.runtime"]
+                  device_ownership_from_security_context = true
 
     # Configure nfs mount options
     - &nfsPatch |-

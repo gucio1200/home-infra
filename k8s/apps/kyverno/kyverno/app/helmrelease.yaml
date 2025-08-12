@@ -27,6 +27,8 @@ spec:
 #      fromV2: false
     crds:
       install: true
+    reportsController:
+      enabled: false
     admissionController:
       replicas: 3
       rbac:
