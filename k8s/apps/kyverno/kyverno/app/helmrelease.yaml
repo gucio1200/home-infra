@@ -27,8 +27,6 @@ spec:
 #      fromV2: false
     crds:
       install: true
-    reportsController:
-      enabled: false
     admissionController:
       replicas: 3
       rbac:
@@ -54,4 +52,5 @@ spec:
     cleanupController:
       replicas: 3
     reportsController:
+      enabled: false
       replicas: 3
