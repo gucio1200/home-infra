@@ -23,9 +23,9 @@ nodes:
     controlPlane: true
     ipAddress: 192.168.2.11
     installDisk: /dev/sda
-    nameservers:
-      - 8.8.8.8
-      - 1.1.1.1
+    nameservers: &ns
+      - 192.168.0.153
+      - 192.168.0.152
       - 192.168.0.151
     networkInterfaces:
       - interface: eth0
@@ -36,10 +36,7 @@ nodes:
     controlPlane: true
     ipAddress: 192.168.2.12
     installDisk: /dev/sda
-    nameservers:
-      - 8.8.8.8
-      - 1.1.1.1
-      - 192.168.0.151
+    nameservers: *ns
     networkInterfaces:
       - interface: eth0
         dhcp: true
@@ -49,10 +46,7 @@ nodes:
     controlPlane: true
     ipAddress: 192.168.2.13
     installDisk: /dev/sda
-    nameservers:
-      - 8.8.8.8
-      - 1.1.1.1
-      - 192.168.0.151
+    nameservers: *ns
     networkInterfaces:
       - interface: eth0
         dhcp: true
@@ -62,10 +56,7 @@ nodes:
     controlPlane: true
     ipAddress: 192.168.2.14
     installDisk: /dev/sda
-    nameservers:
-      - 8.8.8.8
-      - 1.1.1.1
-      - 192.168.0.151
+    nameservers: *ns
     networkInterfaces:
       - interface: eth0
         dhcp: true
@@ -75,10 +66,7 @@ nodes:
     controlPlane: true
     ipAddress: 192.168.2.15
     installDisk: /dev/sda
-    nameservers:
-      - 8.8.8.8
-      - 1.1.1.1
-      - 192.168.0.151
+    nameservers: *ns
     networkInterfaces:
       - interface: eth0
         dhcp: true
@@ -88,10 +76,7 @@ nodes:
     controlPlane: true
     ipAddress: 192.168.2.16
     installDisk: /dev/sda
-    nameservers:
-      - 8.8.8.8
-      - 1.1.1.1
-      - 192.168.0.151
+    nameservers: *ns
     networkInterfaces:
       - interface: eth0
         dhcp: true
@@ -101,10 +86,7 @@ nodes:
     controlPlane: false
     ipAddress: 192.168.2.20
     installDisk: /dev/sda
-    nameservers:
-      - 8.8.8.8
-      - 1.1.1.1
-      - 192.168.0.151
+    nameservers: *ns
     networkInterfaces:
       - interface: br0
         dhcp: true
@@ -119,10 +101,7 @@ nodes:
     controlPlane: false
     ipAddress: 192.168.2.21
     installDisk: /dev/sda
-    nameservers:
-      - 8.8.8.8
-      - 1.1.1.1
-      - 192.168.0.151
+    nameservers: *ns
     networkInterfaces:
       - interface: br0
         dhcp: true
