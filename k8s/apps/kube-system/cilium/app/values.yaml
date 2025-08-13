@@ -36,8 +36,14 @@ enableRuntimeDeviceDetection: true
 
 endpointRoutes:
   enabled: true
+
 envoy:
-  enabled: false
+  enabled: true
+  rollOutPods: true
+  prometheus:
+    serviceMonitor:
+      enabled: true
+
 ipam:
   mode: kubernetes
 
