@@ -31,7 +31,7 @@ spec:
           app:
             image:
               repository: ghcr.io/immich-app/immich-server
-              tag: v1.139.2@sha256:ccfca8a87a65914ab23164efa1f6392940629a2a54ed71bce87049713d926426
+              tag: v1.140.0@sha256:761a60e899bcc00e86018085babf21f8dd68e38f5b48d3e817271f1f74705a16
             env:
               <<: &env-common
                 REDIS_HOSTNAME: immich-redis
@@ -54,7 +54,7 @@ spec:
           app:
             image:
               repository: ghcr.io/immich-app/immich-server
-              tag: v1.139.2@sha256:ccfca8a87a65914ab23164efa1f6392940629a2a54ed71bce87049713d926426
+              tag: v1.140.0@sha256:761a60e899bcc00e86018085babf21f8dd68e38f5b48d3e817271f1f74705a16
             env:
               <<: *env-common
               IMMICH_WORKERS_EXCLUDE: *server-include
