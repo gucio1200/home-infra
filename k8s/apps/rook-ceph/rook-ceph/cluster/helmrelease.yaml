@@ -158,6 +158,9 @@ spec:
 
       crashCollector:
         disable: false
+      csi:
+        readAffinity:
+          enabled: true
 
     cephBlockPoolsVolumeSnapshotClass:
       enabled: true
