@@ -52,11 +52,6 @@ spec:
             image:
               repository: ghcr.io/music-assistant/server
               tag: 2.5.0
-              command: ["/bin/sh", "-c"]
-              args:
-                 - |
-                   find /app/venv -type f -exec grep -l 'interfaces=InterfaceChoice.Default' {} \; | xargs sed -i 's/interfaces=InterfaceChoice.Default/interfaces=InterfaceChoice.All/g' \
-                   && exec mass
             probes:
               liveness:
                 enabled: true
