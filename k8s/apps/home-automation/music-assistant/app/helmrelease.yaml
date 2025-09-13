@@ -56,8 +56,7 @@ spec:
               - "/bin/sh"
               - "-c"
             args:
-              - |
-                 sleep 3600
+              - find /app/venv -type f -exec grep -l 'interfaces=InterfaceChoice.Default' {} \; | xargs -r sed -i 's/interfaces=InterfaceChoice.Default/interfaces=InterfaceChoice.All/g' && exec mass --config /data
             probes:
               liveness:
                 enabled: true
