@@ -38,7 +38,8 @@ spec:
               [{
                 "name":"multus-iot",
                 "namespace": "networking",
-                "ips": ["192.168.2.251/16"]
+                "ips": ["192.168.2.251/16"],
+                "routes": [{"dst": "0.0.0.0/0", "gw": "192.168.0.151"}]
               }]
           securityContext:
             runAsUser: 0
