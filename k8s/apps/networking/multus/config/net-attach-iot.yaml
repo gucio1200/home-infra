@@ -15,7 +15,8 @@ spec:
           "master": "enp1s0",
           "mode": "bridge",
           "capabilities": {
-            "ips": true
+            "ips": true,
+            "routes": true
           },
           "ipam": {
             "type": "static",
