@@ -6,7 +6,7 @@ metadata:
   name: music-assistant
   namespace: home-automation
 spec:
-  interval: 30m
+  interval: 10m
   chart:
     spec:
       chart: app-template
@@ -51,7 +51,12 @@ spec:
           app:
             image:
               repository: ghcr.io/music-assistant/server
-              tag: 2.5.0
+              tag: 2.5.8
+            command:
+              - "/bin/sh"
+              - "-c"
+            args:
+              - find /app/venv -type f -exec grep -l 'interfaces=InterfaceChoice.Default' {} \; | xargs -r sed -i 's/interfaces=InterfaceChoice.Default/interfaces=InterfaceChoice.All/g' && exec mass --config /data
             probes:
               liveness:
                 enabled: true
