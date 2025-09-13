@@ -6,7 +6,7 @@ metadata:
   name: music-assistant
   namespace: home-automation
 spec:
-  interval: 30m
+  interval: 10m
   chart:
     spec:
       chart: app-template
