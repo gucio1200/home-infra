@@ -4,8 +4,8 @@ clusterPodNets:
   - 10.244.0.0/16
 clusterSvcNets:
   - 10.96.0.0/12
-talosVersion: v1.10.6
-kubernetesVersion: v1.32.0
+talosVersion: v1.11.1
+kubernetesVersion: v1.34.1
 endpoint: "https://k8s.dom.lan:6443"
 
 cniConfig:
@@ -128,7 +128,7 @@ controlPlane:
         - mitigations=off      # Less security, more speed
         - security=none        # Less security, more speed
         - net.ifnames=1        # Enable predictable NIC naming
-        - sysctl.kernel.kexec_load_disabled=1 
+        - sysctl.kernel.kexec_load_disabled=1
       systemExtensions:
         officialExtensions:
           - siderolabs/intel-ucode
@@ -144,6 +144,11 @@ controlPlane:
           disabled: true
         proxy:
           disabled: true
+        apiServer:
+          extraArgs:
+            enable-aggregator-routing: "true"
+            feature-gates: MutatingAdmissionPolicy=true
+            runtime-config: admissionregistration.k8s.io/v1beta1=true
         scheduler:
           config:
             apiVersion: kubescheduler.config.k8s.io/v1
@@ -216,9 +221,12 @@ controlPlane:
     - &prismPatch |-
       machine:
         features:
+          apidCheckExtKeyUsage: true
+          diskQuotaSupport: true
           kubePrism:
             enabled: true
             port: 7445
+
 
     # Configure containerd
     - &criPatch |-
@@ -258,6 +266,7 @@ controlPlane:
             rotate-server-certificates: "true"
           extraConfig:
             maxPods: 150
+            serializeImagePulls: false
           nodeIP:
             validSubnets:
                 - 192.168.2.0/24
