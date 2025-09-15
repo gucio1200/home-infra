@@ -14,5 +14,5 @@ resources:
   - kube-cleanup-operator
   - external-secrets/ks.yaml
   - snapshot-controller/ks.yaml
-  - spegel/ks.yaml
+#  - spegel/ks.yaml
 #  - generic-device-plugin/ks.yaml
