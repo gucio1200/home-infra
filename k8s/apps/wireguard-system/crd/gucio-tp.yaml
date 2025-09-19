@@ -4,3 +4,5 @@ metadata:
   name: gucio-tp
 spec:
   wireguardRef: "vpn"
+  allowedIPs: 10.8.0.0/24, 192.168.0.0/16
+  egressNetworkPolicies: ACCEPT
