@@ -4,4 +4,4 @@ metadata:
   name: gucio-tp
 spec:
   wireguardRef: "vpn"
-  egressNetworkPolicies: ACCEPT
+  egressNetworkPolicies: ["ACCEPT"]
