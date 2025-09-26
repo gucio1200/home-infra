@@ -28,6 +28,7 @@ spec:
         replicas: 3
         annotations:
           reloader.stakater.com/auto: "true"
+        strategy: RollingUpdate
         pod:
           securityContext:
             runAsNonRoot: true
