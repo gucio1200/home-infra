@@ -51,7 +51,7 @@ spec:
           app:
             image:
               repository: ghcr.io/music-assistant/server
-              tag: 2.5.8
+              tag: 2.6.0
             command:
               - "/bin/sh"
               - "-c"
@@ -59,17 +59,17 @@ spec:
               - find /app/venv -type f -exec grep -l 'interfaces=InterfaceChoice.Default' {} \; | xargs -r sed -i 's/interfaces=InterfaceChoice.Default/interfaces=InterfaceChoice.All/g' && exec mass --config /data
             probes:
               liveness:
-                enabled: true
+                enabled: false
               readiness:
-                enabled: true
+                enabled: false
               startup:
-                enabled: true
+                enabled: false
             resources:
               requests:
                 cpu: 47m
-                memory: 512Mi
+                memory: 1024Mi
               limits:
-                memory: 2048Mi
+                memory: 4096Mi
     service:
       app:
         controller: music-assistant
