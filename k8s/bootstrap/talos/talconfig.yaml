@@ -134,6 +134,7 @@ controlPlane:
           - siderolabs/intel-ucode
           - siderolabs/i915
           - siderolabs/mei
+          - siderolabs/realtek-firmware
 
   patches:
     # Control Plane Cluster configuration
