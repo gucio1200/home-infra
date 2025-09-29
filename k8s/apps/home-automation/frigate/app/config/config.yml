@@ -137,7 +137,7 @@ cameras:
     ffmpeg:
       hwaccel_args: ""
       inputs:
-        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_5_lq
+        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_5_hq
           roles:
             - detect
         - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_5_hq
@@ -163,7 +163,7 @@ cameras:
     ffmpeg:
       hwaccel_args: ""
       inputs:
-        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_6_lq
+        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_6_hq
           roles:
             - detect
         - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_6_hq
