@@ -126,23 +126,23 @@ cameras:
         - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_4_hq
           roles:
             - record
-#  camera_5:
-#    detect:
-#      enabled: true
-#      width: 1920
-#      height: 526
-#    motion:
-#      mask:
-#        - 0.015,0,0.015,0.083,0.265,0.083,0.265,0
-#    ffmpeg:
-#      hwaccel_args: ""
-#      inputs:
-#        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_5_lq
-#          roles:
-#            - detect
-#        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_5_hq
-#          roles:
-#            - record
+  camera_5:
+    detect:
+      enabled: true
+      width: 1920
+      height: 526
+    motion:
+      mask:
+        - 0.015,0,0.015,0.083,0.265,0.083,0.265,0
+    ffmpeg:
+      hwaccel_args: ""
+      inputs:
+        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_5_lq
+          roles:
+            - detect
+        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_5_hq
+          roles:
+            - record
   camera_6:
     detect:
       enabled: true
