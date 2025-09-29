@@ -7,7 +7,7 @@ bpf:
   datapathMode: netkit
   preallocateMaps: true
   masquerade: true
-#  tproxy: false
+  tproxy: true
 
 bpfClockProbe: true
 bgpControlPlane:
@@ -38,11 +38,9 @@ endpointRoutes:
   enabled: true
 
 envoy:
-  enabled: true
-  rollOutPods: true
-  prometheus:
-    serviceMonitor:
-      enabled: true
+  enabled: false
+hubble:
+  enabled: false
 
 ipam:
   mode: kubernetes
@@ -86,6 +84,8 @@ rollOutCiliumPods: true
 
 ipv6:
   enabled: false
+pmtuDiscovery:
+  enabled: true
 
 routingMode: native
 
@@ -117,6 +117,3 @@ updateStrategy:
   type: RollingUpdate
   rollingUpdate:
     maxUnavailable: 1
-
-hubble:
-  enabled: false
