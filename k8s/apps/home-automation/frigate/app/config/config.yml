@@ -131,10 +131,6 @@ cameras:
       enabled: true
       width: 5120
       height: 1440
-    record:
-      enabled: true
-      width: 5120
-      height: 1440
     motion:
       mask:
         - 0.015,0,0.015,0.083,0.265,0.083,0.265,0
