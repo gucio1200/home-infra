@@ -12,7 +12,7 @@ detectors:
 ffmpeg:
 #  global_args: ["-hide_banner", "-loglevel", "warning"]
   hwaccel_args: preset-intel-qsv-h264 #preset-vaapi #preset-intel-qsv-h264
-  input_args: preset-rtsp-restream #preset-rtmp-generic #preset-rtsp-restream
+  input_args: preset-rtsp-restream-low-latency #preset-rtsp-restream #preset-rtmp-generic
 detect:
   width: 1920
   height: 1080
@@ -135,7 +135,7 @@ cameras:
       mask:
         - 0.015,0,0.015,0.083,0.265,0.083,0.265,0
     ffmpeg:
-      hwaccel_args: ""
+      hwaccel_args: "preset-vaapi"
       inputs:
         - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_5_hq
           roles:
@@ -161,7 +161,7 @@ cameras:
       mask:
         - 0.015,0,0.015,0.083,0.265,0.083,0.265,0
     ffmpeg:
-      hwaccel_args: ""
+      hwaccel_args: "preset-vaapi"
       inputs:
         - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_6_hq
           roles:
