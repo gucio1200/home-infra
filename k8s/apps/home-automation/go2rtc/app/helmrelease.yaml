@@ -23,15 +23,6 @@ spec:
       strategy: rollback
       retries: 3
   values:
-    defaultPodOptions:
-      affinity:
-        podAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            - labelSelector:
-                matchLabels:
-                  app.kubernetes.io/name: go2rtc
-              topologyKey: kubernetes.io/hostname
-
     controllers:
       go2rtc:
         replicas: 1
