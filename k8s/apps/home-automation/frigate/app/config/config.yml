@@ -42,7 +42,6 @@ snapshots:
 objects:
   track:
     - person
-    - face
     - dog
     - cat
     - bicycle
