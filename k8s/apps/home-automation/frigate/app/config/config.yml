@@ -1,4 +1,4 @@
---
+---
 mqtt:
   host: emqx-listeners.database.svc.cluster.local
   user: "{FRIGATE_MQTT_USERNAME}"
