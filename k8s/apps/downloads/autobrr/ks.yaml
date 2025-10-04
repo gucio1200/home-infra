@@ -24,3 +24,11 @@ spec:
     - name: crunchy-postgres-operator-cluster
     - name: crunchy-postgres-operator-secretstore
     - name: qbittorrent
+  postBuild:
+    substitute:
+      APP: *appname
+      VOLSYNC_CLAIM: *appname
+      VOLSYNC_CAPACITY: 2Gi
+      VOLSYNC_ACCESSMODES: ReadWriteMany
+      VOLSYNC_STORAGECLASS: ceph-filesystem
+      VOLSYNC_SNAPSHOTCLASS: ceph-filesystem

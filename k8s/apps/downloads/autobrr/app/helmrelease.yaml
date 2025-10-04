@@ -89,5 +89,14 @@ spec:
               - *host
 
     persistence:
-      tmp:
+      config:
+        existingClaim: autobrr
+      tmpfs:
         type: emptyDir
+        advancedMounts:
+          autobrr:
+            app:
+              - path: /config/log
+                subPath: log
+              - path: /tmp
+                subPath: tmp
