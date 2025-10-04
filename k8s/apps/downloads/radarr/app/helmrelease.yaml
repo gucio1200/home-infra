@@ -21,45 +21,46 @@ spec:
       radarr:
         annotations:
           reloader.stakater.com/auto: "true"
-
         pod:
           securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            runAsNonRoot: true
-            fsGroup: 568
+            fsGroup: 2000
             fsGroupChangePolicy: "OnRootMismatch"
-            supplementalGroups: [10000]
-            seccompProfile: { type: RuntimeDefault }
-
+            runAsGroup: 2000
+            runAsNonRoot: true
+            runAsUser: 2000
+            supplementalGroups:
+              - 568
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/radarr-develop
-              tag: 5.20.1.9773@sha256:8187c129a78fdfe15b1603db9175abd2be0e1ca2e99ea3733987c3ae941da165
+              repository: ghcr.io/home-operations/radarr
+              tag: 6.0.1.10258
             env:
-              COMPlus_EnableDiagnostics: "0"
-              RADARR__INSTANCE_NAME: Radarr
-              RADARR__PORT: &port 7878
-              RADARR__AUTHENTICATION_METHOD: External
-              RADARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
-              RADARR__APPLICATION_URL: "https://radarr.k8sj.io"
-              RADARR__LOG_LEVEL: info
-              RADARR__API_KEY:
+              RADARR__APP__INSTANCENAME: Radarr
+              RADARR__AUTH__APIKEY:
                 valueFrom:
                   secretKeyRef:
                     name: radarr-secret
                     key: api_key
+              RADARR__AUTH__METHOD: External
+              RADARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              RADARR__LOG__DBENABLED: "False"
+              RADARR__LOG__LEVEL: info
+              RADARR__SERVER__PORT: &port 7878
+              RADARR__UPDATE__BRANCH: develop
             probes:
-              liveness:
+              liveness: &probes
                 enabled: true
-              readiness:
-                enabled: true
-              startup:
-                enabled: true
+                custom: true
                 spec:
-                  failureThreshold: 30
-                  periodSeconds: 5
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
             resources:
               requests:
                 cpu: 20m
@@ -98,13 +99,15 @@ spec:
     persistence:
       config:
         existingClaim: radarr-config
-      add-ons:
-        type: emptyDir
-      tmp:
-        type: emptyDir
       media:
         type: nfs
         server: nfs.dom.lan
         path: /volume1/Media
         globalMounts:
+          - path: /data/nas-media
+      tmpfs:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
+            subPath: tmp
           - path: /data/nas-media
