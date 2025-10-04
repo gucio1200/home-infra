@@ -1,27 +1,41 @@
 #!/usr/bin/env bash
+set -Eeuo pipefail
 
-XSEED_HOST=${XSEED_HOST:-crossseed}
-XSEED_PORT=${XSEED_PORT:-8080}
-XSEED_APIKEY=${XSEED_APIKEY:-unset}
-XSEED_SLEEP_INTERVAL=${CROSS_SEED_SLEEP_INTERVAL:-30}
+# Environment variables set by the user
+CROSS_SEED_HOST="${CROSS_SEED_HOST:?}"
+CROSS_SEED_API_KEY="${CROSS_SEED_API_KEY:?}"
+CROSS_SEED_SLEEP_INTERVAL="${CROSS_SEED_SLEEP_INTERVAL:-30}"
 
-SEARCH_PATH=$1
+# Environment variables set by sabnzbd
+SAB_COMPLETE_DIR="${SAB_COMPLETE_DIR:?}"
+SAB_PP_STATUS="${SAB_PP_STATUS:?}"
 
-response=$(curl \
-  --silent \
-  --output /dev/null \
-  --write-out "%{http_code}" \
-  --request POST \
-  --data-urlencode "path=${SEARCH_PATH}" \
-  --header "X-Api-Key: ${XSEED_APIKEY}" \
-  "http://${XSEED_HOST}:${XSEED_PORT}/api/webhook"
-)
+# Function to search for cross-seed
+search() {
+    local status_code
+    status_code=$(curl \
+        --silent \
+        --output /dev/null \
+        --write-out "%{http_code}" \
+        --request POST \
+        --data-urlencode "path=${SAB_COMPLETE_DIR}" \
+        --header "X-Api-Key: ${CROSS_SEED_API_KEY}" \
+        "http://${CROSS_SEED_HOST}/api/webhook"
+    )
 
-if [[ "${response}" != "204" ]]; then
-  printf "Failed to search cross-seed for '%s'\n" "${SEARCH_PATH}"
-  exit 1
-fi
+    printf "cross-seed search returned with HTTP status code %s and path %s\n" "${status_code}" "${SAB_COMPLETE_DIR}" >&2
 
-printf "Successfully searched cross-seed for '%s'\n" "${SEARCH_PATH}"
+    sleep "${CROSS_SEED_SLEEP_INTERVAL}"
+}
 
-sleep "${XSEED_SLEEP_INTERVAL}"
+main() {
+    # Check if post-processing was successful
+    if [[ "${SAB_PP_STATUS}" -ne 0 ]]; then
+        printf "post-processing failed with sabnzbd status code %s\n" "${SAB_PP_STATUS}" >&2
+        exit 1
+    fi
+
+    search
+}
+
+main "$@"

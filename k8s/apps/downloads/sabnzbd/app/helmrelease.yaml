@@ -24,20 +24,20 @@ spec:
 
         pod:
           securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            runAsNonRoot: true
-            fsGroup: 568
+            fsGroup: 2000
             fsGroupChangePolicy: OnRootMismatch
-            supplementalGroups: [10000]
-            seccompProfile: { type: RuntimeDefault }
-
+            runAsGroup: 2000
+            runAsNonRoot: true
+            runAsUser: 2000
+            supplementalGroups:
+              - 568
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/sabnzbd
-              tag: 4.4.1@sha256:36674664a94760ae934c09b1d97546a3e79a0f110edda88085e74778c26d68e3
+              repository: ghcr.io/home-operations/sabnzbd
+              tag: 4.5.3
             env:
+              CROSS_SEED_HOST: cross-seed.downloads.svc.cluster.local:2468
               SABNZBD__PORT: &port 8080
               SABNZBD__HOST_WHITELIST_ENTRIES: >-
                 sabnzbd,
@@ -46,33 +46,22 @@ spec:
                 sabnzbd.downloads.svc.cluster,
                 sabnzbd.downloads.svc.cluster.local,
                 sabnzbd.k8sj.io
-              SABNZBD__API_KEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: sabnzbd-secret
-                    key: api_key
-              SABNZBD__NZB_KEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: sabnzbd-secret
-                    key: nzb_key
-              XSEED_HOST: cross-seed.downloads.svc.cluster.local
-              XSEED_PORT: 2468
-              XSEED_APIKEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: sabnzbd-secret
-                    key: xseed_api_key
+            envFrom:
+              - secretRef:
+                  name: sabnzbd-secret
             probes:
-              liveness:
+              liveness: &probes
                 enabled: true
-              readiness:
-                enabled: true
-              startup:
-                enabled: true
+                custom: true
                 spec:
-                  failureThreshold: 30
-                  periodSeconds: 5
+                  httpGet:
+                    path: /api?mode=version
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
             resources:
               requests:
                 cpu: 5m
