@@ -24,20 +24,19 @@ spec:
 
         pod:
           securityContext:
-            runAsUser: 586
-            runAsGroup: 586
-            runAsNonRoot: true
-            fsGroup: 586
+            fsGroup: 2000
             fsGroupChangePolicy: "OnRootMismatch"
-            supplementalGroups: [10000]
-            seccompProfile: { type: RuntimeDefault }
+            runAsGroup: 2000
+            runAsNonRoot: true
+            runAsUser: 2000
+            supplementalGroups:
+              - 586
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/sonarr-develop
-              tag: 4.0.14.2938@sha256:75da01d2da78d226cd89352fbab919f2eb26ea9a8d6c592bf812dde5f8949243
+              repository: ghcr.io/home-operations/sonarr
+              tag: 4.0.15.2940
             env:
-              COMPlus_EnableDiagnostics: "0"
               SONARR__APP__INSTANCENAME: Sonarr
               SONARR__AUTH__APIKEY:
                 valueFrom:
@@ -46,19 +45,23 @@ spec:
                     key: api_key
               SONARR__AUTH__METHOD: External
               SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              SONARR__LOG__DBENABLED: "False"
               SONARR__LOG__LEVEL: info
               SONARR__SERVER__PORT: &port 8989
               SONARR__UPDATE__BRANCH: develop
             probes:
-              liveness:
+              liveness: &probes
                 enabled: true
-              readiness:
-                enabled: true
-              startup:
-                enabled: true
+                custom: true
                 spec:
-                  failureThreshold: 30
-                  periodSeconds: 5
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
             resources:
               requests:
                 cpu: 20m
@@ -97,13 +100,14 @@ spec:
     persistence:
       config:
         existingClaim: sonarr-config
-      add-ons:
-        type: emptyDir
-      tmp:
-        type: emptyDir
       media:
         type: nfs
         server: nfs.dom.lan
         path: /volume1/Media
         globalMounts:
           - path: /data/nas-media
+      tmpfs:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
+            subPath: tmp
