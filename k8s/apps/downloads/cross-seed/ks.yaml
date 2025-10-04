@@ -20,4 +20,11 @@ spec:
   wait: false
   dependsOn:
     - name: cluster-apps-external-secrets-stores
-#    - name: qbittorrent
+  postBuild:
+    substitute:
+      APP: *appname
+      VOLSYNC_CLAIM: cross-seed
+      VOLSYNC_CAPACITY: 2Gi
+      VOLSYNC_ACCESSMODES: ReadWriteMany
+      VOLSYNC_STORAGECLASS: ceph-filesystem
+      VOLSYNC_SNAPSHOTCLASS: ceph-filesystem
