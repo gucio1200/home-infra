@@ -78,7 +78,7 @@ spec:
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/appName: "bazarr"
-          hajimari.io/icon: mdi:rabbit-variant-outline
+          hajimari.io/icon: mdi:text-box
         hosts:
           - host: &host bazarr.k8sj.io
             paths:

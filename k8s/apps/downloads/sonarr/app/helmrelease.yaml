@@ -88,7 +88,7 @@ spec:
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/appName: "sonarr"
-          hajimari.io/icon: mdi:progress-download
+          hajimari.io/icon: mdi:filmstrip
         hosts:
           - host: &host sonarr.k8sj.io
             paths:

@@ -86,8 +86,8 @@ spec:
         className: "nginx"
         annotations:
           hajimari.io/enable: "true"
-          hajimari.io/appName: "qbittorrent"
-          hajimari.io/icon: mdi:magnify-scan
+          hajimari.io/appName: "radarr"
+          hajimari.io/icon: mdi:filmstrip
         hosts:
           - host: &host radarr.k8sj.io
             paths:
