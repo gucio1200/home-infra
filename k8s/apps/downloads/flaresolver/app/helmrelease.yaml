@@ -32,6 +32,10 @@ spec:
     ingress:
       app:
         className: "nginx"
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/appName: "flaresolver"
+          hajimari.io/icon: mdi:progress-download
         hosts:
           - host: &host flaresolver.k8sj.io
             paths:
