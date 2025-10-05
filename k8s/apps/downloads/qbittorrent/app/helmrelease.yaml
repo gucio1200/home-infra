@@ -15,44 +15,26 @@ spec:
         kind: HelmRepository
         name: bjw-s-oci
         namespace: flux-system
-
   values:
     controllers:
       qbittorrent:
         annotations:
-          configmap.reloader.stakater.com/reload: qbittorrent-scripts,qbittorrent-dnsdist
-          secret.reloader.stakater.com/reload: qbittorrent-secret
-
+          reloader.stakater.com/auto: "true"
         pod:
           securityContext:
-            fsGroup: 568
+            fsGroup: 2000
             fsGroupChangePolicy: "OnRootMismatch"
-            supplementalGroups: [10000]
-          terminationGracePeriodSeconds: 120
-
-        initContainers:
-          dnsdist:
-            image:
-              repository: docker.io/powerdns/dnsdist-19
-              tag: 1.9.11
-            restartPolicy: Always
-
+            supplementalGroups:
+              - 568
         containers:
           app:
             nameOverride: qbittorrent
             image:
-              repository: ghcr.io/onedr0p/qbittorrent-beta
-              tag: 5.0.3@sha256:4b9de3356475bd97fda3fb4d98f213e8d139aef15e7bd20dab72973e661901dd
+              repository: ghcr.io/home-operations/qbittorrent
+              tag: 5.1.2
             env:
-              UMASK: "022"
               QBT_WEBUI_PORT: &port 8080
-              XSEED_HOST: cross-seed.downloads.svc.cluster.local
-              XSEED_PORT: 2468
-              XSEED_APIKEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: sabnzbd-secret
-                    key: xseed_api_key
+              QBT_TORRENTING_PORT: 51478
             probes:
               liveness:
                 enabled: true
@@ -70,8 +52,8 @@ spec:
               limits:
                 memory: 8192Mi
             securityContext:
-              runAsUser: 568
-              runAsGroup: 568
+              runAsUser: 2000
+              runAsGroup: 2000
               runAsNonRoot: true
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -109,13 +91,7 @@ spec:
           qbittorrent:
             app:
               - path: /config
-      empty-config:
-        type: emptyDir
-        advancedMounts:
-          qbittorrent:
-            port-forward:
-              - path: /config
-      media:
+      downloads:
         type: nfs
         server: nfs.dom.lan
         path: /volume1/Media
@@ -123,20 +99,8 @@ spec:
           qbittorrent:
             app:
               - path: /data/nas-media
-      dnsdist:
-        type: configMap
-        name: qbittorrent-dnsdist
-        advancedMounts:
-          qbittorrent:
-            dnsdist:
-              - path: /etc/dnsdist/dnsdist.conf
-                subPath: dnsdist.conf
-                readOnly: true
-      scripts:
-        type: configMap
-        name: qbittorrent-scripts
-        defaultMode: 0775
-        advancedMounts:
-          qbittorrent:
-            app:
-              - path: /config/scripts
+      qbrr:
+        type: image
+        image: ghcr.io/buroa/qbrr:0.1.1@sha256:fe4a1d100ba896999253a5122d9c77cc4920779d618c23f765458cb6ec7383ca
+      tmp:
+        type: emptyDir
