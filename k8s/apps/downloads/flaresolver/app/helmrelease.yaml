@@ -24,7 +24,6 @@ spec:
                 memory: 150Mi
     service:
       app:
-        forceRename: flaresolver
         ports:
           http:
             port: 8191
