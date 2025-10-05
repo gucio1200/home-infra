@@ -1,0 +1,65 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: qbittorrent
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: qbittorrent
+  interval: 30m
+  values:
+    controllers:
+      qbittorrent:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          securityContext:
+            fsGroup: 2000
+            fsGroupChangePolicy: "OnRootMismatch"
+            supplementalGroups:
+              - 568
+        containers:
+          app:
+            nameOverride: flaresolver
+            image:
+              repository: ghcr.io/flaresolverr/flaresolverr
+              tag: v3.4.1
+            resources:
+              requests:
+                cpu: 15m
+                memory: 150Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+              readOnlyRootFilesystem: true
+              runAsGroup: 2000
+              runAsNonRoot: true
+              runAsUser: 2000
+    service:
+      app:
+        forceRename: flaresolver
+        ports:
+          http:
+            port: 8191
+
+    ingress:
+      app:
+        className: "nginx"
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/appName: "flaresolver"
+          hajimari.io/icon: mdi:progress-download
+        hosts:
+          - host: &host flaresolver.k8sj.io
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
