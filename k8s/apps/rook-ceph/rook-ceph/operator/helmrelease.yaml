@@ -5,7 +5,6 @@ metadata:
   name: rook-ceph-operator
   namespace: rook-ceph
 spec:
-  interval: 15m
   chart:
     spec:
       chart: rook-ceph
@@ -14,18 +13,7 @@ spec:
         kind: HelmRepository
         name: rook-ceph
         namespace: flux-system
-  maxHistory: 2
-  install:
-    createNamespace: true
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      remediateLastFailure: true
-      retries: 3
-  uninstall:
-    keepHistory: false
+  interval: 1h
   values:
     csi:
       cephFSKernelMountOptions: ms_mode=prefer-crc

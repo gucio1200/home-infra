@@ -5,15 +5,13 @@ metadata:
   name: cluster-apps-rook-ceph
   namespace: flux-system
 spec:
-  interval: 20m
+  interval: 1h
   path: "./k8s/apps/rook-ceph/rook-ceph/operator"
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
   wait: true
-  retryInterval: 1m
-  timeout: 15m
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -22,14 +20,25 @@ metadata:
   name: cluster-apps-rook-ceph-cluster
   namespace: flux-system
 spec:
-  interval: 20m
+  dependsOn:
+    - name: cluster-apps-rook-ceph
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: rook-ceph-cluster
+      namespace: rook-ceph
+    - apiVersion: ceph.rook.io/v1
+      kind: CephCluster
+      namespace: rook-ceph
+      name: rook-ceph
+  healthCheckExprs:
+    - apiVersion: ceph.rook.io/v1
+      kind: CephCluster
+      failed: status.ceph.health == 'HEALTH_ERR'
+      current: status.ceph.health in ['HEALTH_OK', 'HEALTH_WARN']
+  interval: 1h
   path: "./k8s/apps/rook-ceph/rook-ceph/cluster"
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
-  wait: true
-  dependsOn:
-    - name: cluster-apps-rook-ceph
-  retryInterval: 1m
-  timeout: 15m
