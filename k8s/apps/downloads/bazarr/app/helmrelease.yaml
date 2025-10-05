@@ -76,6 +76,9 @@ spec:
       app:
         className: "nginx"
         annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/appName: "bazarr"
+          hajimari.io/icon: mdi:rabbit-variant-outline
         hosts:
           - host: &host bazarr.k8sj.io
             paths:

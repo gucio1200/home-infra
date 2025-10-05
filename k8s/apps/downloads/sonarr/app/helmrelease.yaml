@@ -86,6 +86,9 @@ spec:
       app:
         className: "nginx"
         annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/appName: "sonarr"
+          hajimari.io/icon: mdi:progress-download
         hosts:
           - host: &host sonarr.k8sj.io
             paths:

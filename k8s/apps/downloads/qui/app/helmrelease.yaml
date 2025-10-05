@@ -67,6 +67,9 @@ spec:
       app:
         className: "nginx"
         annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/appName: "qui"
+          hajimari.io/icon: mdi:progress-download
         hosts:
           - host: &host qui.k8sj.io
             paths:

@@ -82,6 +82,9 @@ spec:
       app:
         className: "nginx"
         annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/appName: "prowlarr"
+          hajimari.io/icon: mdi:rabbit-variant-outline
         hosts:
           - host: &host prowlarr.k8sj.io
             paths:

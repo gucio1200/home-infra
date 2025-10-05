@@ -86,6 +86,9 @@ spec:
       app:
         className: "nginx"
         annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/appName: "sabnzbd"
+          hajimari.io/icon: mdi:progress-download
         hosts:
           - host: &host sabnzbd.k8sj.io
             paths:
