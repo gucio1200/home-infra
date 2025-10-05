@@ -16,4 +16,4 @@ resources:
   - ./sabnzbd/ks.yaml
   - ./sonarr/ks.yaml
   - ./qui/ks.yaml
-  - ./flaresolver/ks.yaml
+#  - ./flaresolver/ks.yaml
