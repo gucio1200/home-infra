@@ -11,15 +11,7 @@ spec:
   interval: 30m
   values:
     controllers:
-      qbittorrent:
-        annotations:
-          reloader.stakater.com/auto: "true"
-        pod:
-          securityContext:
-            fsGroup: 2000
-            fsGroupChangePolicy: "OnRootMismatch"
-            supplementalGroups:
-              - 568
+      flaresolver:
         containers:
           app:
             nameOverride: flaresolver
@@ -30,15 +22,6 @@ spec:
               requests:
                 cpu: 15m
                 memory: 150Mi
-            securityContext:
-              allowPrivilegeEscalation: false
-              capabilities:
-                drop:
-                  - ALL
-              readOnlyRootFilesystem: true
-              runAsGroup: 2000
-              runAsNonRoot: true
-              runAsUser: 2000
     service:
       app:
         forceRename: flaresolver
