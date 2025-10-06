@@ -4,7 +4,7 @@ clusterPodNets:
   - 10.244.0.0/16
 clusterSvcNets:
   - 10.96.0.0/12
-talosVersion: v1.11.1
+talosVersion: v1.11.2
 kubernetesVersion: v1.34.1
 endpoint: "https://k8s.dom.lan:6443"
 
@@ -28,9 +28,25 @@ nodes:
       - 192.168.0.152
       - 192.168.0.151
     networkInterfaces:
-      - interface: eth0
+      - interface: bond0
+        bond:
+          deviceSelectors:
+            - hardwareAddr: 00:1e:06:45:11:da
+              driver: r8169
+          mode: active-backup
+        dhcp: false
+        vlans:
+          - vlanId: 305
+            dhcp: false
+            mtu: 1500
+      - interface: br0
         dhcp: true
         mtu: 1500
+        bridge:
+          stp:
+            enabled: true
+          interfaces:
+            - bond0
 
   - hostname: cp-1
     controlPlane: true
@@ -38,9 +54,25 @@ nodes:
     installDisk: /dev/sda
     nameservers: *ns
     networkInterfaces:
-      - interface: eth0
+      - interface: bond0
+        bond:
+          deviceSelectors:
+            - hardwareAddr: 00:1e:06:45:11:5e
+              driver: r8169
+          mode: active-backup
+        dhcp: false
+        vlans:
+          - vlanId: 305
+            dhcp: false
+            mtu: 1500
+      - interface: br0
         dhcp: true
         mtu: 1500
+        bridge:
+          stp:
+            enabled: true
+          interfaces:
+            - bond0
 
   - hostname: cp-2
     controlPlane: true
@@ -48,9 +80,25 @@ nodes:
     installDisk: /dev/sda
     nameservers: *ns
     networkInterfaces:
-      - interface: eth0
+      - interface: bond0
+        bond:
+          deviceSelectors:
+            - hardwareAddr: 00:1e:06:45:13:e8
+              driver: r8169
+          mode: active-backup
+        dhcp: false
+        vlans:
+          - vlanId: 305
+            dhcp: false
+            mtu: 1500
+      - interface: br0
         dhcp: true
         mtu: 1500
+        bridge:
+          stp:
+            enabled: true
+          interfaces:
+            - bond0
 
   - hostname: cp-3
     controlPlane: true
@@ -58,9 +106,25 @@ nodes:
     installDisk: /dev/sda
     nameservers: *ns
     networkInterfaces:
-      - interface: eth0
+      - interface: bond0
+        bond:
+          deviceSelectors:
+            - hardwareAddr: 00:1e:06:45:16:0c
+              driver: r8169
+          mode: active-backup
+        dhcp: false
+        vlans:
+          - vlanId: 305
+            dhcp: false
+            mtu: 1500
+      - interface: br0
         dhcp: true
         mtu: 1500
+        bridge:
+          stp:
+            enabled: true
+          interfaces:
+            - bond0
 
   - hostname: cp-4
     controlPlane: true
@@ -68,9 +132,25 @@ nodes:
     installDisk: /dev/sda
     nameservers: *ns
     networkInterfaces:
-      - interface: eth0
+      - interface: bond0
+        bond:
+          deviceSelectors:
+            - hardwareAddr: 00:1e:06:45:5e:ad
+              driver: igc
+          mode: active-backup
+        dhcp: false
+        vlans:
+          - vlanId: 305
+            dhcp: false
+            mtu: 1500
+      - interface: br0
         dhcp: true
         mtu: 1500
+        bridge:
+          stp:
+            enabled: true
+          interfaces:
+            - bond0
 
   - hostname: cp-5
     controlPlane: true
@@ -78,9 +158,25 @@ nodes:
     installDisk: /dev/sda
     nameservers: *ns
     networkInterfaces:
-      - interface: eth0
+      - interface: bond0
+        bond:
+          deviceSelectors:
+            - hardwareAddr: 00:1e:06:45:5e:5b
+              driver: igc
+          mode: active-backup
+        dhcp: false
+        vlans:
+          - vlanId: 305
+            dhcp: false
+            mtu: 1500
+      - interface: br0
         dhcp: true
         mtu: 1500
+        bridge:
+          stp:
+            enabled: true
+          interfaces:
+            - bond0
 
   - hostname: wr-0
     controlPlane: false
@@ -88,6 +184,17 @@ nodes:
     installDisk: /dev/sda
     nameservers: *ns
     networkInterfaces:
+      - interface: bond0
+        bond:
+          deviceSelectors:
+            - hardwareAddr: 00:1e:06:45:83:f0
+              driver: r8169
+          mode: active-backup
+        dhcp: false
+        vlans:
+          - vlanId: 305
+            dhcp: false
+            mtu: 1500
       - interface: br0
         dhcp: true
         mtu: 1500
@@ -95,7 +202,7 @@ nodes:
           stp:
             enabled: true
           interfaces:
-            - enp1s0
+            - bond0
 
   - hostname: wr-1
     controlPlane: false
@@ -103,6 +210,17 @@ nodes:
     installDisk: /dev/sda
     nameservers: *ns
     networkInterfaces:
+      - interface: bond0
+        bond:
+          deviceSelectors:
+            - hardwareAddr: 00:1e:06:45:81:58
+              driver: r8169
+          mode: active-backup
+        dhcp: false
+        vlans:
+          - vlanId: 305
+            dhcp: false
+            mtu: 1500
       - interface: br0
         dhcp: true
         mtu: 1500
@@ -110,7 +228,7 @@ nodes:
           stp:
             enabled: true
           interfaces:
-            - enp1s0
+            - bond0
 
 controlPlane:
   nodeLabels:
