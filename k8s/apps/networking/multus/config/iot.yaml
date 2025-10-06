@@ -27,23 +27,3 @@ spec:
         }
       ]
     }
-
----
-apiVersion: "k8s.cni.cncf.io/v1"
-kind: NetworkAttachmentDefinition
-metadata:
-  name: kubevirt
-  namespace: networking
-spec:
-  config: |-
-    {
-      "cniVersion": "0.3.1",
-      "name": "kubevirt",
-      "plugins": [
-        {
-          "type": "bridge",
-          "bridge": "br0",
-          "ipam": { "type": "dhcp" }
-        }
-      ]
-    }
