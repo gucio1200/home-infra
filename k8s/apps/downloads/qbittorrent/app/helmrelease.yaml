@@ -20,7 +20,7 @@ spec:
               [{
                 "name": "vpn",
                 "namespace": "network",
-                "ips": ["10.1.5.10/24"],
+                "ips": ["10.1.5.10/24"]
               }]
           securityContext:
             fsGroup: 2000
