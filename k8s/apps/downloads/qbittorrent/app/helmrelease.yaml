@@ -19,7 +19,7 @@ spec:
             k8s.v1.cni.cncf.io/networks: |-
               [{
                 "name": "vpn",
-                "namespace": "network",
+                "namespace": "networking",
                 "ips": ["10.1.5.10/24"]
               }]
           securityContext:
