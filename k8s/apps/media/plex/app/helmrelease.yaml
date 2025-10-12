@@ -32,7 +32,7 @@ spec:
             supplementalGroups:
               - 44
               - 109
-              - 65542 # gladius:external-services
+              - 568
 
         containers:
           app:
@@ -116,6 +116,14 @@ spec:
           plex:
             app:
               - path: /storage/media
+      downloads:
+        type: nfs
+        server: nfs.dom.lan
+        path: /volume1/Media
+        advancedMounts:
+          qbittorrent:
+            app:
+              - path: /data/nas-media
       transcode:
         type: emptyDir
         advancedMounts:
