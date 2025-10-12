@@ -121,7 +121,7 @@ spec:
         server: nfs.dom.lan
         path: /volume1/Media
         advancedMounts:
-          qbittorrent:
+          plex:
             app:
               - path: /data/nas-media
       transcode:
