@@ -372,10 +372,12 @@ controlPlane:
             permissions: 0o644
             content: |
               [ NFSMount_Global_Options ]
-              nfsvers=4.1
+              nfsvers=4.0
+              hard=True
+              noatime=True
               rsize=131072
               wsize=131072
-              nconnect=8
+              nconnect=16
 
     # Kubelet configuration
     - &kubeletPatch |-
