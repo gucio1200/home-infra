@@ -105,7 +105,7 @@ spec:
           - path: /dev/shm
       media:
         type: nfs
-        server: nfs.dom.lan
+        server: nfs2.dom.lan
         path: /volume1/nvr
         globalMounts:
           - path: /media
