@@ -97,6 +97,7 @@ spec:
           s3: &minio
             bucket: "crunchy-postgres"
             endpoint: "s3.dom.lan:9000"
+            verifyTLS: false
             region: "us-east-1"
           schedules:
             full: "0 1 * * 0" # Sunday at 01:00
