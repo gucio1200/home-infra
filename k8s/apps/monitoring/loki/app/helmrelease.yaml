@@ -177,7 +177,7 @@ spec:
     - kind: Secret
       name: loki-secret
       valuesKey: S3_BUCKET_HOST
-      targetPath: loki.storage.s3.endpoint
+      targetPath: loki.storage.s3.s3
     - kind: Secret
       name: loki-secret
       valuesKey: S3_BUCKET_REGION
