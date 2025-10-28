@@ -33,6 +33,7 @@ spec:
               - 44
               - 109
               - 568
+              - 100
 
         containers:
           app:
@@ -110,8 +111,10 @@ spec:
           plex:
             app:
               - path: /config/Library/Application Support/Plex Media Server/Logs
-      smb-nas-media:
-        existingClaim: plex-media
+      nfs:
+        type: nfs
+        server: qnap.dom.lan
+        path: /Media
         advancedMounts:
           plex:
             app:
@@ -123,7 +126,7 @@ spec:
         advancedMounts:
           plex:
             app:
-              - path: /data/nas-media
+              - path: /storage/downloads
       transcode:
         type: emptyDir
         advancedMounts:
