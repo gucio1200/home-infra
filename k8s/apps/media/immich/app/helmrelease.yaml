@@ -136,7 +136,7 @@ spec:
       photos:
         type: nfs
         server: qnap.dom.lan
-        path: /Media/PHOTOS
+        path: /Media/Zdjecia
         advancedMounts:
           server:
             app:
