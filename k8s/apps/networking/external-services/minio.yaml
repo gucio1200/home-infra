@@ -9,7 +9,7 @@ metadata:
     app.kubernetes.io/instance: minio
 spec:
   type: ExternalName
-  externalName: console.s3.dom.lan
+  externalName: s3.dom.lan
   ports:
     - name: http
       port: &port 80
