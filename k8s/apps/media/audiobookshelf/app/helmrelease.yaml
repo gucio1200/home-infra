@@ -32,6 +32,8 @@ spec:
             runAsGroup: 568
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
+            supplementalGroups:
+              - 100
             seccompProfile: { type: RuntimeDefault }
         containers:
           app:
@@ -97,8 +99,8 @@ spec:
           - path: /.npm
       media:
         type: nfs
-        server: nfs.dom.lan
-        path: /volume1/BACKUP/gv0/smb/Audiobooki
+        server: qnap.dom.lan
+        path: /Media/Audiobooki
         globalMounts:
           - path: /media
             readOnly: true
