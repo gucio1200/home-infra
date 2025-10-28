@@ -25,6 +25,9 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         runAsNonRoot: true
+        fsGroupChangePolicy: "OnRootMismatch"
+        supplementalGroups:
+          - 100
     controllers:
       server:
         containers:
@@ -116,10 +119,12 @@ spec:
             name: pgdata
             size: 10Gi
         type: statefulset
+
     persistence:
       upload:
-        type: persistentVolumeClaim
-        existingClaim: immich-upload
+        type: nfs
+        server: qnap.dom.lan
+        path: /Media/IMMICH
         advancedMounts:
           server:
             app:
@@ -127,9 +132,11 @@ spec:
           microservices:
             app:
             - path: /usr/src/app/upload
+
       photos:
-        type: persistentVolumeClaim
-        existingClaim: immich-storage
+        type: nfs
+        server: qnap.dom.lan
+        path: /Media/PHOTOS
         advancedMounts:
           server:
             app:
@@ -137,14 +144,17 @@ spec:
           microservices:
             app:
             - path: /mnt/syno-photos
+
       model-cache:
         type: emptyDir
         advancedMounts:
           machine-learning:
             app:
             - path: /cache
+
       tmp:
         type: emptyDir
+
     service:
       machine-learning:
         controller: machine-learning
