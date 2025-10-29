@@ -41,7 +41,7 @@ spec:
                 "ips": ["192.168.2.250/16"]
               }]
           securityContext:
-            runAsUser: 0
+            runAsUser: 1000
             runAsGroup: 1000
             runAsNonRoot: false
             fsGroup: 1000
@@ -73,6 +73,12 @@ spec:
               - "pa"
             env:
               PULSE_SERVER: "unix:/tmp/pulseaudio.socket"
+            securityContext:
+              runAsUser: 0
+              runAsGroup: 1000
+              runAsNonRoot: false
+              fsGroup: 1000
+              fsGroupChangePolicy: OnRootMismatch
             probes:
               liveness:
                 enabled: false
@@ -85,9 +91,59 @@ spec:
                 cpu: 100m
                 memory: 1024Mi
 
+          app:
+            image:
+              repository: unixology/ledfx
+              tag: "latest"
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 100m
+                memory: 1024Mi
+
+    service:
+      app:
+        controller: app
+        ports:
+          http:
+            port: 8888
+
+    ingress:
+      app:
+        enabled: true
+        className: "nginx"
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/appName: "LedFX"
+          hajimari.io/icon: mdi:home-assistant
+        hosts:
+          - host: &host ledfx.k8sj.io
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
 
     persistence:
       tmp:
         type: emptyDir
-        globalMounts:
-          - path: /tmp
+        advancedMounts:
+          app:
+            app:
+              - path: /home/ledfx/.config/pulse/
+                subPath: app-tmp
+            pulse:
+              - path: /tmp
+                subPath: app-tmp
+            shairport:
+              - path: /tmp
+                subPath: app-tmp
