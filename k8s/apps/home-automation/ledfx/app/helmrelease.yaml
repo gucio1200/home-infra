@@ -126,7 +126,7 @@ spec:
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/appName: "LedFX"
-          hajimari.io/icon: mdi:home-assistant
+          hajimari.io/icon: mdi:lightbulb-on-60
         hosts:
           - host: &host ledfx.k8sj.io
             paths:
