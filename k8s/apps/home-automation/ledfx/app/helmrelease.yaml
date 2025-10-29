@@ -139,6 +139,12 @@ spec:
               - *host
 
     persistence:
+      ledfx:
+        existingClaim: ledfx
+        advancedMounts:
+          app:
+            app:
+              - path: /home/ledfx/.ledfx
       tmp:
         type: emptyDir
         advancedMounts:
