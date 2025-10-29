@@ -63,8 +63,8 @@ spec:
                 enabled: false
             resources:
               requests:
-                cpu: 100m
-                memory: 1024Mi
+                cpu: 10m
+                memory: 64Mi
 
           shairport:
             image:
@@ -91,7 +91,7 @@ spec:
             resources:
               requests:
                 cpu: 100m
-                memory: 1024Mi
+                memory: 64Mi
 
           app:
             image:
@@ -110,7 +110,7 @@ spec:
             resources:
               requests:
                 cpu: 100m
-                memory: 1024Mi
+                memory: 256Mi
 
     service:
       app:
