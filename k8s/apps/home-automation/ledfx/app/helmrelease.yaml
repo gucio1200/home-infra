@@ -51,7 +51,7 @@ spec:
           pulse:
             image:
               repository: unixology/pulse
-              tag: latest
+              tag: 102904
             probes:
               liveness:
                 enabled: false
