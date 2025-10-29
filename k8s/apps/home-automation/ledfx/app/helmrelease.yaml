@@ -41,7 +41,7 @@ spec:
                 "ips": ["192.168.2.250/16"]
               }]
           securityContext:
-            runAsUser: 1000
+            runAsUser: 0
             runAsGroup: 1000
             runAsNonRoot: false
             fsGroup: 1000
