@@ -96,7 +96,7 @@ spec:
           app:
             image:
               repository: unixology/ledfx
-              tag: "latest"
+              tag: "10290956"
             env:
               PULSE_SERVER: "unix:/home/ledfx/.config/pulse/pulseaudio.socket"
               PULSECLIENTMODE: "1"
