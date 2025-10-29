@@ -28,7 +28,7 @@ spec:
                   operator: Exists
 
     controllers:
-      ledfx:
+      app:
         annotations:
           reloader.stakater.com/auto: "true"
 
