@@ -9,6 +9,7 @@ spec:
     - targets:
         - nfs.dom.lan:9100
         - nfs2.dom.lan:9100
+        - qnap.dom.lan:9100
   metricsPath: /metrics
   relabelings:
     - action: replace
