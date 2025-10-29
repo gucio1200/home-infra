@@ -68,7 +68,7 @@ spec:
             image:
               repository: mikebrady/shairport-sync
               tag: "latest"
-            command:
+            args:
               - "-o"
               - "pa"
             env:
