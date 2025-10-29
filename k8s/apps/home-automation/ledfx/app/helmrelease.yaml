@@ -52,6 +52,8 @@ spec:
             image:
               repository: unixology/pulse
               tag: "10290638"
+            env:
+              PULSE_SERVER: "unix:/tmp/pulseaudio.socket"
             probes:
               liveness:
                 enabled: false
@@ -95,6 +97,9 @@ spec:
             image:
               repository: unixology/ledfx
               tag: "latest"
+            env:
+              PULSE_SERVER: "unix:/home/ledfx/.config/pulse/pulseaudio.socket"
+              PULSECLIENTMODE: "1"
             probes:
               liveness:
                 enabled: false
