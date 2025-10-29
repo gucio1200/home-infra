@@ -27,6 +27,7 @@ spec:
             fsGroupChangePolicy: "OnRootMismatch"
             supplementalGroups:
               - 568
+              - 100
         containers:
           app:
             nameOverride: qbittorrent
@@ -98,11 +99,11 @@ spec:
       downloads:
         type: nfs
         server: nfs.dom.lan
-        path: /volume1/Media
+        path: /volume1/Downloads
         advancedMounts:
           qbittorrent:
             app:
-              - path: /data/nas-media
+              - path: /storage/downloads
       qbrr:
         type: image
         image: ghcr.io/buroa/qbrr:0.1.1@sha256:fe4a1d100ba896999253a5122d9c77cc4920779d618c23f765458cb6ec7383ca

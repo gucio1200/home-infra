@@ -30,6 +30,7 @@ spec:
             runAsUser: 2000
             supplementalGroups:
               - 568
+              - 100
         containers:
           app:
             image:
@@ -105,9 +106,9 @@ spec:
       media:
         type: nfs
         server: nfs.dom.lan
-        path: /volume1/Media
+        path: /volume1/Downloads
         globalMounts:
-          - path: /data/nas-media
+          - path: /storage/downloads
       tmpfs:
         type: emptyDir
         globalMounts:

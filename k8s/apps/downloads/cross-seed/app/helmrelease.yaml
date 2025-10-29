@@ -84,8 +84,8 @@ spec:
       media:
         type: nfs
         server: nfs.dom.lan
-        path: /volume1/Media
+        path: /volume1/Downloads
         advancedMounts:
           cross-seed:
             app:
-              - path: /data/nas-media
+              - path: /storage/downloads
