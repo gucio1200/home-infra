@@ -13,4 +13,4 @@ resources:
 #  - ./freqtrade/ks.yaml
   - ./go2rtc/ks.yaml
   - ./frigate/ks.yaml
-#  - ./ledfx/ks.yaml
+  - ./ledfx/ks.yaml
