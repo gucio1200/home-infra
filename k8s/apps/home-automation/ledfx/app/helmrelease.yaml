@@ -51,7 +51,7 @@ spec:
           pulse:
             image:
               repository: unixology/pulse
-              tag: "10290509"
+              tag: "10290624"
             probes:
               liveness:
                 enabled: false
@@ -72,8 +72,7 @@ spec:
               - "-o"
               - "pa"
             env:
-              PULSE_SERVER: "unix:/home/ledfx/.config/pulse/pulseaudio.socket"
-              PULSE_COOKIE: "/home/ledfx/.config/pulse/cookie"
+              PULSE_SERVER: "unix:/tmp/pulseaudio.socket"
             probes:
               liveness:
                 enabled: false
