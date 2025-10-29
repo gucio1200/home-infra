@@ -6,7 +6,7 @@ metadata:
   name: &appname ledfx
   namespace: flux-system
 spec:
-  targetNamespace: ledfx
+  targetNamespace: home-automation
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
