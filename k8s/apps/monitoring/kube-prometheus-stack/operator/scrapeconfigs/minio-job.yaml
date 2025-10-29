@@ -7,7 +7,7 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-        - s3.dom.lan
+        - s3.dom.lan:9000
   metricsPath: /minio/v2/metrics/cluster
   relabelings:
     - action: replace
