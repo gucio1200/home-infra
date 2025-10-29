@@ -64,6 +64,28 @@ spec:
                 cpu: 100m
                 memory: 1024Mi
 
+          shairport:
+            image:
+              repository: mikebrady/shairport-sync
+              tag: "latest"
+            command:
+              - "-o"
+              - "pa"
+            env:
+              PULSE_SERVER: "unix:/home/ledfx/.config/pulse/pulseaudio.socket"
+              PULSE_COOKIE: "/home/ledfx/.config/pulse/cookie"
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 100m
+                memory: 1024Mi
+
     persistence:
       tmp:
         type: emptyDir
