@@ -33,7 +33,7 @@ filters:
 
     remove:
       - IsUnregistered()
-      - Downloaded == false && DownloadSpeed == 0 && LastActivityDays >= 1
+      - Downloaded == false && LastActivityDays >= 5
       - (
           HasAnyTag(
             "site:ANT", "site:AR", "site:FL", "site:FNP", "site:IPT",
