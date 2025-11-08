@@ -17,9 +17,11 @@ filters:
       - IsTrackerDown()
       - Downloaded == false && !IsUnregistered()
       - SeedingHours < 26 && !IsUnregistered()
+      - StalledTime < 1440
 
     remove:
       - IsUnregistered()
+      - StalledTime >= 1440
       - (
           HasAnyTag(
             "site:ANT", "site:AR", "site:FL", "site:FNP", "site:IPT",
