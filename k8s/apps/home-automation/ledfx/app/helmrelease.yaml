@@ -51,7 +51,7 @@ spec:
           pulse:
             image:
               repository: unixology/pulse
-              tag: "10300332"
+              tag: "11081659"
             env:
               PULSE_SERVER: "unix:/tmp/pulseaudio.socket"
             probes:
