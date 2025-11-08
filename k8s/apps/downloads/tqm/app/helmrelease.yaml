@@ -80,6 +80,6 @@ spec:
       downloads:
         type: nfs
         path: /volume1/Downloads
-        server: nas.dom.lan
+        server: nfs.dom.lan
         globalMounts:
           - path: /storage/downloads
