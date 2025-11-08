@@ -10,6 +10,6 @@ args:
 - --delete-pending-pods-after=5m
 - --delete-evicted-pods-after=5m
 - --delete-orphaned-pods-after=5m
-- --keep-failures=0
-- --keep-successful=0
+- --keep-failures=10m
+- --keep-successful=10m
 - --legacy-mode=false
