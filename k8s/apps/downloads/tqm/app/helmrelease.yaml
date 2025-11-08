@@ -1,0 +1,85 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: tqm
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: tqm
+  interval: 30m
+  values:
+    defaultPodOptions:
+      securityContext:
+        fsGroup: 2000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsGroup: 2000
+        runAsNonRoot: true
+        runAsUser: 2000
+    controllers:
+      tqm:
+        type: cronjob
+        cronjob: &cronJobSpec
+          backoffLimit: 0
+          concurrencyPolicy: Forbid
+          failedJobsHistory: 1
+          schedule: "@hourly"
+          successfulJobsHistory: 0
+          ttlSecondsAfterFinished: 3600
+        initContainers:
+          retag: &container
+            image:
+              repository: ghcr.io/home-operations/tqm
+              tag: 1.17.0@sha256:05b62239063ad1e884f2254532e3dc9b60cff08870112dca244af328d761be0d
+            args:
+              - retag
+              - qb
+            resources:
+              requests:
+                cpu: 10m
+                memory: 64Mi
+              limits:
+                memory: 64Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+        containers:
+          clean:
+            <<: *container
+            args:
+              - clean
+              - qb
+      orphaned:
+        type: cronjob
+        cronjob:
+          <<: *cronJobSpec
+          schedule: 0 0 * * 0
+          suspend: true
+        containers:
+          app:
+            <<: *container
+            args:
+              - orphan
+              - qb
+    persistence:
+      config:
+        type: emptyDir
+        globalMounts:
+          - path: /.config/tqm
+      config-file:
+        type: configMap
+        name: "{{ .Release.Name }}-configmap"
+        globalMounts:
+          - path: /.config/tqm/config.yaml
+            subPath: config.yaml
+            readOnly: true
+      downloads:
+        type: nfs
+        path: /volume1/Downloads
+        server: nas.dom.lan
+        globalMounts:
+          - path: /storage/downloads
