@@ -8,6 +8,19 @@ clients:
     type: qbittorrent
     url: http://qbittorrent.downloads.svc.cluster.local:8080
 
+  radarr:
+    enabled: true
+    url: http://radarr.downloads.svc.cluster.local:7878
+
+  sonarr:
+    enabled: true
+    url: http://sonarr.downloads.svc.cluster.local:8989
+
+  bazarr:
+    enabled: true
+    url: http://bazarr.downloads.svc.cluster.local:6767
+
+
 filters:
   default:
     MapHardlinksFor:
