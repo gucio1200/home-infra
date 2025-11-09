@@ -54,14 +54,14 @@ spec:
               limits:
                 memory: 8192Mi
             securityContext:
-              allowPrivilegeEscalation: true
-#              capabilities:
-#                drop:
-#                  - ALL
-              readOnlyRootFilesystem: false
-              runAsGroup: 0
-              runAsNonRoot: false
-              runAsUser: 0
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+              readOnlyRootFilesystem: true
+              runAsGroup: 2000
+              runAsNonRoot: true
+              runAsUser: 2000
     service:
       app:
         forceRename: qbittorrent
