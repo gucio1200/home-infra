@@ -1,0 +1,94 @@
+service:
+  enabled: true
+serviceMonitor:
+  enabled: true
+leaderElection:
+  enabled: true
+kind: Deployment
+replicas: 3
+deschedulerPolicyAPIVersion: descheduler/v1alpha2
+deschedulerPolicy:
+  profiles:
+    - name: Default
+      pluginConfig:
+        - name: DefaultEvictor
+          args:
+            evictFailedBarePods: true
+            evictLocalStoragePods: true
+            evictSystemCriticalPods: true
+            excludedOwnerKinds:
+              - "Job"
+              - "CronJob"
+
+        - name: RemoveFailedPods
+          args:
+            reasons:
+              - "NodeAffinity"
+              - "Terminated"
+            includingInitContainers: true
+            excludeOwnerKinds:
+              - "Job"
+              - "CronJob"
+            minPodLifetimeSeconds: 3600
+
+        - name: RemovePodsHavingTooManyRestarts
+          args:
+            podRestartThreshold: 100
+            includingInitContainers: true
+            excludeOwnerKinds:
+              - "Job"
+              - "CronJob"
+
+        - name: RemovePodsViolatingNodeAffinity
+          args:
+            nodeAffinityType:
+              - requiredDuringSchedulingIgnoredDuringExecution
+            excludeOwnerKinds:
+              - "Job"
+              - "CronJob"
+
+        - name: RemovePodsViolatingInterPodAntiAffinity
+          args:
+            excludeOwnerKinds:
+              - "Job"
+              - "CronJob"
+
+        - name: RemovePodsViolatingTopologySpreadConstraint
+          args:
+            excludeOwnerKinds:
+              - "Job"
+              - "CronJob"
+
+        - name: HighNodeUtilization
+          args:
+            thresholds:
+              cpu: 35
+              memory: 35
+            targetThresholds:
+              cpu: 50
+              memory: 50
+            includeVolumes: true
+            excludeOwnerKinds:
+              - "Job"
+              - "CronJob"
+
+      plugins:
+        balance:
+          enabled:
+            - "RemovePodsViolatingTopologySpreadConstraint"
+            - "HighNodeUtilization"
+        deschedule:
+          enabled:
+            - RemoveFailedPods
+            - RemovePodsHavingTooManyRestarts
+            #- RemovePodsViolatingNodeTaints
+            - RemovePodsViolatingNodeAffinity
+            - RemovePodsViolatingInterPodAntiAffinity
+
+      podEvictionPolicy:
+        # Limits for safe eviction
+        maxPodEvictionPerNode: 2
+        maxPodEvictionPerNamespace: 5
+        excludedOwnerKinds:
+          - "Job"
+          - "CronJob"

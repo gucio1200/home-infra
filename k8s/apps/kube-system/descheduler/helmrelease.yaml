@@ -15,64 +15,6 @@ spec:
         name: descheduler
         namespace: flux-system
       interval: 10m
-  values:
-    kind: Deployment
-    replicas: 3
-    deschedulerPolicyAPIVersion: descheduler/v1alpha2
-    deschedulerPolicy:
-      profiles:
-        - name: Default
-          pluginConfig:
-#            - name: "HighNodeUtilization"
-#              args:
-#                thresholds:
-#                  "cpu" : 35
-#                  "memory": 35
-            - name: DefaultEvictor
-              args:
-                evictFailedBarePods: true
-                evictLocalStoragePods: true
-                evictSystemCriticalPods: true
-            - name: RemoveFailedPods
-              args:
-                reasons:
-                  - "NodeAffinity"
-                  - "Terminated"
-                includingInitContainers: true
-                excludeOwnerKinds:
-                  - "Job"
-                minPodLifetimeSeconds: 3600
-            - name: RemovePodsHavingTooManyRestarts
-              args:
-                podRestartThreshold: 100
-                includingInitContainers: true
-            - name: RemovePodsViolatingNodeAffinity
-              args:
-                nodeAffinityType:
-                  - requiredDuringSchedulingIgnoredDuringExecution
-            #- name: RemovePodsViolatingNodeTaints
-            - name: RemovePodsViolatingInterPodAntiAffinity
-            - name: RemovePodsViolatingTopologySpreadConstraint
-          plugins:
-            balance:
-              enabled:
-                - "RemovePodsViolatingTopologySpreadConstraint"
-                - "HighNodeUtilization"
-            deschedule:
-              enabled:
-                - RemoveFailedPods
-                - RemovePodsHavingTooManyRestarts
-                #- RemovePodsViolatingNodeTaints
-                - RemovePodsViolatingNodeAffinity
-                - RemovePodsViolatingInterPodAntiAffinity
- #         podEvictionPolicy:
- #           excludedOwnerKinds:
- #             - "Job"
- #             - "CronJob"
-
-    service:
-      enabled: true
-    serviceMonitor:
-      enabled: true
-    leaderElection:
-      enabled: true
+  valuesFrom:
+    - kind: ConfigMap
+      name: descheduler-values
