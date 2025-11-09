@@ -16,9 +16,6 @@ deschedulerPolicy:
             evictFailedBarePods: true
             evictLocalStoragePods: true
             evictSystemCriticalPods: true
-            excludedOwnerKinds:
-              - "Job"
-              - "CronJob"
 
         - name: RemoveFailedPods
           args:
@@ -68,9 +65,6 @@ deschedulerPolicy:
               cpu: 50
               memory: 50
             includeVolumes: true
-            excludeOwnerKinds:
-              - "Job"
-              - "CronJob"
 
       plugins:
         balance:
@@ -86,9 +80,5 @@ deschedulerPolicy:
             - RemovePodsViolatingInterPodAntiAffinity
 
       podEvictionPolicy:
-        # Limits for safe eviction
         maxPodEvictionPerNode: 2
         maxPodEvictionPerNamespace: 5
-        excludedOwnerKinds:
-          - "Job"
-          - "CronJob"
