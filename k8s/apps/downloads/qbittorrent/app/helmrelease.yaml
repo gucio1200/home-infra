@@ -58,9 +58,9 @@ spec:
                 drop:
                   - ALL
               readOnlyRootFilesystem: true
-              runAsGroup: 2000
-              runAsNonRoot: true
-              runAsUser: 2000
+              runAsGroup: 0
+              runAsNonRoot: false
+              runAsUser: 0
           proton:
             nameOverride: proton
             image:
@@ -88,9 +88,9 @@ spec:
                 drop:
                   - ALL
               readOnlyRootFilesystem: true
-              runAsGroup: 0
-              runAsNonRoot: false
-              runAsUser: 0
+              runAsGroup: 2000
+              runAsNonRoot: true
+              runAsUser: 2000
     service:
       app:
         forceRename: qbittorrent
