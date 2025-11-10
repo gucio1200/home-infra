@@ -65,7 +65,7 @@ spec:
           proton:
             nameOverride: proton
             image:
-              repository: unicology/proton_helper
+              repository: unixology/proton_helper
               tag: latest
             env:
               QBITTORRENT_HOST: http://qbittorrent
