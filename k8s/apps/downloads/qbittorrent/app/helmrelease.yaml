@@ -36,7 +36,6 @@ spec:
               tag: 5.1.2
             env:
               QBT_WEBUI_PORT: &port 8080
-#              QBT_TORRENTING_PORT: 51478
             probes:
               liveness:
                 enabled: true
@@ -66,7 +65,7 @@ spec:
             nameOverride: proton
             image:
               repository: unixology/proton_helper
-              tag: "1c90173"
+              tag: "eff3704"
             env:
               QBITTORRENT_HOST: http://qbittorrent
               QBITTORRENT_PORT: 8080
