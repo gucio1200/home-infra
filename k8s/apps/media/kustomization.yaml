@@ -9,4 +9,5 @@ resources:
   - ./immich/ks.yaml
   - ./audiobookshelf/ks.yaml
   - ./tautulli/ks.yaml
+  - ./jellyseerr/ks.yaml
 #  - ./wallabag/ks.yaml
