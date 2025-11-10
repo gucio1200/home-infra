@@ -66,7 +66,7 @@ spec:
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/appName: "Jellyseerr"
-          hajimari.io/icon: simple-icons:jellyfish-outline
+          hajimari.io/icon: mdi:jellyfish-outline
           nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
         className: "nginx"
         hosts:
