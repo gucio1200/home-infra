@@ -112,9 +112,9 @@ spec:
                 memory: 640Mi
             securityContext:
               allowPrivilegeEscalation: true
-              capabilities:
-                drop:
-                  - ALL
+#              capabilities:
+#                drop:
+#                  - ALL
               readOnlyRootFilesystem: false
               runAsGroup: 0
               runAsNonRoot: false
