@@ -41,7 +41,7 @@ spec:
               service:
                 name: *name
                 port:
-                  number: 80
+                  number: 8090
   tls:
     - hosts:
         - *host
