@@ -65,7 +65,7 @@ spec:
             nameOverride: proton
             image:
               repository: unixology/proton_helper
-              tag: "3d6933a"
+              tag: "f5892ba"
             env:
               QBITTORRENT_HOST: http://127.0.0.1
               QBITTORRENT_PORT: 8080
