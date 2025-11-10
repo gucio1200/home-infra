@@ -88,9 +88,9 @@ spec:
                 drop:
                   - ALL
               readOnlyRootFilesystem: true
-              runAsGroup: 2000
-              runAsNonRoot: true
-              runAsUser: 2000
+              runAsGroup: 0
+              runAsNonRoot: false
+              runAsUser: 0
     service:
       app:
         forceRename: qbittorrent
