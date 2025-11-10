@@ -1,3 +1,4 @@
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -7,28 +8,13 @@ metadata:
     app.kubernetes.io/name: *name
     app.kubernetes.io/instance: *name
 spec:
-  type: ClusterIP
+  type: ExternalName
+  externalName: hyperhdr.dom.lan
   ports:
     - name: http
-      port: 8090
+      port: &port 8090
       protocol: TCP
-      targetPort: 8090
----
-apiVersion: discovery.k8s.io/v1
-kind: EndpointSlice
-metadata:
-  name: hyperhdr
-  namespace: networking
-  labels:
-    kubernetes.io/service-name: hyperhdr
-addressType: IPv4
-endpoints:
-  - addresses:
-      - 192.168.0.5
-ports:
-  - name: http
-    protocol: TCP
-    port: 8090
+      targetPort: *port
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
