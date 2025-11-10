@@ -83,6 +83,34 @@ spec:
               limits:
                 memory: 64Mi
             securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+              readOnlyRootFilesystem: true
+              runAsGroup: 2000
+              runAsNonRoot: true
+              runAsUser: 2000
+          shell:
+            nameOverride: shell
+            image:
+              repository: debian/debian
+              tag: "latest"
+            command: ["sleep", "infinity"]
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 50m
+                memory: 640Mi
+              limits:
+                memory: 640Mi
+            securityContext:
               allowPrivilegeEscalation: true
               capabilities:
                 drop:
@@ -125,7 +153,7 @@ spec:
           qbittorrent:
             app:
               - path: /config
-            proton:
+            shell:
               - path: /config
       downloads:
         type: nfs
