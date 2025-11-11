@@ -18,3 +18,4 @@ resources:
   - ./qui/ks.yaml
   - ./flaresolver/ks.yaml
   - ./tqm/ks.yaml
+  - ./protonvpn/ks.yaml

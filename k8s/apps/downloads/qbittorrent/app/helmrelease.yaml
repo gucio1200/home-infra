@@ -91,36 +91,6 @@ spec:
               runAsGroup: 2000
               runAsNonRoot: true
               runAsUser: 2000
-          wg:
-            nameOverride: wg
-            image:
-              repository: unixology/wg
-              tag: "1a22df3"
-            envFrom:
-              - secretRef:
-                  name: "protonvpn"
-            probes:
-              liveness:
-                enabled: false
-              readiness:
-                enabled: false
-              startup:
-                enabled: false
-            resources:
-              requests:
-                cpu: 50m
-                memory: 64Mi
-              limits:
-                memory: 64Mi
-            securityContext:
-              allowPrivilegeEscalation: false
-              capabilities:
-                drop:
-                  - ALL
-              readOnlyRootFilesystem: true
-              runAsGroup: 2000
-              runAsNonRoot: true
-              runAsUser: 2000
     service:
       app:
         forceRename: qbittorrent
