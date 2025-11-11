@@ -26,7 +26,7 @@ spec:
             nameOverride: wg
             image:
               repository: unixology/wg
-              tag: "540610b"
+              tag: "0cb0293"
             envFrom:
               - secretRef:
                   name: "protonvpn"
