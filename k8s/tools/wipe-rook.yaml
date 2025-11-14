@@ -9,7 +9,7 @@ spec:
   nodeName: cp-0
   containers:
     - name: disk-wipe
-      image: rook/ceph:v1.18.6@sha256:66fb38f7b43e852887e026c663c347b743f6b35c45b09724d01755eee2e5ee4c
+      image: rook/ceph:v1.18.7@sha256:175b6c60fcf98287549331729ca65a5ee6a8da55a38e7f4d15263ddd2e96e53d
       securityContext:
         privileged: true
       command:
@@ -43,7 +43,7 @@ spec:
   nodeName: cp-1
   containers:
     - name: disk-wipe
-      image: rook/ceph:v1.18.6@sha256:66fb38f7b43e852887e026c663c347b743f6b35c45b09724d01755eee2e5ee4c
+      image: rook/ceph:v1.18.7@sha256:175b6c60fcf98287549331729ca65a5ee6a8da55a38e7f4d15263ddd2e96e53d
       securityContext:
         privileged: true
       command:
@@ -77,7 +77,7 @@ spec:
   nodeName: cp-2
   containers:
     - name: disk-wipe
-      image: rook/ceph:v1.18.6@sha256:66fb38f7b43e852887e026c663c347b743f6b35c45b09724d01755eee2e5ee4c
+      image: rook/ceph:v1.18.7@sha256:175b6c60fcf98287549331729ca65a5ee6a8da55a38e7f4d15263ddd2e96e53d
       securityContext:
         privileged: true
       command:
@@ -111,7 +111,7 @@ spec:
   nodeName: cp-3
   containers:
     - name: disk-wipe
-      image: rook/ceph:v1.18.6@sha256:66fb38f7b43e852887e026c663c347b743f6b35c45b09724d01755eee2e5ee4c
+      image: rook/ceph:v1.18.7@sha256:175b6c60fcf98287549331729ca65a5ee6a8da55a38e7f4d15263ddd2e96e53d
       securityContext:
         privileged: true
       command:
