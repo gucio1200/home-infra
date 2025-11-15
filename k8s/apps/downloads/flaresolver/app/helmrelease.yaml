@@ -12,6 +12,14 @@ spec:
   values:
     controllers:
       flaresolver:
+        pod:
+          annotations:
+            k8s.v1.cni.cncf.io/networks: |-
+              [{
+                "name": "vpn",
+                "namespace": "networking",
+                "ips": ["10.1.5.8/24"]
+              }]
         containers:
           app:
             nameOverride: flaresolver
