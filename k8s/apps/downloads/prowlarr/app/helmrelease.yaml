@@ -23,6 +23,13 @@ spec:
           reloader.stakater.com/auto: "true"
 
         pod:
+          annotations:
+            k8s.v1.cni.cncf.io/networks: |-
+              [{
+                "name": "vpn",
+                "namespace": "networking",
+                "ips": ["10.1.5.9/24"]
+              }]
           securityContext:
             runAsUser: 568
             runAsGroup: 568
