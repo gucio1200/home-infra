@@ -10,4 +10,5 @@ resources:
   - ./audiobookshelf/ks.yaml
   - ./tautulli/ks.yaml
   - ./jellyseerr/ks.yaml
+  - ./paperless/ks.yaml
 #  - ./wallabag/ks.yaml
