@@ -25,8 +25,11 @@ spec:
           securityContext:
             fsGroup: 2000
             fsGroupChangePolicy: "OnRootMismatch"
+            runAsGroup: 2000
+            runAsNonRoot: true
+            runAsUser: 2000
             supplementalGroups:
-              - 568
+              - 586
               - 100
         containers:
           app:
@@ -54,13 +57,10 @@ spec:
                 memory: 8192Mi
             securityContext:
               allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
               capabilities:
                 drop:
                   - ALL
-              readOnlyRootFilesystem: true
-              runAsGroup: 2000
-              runAsNonRoot: true
-              runAsUser: 2000
           pnp:
             nameOverride: pnp
             image:
