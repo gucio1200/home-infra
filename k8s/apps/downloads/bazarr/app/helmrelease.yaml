@@ -100,3 +100,9 @@ spec:
         path: /volume1/Downloads
         globalMounts:
           - path: /storage/downloads
+      qnap:
+        type: nfs
+        server: qnap.dom.lan
+        path: /Media
+        globalMounts:
+          - path: /storage/qnap
