@@ -111,14 +111,6 @@ spec:
           plex:
             app:
               - path: /config/Library/Application Support/Plex Media Server/Logs
-      nfs:
-        type: nfs
-        server: qnap.dom.lan
-        path: /Media
-        advancedMounts:
-          plex:
-            app:
-              - path: /storage/media
       downloads:
         type: nfs
         server: nfs.dom.lan
@@ -127,6 +119,12 @@ spec:
           plex:
             app:
               - path: /storage/downloads
+      qnap:
+        type: nfs
+        server: qnap.dom.lan
+        path: /Media
+        globalMounts:
+          - path: /storage/qnap
       transcode:
         type: emptyDir
         advancedMounts:
