@@ -161,7 +161,7 @@ spec:
         storageClass:
           enabled: true
           name: ceph-block
-          isDefault: false
+          isDefault: true
           reclaimPolicy: Delete
           allowVolumeExpansion: true
           volumeBindingMode: Immediate
