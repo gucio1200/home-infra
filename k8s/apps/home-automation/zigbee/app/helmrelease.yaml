@@ -21,8 +21,10 @@ spec:
               tag: 2.6.3@sha256:3baac2a3b74a9945fbbcb665b3e6e0ace5df2d49b5502e3d26b66a5454316e81
             env:
               TZ: Europe/Warsaw
+              Z2M_WATCHDOG: default
               ZIGBEE2MQTT_DATA: /config
               ZIGBEE2MQTT_CONFIG_ADVANCED_LAST_SEEN: ISO_8601
+              ZIGBEE2MQTT_CONFIG_ADVANCED_CHANNEL: 20
               ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_LEVEL: info # debug
               ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_OUTPUT: '["console"]'
               ZIGBEE2MQTT_CONFIG_AVAILABILITY_ACTIVE_TIMEOUT: 60
