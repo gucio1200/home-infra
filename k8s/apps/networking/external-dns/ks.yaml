@@ -27,7 +27,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   interval: 1h
-  path: "./k8s/apps/networking/external-dns/external-dns/mikrotik"
+  path: "./k8s/apps/networking/external-dns/mikrotik"
   prune: true
   sourceRef:
     kind: GitRepository
