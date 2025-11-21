@@ -18,7 +18,7 @@ releases:
     namespace: monitoring
     atomic: true
     chart: prometheus-community/prometheus-operator-crds
-    version: 24.0.2
+    version: 25.0.0
 
   - name: cilium
     namespace: kube-system
