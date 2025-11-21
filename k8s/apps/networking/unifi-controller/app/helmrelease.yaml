@@ -61,8 +61,9 @@ spec:
 
     service:
       app:
-        annotations:
-          external-dns.alpha.kubernetes.io/target: &hostname testowy.k8sj.io
+        metadata:
+          annotations:
+            external-dns.alpha.kubernetes.io/target: &hostname testowy.k8sj.io
         controller: unifi-controller
         type: LoadBalancer
         externalIPs:
