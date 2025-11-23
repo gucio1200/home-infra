@@ -37,7 +37,6 @@ spec:
       app.kubernetes.io/name: &app envoy-gateway
   dependsOn:
     - name: *app
-      namespace: &ns networking
   interval: 1h
   path: "./k8s/apps/networking/envoy-gateway/config"
   prune: true
