@@ -73,23 +73,31 @@ spec:
           http:
             port: *port
 
-    ingress:
+#    ingress:
+#      app:
+#        className: "nginx"
+#        annotations:
+#          hajimari.io/enable: "true"
+#          hajimari.io/appName: "bazarr"
+#          hajimari.io/icon: mdi:text-box
+#        hosts:
+#          - host: &host bazarr.k8sj.io
+#            paths:
+#              - path: /
+#                service:
+#                  identifier: app
+#                  port: http
+#        tls:
+#          - hosts:
+#              - *host
+
+    route:
       app:
-        className: "nginx"
-        annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/appName: "bazarr"
-          hajimari.io/icon: mdi:text-box
-        hosts:
-          - host: &host bazarr.k8sj.io
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
+        hostnames:
+          - bazarr.k8sj.io
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
 
     persistence:
       config:
