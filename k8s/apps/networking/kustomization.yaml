@@ -14,3 +14,4 @@ resources:
   - ./external-services
   - ./unifi-controller/ks.yaml
   - ./openspeedtest/ks.yaml
+  - ./envoy-gateway/ks.yaml
