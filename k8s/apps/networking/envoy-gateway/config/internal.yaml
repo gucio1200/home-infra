@@ -38,7 +38,7 @@ metadata:
 spec:
   jsonPatches:
     - type: type.googleapis.com/envoy.config.listener.v3.Listener
-      name: networking/envoy-internal/https
+      name: network/envoy-internal/https
       operation: &operation
         op: add
         jsonPath: ..filters[*].typed_config.http_filters[?(@.name=="envoy.filters.http.compressor.zstd")].typed_config
@@ -52,7 +52,7 @@ spec:
           response_direction_config:
             remove_accept_encoding_header: true
     - type: type.googleapis.com/envoy.config.listener.v3.Listener
-      name: networking/envoy-internal/https-quic
+      name: network/envoy-internal/https-quic
       operation: *operation
   targetRef:
     group: gateway.networking.k8s.io
