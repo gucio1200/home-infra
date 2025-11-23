@@ -41,7 +41,7 @@ spec:
     group: gateway.envoyproxy.io
     kind: EnvoyProxy
     name: envoy
-    namespace: network
+    namespace: networking
 ---
 # yaml-language-server: $schema=https://k8s-schemas.bjw-s.dev/gateway.envoyproxy.io/backendtrafficpolicy_v1alpha1.json
 apiVersion: gateway.envoyproxy.io/v1alpha1
@@ -103,10 +103,10 @@ metadata:
 spec:
   parentRefs:
     - name: envoy-internal
-      namespace: network
+      namespace: networking
       sectionName: http
     - name: envoy-external
-      namespace: network
+      namespace: networking
       sectionName: http
   rules:
     - filters:
