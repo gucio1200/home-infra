@@ -8,66 +8,42 @@ bpf:
   preallocateMaps: true
   masquerade: true
   tproxy: true
-
 bpfClockProbe: true
 bgpControlPlane:
   enabled: true
-
 cgroup:
   automount:
     enabled: false
   hostRoot: /sys/fs/cgroup
-
-#cluster:
-#  name: k8s
-#  id: 1
-
 cni:
   exclusive: false
-
 dashboards:
   enabled: true
   annotations:
     grafana_folder: Cilium
-
-enableIPv4BIGTCP: true
 devices: b+ enp+
-enableRuntimeDeviceDetection: true
-
+enableIPv4BIGTCP: true
 endpointRoutes:
   enabled: true
-
 envoy:
+  enabled: false
+gatewayAPI:
   enabled: false
 hubble:
   enabled: false
-
 ipam:
   mode: kubernetes
-
 ipv4NativeRoutingCIDR: 10.244.0.0/16
 k8sServiceHost: 127.0.0.1
 k8sServicePort: 7445
 kubeProxyReplacement: true
 kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
-
 l2announcements:
-  enabled: true
-
+  enabled: false
 loadBalancer:
   algorithm: maglev
   mode: dsr
-
 localRedirectPolicy: true
-
-prometheus:
-  enabled: true
-  serviceMonitor:
-    enabled: true
-    trustCRDsExist: true
-dashboards:
-  enabled: true
-
 operator:
   dashboards:
     enabled: true
@@ -79,19 +55,17 @@ operator:
       enabled: true
   replicas: 2
   rollOutPods: true
-
-rollOutCiliumPods: true
-
-ipv6:
-  enabled: false
 pmtuDiscovery:
   enabled: true
-
+prometheus:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+    trustCRDsExist: true
+rollOutCiliumPods: true
 routingMode: native
-
 k8sNetworkPolicy:
   enabled: false
-
 securityContext:
   capabilities:
     ciliumAgent:
@@ -112,8 +86,3 @@ securityContext:
       - NET_ADMIN
       - SYS_ADMIN
       - SYS_RESOURCE
-
-updateStrategy:
-  type: RollingUpdate
-  rollingUpdate:
-    maxUnavailable: 1
