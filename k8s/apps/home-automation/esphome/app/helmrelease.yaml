@@ -135,7 +135,7 @@ spec:
           gethomepage.dev/description: ESPHome
           gethomepage.dev/group: "Home Automation"
           gethomepage.dev/icon: sh-esphome.png
-          gethomepage.dev/name: Esphome
+          gethomepage.dev/name: ESPHome
           gethomepage.dev/app: esphome
         hostnames:
           - esphome.k8sj.io
