@@ -100,8 +100,9 @@ spec:
             namespace: networking
         rules:
           - backendRefs:
-              - identifier: app
-                port: *port
+              - group: gateway.envoyproxy.io
+                kind: Backend
+                name: unifi-controller
 
     persistence:
       config:
