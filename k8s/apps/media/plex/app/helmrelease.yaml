@@ -103,6 +103,7 @@ spec:
           gethomepage.dev/icon: sh-plex.png
           gethomepage.dev/name: Plex
           gethomepage.dev/app: plex
+          gethomepage.dev/href: https://plex.k8sj.io/web
           gethomepage.dev/widget.url: https://plex.k8sj.io/web
         hostnames:
           - "{{ .Release.Name }}.k8sj.io"
