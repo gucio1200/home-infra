@@ -128,7 +128,7 @@ spec:
           gethomepage.dev/app: qbittorrent
         hostnames: ["{{ .Release.Name }}.k8sj.io"]
         parentRefs:
-          - name: enovy-internal
+          - name: envoy-internal
             namespace: networking
 
     persistence:
