@@ -96,7 +96,7 @@ spec:
           gethomepage.dev/icon: sh-music-assistant.png
           gethomepage.dev/name: "Music Assistant"
           gethomepage.dev/app: music-assistant
-        hostnames: ["{{ .Release.Name }}.k8sj.io"]
+        hostnames: ["music.k8sj.io"]
         parentRefs:
           - name: envoy-internal
             namespace: networking
