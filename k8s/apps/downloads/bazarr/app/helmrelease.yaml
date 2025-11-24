@@ -84,13 +84,19 @@ spec:
           - hosts:
               - *host
 
-#    route:
-#      app:
-#        hostnames:
-#          - bazarr.k8sj.io
-#        parentRefs:
-#          - name: envoy-internal
-#            namespace: networking
+    route:
+      app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Automatic downloads of subtitles
+          gethomepage.dev/group: Downloads
+          gethomepage.dev/icon: sh-bazarr.png
+          gethomepage.dev/name: Bazarr
+          gethomepage.dev/app: bazarr
+        hostnames: ["{{ .Release.Name }}.k8sj.io"]
+        parentRefs:
+          - name: enovy-internal
+            namespace: networking
 
     persistence:
       config:
