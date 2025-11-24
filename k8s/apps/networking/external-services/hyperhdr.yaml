@@ -2,27 +2,67 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: hyperhdr-headless
+  name: &name hyperhdr
   namespace: networking
+  labels:
+    app.kubernetes.io/name: *name
+    app.kubernetes.io/instance: *name
 spec:
-  clusterIP: None
+  type: ExternalName
+  externalName: hyperhdr.dom.lan
   ports:
-    - port: 8090
+    - name: http
+      port: &port 8090
       protocol: TCP
-      name: http
+      targetPort: *port
 
 ---
-apiVersion: v1
-kind: Endpoints
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: hyperhdr-headless
+  name: &name hyperhdr
   namespace: networking
-subsets:
-  - addresses:
-      - hostname: hyperhdr.dom.lan
-    ports:
-      - port: 8090
-        name: http
+  annotations:
+    hajimari.io/enable: "true"
+    hajimari.io/appName: "HyperHDR"
+    hajimari.io/icon: mdi:hdr
+    nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-http-version: "1.1"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+  labels:
+    app.kubernetes.io/name: *name
+    app.kubernetes.io/instance: *name
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: &host hyperhdr.k8sj.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: *name
+                port:
+                  number: 8090
+  tls:
+    - hosts:
+        - *host
+
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: Backend
+metadata:
+  name: hyperhdr
+  namespace: networking
+spec:
+  endpoints:
+    - fqdn:
+        hostname: hyperhdr.dom.lan
+        port: 8090
+  protocol: HTTP1
 
 ---
 apiVersion: gateway.networking.k8s.io/v1
@@ -30,6 +70,13 @@ kind: HTTPRoute
 metadata:
   name: hyperhdr
   namespace: networking
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/description: HyperHDR
+    gethomepage.dev/group: Media
+    gethomepage.dev/icon: sh-hyperhdr.png
+    gethomepage.dev/name: HyperHDR
+    gethomepage.dev/app: hyperhdr
 spec:
   parentRefs:
     - name: envoy-internal
@@ -42,7 +89,7 @@ spec:
             type: PathPrefix
             value: /
       backendRefs:
-        - name: hyperhdr-headless
-          kind: Service
-          port: 8090
+        - group: gateway.envoyproxy.io
+          kind: Backend
+          name: hyperhdr
           weight: 1
