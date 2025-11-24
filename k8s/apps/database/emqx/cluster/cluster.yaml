@@ -42,9 +42,10 @@ spec:
       }
   coreTemplate:
     metadata:
+      labels:
+        app.kubernetes.io/name: "emqx"
       annotations:
         reloader.stakater.com/auto: "true"
-        app.kubernetes.io/name: "emqx"
     spec:
       replicas: 3
       envFrom:
