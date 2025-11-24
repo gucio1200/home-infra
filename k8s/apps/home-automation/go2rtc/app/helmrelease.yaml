@@ -102,7 +102,6 @@ spec:
           gethomepage.dev/name: go2rtc
           gethomepage.dev/app: go2rtc
         hostnames: ["{{ .Release.Name }}.k8sj.io"]
-        hostnames: ["go2rtc.k8sj.io"]
         parentRefs:
           - name: envoy-internal
             namespace: networking
