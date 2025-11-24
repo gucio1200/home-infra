@@ -100,7 +100,19 @@ spec:
           - hosts:
               - *host
 
-
+    route:
+      app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Zigbee
+          gethomepage.dev/group: "Home Automation"
+          gethomepage.dev/icon: sh-zigbee.png
+          gethomepage.dev/name: Zigbee
+          gethomepage.dev/app: zigbee
+        hostnames: ["{{ .Release.Name }}.k8sj.io"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
 
     persistence:
       config:
