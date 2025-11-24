@@ -66,4 +66,10 @@ data:
 
   bookmarks.yaml: ""
 
-  services.yaml: ""
+  services.yaml: |
+    - HyperHDR:
+        href: http://192.168.0.5:8090/
+        group: Media
+        description: HyperHDR
+        icon: sh-hyperhdr.png
+        name: HyperHDR
