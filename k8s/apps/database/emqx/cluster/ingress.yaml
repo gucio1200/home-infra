@@ -35,7 +35,7 @@ metadata:
     gethomepage.dev/group: Kubernetes
     gethomepage.dev/icon: sh-mqtt.png
     gethomepage.dev/name: Mqtt
-    gethomepage.dev/app: mqtt
+    gethomepage.dev/app: emqx
 spec:
   parentRefs:
     - name: envoy-internal

@@ -44,6 +44,7 @@ spec:
     metadata:
       annotations:
         reloader.stakater.com/auto: "true"
+        app.kubernetes.io/name: "emqx"
     spec:
       replicas: 3
       envFrom:
