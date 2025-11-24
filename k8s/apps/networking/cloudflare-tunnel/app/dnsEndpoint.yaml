@@ -8,4 +8,4 @@ spec:
   endpoints:
     - dnsName: ingress-ext.k8sj.io
       recordType: CNAME
-      targets: ["46148908-11d4-46f6-8191-944091522259.cfargotunnel.com"]
+      targets: ["643370b3-21e9-4c77-a787-c00e9128d608.cfargotunnel.com"]
