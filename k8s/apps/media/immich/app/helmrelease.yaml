@@ -3,18 +3,12 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: immich
-  namespace: media
+  namespace: &app media
 spec:
   interval: 1h
-  chart:
-    spec:
-      chart: app-template
-      version: 3.7.3
-      interval: 1h
-      sourceRef:
-        kind: HelmRepository
-        namespace: flux-system
-        name: bjw-s-oci
+  chartRef:
+    kind: OCIRepository
+    name: *app
   values:
     # For intel iGPU
     defaultPodOptions:
@@ -192,3 +186,17 @@ spec:
         tls:
           - hosts:
               - *host
+
+    route:
+      app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Immich
+          gethomepage.dev/group: Media
+          gethomepage.dev/icon: sh-immich.png
+          gethomepage.dev/name: Immich
+          gethomepage.dev/app: immich
+        hostnames: ["{{ .Release.Name }}.k8sj.io"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
