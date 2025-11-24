@@ -50,6 +50,12 @@ spec:
         tls:
           - hosts:
               - *host
+    route:
+      app:
+        hostnames: ["{{ .Release.Name }}.k8sj.io"]
+        parentRefs:
+          - name: enovy-internal
+            namespace: networking
 
     persistence:
       tmp:
