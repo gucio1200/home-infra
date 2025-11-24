@@ -88,6 +88,11 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: networking
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 5000
+
 
     persistence:
       data:
