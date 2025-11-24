@@ -6,16 +6,9 @@ metadata:
   name: esphome
 spec:
   interval: 30m
-  chart:
-    spec:
-      chart: app-template
-      version: 3.7.3
-      interval: 30m
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s-oci
-        namespace: flux-system
-
+  chartRef:
+    kind: OCIRepository
+    name: esphome
   values:
     defaultPodOptions:
       affinity:
@@ -134,6 +127,42 @@ spec:
         tls:
           - hosts:
               - *host-code
+
+    route:
+      app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: ESPHome
+          gethomepage.dev/group: "Home Automation"
+          gethomepage.dev/icon: sh-esphome.png
+          gethomepage.dev/name: Esphome
+          gethomepage.dev/app: esphome
+        hostnames:
+          - esphome.k8sj.io
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 6052
+      code-server:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: "ESPHome Config"
+          gethomepage.dev/group: "Home Automation"
+          gethomepage.dev/icon: sh-esphome.png
+          gethomepage.dev/name: "ESPHome Config"
+          gethomepage.dev/app: esphome
+        hostnames:
+          - esphome-code.k8sj.io
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 12321
 
     persistence:
       config:
