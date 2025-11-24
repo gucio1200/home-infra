@@ -81,6 +81,20 @@ spec:
           - hosts:
               - *host
 
+    route:
+      app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Qui
+          gethomepage.dev/group: Downloads
+          gethomepage.dev/icon: sh-qui.png
+          gethomepage.dev/name: Qui
+          gethomepage.dev/app: qui
+        hostnames: ["{{ .Release.Name }}.k8sj.io"]
+        parentRefs:
+          - name: enovy-internal
+            namespace: networking
+
     persistence:
       config:
         existingClaim: qui
