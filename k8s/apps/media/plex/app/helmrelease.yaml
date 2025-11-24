@@ -5,15 +5,9 @@ kind: HelmRelease
 metadata:
   name: plex
 spec:
-  chart:
-    spec:
-      chart: app-template
-      version: 3.7.3
-      interval: 30m
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s-oci
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: plex
   interval: 30m
   values:
     controllers:
@@ -44,15 +38,23 @@ spec:
               PLEX_ADVERTISE_URL: https://172.16.99.180:32400,https://plex.k8sj.io:443
               PLEX_NO_AUTH_NETWORKS: 10.244.0.0/16
             probes:
-              liveness:
+              liveness: &probes
                 enabled: true
-              readiness:
-                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /identity
+                    port: &port 32400
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
               startup:
                 enabled: true
                 spec:
                   failureThreshold: 30
-                  periodSeconds: 5
+                  periodSeconds: 10
             resources:
               requests:
                 cpu: 100m
@@ -64,13 +66,13 @@ spec:
 
     service:
       app:
-        controller: plex
         type: LoadBalancer
-        externalIPs:
-          - 172.16.99.180
+        annotations:
+          lbipam.cilium.io/ips: 172.16.99.180
+        externalTrafficPolicy: Local
         ports:
           http:
-            port: 32400
+            port: *port
 
     ingress:
       app:
@@ -91,6 +93,38 @@ spec:
         tls:
           - hosts:
               - *host
+
+    route:
+      app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Plex
+          gethomepage.dev/group: Downloads
+          gethomepage.dev/icon: sh-plex.png
+          gethomepage.dev/name: Plex
+          gethomepage.dev/app: plex
+        hostnames:
+          - "{{ .Release.Name }}.k8sj.io"
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+        rules:
+          - # Ref: https://forums.plex.tv/t/external-srt-subtitles-are-not-working-w-reverse-proxy/886540
+            backendRefs:
+              - identifier: app
+                port: *port
+            filters:
+              - type: RequestHeaderModifier
+                requestHeaderModifier:
+                  remove:
+                    - Range
+            matches:
+              - path:
+                  type: PathPrefix
+                  value: /library/streams
+          - backendRefs:
+              - identifier: app
+                port: *port
 
     persistence:
       config:
