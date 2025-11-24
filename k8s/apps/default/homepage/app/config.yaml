@@ -69,9 +69,28 @@ data:
   services.yaml: |
     - Media:
       - HyperHDR:
-          href: http://192.168.0.5:8090/
+          href: http://hyperhdr.dom.lan:8090/
           group: Media
           description: HyperHDR
           icon: sh-hyperhdr.png
           name: HyperHDR
-          siteMonitor: http://192.168.0.5:8090/
+          siteMonitor: http://hyperhdr.dom.lan:8090/
+      - Kodi:
+          href: http://kodi.dom.lan/
+          group: Media
+          description: Kodi
+          icon: sh-kodi.png
+          name: Kodi
+          siteMonitor: http://kodi.dom.lan/
+      - Minio:
+          href: http://s3.dom.lan/
+          group: Media
+          description: Minio
+          icon: sh-minio.png
+          name: Minio
+      - Yamaha:
+          href: http://yamaha.dom.lan/setup/
+          group: Media
+          description: Yamaha
+          icon: sh-yamlresume.png
+          name: Yamaha
