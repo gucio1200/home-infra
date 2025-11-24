@@ -87,7 +87,7 @@ spec:
         hostnames: ["{{ .Release.Name }}.k8sj.io"]
         parentRefs:
           - name: envoy-internal
-            namespace: network
+            namespace: networking
 
     persistence:
       data:
