@@ -38,7 +38,7 @@ metadata:
     gethomepage.dev/app: mqtt
 spec:
   parentRefs:
-    - name: envoi-internal
+    - name: envoy-internal
       namespace: networking
   hostnames:
     - emqx.k8sj.io
