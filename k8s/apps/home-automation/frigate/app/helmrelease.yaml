@@ -5,23 +5,10 @@ kind: HelmRelease
 metadata:
   name: frigate
 spec:
+  chartRef:
+    kind: OCIRepository
+    name: frigate
   interval: 30m
-  chart:
-    spec:
-      chart: app-template
-      version: 3.7.3
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s-oci
-        namespace: flux-system
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      strategy: rollback
-      retries: 3
   values:
     controllers:
       frigate:
@@ -65,10 +52,11 @@ spec:
                 gpu.intel.com/i915: 1
     service:
       app:
-        controller: frigate
         ports:
           http:
+            appProtocol: kubernetes.io/wss
             port: 5000
+
     ingress:
       app:
         className: nginx
@@ -86,6 +74,20 @@ spec:
         tls:
           - hosts:
               - *host
+
+    route:
+      app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Frigate
+          gethomepage.dev/group: Security
+          gethomepage.dev/icon: sh-frigate.png
+          gethomepage.dev/name: Frigate
+          gethomepage.dev/app: frigate
+        hostnames: ["{{ .Release.Name }}.k8sj.io"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
 
     persistence:
       data:
