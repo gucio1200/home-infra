@@ -96,7 +96,7 @@ spec:
           gethomepage.dev/app: autobrr
         hostnames: ["{{ .Release.Name }}.k8sj.io"]
         parentRefs:
-          - name: envoy-external
+          - name: envoy-internal
             namespace: networking
 
     persistence:
