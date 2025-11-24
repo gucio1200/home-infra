@@ -80,6 +80,20 @@ spec:
           - hosts:
               - *host
 
+    route:
+      app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Jellyseerr
+          gethomepage.dev/group: Media
+          gethomepage.dev/icon: sh-jellyseerr.png
+          gethomepage.dev/name: Jellyseerr
+          gethomepage.dev/app: jellyseerr
+        hostnames: ["{{ .Release.Name }}.k8sj.io"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
