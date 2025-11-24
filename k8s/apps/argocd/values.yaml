@@ -20,6 +20,25 @@ configs:
           insecure: false
 
 server:
+  httproute:
+    enabled: true
+    annotations:
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/description: ArgoCD
+      gethomepage.dev/group: Kubernetes
+      gethomepage.dev/icon: sh-argocd.png
+      gethomepage.dev/name: ArgoCD
+      gethomepage.dev/app: argocd
+    parentRefs:
+      - name: envoy-internal
+        namespace: networking
+    hostnames: ["argocd.k8sj.io"]
+    rules:
+      - matches:
+          - path:
+              type: PathPrefix
+              value: /
+
   ingress:
     enabled: true
     ingressClassName: "nginx"
