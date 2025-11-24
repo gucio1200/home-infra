@@ -18,7 +18,7 @@ spec:
   wait: false
   dependsOn:
     - name: cluster-apps-multus
-    - name: secrets-store
+    - name: onepassword-connect
     - name: cluster-apps-rook-ceph-cluster
     - name: crunchy-postgres-operator
     - name: cluster-secrets
