@@ -7,23 +7,9 @@ metadata:
 spec:
   interval: 15m
   timeout: 20m
-  chart:
-    spec:
-      chart: app-template
-      version: 3.7.3
-      interval: 30m
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s-oci
-        namespace: flux-system
-
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    remediation:
-      retries: 3
-
+  chartRef:
+    kind: OCIRepository
+    name: unify
   values:
     controllers:
       unifi-controller:
@@ -62,14 +48,12 @@ spec:
     service:
       app:
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: testowy.k8sj.io
+          lbipam.cilium.io/ips: 172.16.99.108
         controller: unifi-controller
         type: LoadBalancer
-        externalIPs:
-          - 172.16.99.108
         ports:
           http:
-            port: 8443
+            port: &port 8443
             protocol: HTTPS
           controller:
             port: 8080
@@ -98,6 +82,25 @@ spec:
         tls:
           - hosts:
               - *host
+
+    route:
+      app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Unify Controller
+          gethomepage.dev/group: Security
+          gethomepage.dev/icon: sh-ubiquiti-unifi.png
+          gethomepage.dev/name: Unify
+          gethomepage.dev/app: unifi-controller
+        hostnames:
+          - "{{ .Release.Name }}.k8sj.io"
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
 
     persistence:
       config:
