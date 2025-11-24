@@ -106,7 +106,7 @@ spec:
           gethomepage.dev/app: prowlarr
         hostnames: ["{{ .Release.Name }}.k8sj.io"]
         parentRefs:
-          - name: enovy-internal
+          - name: envoy-internal
             namespace: networking
 
     persistence:
