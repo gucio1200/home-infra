@@ -98,7 +98,7 @@ spec:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: Go2rtc
           gethomepage.dev/group: "Home Automation"
-          gethomepage.dev/icon: sh-autobrr.png
+          gethomepage.dev/icon: sh-go2rtc.png
           gethomepage.dev/name: go2rtc
           gethomepage.dev/app: go2rtc
         hostnames: ["{{ .Release.Name }}.k8sj.io"]
