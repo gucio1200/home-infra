@@ -159,7 +159,7 @@ spec:
         controller: server
         ports:
           http:
-            port: 2283
+            port: &port 2283
       postgres:
         controller: postgres
         ports:
@@ -200,3 +200,8 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: networking
+
+        rules:
+          - backendRefs:
+              - identifier: server
+                port: *port
