@@ -12,7 +12,7 @@ resources:
   - ./intel-device-plugins/ks.yaml
 #  - csi-driver-smb
 #  - kube-cleanup-operator
-  - ./external-secrets
+#  - ./external-secrets
   - ./snapshot-controller/ks.yaml
   - ./spegel/ks.yaml
 #  - generic-device-plugin/ks.yaml
