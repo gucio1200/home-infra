@@ -136,7 +136,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: LedFX
-          gethomepage.dev/group: Media
+          gethomepage.dev/group: "Home Automation"
           gethomepage.dev/icon: sh-ledfx.png
           gethomepage.dev/name: LedFX
           gethomepage.dev/app: ledfx
