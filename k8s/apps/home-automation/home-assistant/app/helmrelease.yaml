@@ -47,8 +47,7 @@ spec:
               repository: ghcr.io/home-operations/home-assistant
               tag: 2025.11.3
             env:
-              HASS_HTTP_TRUSTED_PROXY_1: 192.168.0.0/16
-              HASS_HTTP_TRUSTED_PROXY_2: 10.244.0.0/16
+              VENV_FOLDER: /venv
               SECRET_RECORDER_DB_URL:
                 valueFrom:
                   secretKeyRef:
@@ -80,9 +79,9 @@ spec:
               - --disable-telemetry
               - --disable-update-check
               - --user-data-dir
-              - /data/user-data
+              - /config/.vscode
               - --extensions-dir
-              - /data/extensions
+              - /config/.vscode
               - --port
               - "12321"
               - /config
@@ -188,23 +187,9 @@ spec:
     persistence:
       config:
         existingClaim: home-assistant-config
-        advancedMounts:
-          home-assistant:
-            app:
-              - path: /config
-                subPath: config
-            code-server:
-              - path: /config
-                subPath: config
-              - path: /data
-                subPath: code-server
-      hass-cache:
-        existingClaim: hass-cache
-        advancedMounts:
-          home-assistant:
-            app:
-              - path: /config/.venv
-                subPath: hass-venv
+        globalMounts:
+          - path: /config
+
       tmpfs:
         type: emptyDir
         advancedMounts:
@@ -212,6 +197,8 @@ spec:
             app:
               - path: /tmp
                 subPath: hass-tmp
+              - path: /venv
+                subPath: hass-venv
             code-server:
               - path: /tmp
                 subPath: code-server-tmp
