@@ -117,6 +117,20 @@ spec:
           - hosts:
               - *host
 
+    route:
+      app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Qbittorrent
+          gethomepage.dev/group: Downloads
+          gethomepage.dev/icon: sh-qbittorrent.png
+          gethomepage.dev/name: Qbittorrent
+          gethomepage.dev/app: qbittorrent
+        hostnames: ["{{ .Release.Name }}.k8sj.io"]
+        parentRefs:
+          - name: enovy-internal
+            namespace: networking
+
     persistence:
       config:
         enabled: true
