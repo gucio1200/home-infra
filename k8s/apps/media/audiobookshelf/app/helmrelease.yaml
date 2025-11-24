@@ -91,7 +91,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: Audiobookshelf
-          gethomepage.dev/group: media
+          gethomepage.dev/group: Media
           gethomepage.dev/icon: sh-audiobookshelf.png
           gethomepage.dev/name: Audiobookshelf
           gethomepage.dev/app: audiobookshelf
