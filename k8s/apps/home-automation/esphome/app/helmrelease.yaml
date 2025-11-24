@@ -141,7 +141,7 @@ spec:
           - esphome.k8sj.io
         parentRefs:
           - name: envoy-internal
-            namespace: network
+            namespace: networking
         rules:
           - backendRefs:
               - identifier: app
@@ -158,7 +158,7 @@ spec:
           - esphome-code.k8sj.io
         parentRefs:
           - name: envoy-internal
-            namespace: network
+            namespace: networking
         rules:
           - backendRefs:
               - identifier: app
