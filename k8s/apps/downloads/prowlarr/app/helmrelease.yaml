@@ -99,7 +99,7 @@ spec:
       app:
         annotations:
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/description: prowlarr
+          gethomepage.dev/description: Prowlarr
           gethomepage.dev/group: Downloads
           gethomepage.dev/icon: sh-prowlarr.png
           gethomepage.dev/name: Prowlarr
