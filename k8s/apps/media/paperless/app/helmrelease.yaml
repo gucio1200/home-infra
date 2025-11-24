@@ -137,3 +137,22 @@ spec:
         tls:
           - hosts:
               - *host
+
+    route:
+      app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Paperless
+          gethomepage.dev/group: Media
+          gethomepage.dev/icon: sh-paperless.png
+          gethomepage.dev/name: Paperless
+          gethomepage.dev/app: paperless
+        hostnames: ["{{ .Release.Name }}.k8sj.io"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
