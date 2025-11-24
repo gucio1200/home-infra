@@ -5,5 +5,5 @@ namespace: networking
 resources:
   - ./ocirepository.yaml
   - ./helmrelease.yaml
-#  - ./rules.yaml
+  - ./tls.yaml
   - ../../../../templates/volsync
