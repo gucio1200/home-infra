@@ -7,16 +7,9 @@ metadata:
   namespace: home-automation
 spec:
   interval: 10m
-  chart:
-    spec:
-      chart: app-template
-      version: 3.7.3
-      interval: 30m
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s-oci
-        namespace: flux-system
-
+  chartRef:
+    kind: OCIRepository
+    name: music-assistant
   values:
     defaultPodOptions:
       affinity:
@@ -93,6 +86,20 @@ spec:
         tls:
           - hosts:
               - *host
+
+    route:
+      app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: "Music Assistant"
+          gethomepage.dev/group: Media
+          gethomepage.dev/icon: sh-music-assistant.png
+          gethomepage.dev/name: "Music Assistant"
+          gethomepage.dev/app: music-assistant
+        hostnames: ["{{ .Release.Name }}.k8sj.io"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
 
     persistence:
       data:
