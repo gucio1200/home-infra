@@ -7,16 +7,9 @@ metadata:
   namespace: home-automation
 spec:
   interval: 10m
-  chart:
-    spec:
-      chart: app-template
-      version: 3.7.3
-      interval: 30m
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s-oci
-        namespace: flux-system
-
+  chartRef:
+    kind: OCIRepository
+    name: ledfx
   values:
     defaultPodOptions:
       affinity:
@@ -137,6 +130,20 @@ spec:
         tls:
           - hosts:
               - *host
+
+    route:
+      app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: LedFX
+          gethomepage.dev/group: Media
+          gethomepage.dev/icon: sh-ledfx.png
+          gethomepage.dev/name: LedFX
+          gethomepage.dev/app: ledfx
+        hostnames: ["{{ .Release.Name }}.k8sj.io"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
 
     persistence:
       ledfx:
