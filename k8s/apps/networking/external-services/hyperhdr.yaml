@@ -76,7 +76,17 @@ spec:
             type: PathPrefix
             value: /
       backendRefs:
-        - name: hyperhdr
-          port: 8090
-          kind: Service
-          weight: 1
+        - group: gateway.envoyproxy.io
+          kind: Backend
+          name: hyperhdr
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: Backend
+metadata:
+  name: hyperhdr
+  namespace: networking
+spec:
+  endpoints:
+    - fqdn:
+        hostname: hyperhdr.dom.lan
+        port: 8090
