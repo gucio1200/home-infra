@@ -18,10 +18,10 @@ spec:
   wait: false
   dependsOn:
     - name: cluster-apps-multus
-    - name: cluster-apps-external-secrets-stores
+    - name: secrets-store
     - name: cluster-apps-rook-ceph-cluster
     - name: crunchy-postgres-operator
-    - name: cluster-apps-external-secrets-cluster-secrets
+    - name: cluster-secrets
   postBuild:
     substitute:
       APP: *appname

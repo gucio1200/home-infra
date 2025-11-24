@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: cluster-apps-external-secrets-stores
+    - name: onepassword-connect
   path: ./k8s/apps/networking/cloudflare-ddns/app
   prune: true
   sourceRef:

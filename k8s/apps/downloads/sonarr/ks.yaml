@@ -21,7 +21,7 @@ spec:
   dependsOn:
     - name: cluster-apps-rook-ceph-cluster
     - name: cluster-apps-volsync-app
-    - name: cluster-apps-external-secrets-stores
+    - name: onepassword-connect
   postBuild:
     substitute:
       APP: *appname
