@@ -47,6 +47,8 @@ spec:
           gethomepage.dev/app: ceph-mgr
         host:
           name: rook.k8sj.io
+          path: "/"
+          pathType: PathPrefix
         parentRefs:
           - name: envoy-internal
             namespace: networking
