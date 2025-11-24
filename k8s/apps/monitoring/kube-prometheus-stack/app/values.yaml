@@ -18,6 +18,23 @@ alertmanager:
       - hosts:
         - "alert-manager.k8sj.io"
     pathType: Prefix
+
+  route:
+    main:
+      annotations:
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/description: Alertmanager
+        gethomepage.dev/group: Kubernetes
+        gethomepage.dev/icon: mdi-alert-decagram-outline
+        gethomepage.dev/name: Alertmanager
+        gethomepage.dev/app: alertmanager
+      enabled: true
+      hostnames:
+        - alertmanager.k8sj.io
+      parentRefs:
+        - name: envoy-internal
+          namespace: network
+
   alertmanagerSpec:
     podAntiAffinity: "hard"
     storage:
@@ -26,6 +43,7 @@ alertmanager:
           resources:
             requests:
               storage: 1Gi
+
 kubeApiServer:
   enabled: true
   serviceMonitor:
@@ -71,6 +89,23 @@ prometheus:
       - hosts:
           - "prometheus.k8sj.io"
     pathType: Prefix
+
+  route:
+    main:
+      annotations:
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/description: Prometheus
+        gethomepage.dev/group: Kubernetes
+        gethomepage.dev/icon: sh-prometheus.png
+        gethomepage.dev/name: Prometheus
+        gethomepage.dev/app: prometheus
+      enabled: true
+      hostnames:
+        - prometheus.k8sj.io
+      parentRefs:
+        - name: envoy-internal
+          namespace: network
+
   prometheusSpec:
     scrapeInterval: 10s # Must match interval in Grafana Helm chart
     podMonitorSelectorNilUsesHelmValues: false
