@@ -53,10 +53,10 @@ spec:
         type: LoadBalancer
         ports:
           https:
-            port: 8443
+            port: &port 8443
             protocol: HTTPS
           controller:
-            port: &port 8080
+            port: 8080
             protocol: TCP
           stun:
             port: 3478
