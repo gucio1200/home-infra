@@ -88,9 +88,11 @@ data:
           description: Minio
           icon: sh-minio.png
           name: Minio
+          siteMonitor: http://s3.dom.lan/
       - Yamaha:
           href: http://yamaha.dom.lan/setup/
           group: Media
           description: Yamaha
           icon: sh-yamlresume.png
           name: Yamaha
+          siteMonitor: http://yamaha.dom.lan/
