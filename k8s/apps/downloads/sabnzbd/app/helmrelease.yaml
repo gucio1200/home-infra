@@ -3,19 +3,12 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: sabnzbd
+  name: &app sabnzbd
 spec:
   interval: 30m
-  chart:
-    spec:
-      chart: app-template
-      version: 3.7.3
-      interval: 30m
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s-oci
-        namespace: flux-system
-
+  chartRef:
+    kind: OCIRepository
+    name: *app
   values:
     controllers:
       sabnzbd:
@@ -100,6 +93,20 @@ spec:
         tls:
           - hosts:
               - *host
+
+    route:
+      app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Sabnzbd
+          gethomepage.dev/group: Downloads
+          gethomepage.dev/icon: sh-sabnzbd.png
+          gethomepage.dev/name: Sabnzbd
+          gethomepage.dev/app: sabnzbd
+        hostnames: ["{{ .Release.Name }}.k8sj.io"]
+        parentRefs:
+          - name: enovy-internal
+            namespace: networking
 
     persistence:
       config:
