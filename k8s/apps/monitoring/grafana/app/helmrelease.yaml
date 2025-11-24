@@ -304,7 +304,7 @@ spec:
         enabled: true
         parentRefs:
           - name: envoy-internal
-            namespace: network
+            namespace: networking
 
     persistence:
       enabled: false
