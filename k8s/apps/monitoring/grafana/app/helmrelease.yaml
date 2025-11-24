@@ -5,22 +5,14 @@ metadata:
   name: grafana
   namespace: monitoring
 spec:
-  chart:
-    spec:
-      chart: grafana
-      interval: 10m
-      sourceRef:
-        kind: HelmRepository
-        name: grafana
-        namespace: flux-system
-      version: 10.1.5
+  chartRef:
+    kind: OCIRepository
+    name: grafana
   interval: 10m
   timeout: 5m
   values:
     deploymentStrategy:
       type: Recreate
-#    admin:
-#      existingSecret: grafana-admin-secret
     env:
       GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
       GF_EXPLORE_ENABLED: true
@@ -298,6 +290,21 @@ spec:
       tls:
         - hosts:
             - *host
+
+    route:
+      main:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Grafana
+          gethomepage.dev/group: Kubernetes
+          gethomepage.dev/icon: sh-grafana.png
+          gethomepage.dev/name: Grafana
+          gethomepage.dev/app: grafana
+        hostnames: ["{{ .Release.Name }}.k8sj.io"]
+        enabled: true
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
 
     persistence:
       enabled: false

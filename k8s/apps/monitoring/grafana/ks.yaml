@@ -2,16 +2,21 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-grafana
+  name: grafana
   namespace: flux-system
 spec:
+  targetNamespace: monitoring
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: grafana
   interval: 10m
   path: "./k8s/apps/monitoring/grafana/app"
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
-  wait: true
+    namespace: flux-system
+  wait: false
   retryInterval: 1m
   timeout: 5m
   dependsOn:
