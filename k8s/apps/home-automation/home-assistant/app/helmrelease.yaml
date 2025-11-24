@@ -124,7 +124,7 @@ spec:
               - path: /
                 service:
                   identifier: app
-                  port: http
+                  port: 8123
         tls:
           - hosts:
               - *host
@@ -141,8 +141,8 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
-                  port: code-server
+                  identifier: code-server
+                  port: 12321
         tls:
           - hosts:
               - *host-code
