@@ -144,7 +144,7 @@ spec:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: Paperless
           gethomepage.dev/group: Media
-          gethomepage.dev/icon: sh-paperless.png
+          gethomepage.dev/icon: sh-paperless-ngx.png
           gethomepage.dev/name: Paperless
           gethomepage.dev/app: paperless
         hostnames: ["{{ .Release.Name }}.k8sj.io"]
