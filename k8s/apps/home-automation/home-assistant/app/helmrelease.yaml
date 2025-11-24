@@ -5,25 +5,10 @@ kind: HelmRelease
 metadata:
   name: home-assistant
 spec:
-  interval: 20m
-  timeout: 15m
-  chart:
-    spec:
-      chart: app-template
-      version: 3.7.3
-      interval: 20m
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s-oci
-        namespace: flux-system
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: home-assistant
   values:
     defaultPodOptions:
       securityContext:
@@ -60,9 +45,8 @@ spec:
           app:
             image:
               repository: ghcr.io/home-operations/home-assistant
-              tag: 2025.11.2
+              tag: 2025.11.3
             env:
-              VENV_FOLDER: /venv
               SECRET_RECORDER_DB_URL:
                 valueFrom:
                   secretKeyRef:
@@ -88,13 +72,24 @@ spec:
             image:
               repository: ghcr.io/coder/code-server
               tag: 4.106.2@sha256:cca5c0bbff928df75ba9344a878e4ca7a321c0d42c34b39e02722b29855a56ac
-            args: [
-              "--auth", "none",
-              "--user-data-dir", "/config/.vscode",
-              "--extensions-dir", "/config/.vscode",
-              "--port", "12321",
-              "/config"
-            ]
+            args:
+              - --auth
+              - none
+              - --disable-telemetry
+              - --disable-update-check
+              - --user-data-dir
+              - /data/user-data
+              - --extensions-dir
+              - /data/extensions
+              - --port
+              - "12321"
+              - /config
+            env:
+              HASS_SERVER: https://hass.k8sj.io
+#              HASS_TOKEN:
+#                secretKeyRef:
+#                  name: home-assistant-secret
+#                  key: vscode_hass_token
             resources:
               requests:
                 cpu: 10m
@@ -103,10 +98,13 @@ spec:
 
     service:
       app:
-        controller: home-assistant
         ports:
           http:
+            appProtocol: kubernetes.io/wss
             port: 8123
+        primary: true
+      code-server:
+        ports:
           code-server:
             port: 12321
 
@@ -120,9 +118,6 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/appName: "Hass"
           hajimari.io/icon: mdi:home-assistant
-#          nginx.ingress.kubernetes.io/modsecurity-snippet: |
-#            SecRule REQUEST_HEADERS:Content-Type "@rx ^text/plain" "id:10,phase:1,pass,nolog,t:none,ctl:ruleRemoveById=920420,chain"
-#            SecRule REQUEST_URI "@rx ^/auth/login_flow" "t:none"
         hosts:
           - host: &host hass.k8sj.io
             paths:
@@ -152,12 +147,62 @@ spec:
           - hosts:
               - *host-code
 
+    route:
+      app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Hass
+          gethomepage.dev/group: "Home Automation"
+          gethomepage.dev/icon: sh-home-assistant.png
+          gethomepage.dev/name: Hass
+          gethomepage.dev/app: home-assistant
+        hostnames:
+          - hass.k8sj.io
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 8123
+      code:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: "Hass Config"
+          gethomepage.dev/group: "Home Automation"
+          gethomepage.dev/icon: sh-home-assistant.png
+          gethomepage.dev/name: "Hass Config"
+          gethomepage.dev/app: home-assistant
+        hostnames:
+          - hass-code.k8sj.io
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+        rules:
+          - backendRefs:
+              - identifier: code-server
+                port: 12321
+
     persistence:
       config:
         existingClaim: home-assistant-config
-        globalMounts:
-          - path: /config
-
+        advancedMounts:
+          home-assistant:
+            app:
+              - path: /config
+                subPath: config
+            code-server:
+              - path: /config
+                subPath: config
+              - path: /data
+                subPath: code-server
+      hass-cache:
+        existingClaim: hass-cache
+        advancedMounts:
+          home-assistant:
+            app:
+              - path: /config/.venv
+                subPath: hass-venv
       tmpfs:
         type: emptyDir
         advancedMounts:
@@ -165,8 +210,6 @@ spec:
             app:
               - path: /tmp
                 subPath: hass-tmp
-              - path: /venv
-                subPath: hass-venv
             code-server:
               - path: /tmp
                 subPath: code-server-tmp
