@@ -92,6 +92,7 @@ spec:
           gethomepage.dev/icon: sh-ubiquiti-unifi.png
           gethomepage.dev/name: Unify
           gethomepage.dev/app: unifi-controller
+          gethomepage.dev/href: https://172.16.99.108:8443
         hostnames:
           - "unifi.k8sj.io"
         parentRefs:
