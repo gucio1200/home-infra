@@ -75,6 +75,8 @@ spec:
         - path:
             type: PathPrefix
             value: /
-      forwardTo:
-        - servicename: hyperhdr
+      backendRefs:
+        - name: hyperhdr
           port: 8090
+          kind: Service
+          weight: 1
