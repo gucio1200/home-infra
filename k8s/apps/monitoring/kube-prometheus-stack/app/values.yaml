@@ -33,7 +33,7 @@ alertmanager:
         - alertmanager.k8sj.io
       parentRefs:
         - name: envoy-internal
-          namespace: network
+          namespace: networking
 
   alertmanagerSpec:
     podAntiAffinity: "hard"
@@ -104,7 +104,7 @@ prometheus:
         - prometheus.k8sj.io
       parentRefs:
         - name: envoy-internal
-          namespace: network
+          namespace: networking
 
   prometheusSpec:
     scrapeInterval: 10s # Must match interval in Grafana Helm chart
