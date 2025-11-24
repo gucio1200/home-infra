@@ -6,16 +6,9 @@ metadata:
   name: node-red
 spec:
   interval: 30m
-  chart:
-    spec:
-      chart: app-template
-      version: 3.7.3
-      interval: 30m
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s-oci
-        namespace: flux-system
-
+  chartRef:
+    kind: OCIRepository
+    name: node-red
   values:
     controllers:
       node-red:
@@ -66,6 +59,20 @@ spec:
         tls:
           - hosts:
               - *host
+
+    route:
+      app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: NodeRed
+          gethomepage.dev/group: "Home Automation"
+          gethomepage.dev/icon: sh-node-red.png
+          gethomepage.dev/name: NodeRed
+          gethomepage.dev/app: node-red
+        hostnames: ["{{ .Release.Name }}.k8sj.io"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
 
     persistence:
       data:
