@@ -15,3 +15,4 @@ resources:
   - ./unifi-controller/ks.yaml
   - ./openspeedtest/ks.yaml
   - ./envoy-gateway/ks.yaml
+  - ./cloudflare-tunnel/ks.yaml

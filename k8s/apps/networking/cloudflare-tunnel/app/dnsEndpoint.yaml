@@ -1,0 +1,11 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.bjw-s.dev/externaldns.k8s.io/dnsendpoint_v1alpha1.json
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: cloudflared-tunnel
+spec:
+  endpoints:
+    - dnsName: ingress-ext.k8sj.io
+      recordType: CNAME
+      targets: ["46148908-11d4-46f6-8191-944091522259.cfargotunnel.com"]
