@@ -74,3 +74,4 @@ data:
           description: HyperHDR
           icon: sh-hyperhdr.png
           name: HyperHDR
+          siteMonitor: http://192.168.0.5:8090/
