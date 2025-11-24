@@ -99,7 +99,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: Plex
-          gethomepage.dev/group: Downloads
+          gethomepage.dev/group: Media
           gethomepage.dev/icon: sh-plex.png
           gethomepage.dev/name: Plex
           gethomepage.dev/app: plex
