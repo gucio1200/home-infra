@@ -6,14 +6,9 @@ metadata:
   name: audiobookshelf
 spec:
   interval: 30m
-  chart:
-    spec:
-      chart: app-template
-      version: 3.7.3
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s-oci
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: audiobookshelf
   install:
     remediation:
       retries: 3
@@ -90,6 +85,21 @@ spec:
         tls:
           - hosts:
               - *host
+
+    route:
+      app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Audiobookshelf
+          gethomepage.dev/group: media
+          gethomepage.dev/icon: sh-audiobookshelf.png
+          gethomepage.dev/name: Audiobookshelf
+          gethomepage.dev/app: audiobookshelf
+        hostnames: ["{{ .Release.Name }}.k8sj.io"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+
     persistence:
       config:
         existingClaim: audiobookshelf
