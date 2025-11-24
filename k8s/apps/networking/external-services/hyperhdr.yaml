@@ -62,7 +62,8 @@ spec:
     - fqdn:
         hostname: hyperhdr.dom.lan
         port: 8090
-  protocol: HTTP1
+  appProtocols:
+    - gateway.envoyproxy.io/ws
 
 ---
 apiVersion: gateway.networking.k8s.io/v1
