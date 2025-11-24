@@ -30,7 +30,7 @@ alertmanager:
         gethomepage.dev/app: alertmanager
       enabled: true
       hostnames:
-        - alertmanager.k8sj.io
+        - alert-manager.k8sj.io
       parentRefs:
         - name: envoy-internal
           namespace: networking
