@@ -52,7 +52,7 @@ spec:
         controller: unifi-controller
         type: LoadBalancer
         ports:
-          http:
+          https:
             port: &port 8443
             protocol: HTTPS
           controller:
@@ -78,7 +78,7 @@ spec:
                 pathType: Prefix
                 service:
                   identifier: app
-                  port: http
+                  port: https
         tls:
           - hosts:
               - *host
