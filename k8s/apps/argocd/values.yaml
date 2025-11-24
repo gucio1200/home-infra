@@ -28,7 +28,7 @@ server:
       gethomepage.dev/group: Kubernetes
       gethomepage.dev/icon: sh-argo-cd.png
       gethomepage.dev/name: ArgoCD
-#      gethomepage.dev/app: argo-cd
+      gethomepage.dev/app: argocd-server
     parentRefs:
       - name: envoy-internal
         namespace: networking
