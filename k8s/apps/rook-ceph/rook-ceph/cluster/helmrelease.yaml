@@ -36,6 +36,21 @@ spec:
           - hosts:
               - *host
 
+    route:
+      dashboard:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Ceph
+          gethomepage.dev/group: Kubernetes
+          gethomepage.dev/icon: sh-ceph.png
+          gethomepage.dev/name: Ceph
+          gethomepage.dev/app: ceph-mgr
+        host:
+          name: rook.k8sj.io
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+
     cephClusterSpec:
       cephConfig:
         global:
