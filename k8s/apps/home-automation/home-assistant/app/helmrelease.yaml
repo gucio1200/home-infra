@@ -69,7 +69,7 @@ spec:
                 memory: 2Gi
               limits:
                 memory: 4Gi
-          kodi_ask:
+          kodiask:
             image:
               repository: unixology/kodi_ask
               tag: "373a2ef"
