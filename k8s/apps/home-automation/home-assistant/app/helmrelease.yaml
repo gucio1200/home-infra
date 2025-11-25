@@ -69,6 +69,23 @@ spec:
                 memory: 2Gi
               limits:
                 memory: 4Gi
+          kodi_ask:
+            image:
+              repository: unixology/kodi_ask
+              tag: "373a2ef"
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 5m
+                memory: 64Mi
+              limits:
+                memory: 64Mi
           code-server:
             image:
               repository: ghcr.io/coder/code-server
