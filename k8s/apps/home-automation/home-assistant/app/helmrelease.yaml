@@ -72,7 +72,7 @@ spec:
           kodiask:
             image:
               repository: unixology/kodi_ask
-              tag: "98349c1"
+              tag: "d36de94"
             probes:
               liveness:
                 enabled: false
