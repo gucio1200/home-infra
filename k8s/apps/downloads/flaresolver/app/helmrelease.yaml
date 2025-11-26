@@ -35,7 +35,6 @@ spec:
         ports:
           http:
             port: 8191
-        primary: true
 
     ingress:
       app:
@@ -54,7 +53,7 @@ spec:
       app:
         hostnames: ["{{ .Release.Name }}.k8sj.io"]
         parentRefs:
-          - name: enovy-internal
+          - name: envoy-internal
             namespace: networking
 
     persistence:
