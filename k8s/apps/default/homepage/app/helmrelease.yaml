@@ -20,7 +20,7 @@ spec:
               repository: ghcr.io/gethomepage/homepage
               tag: v1.7.0
             env:
-              HOMEPAGE_ALLOWED_HOSTS: &host "app.k8sj.io"
+              HOMEPAGE_ALLOWED_HOSTS: &host "apps.k8sj.io"
             resources:
               requests:
                 memory: 10Mi
