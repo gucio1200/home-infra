@@ -81,3 +81,7 @@ spec:
         existingClaim: maintainerr
         globalMounts:
           - path: /opt/data
+      tmpfs:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
