@@ -1,7 +1,7 @@
 ---
 image:
   repository: freqtradeorg/freqtrade
-  tag: "2025.10"
+  tag: "2025.11"
   pullPolicy: IfNotPresent
 
 bot:
