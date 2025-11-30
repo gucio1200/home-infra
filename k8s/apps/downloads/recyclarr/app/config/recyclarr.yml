@@ -25,9 +25,6 @@ sonarr:
             - "Kitsune"
     custom_formats:
       - trash_ids:
-          - bdd49c7e-6a36-4edb-aec1-a482b31f81c3  # BR-DISK
-        score: 0
-      - trash_ids:
           - 9b27ab6498ec0f31a3353992e19434ca # DV (WEBDL)
         assign_scores_to:
           - name: WEB-2160p
@@ -49,14 +46,11 @@ radarr:
     replace_existing_custom_formats: true
     include:
       - template: radarr-quality-definition-sqp-streaming
+      - template: radarr-quality-profile-sqp-1-2160p-default
       - template: radarr-custom-formats-sqp-1-2160p
-      - template: radarr-quality-profile-sqp-1-2160p-4k-only-imax-e
     quality_profiles:
       - name: SQP-1 (2160p)
     custom_formats:
-      - trash_ids:
-          - bdd49c7e-6a36-4edb-aec1-a482b31f81c3  # BR-DISK
-        score: 0
       - trash_ids:
           - b6832f586342ef70d9c128d40c07b872 # Bad Dual Groups
           - cc444569854e9de0b084ab2b8b1532b2 # Black and White Editions
