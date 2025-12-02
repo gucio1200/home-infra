@@ -30,6 +30,8 @@ spec:
             image:
               repository: ghcr.io/maintainerr/maintainerr
               tag: 2.21.0@sha256:c107c09da8c5dd2f6336c04f41c04c2da1fb8274c357f8680ebf79652d810df4
+            env:
+              UI_PORT: &port 80
             probes:
               liveness:
                 enabled: true
@@ -46,13 +48,16 @@ spec:
                 memory: 512Mi
               limits:
                 memory: 2Gi
-
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities: { drop: ["ALL"] }
     service:
       app:
         forceRename: maintainerr
         ports:
           http:
-            port: &port 6246
+            port: *port
         primary: true
 
     route:
@@ -68,7 +73,10 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: networking
-
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
     persistence:
       config:
         enabled: true
