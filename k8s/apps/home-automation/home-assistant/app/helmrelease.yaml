@@ -206,7 +206,15 @@ spec:
         existingClaim: home-assistant-config
         globalMounts:
           - path: /config
-
+      media:
+        enabled: true
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        size: 10Gi
+        advancedMounts:
+          home-assistant:
+            app:
+              - path: /media
       tmpfs:
         type: emptyDir
         advancedMounts:
