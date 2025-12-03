@@ -10,6 +10,13 @@ spec:
     name: zigbee
   interval: 1h
   values:
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 2000
+        runAsGroup: 2000
+        fsGroup: 2000
+        fsGroupChangePolicy: OnRootMismatch
     controllers:
       zigbee:
         annotations:
@@ -74,36 +81,45 @@ spec:
                 cpu: 10m
               limits:
                 memory: 1Gi
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 2000
-        runAsGroup: 2000
-        fsGroup: 2000
-        fsGroupChangePolicy: OnRootMismatch
+
+      code-server:
+        containers:
+          code-server:
+            image:
+              repository: ghcr.io/coder/code-server
+              tag: 4.106.3@sha256:1a0e813039c8f01404a89654278779ac77492b833bc2d126431268b9b1f1e40a
+            args:
+              - --auth
+              - none
+              - --disable-telemetry
+              - --disable-update-check
+              - --user-data-dir
+              - /mnt/code-server
+              - --extensions-dir
+              - /mnt/code-server
+              - --port
+              - "12321"
+              - /data
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 512Mi
+
     service:
       app:
+        controller: zigbee
         ports:
           http:
+            primary: true
             port: *port
-    ingress:
-      app:
-        enabled: true
-        className: "nginx"
-        annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/appName: "Zigbee"
-          hajimari.io/icon: mdi:zigbee
-        hosts:
-          - host: &host zigbee.k8sj.io
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
+          metrics:
+            port: 9000
+      code-server:
+        controller: code-server
+        ports:
+          http:
+            port: 12321
 
     route:
       app:
@@ -118,7 +134,39 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: networking
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
+      code-server:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: "Zigbee Config"
+          gethomepage.dev/group: "Home Automation"
+          gethomepage.dev/icon: sh-zigbee.png
+          gethomepage.dev/name: "Zigbee Config"
+          gethomepage.dev/app: zigbee
+        hostnames:
+          - zigbee2mqtt-code.k8sj.io
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+        rules:
+          - backendRefs:
+              - identifier: code-server
+                port: 12321
 
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
+        advancedMounts:
+          zigbee2mqtt:
+            app:
+              - path: /config
+                subPath: config
+          code-server:
+            code-server:
+              - path: /data
+                subPath: data
+              - path: /mnt/code-server
+                subPath: code-server
