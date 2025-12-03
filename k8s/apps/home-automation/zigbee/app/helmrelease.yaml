@@ -160,7 +160,7 @@ spec:
       config:
         existingClaim: "{{ .Release.Name }}"
         advancedMounts:
-          zigbee2mqtt:
+          zigbee:
             app:
               - path: /config
                 subPath: config
