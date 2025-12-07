@@ -10,8 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: mosquitto
   dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
+    - name: cluster-apps-rook-ceph-cluster
   interval: 1h
   path: "./k8s/apps/database/mosquitto/app"
   prune: true
