@@ -45,9 +45,9 @@ spec:
     service:
       app:
         type: LoadBalancer
-#        annotations:
-#          external-dns.alpha.kubernetes.io/hostname: mqtt.k8sj.io
-#          lbipam.cilium.io/ips: 172.16.99.103
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: mqtt.k8sj.io
+          lbipam.cilium.io/ips: 172.16.99.103
         externalTrafficPolicy: Local
         ports:
           mqtt:
