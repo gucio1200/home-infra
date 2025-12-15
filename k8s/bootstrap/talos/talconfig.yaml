@@ -322,10 +322,6 @@ controlPlane:
       machine:
         network:
           disableSearchDomain: true
-          extraHostEntries:
-            - ip: 172.99.0.2
-              aliases:
-                - k8s.dom.lan
 
     # Disable Host DNS
     - &dnsPatch |-
