@@ -12,7 +12,6 @@ spec:
   dependsOn:
     - name: cluster-apps-rook-ceph-cluster
     - name: cluster-apps-node-feature-discovery
-    - name: emqx-cluster
     - name: go2rtc
   interval: 10m
   timeout: 5m
