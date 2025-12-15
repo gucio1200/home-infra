@@ -16,7 +16,7 @@ spec:
           app:
             image:
               repository: unixology/aksver_mock
-              tag: "a5b8e0b"
+              tag: "f5d2222"
             probes:
               liveness:
                 enabled: false
