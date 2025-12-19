@@ -87,7 +87,7 @@ spec:
           - n8n-webhook.k8sj.io
         parentRefs:
           - name: envoy-external
-            namespace: network
+            namespace: networking
 
         rules:
           - matches:
