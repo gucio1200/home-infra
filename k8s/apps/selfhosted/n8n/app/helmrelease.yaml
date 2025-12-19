@@ -80,7 +80,7 @@ spec:
           - *hostName
         parentRefs:
           - name: envoy-internal
-            namespace: network
+            namespace: networking
 
       webhooks:
         hostnames:
