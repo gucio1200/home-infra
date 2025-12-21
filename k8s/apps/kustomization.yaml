@@ -16,7 +16,7 @@ resources:
   - system
   - home-automation
   - media
-  - wireguard-system
+#  - wireguard-system
   - satisfactory
   - selfhosted
   - downloads
