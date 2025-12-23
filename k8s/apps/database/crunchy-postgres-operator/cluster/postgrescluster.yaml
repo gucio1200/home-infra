@@ -6,11 +6,13 @@ metadata:
   name: &name postgres
 spec:
   postgresVersion: 16
+  shutdown: "true"
 
   metadata:
     labels:
       crunchy-userinit.ramblurr.github.com/enabled: "true"
       crunchy-userinit.ramblurr.github.com/superuser: "postgres"
+      postgres-operator.crunchydata.com/allow-upgrade: "postgres-upgrade"
 
   service:
     type: LoadBalancer
