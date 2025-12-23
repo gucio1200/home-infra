@@ -4,11 +4,9 @@ apiVersion: postgres-operator.crunchydata.com/v1beta1
 kind: PostgresCluster
 metadata:
   name: &name postgres
-  annotations:
-    postgres-operator.crunchydata.com/allow-upgrade: "postgres-upgrade"
 spec:
   postgresVersion: 17
-  shutdown: true
+  shutdown: false
 
   metadata:
     labels:
