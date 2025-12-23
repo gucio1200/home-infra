@@ -4,6 +4,8 @@ apiVersion: postgres-operator.crunchydata.com/v1beta1
 kind: PostgresCluster
 metadata:
   name: &name postgres
+  annotations:
+    postgres-operator.crunchydata.com/allow-upgrade: "postgres-upgrade"
 spec:
   postgresVersion: 16
   shutdown: true
@@ -12,8 +14,6 @@ spec:
     labels:
       crunchy-userinit.ramblurr.github.com/enabled: "true"
       crunchy-userinit.ramblurr.github.com/superuser: "postgres"
-    annotations:
-      postgres-operator.crunchydata.com/allow-upgrade: "postgres-upgrade"
 
   service:
     type: LoadBalancer
