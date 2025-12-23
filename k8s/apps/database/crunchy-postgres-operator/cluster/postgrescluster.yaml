@@ -8,7 +8,7 @@ metadata:
     postgres-operator.crunchydata.com/allow-upgrade: "postgres-upgrade"
 spec:
   postgresVersion: 17
-  shutdown: false
+  shutdown: true
 
   metadata:
     labels:
