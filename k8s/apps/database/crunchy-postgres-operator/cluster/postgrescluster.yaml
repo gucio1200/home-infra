@@ -6,7 +6,7 @@ metadata:
   name: &name postgres
 spec:
   postgresVersion: 16
-  shutdown: "true"
+  shutdown: true
 
   metadata:
     labels:
