@@ -8,7 +8,7 @@ metadata:
     postgres-operator.crunchydata.com/allow-upgrade: "postgres-upgrade"
 spec:
   postgresVersion: 16
-  shutdown: false
+  shutdown: true
   dataSource:
     pgbackrest:
       stanza: db
