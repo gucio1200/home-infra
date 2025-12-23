@@ -12,6 +12,7 @@ spec:
     labels:
       crunchy-userinit.ramblurr.github.com/enabled: "true"
       crunchy-userinit.ramblurr.github.com/superuser: "postgres"
+    annotations:
       postgres-operator.crunchydata.com/allow-upgrade: "postgres-upgrade"
 
   service:
