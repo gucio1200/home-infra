@@ -4,8 +4,11 @@ kind: PostgresCluster
 metadata:
   name: home-assistant
   namespace: home-automation
+  annotations:
+    postgres-operator.crunchydata.com/allow-upgrade: "postgres-upgrade"
 spec:
   postgresVersion: 15
+  shutdown: true
   dataSource:
     pgbackrest:
       stanza: db
