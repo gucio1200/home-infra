@@ -1,0 +1,56 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: openweb-ui
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: openweb-ui
+  values:
+    controllers:
+      open-webui:
+        pod:
+          annotations:
+            reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/open-webui/open-webui
+              tag: 0.6.43
+            env:
+              # Open-webui settings
+              ENABLE_OPENAI_API: "False"
+              ENABLE_OLLAMA_API: "True"
+              OLLAMA_BASE_URL: http://ollama:11434
+              ENABLE_RAG_WEB_SEARCH: false
+              ENABLE_SEARCH_QUERY: false
+              ENABLE_WEBSOCKET_SUPPORT: "true"
+              # Auth
+              ENABLE_OAUTH_SIGNUP: "false"
+              DEFAULT_USER_ROLE: "admin"
+              ENABLE_LOGIN_FORM: "false"
+              # Image Generation
+              ENABLE_IMAGE_GENERATION: false
+              IMAGE_SIZE: 400x400
+              IMAGE_STEPS: 8
+            resources:
+              requests:
+                cpu: 500m
+                memory: 1Gi
+              limits:
+                memory: 2Gi
+
+    service:
+      app:
+        ports:
+          http:
+            port: &port 8080
+
+    route:
+      app:
+        hostnames: ["{{ .Release.Name }}.k8sj.io"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
