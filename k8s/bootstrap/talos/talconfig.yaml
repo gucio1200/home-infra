@@ -238,15 +238,20 @@ controlPlane:
   schematic: &schematic
     customization:
       extraKernelArgs:
-        - apparmor=0           # Less security, more speed
-        - init_on_alloc=0      # Less security, more speed
-        - init_on_free=0       # Less security, more speed
-        - intel_iommu=on       # PCI Passthrough
-        - iommu=pt             # PCI Passthrough
-        - mitigations=off      # Less security, more speed
-        - security=none        # Less security, more speed
-        - net.ifnames=1        # Enable predictable NIC naming
+        - -init_on_alloc # Less security, faster puter
+        - -init_on_free # Less security, faster puter
+        - -selinux # Less security, faster puter
+        - apparmor=0 # Less security, more speed
+        - i915.enable_guc=3 # Meteor Lake CPU & Intel iGPU
+        - init_on_alloc=0 # Less security, more speed
+        - init_on_free=0 # Less security, more speed
+        - intel_iommu=on # PCI Passthrough
+        - iommu=pt # PCI Passthrough
+        - mitigations=off # Less security, more speed
+        - security=none # Less security, more speed
+        - net.ifnames=1 # Enable predictable NIC naming
         - sysctl.kernel.kexec_load_disabled=1
+        - talos.auditd.disabled=1
       systemExtensions:
         officialExtensions:
           - siderolabs/intel-ucode

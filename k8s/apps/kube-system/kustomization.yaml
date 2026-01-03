@@ -10,7 +10,7 @@ resources:
   - reloader
   - ./node-feature-discovery/ks.yaml
   - ./intel-device-plugins/ks.yaml
-  - ./intel-gpu-resource-driver/ks.yaml
+#  - ./intel-gpu-resource-driver/ks.yaml
 #  - kube-cleanup-operator
   - ./external-secrets
   - ./snapshot-controller/ks.yaml
