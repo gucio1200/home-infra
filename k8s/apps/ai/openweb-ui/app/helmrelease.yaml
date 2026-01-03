@@ -29,7 +29,7 @@ spec:
               ENABLE_WEBSOCKET_SUPPORT: "true"
               # Auth
               DEFAULT_USER_ROLE: "admin"
-              ENABLE_LOGIN_FORM: "true"
+              WEBUI_AUTH: false
               # Image Generation
               ENABLE_IMAGE_GENERATION: false
               IMAGE_SIZE: 400x400
