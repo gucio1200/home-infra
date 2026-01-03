@@ -85,10 +85,10 @@ spec:
                   failureThreshold: 3
               startup: *probe
 
-#    defaultPodOptions:
-#      resourceClaims:
-#        - name: gpu
-#          resourceClaimTemplateName: ollama
+    defaultPodOptions:
+      resourceClaims:
+        - name: gpu
+          resourceClaimTemplateName: ollama
 
     service:
       app:
