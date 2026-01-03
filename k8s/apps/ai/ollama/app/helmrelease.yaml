@@ -27,6 +27,7 @@ spec:
             env: &envVars
               OLLAMA_MODELS: &modelPath /models
               OLLAMA_REGISTRY_MAXSTREAMS: "1"
+              OLLAMA_SCHED_SPREAD: "true"
               OLLAMA_HOST: "0.0.0.0"
               no_proxy: "localhost,127.0.0.1"
               OLLAMA_INTEL_GPU: "true"
