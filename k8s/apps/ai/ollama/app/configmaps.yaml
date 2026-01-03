@@ -5,8 +5,8 @@ metadata:
   name: ollama-models
 data:
   models.txt: |
-    qwen3:4b
     qwen2.5:3b
+    qwen3:4b
 
 ---
 apiVersion: v1
