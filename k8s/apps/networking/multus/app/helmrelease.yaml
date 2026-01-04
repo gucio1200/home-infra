@@ -26,11 +26,3 @@ spec:
     cni:
       netPath: /etc/cni/net.d
       binPath: /opt/cni/bin
-
-    controllers:
-      multus:
-        pod:
-          tolerations:
-            - key: "multus.network.k8s.io/readiness"
-              operator: "Exists"
-              effect: "NoSchedule"
