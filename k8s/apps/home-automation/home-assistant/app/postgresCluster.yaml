@@ -5,7 +5,7 @@ metadata:
   name: home-assistant
   namespace: home-automation
 spec:
-  postgresVersion: 17
+  postgresVersion: 15
   shutdown: false
   dataSource:
     pgbackrest:
