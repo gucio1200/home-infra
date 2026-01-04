@@ -53,11 +53,6 @@ spec:
       options: "SUPERUSER"
   backups:
     pgbackrest:
-      restore:
-        enabled: true
-        repoName: repo1
-        options:
-          - "--type=immediate"
       configuration:
         - secret:
             name: pgo-s3-creds
