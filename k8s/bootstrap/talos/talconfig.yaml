@@ -33,7 +33,12 @@ nodes:
           deviceSelectors:
             - hardwareAddr: 00:1e:06:45:11:da
               driver: r8169
-          mode: active-backup
+            - hardwareAddr: 00:1e:06:45:11:db
+              driver: r8169
+          mode: 802.3ad
+          xmitHashPolicy: layer3+4
+          lacpRate: fast
+          miimon: 100
         dhcp: false
         vlans:
           - vlanId: 305
@@ -59,7 +64,12 @@ nodes:
           deviceSelectors:
             - hardwareAddr: 00:1e:06:45:11:5e
               driver: r8169
-          mode: active-backup
+            - hardwareAddr: 00:1e:06:45:11:5f
+              driver: r8169
+          mode: 802.3ad
+          xmitHashPolicy: layer3+4
+          lacpRate: fast
+          miimon: 100
         dhcp: false
         vlans:
           - vlanId: 305
@@ -85,7 +95,12 @@ nodes:
           deviceSelectors:
             - hardwareAddr: 00:1e:06:45:13:e8
               driver: r8169
-          mode: active-backup
+            - hardwareAddr: 00:1e:06:45:13:e9
+              driver: r8169
+          mode: 802.3ad
+          xmitHashPolicy: layer3+4
+          lacpRate: fast
+          miimon: 100
         dhcp: false
         vlans:
           - vlanId: 305
@@ -111,7 +126,12 @@ nodes:
           deviceSelectors:
             - hardwareAddr: 00:1e:06:45:16:0c
               driver: r8169
-          mode: active-backup
+            - hardwareAddr: 00:1e:06:45:16:0d
+              driver: r8169
+          mode: 802.3ad
+          xmitHashPolicy: layer3+4
+          lacpRate: fast
+          miimon: 100
         dhcp: false
         vlans:
           - vlanId: 305
@@ -137,7 +157,12 @@ nodes:
           deviceSelectors:
             - hardwareAddr: 00:1e:06:45:5e:ad
               driver: igc
-          mode: active-backup
+            - hardwareAddr: 00:1e:06:45:5e:ae
+              driver: igc
+          mode: 802.3ad
+          xmitHashPolicy: layer3+4
+          lacpRate: fast
+          miimon: 100
         dhcp: false
         vlans:
           - vlanId: 305
@@ -163,7 +188,12 @@ nodes:
           deviceSelectors:
             - hardwareAddr: 00:1e:06:45:5e:5b
               driver: igc
-          mode: active-backup
+            - hardwareAddr: 00:1e:06:45:5e:5c
+              driver: igc
+          mode: 802.3ad
+          xmitHashPolicy: layer3+4
+          lacpRate: fast
+          miimon: 100
         dhcp: false
         vlans:
           - vlanId: 305
@@ -189,7 +219,12 @@ nodes:
           deviceSelectors:
             - hardwareAddr: 00:1e:06:45:83:f0
               driver: r8169
-          mode: active-backup
+            - hardwareAddr: 00:1e:06:45:83:f1
+              driver: r8169
+          mode: 802.3ad
+          xmitHashPolicy: layer3+4
+          lacpRate: fast
+          miimon: 100
         dhcp: false
         vlans:
           - vlanId: 305
@@ -215,7 +250,12 @@ nodes:
           deviceSelectors:
             - hardwareAddr: 00:1e:06:45:81:58
               driver: r8169
-          mode: active-backup
+            - hardwareAddr: 00:1e:06:45:81:59
+              driver: r8169
+          mode: 802.3ad
+          xmitHashPolicy: layer3+4
+          lacpRate: fast
+          miimon: 100
         dhcp: false
         vlans:
           - vlanId: 305
