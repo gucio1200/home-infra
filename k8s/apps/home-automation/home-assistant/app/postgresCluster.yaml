@@ -23,6 +23,8 @@ spec:
           bucket: "crunchy-postgres"
           endpoint: "s3.dom.lan:9001"
           region: "us-east-1"
+      options:
+        - --type=immediate
   patroni:
     dynamicConfiguration:
       synchronous_mode: true
