@@ -1,0 +1,161 @@
+---
+# 1. Service Account
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: multus-controller
+  namespace: networking
+  labels:
+    app: multus-controller
+
+---
+# 2. RBAC: Cluster-wide permissions (Nodes & Pods)
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: multus-controller-runner
+rules:
+  - apiGroups: [""]
+    resources: ["nodes"]
+    verbs: ["get", "list", "watch", "patch"]
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list", "watch"]
+
+---
+# Binding needs to point to the ServiceAccount in 'networking'
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: multus-controller-runner-binding
+subjects:
+  - kind: ServiceAccount
+    name: multus-controller
+    namespace: networking
+roleRef:
+  kind: ClusterRole
+  name: multus-controller-runner
+  apiGroup: rbac.authorization.k8s.io
+
+---
+# 3. RBAC: Leader Election (Scoped to networking)
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: multus-controller-leader-election
+  namespace: networking
+rules:
+  - apiGroups: ["coordination.k8s.io"]
+    resources: ["leases"]
+    verbs: ["get", "list", "watch", "create", "update", "patch"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: multus-controller-leader-election-binding
+  namespace: networking
+subjects:
+  - kind: ServiceAccount
+    name: multus-controller
+    namespace: networking
+roleRef:
+  kind: Role
+  name: multus-controller-leader-election
+  apiGroup: rbac.authorization.k8s.io
+
+---
+# 4. Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: multus-controller
+  namespace: networking
+  labels:
+    app: multus-controller
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: multus-controller
+  template:
+    metadata:
+      labels:
+        app: multus-controller
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+    spec:
+      serviceAccountName: multus-controller
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+      containers:
+        - name: controller
+          image: unixology/multus-ct:63c1659
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              name: http-metrics
+          env:
+            - name: RUST_LOG
+              value: "info,multus_controller=debug"
+            - name: MULTUS_LABEL_SELECTOR
+              value: "app.kubernetes.io/name=multus"
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: HOSTNAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 2
+            periodSeconds: 5
+
+          resources:
+            limits:
+              cpu: 200m
+              memory: 256Mi
+            requests:
+              cpu: 50m
+              memory: 64Mi
+
+      tolerations:
+        - key: node-role.kubernetes.io/control-plane
+          operator: Exists
+          effect: NoSchedule
+        - key: node-role.kubernetes.io/master
+          operator: Exists
+          effect: NoSchedule
+        - key: multus.network.k8s.io/readiness
+          operator: Exists
+          effect: NoSchedule
+
+---
+# 5. Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: multus-controller-metrics
+  namespace: networking
+  labels:
+    app: multus-controller
+spec:
+  selector:
+    app: multus-controller
+  ports:
+    - name: metrics
+      port: 8080
+      targetPort: 8080
+      protocol: TCP
