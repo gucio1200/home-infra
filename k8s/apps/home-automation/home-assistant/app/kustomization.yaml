@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: home-automation
 resources:
   - ./ocirepository.yaml
-  - ./postgresCluster.yaml
+#  - ./postgresCluster.yaml
   - ./externalsecret.yaml
   - ./helmrelease.yaml
   - ../../../../templates/volsync
