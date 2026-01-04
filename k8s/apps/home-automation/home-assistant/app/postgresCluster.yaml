@@ -15,7 +15,7 @@ spec:
             name: pgo-s3-creds
       global:
         repo1-path: /home-assistant/repo1
-#        repo1-s3-uri-style: path
+        repo1-s3-uri-style: path
         repo1-storage-verify-tls: "n"
       repo:
         name: repo1
