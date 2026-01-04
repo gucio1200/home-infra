@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
 #  - argocd
   - kube-system
-  - kubevirt
+#  - kubevirt
   - database
   - rook-ceph
   - kyverno
