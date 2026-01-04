@@ -28,6 +28,7 @@ spec:
         enabled: true
         interval: 1m
     webhook:
+      create: false
       serviceMonitor:
         enabled: true
     certController:
