@@ -87,6 +87,7 @@ spec:
         prometheus.io/port: "8080"
     spec:
       serviceAccountName: multus-controller
+      priorityClassName: system-node-critical
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
@@ -138,9 +139,8 @@ spec:
         - key: node-role.kubernetes.io/master
           operator: Exists
           effect: NoSchedule
-        - key: multus.network.k8s.io/readiness
+        - key: CriticalAddonsOnly
           operator: Exists
-          effect: NoSchedule
 
 ---
 # 5. Service
