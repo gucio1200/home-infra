@@ -30,7 +30,8 @@ spec:
                 "name":"multus-iot",
                 "namespace": "networking",
                 "ips": [
-                  "192.168.2.249/16"
+                  "192.168.2.249/16",
+                  "fd00:cafe:babe::249/48"
                 ]
               }]
 
