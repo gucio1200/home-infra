@@ -15,3 +15,4 @@ resources:
   - ./frigate/ks.yaml
   - ./ledfx/ks.yaml
   - ./zigbee/ks.yaml
+  - ./matter/ks.yaml

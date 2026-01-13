@@ -1,0 +1,31 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &appname matter
+  namespace: flux-system
+spec:
+  targetNamespace: home-automation
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname
+  interval: 10m
+  path: "./k8s/apps/home-automation/matter/app"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  wait: false
+  dependsOn:
+    - name: cluster-apps-multus
+    - name: onepassword-connect
+    - name: cluster-apps-rook-ceph-cluster
+    - name: crunchy-postgres-operator
+    - name: cluster-secrets
+  postBuild:
+    substitute:
+      APP: *appname
+      APP_UID: "0"
+      APP_GID: "0"
+      VOLSYNC_CLAIM: matter
+      VOLSYNC_CAPACITY: 5Gi
