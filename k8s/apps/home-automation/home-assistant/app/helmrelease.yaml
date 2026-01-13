@@ -40,7 +40,7 @@ spec:
                 "namespace": "networking",
                 "ips": [
                   "192.168.2.253/16",
-                  "fd00:cafe:babe::253/48"
+                  "fd00:cafe:babe:0::253/64"
                 ]
               }]
 
