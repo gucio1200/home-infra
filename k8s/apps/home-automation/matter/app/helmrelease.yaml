@@ -66,12 +66,6 @@ spec:
             port: *port
     route:
       app:
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/description: Matter
-          gethomepage.dev/group: "Home Automation"
-          gethomepage.dev/icon: sh-home-assistant.png
-          gethomepage.dev/name: Matter
         hostnames:
           - *host
         parentRefs:
