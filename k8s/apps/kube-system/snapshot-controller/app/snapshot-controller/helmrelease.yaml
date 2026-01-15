@@ -20,6 +20,8 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
+    webhook:
+      enabled: false
     controller:
       args:
         leaderElection: true
