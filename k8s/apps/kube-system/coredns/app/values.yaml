@@ -21,6 +21,10 @@ servers:
         configBlock: |-
           lameduck 5s
       - name: ready
+      - name: template
+        parameters: ANY AAAA
+        configBlock: |-
+          rcode NOERROR
       - name: kubernetes
         parameters: cluster.local in-addr.arpa ip6.arpa
         configBlock: |-
