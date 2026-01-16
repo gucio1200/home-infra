@@ -103,6 +103,7 @@ spec:
               - group: gateway.envoyproxy.io
                 kind: Backend
                 name: unifi-controller
+                port: *port
 
     persistence:
       config:
