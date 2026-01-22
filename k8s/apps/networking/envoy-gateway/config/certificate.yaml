@@ -6,10 +6,16 @@ metadata:
   name: "k8sj-io-new"
 spec:
   secretName: "k8sj-io-tls-new"
+  duration: 160h
   issuerRef:
     name: le-prod
     kind: ClusterIssuer
-  commonName: "k8sj.io"
   dnsNames:
     - "k8sj.io"
     - "*.k8sj.io"
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+    rotationPolicy: Always
+  usages:
+    - digital signature
