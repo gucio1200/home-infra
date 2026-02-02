@@ -18,7 +18,7 @@ releases:
     namespace: monitoring
     atomic: true
     chart: prometheus-community/prometheus-operator-crds
-    version: 26.0.0
+    version: 26.0.1
 
   - name: cilium
     namespace: kube-system
@@ -34,7 +34,7 @@ releases:
     namespace: kube-system
     atomic: true
     chart: oci://ghcr.io/coredns/charts/coredns
-    version: 1.45.0
+    version: 1.45.2
     values:
       - ../apps/kube-system/coredns/app/values.yaml
     needs:

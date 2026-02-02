@@ -29,7 +29,7 @@ spec:
             nameOverride: maintainerr
             image:
               repository: ghcr.io/maintainerr/maintainerr
-              tag: 2.26.0@sha256:91b0770ad7f21d1bdc6dcf27955f2264e34498345ba1e790141ed703301c6918
+              tag: 2.26.1@sha256:35f5e04151298e828e804f54be0ef00104c35dbf9bfd8e03dacc42e525d2f336
             env:
               UI_PORT: &port 80
             probes:
