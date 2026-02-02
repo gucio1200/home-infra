@@ -1,104 +1,39 @@
 ---
-image:
-  repository: freqtradeorg/freqtrade
-  tag: "2025.12"
-  pullPolicy: IfNotPresent
+# Freqtrade Helm Chart Configuration
 
-bot:
-  enabled: true  # Enable or disable the bot deployment
-  rollme: true  # Recreate the pod during helm upgrade to apply changes
-  resources:
-    requests:
-      gpu.intel.com/i915: 1
-    limits:
-      gpu.intel.com/i915: 1
-  ingress:
-    enabled: true  # Enable ingress for external access to the bot
-    ingressClassName: nginx  # Ingress class name
-    annotations:   # Additional annotations for the ingress
-      hajimari.io/enable: "true"
-      hajimari.io/appName: "Freqtrade-bot"
-    hosts:
-      - "treqtrade-bot.k8sj.io"  # Replace with your domain
-    tls: true  # Enable TLS for the ingress
-    tlsSecretName: freqtrade-bot-tls  # Name of the TLS secret
-  pvc:
-    enabled: true  # Enable Persistent Volume Claim for bot data storage
-    # Mounts to /freqtrade/user_data
-    fixPermissions: true  # Fix permissions for the mounted volume
-    size: 1Gi  # Size of the PVC for data storage
-    accessMode: ReadWriteOnce  # Access mode for the PVC (single writer)
+# Override the full name of the release
+fullnameOverride: ""
 
-testing:
-  enabled: true
-  download_data:
-    enabled: true  # Enable downloading of historical data
-    days: 60  # Number of days to download
-    timeframes:
-      - "5m"  # Timeframe(s) for which data is downloaded (e.g., 5m, 1d)
-    pair_whitelist:
-      - "BTC/USDT"  # List of pairs for which data should be downloaded
-    dl_trades: false  # Set to true if you want to download trade data from some exchanges (very slow)
-
-  backtesting:
-    enabled: true  # Enable backtesting
-    days: 30  # Number of historical days to use
-    breakdown: "day"  # Granularity of backtest results (day or month)
-    fee: 0.0005  # Trading fee applied during backtesting
-
-  hyperopt:
-    enabled: true
-    offset: 0 # Period x days ago
-    days: 30  # Number of days of historical data used for optimization
-    hyperoptStrategy: "SharpeHyperOptLossDaily"  # The optimization strategy to use
-    spaces:
-      - roi  # Optimize ROI parameters
-      - stoploss  # Optimize stoploss parameters
-      - trailing  # Optimize trailing stoploss parameters
-      - buy  # Optimize buy parameters
-      - sell  # Optimize sell parameters
-      - protection  # Optimize protection parameters
-
-  ui:
-    enabled: true  # Enable or disable the Freqtrade UI
-    extraArgs: []  # Additional arguments for the UI
-
-    resources:  # Resource limits for the UI
-      gpu.intel.com/i915: 1
-
-    ingress:
-      enabled: true  # Enable ingress for external access to the UI
-      ingressClassName: nginx  # Ingress class name
-      annotations:   # Additional annotations for the ingress
-        hajimari.io/enable: "true"
-        hajimari.io/appName: "Freqtrade-backtesting"
-      hosts:
-        - "freqtrade-backtesting.k8sj.io"  # Replace with your domain
-      tls: true  # Enable TLS for the ingress
-      tlsSecretName: freqtrade-ui-tls  # Name of the TLS secret
-
+# Global configuration for the bot
 config:
   bot_name: freqtrade  # Name of the bot as used in configuration
   initial_state: running  # Initial state of the bot (running or stopped)
+  api_server:
+    enabled: true  # Enable API server (required for UI)
+    listen_ip_address: "0.0.0.0"  # Bind address for API server
+    listen_port: 8080  # API server port
+    verbosity: "error"  # API server logging level
+    username: "admin"  # API server username
+    password: ""  # Leave empty to auto-generate and store in Secret
 
   # Trade settings
-  max_open_trades: -1  # Maximum number of simultaneous open trades (-1 for unlimited)
+  max_open_trades: 5  # Maximum number of simultaneous open trades
   stake_amount: 100  # Amount to stake per trade in the defined currency
   stake_currency: USDT  # Currency used for staking (e.g., USDT, BTC, ETH)
   timeframe: 1h  # Trading timeframe (e.g., 5m for 5 minutes)
 
   tradable_balance_ratio: 0.999  # Percentage of balance available for trading
-  trading_mode: "futures"  # Trading mode (spot or futures)
+  trading_mode: "spot"  # Trading mode (spot or futures)
   margin_mode: "isolated"  # Margin mode (isolated or cross)
 
   use_exit_signal: true  # Enable exit signals for closing trades
   process_only_new_candles: true  # Process only new candles for efficiency
   trailing_stop: false  # Enable trailing stop-loss
-  force_entry_enable: true  # Allow forced entry into trades
+  force_entry_enable: false  # Allow forced entry into trades
 
   # Position adjustment (DCA)
-  position_adjustment_enable: true  # Enable Dollar-Cost Averaging (DCA)
-  max_entry_position_adjustment: 100  # Maximum number of position adjustments (DCA)
+  position_adjustment_enable: false  # Enable Dollar-Cost Averaging (DCA)
+  max_entry_position_adjustment: 0  # Maximum number of position adjustments (DCA)
 
   # Dry-run mode settings
   dry_run: true  # Simulate trades without real funds (for testing)
@@ -124,19 +59,125 @@ config:
   exchange:
     name: binance  # The exchange to use (e.g., Binance)
     ccxt_async_config:
-      enableRateLimit: false  # Disable rate limiting for async requests
-      rateLimit: 100  # Rate limit for async requests
+      enableRateLimit: true  # Enable rate limiting for async requests
+      rateLimit: 1000  # Rate limit for async requests (ms)
     ccxt_config:
-      enableRateLimit: false  # Disable rate limiting for synchronous requests
-      rateLimit: 100  # Rate limit for synchronous requests
+      enableRateLimit: true  # Enable rate limiting for synchronous requests
+      rateLimit: 1000  # Rate limit for synchronous requests (ms)
     log_responses: false  # Disable logging of exchange responses for reduced verbosity
     pair_blacklist: []  # List of pairs to avoid (currently empty)
-    pair_whitelist:  # List of pairs to trade (currently empty)
-      - "BTC/USDT"
+    pair_whitelist: []  # List of pairs to trade (currently empty)
 
-  api_server:
-    enabled: true
-    listen_ip_address: "0.0.0.0"
-    listen_port: 8080
-    username: "Freqtrader"
-    password: "Freqtrader"
+  # Pairlist configuration
+  pairlists:
+  - method: StaticPairList  # Use a static list of trading pairs
+
+# Image settings for the Freqtrade Docker container
+image:
+  repository: freqtradeorg/freqtrade  # Freqtrade Docker image repository
+  tag: "stable"  # Docker image version
+  pullPolicy: IfNotPresent  # Pull image only if it's not present locally
+
+# Pod scheduling preferences
+nodeSelector: {}  # Specify node affinity for pod scheduling
+affinity: {}  # Define pod affinity/anti-affinity rules
+tolerations: []  # Define tolerations for tainted nodes
+
+# Testing configuration for downloading data, backtesting, and hyperopt
+testing:
+  enabled: true  # Enable or disable testing features
+
+  # Data download settings
+  download_data:
+    enabled: true  # Enable historical data download
+    days: 31  # Number of days of data to download
+    timeframes:
+      - "1d"  # Timeframe for downloaded data
+    dl_trades: false  # Disable trade data download (slow version)
+    pair_whitelist:
+      - "BTC/USDT:USDT"  # Whitelisted pairs for data download (futures format)
+    extraArgs:
+    # Use `--prepend` to download data prior, 
+    # or `--erase` to redownload all data.
+    - --prepend
+    resources: {}  # Resource limits for data download
+
+  # Backtesting settings
+  backtesting:
+    enabled: true  # Enable backtesting
+    offset: 0  # Period x days ago
+    days: 30  # Number of days to backtest
+    breakdown: "day"  # Breakdown backtest results by day (alternative: month)
+    fee: 0.001  # Fee applied during backtesting
+    extraArgs: []  # Additional arguments for backtesting
+    resources: {}  # Resource limits for backtesting
+    # Example:
+    #  limits:
+    #    nvidia.com/gpu: 1  # Request GPU resources if available
+
+  # Hyperopt settings for strategy optimization
+  hyperopt:
+    enabled: true  # Enable hyperoptimization
+    offset: 0  # Period x days ago
+    days: 30  # Number of days of data to use for optimization
+    hyperoptStrategy: "SharpeHyperOptLossDaily"  # Hyperopt strategy to use
+    spaces:
+      - roi  # Optimize return on investment
+      - stoploss  # Optimize stoploss parameters
+      # Additional spaces like trailing, buy, sell can be added as needed
+    fee: 0.001  # Trading fee used for hyperopt
+    tries: 30  # Number of hyperopt attempts
+    resources: {}  # Resource limits for hyperopt
+    # Example:
+    #  limits:
+    #    nvidia.com/gpu: 1  # Request GPU resources if available
+    extraArgs: []  # Additional arguments for hyperopt
+    # Example:
+    #- "--job-workers"
+    #- "1"  # Number of parallel workers for hyperopt
+
+    # Available hyperopt strategies:
+    # - ShortTradeDurHyperOptLoss: Legacy Freqtrade hyperoptimization for short trade duration and avoiding losses
+    # - OnlyProfitHyperOptLoss: Focuses purely on maximizing profit
+    # - SharpeHyperOptLoss: Optimizes Sharpe Ratio based on trade returns and standard deviation
+    # - SharpeHyperOptLossDaily: Optimizes Sharpe Ratio based on daily trade returns
+    # - SortinoHyperOptLoss: Optimizes Sortino Ratio using downside standard deviation for trade returns
+    # - SortinoHyperOptLossDaily: Optimizes Sortino Ratio using downside standard deviation for daily trade returns
+    # - MaxDrawDownHyperOptLoss: Optimizes Maximum absolute drawdown
+    # - MaxDrawDownRelativeHyperOptLoss: Optimizes maximum absolute and relative drawdown
+    # - CalmarHyperOptLoss: Optimizes Calmar Ratio using returns relative to max drawdown
+    # - ProfitDrawDownHyperOptLoss: Optimizes for maximum profit while minimizing drawdown. Adjustable via DRAWDOWN_MULT.
+
+  ui:
+    enabled: true  # Enable or disable the Freqtrade UI
+    extraArgs: []  # Additional arguments for the UI
+
+    resources: {}  # Resource limits for the UI
+    # Example:
+    #  limits:
+    #    nvidia.com/gpu: 1  # Request GPU resources if available
+
+    ingress:
+      enabled: true  # Enable ingress for external access to the UI
+      ingressClassName: nginx  # Ingress class name
+      annotations: {}  # Additional annotations for the ingress
+      # Example:
+      #  kubernetes.io/tls-acme: "true"  # Enable TLS using cert-manager
+      hosts: ["treqtrade-bot.k8sj.io"]  # e.g. ["example.com"]
+      tls: true  # Enable TLS for the ingress
+      tlsSecretName: "freqtrade-bot-tls"  # Name of the TLS secret
+
+# Persistent Volume Claims (PVC) for storing data and results
+persistance:
+  enabled: true
+  size: 5Gi  # Size of the PVC for data storage
+  storageClass: ""  # Optional storage class for the PVC
+  accessMode: ReadWriteOnce  # Access mode for the PVC
+
+
+# Strategy to be used by the bot
+strategy: Best
+
+# List of strategies to be loaded into the bot
+strategies:
+  - Best.py
