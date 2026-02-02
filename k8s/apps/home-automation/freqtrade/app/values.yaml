@@ -91,7 +91,7 @@ testing:
   # Data download settings
   download_data:
     enabled: true  # Enable historical data download
-    days: 91  # Number of days of data to download
+    days: 31  # Number of days of data to download
     timeframes:
       - "1d"  # Timeframe for downloaded data
     dl_trades: false  # Disable trade data download (slow version)
@@ -107,7 +107,7 @@ testing:
   backtesting:
     enabled: true  # Enable backtesting
     offset: 0  # Period x days ago
-    days: 90  # Number of days to backtest
+    days: 30  # Number of days to backtest
     breakdown: "day"  # Breakdown backtest results by day (alternative: month)
     fee: 0.001  # Fee applied during backtesting
     extraArgs: []  # Additional arguments for backtesting
@@ -120,7 +120,7 @@ testing:
   hyperopt:
     enabled: true  # Enable hyperoptimization
     offset: 0  # Period x days ago
-    days: 90  # Number of days of data to use for optimization
+    days: 30  # Number of days of data to use for optimization
     hyperoptStrategy: "SharpeHyperOptLossDaily"  # Hyperopt strategy to use
     spaces:
       - roi  # Optimize return on investment
@@ -128,7 +128,6 @@ testing:
       - trailing  # Optimize trailing stoploss parameters
       - buy  # Optimize buy parameters
       - sell  # Optimize sell parameters
-      - protection
       # Additional spaces like trailing, buy, sell can be added as needed
     fee: 0.001  # Trading fee used for hyperopt
     tries: 30  # Number of hyperopt attempts
