@@ -21,7 +21,6 @@ dashboards:
   annotations:
     grafana_folder: Cilium
 devices: b+ enp+
-enableIPv4BIGTCP: true
 endpointRoutes:
   enabled: true
 envoy:
@@ -42,7 +41,6 @@ l2announcements:
 loadBalancer:
   algorithm: maglev
   mode: dsr
-  serviceTopology: true
 localRedirectPolicies:
   enabled: true
 operator:
