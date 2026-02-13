@@ -30,7 +30,7 @@ spec:
           app:
             image:
               repository: ghcr.io/goofball222/unifi
-              tag: 10.0.162-ubuntu
+              tag: 10.1.84-ubuntu
               pullPolicy: IfNotPresent
             env:
               RUNAS_UID0: "false"
