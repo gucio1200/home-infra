@@ -24,6 +24,7 @@ spec:
       music-assistant:
         annotations:
           reloader.stakater.com/auto: "true"
+          descheduler.alpha.kubernetes.io/evict: "false"
 
         pod:
           annotations:

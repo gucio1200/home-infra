@@ -13,6 +13,8 @@ spec:
     controllers:
       mosquitto:
         type: statefulset
+        annotations:
+          descheduler.alpha.kubernetes.io/evict: "false"
         containers:
           app:
             image:

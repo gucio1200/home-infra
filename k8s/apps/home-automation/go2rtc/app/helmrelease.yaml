@@ -23,6 +23,7 @@ spec:
         replicas: 2
         annotations:
           reloader.stakater.com/auto: "true"
+          descheduler.alpha.kubernetes.io/evict: "false"
         strategy: RollingUpdate
         pod:
           securityContext:

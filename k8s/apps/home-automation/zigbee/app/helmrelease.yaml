@@ -14,6 +14,7 @@ spec:
       zigbee:
         annotations:
           reloader.stakater.com/auto: "true"
+          descheduler.alpha.kubernetes.io/evict: "false"
         containers:
           app:
             image:

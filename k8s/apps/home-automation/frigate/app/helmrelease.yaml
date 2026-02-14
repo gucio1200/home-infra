@@ -14,6 +14,7 @@ spec:
       frigate:
         annotations:
           configmap.reloader.stakater.com/reload: frigate-config
+          descheduler.alpha.kubernetes.io/evict: "false"
         pod:
           nodeSelector:
             feature.node.kubernetes.io/coral: "true"
