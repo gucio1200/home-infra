@@ -20,7 +20,7 @@ dashboards:
   enabled: true
   annotations:
     grafana_folder: Cilium
-devices: bond0
+devices: b+ enp+
 endpointRoutes:
   enabled: true
 envoy:
