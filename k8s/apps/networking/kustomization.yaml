@@ -12,4 +12,4 @@ resources:
   - ./openspeedtest/ks.yaml
   - ./envoy-gateway/ks.yaml
   - ./cloudflare-tunnel/ks.yaml
-  - ./multus-controller/deployment.yaml
+#  - ./multus-controller/deployment.yaml
