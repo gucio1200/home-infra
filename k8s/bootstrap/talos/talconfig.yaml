@@ -36,12 +36,14 @@ nodes:
             - hardwareAddr: 00:1e:06:45:11:db
               driver: r8169
           mode: 802.3ad
-          xmitHashPolicy: layer3+4
-          lacpRate: fast
+          xmitHashPolicy: layer2
+          lacpRate: slow
           miimon: 100
         dhcp: true
         vlans:
           - vlanId: 305
+            addresses:
+              - 10.1.5.100/24
             dhcp: false
             mtu: 1500
 
