@@ -39,19 +39,11 @@ nodes:
           xmitHashPolicy: layer3+4
           lacpRate: fast
           miimon: 100
-        dhcp: false
+        dhcp: true
         vlans:
           - vlanId: 305
             dhcp: false
             mtu: 1500
-      - interface: br0
-        dhcp: true
-        mtu: 1500
-        bridge:
-          stp:
-            enabled: true
-          interfaces:
-            - bond0
 
   - hostname: cp-1
     controlPlane: true
@@ -70,19 +62,11 @@ nodes:
           xmitHashPolicy: layer3+4
           lacpRate: fast
           miimon: 100
-        dhcp: false
+        dhcp: true
         vlans:
           - vlanId: 305
             dhcp: false
             mtu: 1500
-      - interface: br0
-        dhcp: true
-        mtu: 1500
-        bridge:
-          stp:
-            enabled: true
-          interfaces:
-            - bond0
 
   - hostname: cp-2
     controlPlane: true
@@ -101,19 +85,11 @@ nodes:
           xmitHashPolicy: layer3+4
           lacpRate: fast
           miimon: 100
-        dhcp: false
+        dhcp: true
         vlans:
           - vlanId: 305
             dhcp: false
             mtu: 1500
-      - interface: br0
-        dhcp: true
-        mtu: 1500
-        bridge:
-          stp:
-            enabled: true
-          interfaces:
-            - bond0
 
   - hostname: cp-3
     controlPlane: true
@@ -132,19 +108,11 @@ nodes:
           xmitHashPolicy: layer3+4
           lacpRate: fast
           miimon: 100
-        dhcp: false
+        dhcp: true
         vlans:
           - vlanId: 305
             dhcp: false
             mtu: 1500
-      - interface: br0
-        dhcp: true
-        mtu: 1500
-        bridge:
-          stp:
-            enabled: true
-          interfaces:
-            - bond0
 
   - hostname: cp-4
     controlPlane: true
@@ -163,19 +131,11 @@ nodes:
           xmitHashPolicy: layer3+4
           lacpRate: fast
           miimon: 100
-        dhcp: false
+        dhcp: true
         vlans:
           - vlanId: 305
             dhcp: false
             mtu: 1500
-      - interface: br0
-        dhcp: true
-        mtu: 1500
-        bridge:
-          stp:
-            enabled: true
-          interfaces:
-            - bond0
 
   - hostname: cp-5
     controlPlane: true
@@ -194,19 +154,11 @@ nodes:
           xmitHashPolicy: layer3+4
           lacpRate: fast
           miimon: 100
-        dhcp: false
+        dhcp: true
         vlans:
           - vlanId: 305
             dhcp: false
             mtu: 1500
-      - interface: br0
-        dhcp: true
-        mtu: 1500
-        bridge:
-          stp:
-            enabled: true
-          interfaces:
-            - bond0
 
   - hostname: wr-0
     controlPlane: false
@@ -225,19 +177,11 @@ nodes:
           xmitHashPolicy: layer3+4
           lacpRate: fast
           miimon: 100
-        dhcp: false
+        dhcp: true
         vlans:
           - vlanId: 305
             dhcp: false
             mtu: 1500
-      - interface: br0
-        dhcp: true
-        mtu: 1500
-        bridge:
-          stp:
-            enabled: true
-          interfaces:
-            - bond0
 
   - hostname: wr-1
     controlPlane: false
@@ -256,19 +200,11 @@ nodes:
           xmitHashPolicy: layer3+4
           lacpRate: fast
           miimon: 100
-        dhcp: false
+        dhcp: true
         vlans:
           - vlanId: 305
             dhcp: false
             mtu: 1500
-      - interface: br0
-        dhcp: true
-        mtu: 1500
-        bridge:
-          stp:
-            enabled: true
-          interfaces:
-            - bond0
 
 controlPlane:
   nodeLabels:
