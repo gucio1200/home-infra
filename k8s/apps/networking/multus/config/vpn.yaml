@@ -16,7 +16,7 @@ spec:
         },
         {
           "type": "macvlan",
-          "master": "bond0.305",
+          "master": "bond0",
           "mode": "bridge",
           "capabilities": {
             "ips": true
