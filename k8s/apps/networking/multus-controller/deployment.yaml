@@ -93,7 +93,7 @@ spec:
         runAsUser: 1000
       containers:
         - name: controller
-          image: unixology/multus-ct:521b0db
+          image: unixology/multus-ct:5317784
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
