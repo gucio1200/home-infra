@@ -12,9 +12,6 @@ spec:
       "name": "vpn",
       "plugins": [
         {
-          "type": "sbr"
-        },
-        {
           "type": "macvlan",
           "master": "bond0",
           "mode": "bridge",
@@ -57,6 +54,9 @@ spec:
               {"dst": "224.0.0.0/3", "gw": "192.168.2.1"}
             ]
           }
+        },
+        {
+          "type": "sbr"
         }
       ]
     }
