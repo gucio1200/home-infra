@@ -4,7 +4,7 @@ clusterPodNets:
   - 10.244.0.0/16
 clusterSvcNets:
   - 10.96.0.0/12
-talosVersion: v1.11.5
+talosVersion: v1.11.6
 kubernetesVersion: v1.34.2
 endpoint: "https://k8s.dom.lan:6443"
 
@@ -36,16 +36,16 @@ nodes:
             - hardwareAddr: 00:1e:06:45:11:db
               driver: r8169
           mode: 802.3ad
-          xmitHashPolicy: layer2
-          lacpRate: slow
+          xmitHashPolicy: layer3+4
+          lacpRate: fast
           miimon: 100
         dhcp: true
-        vlans:
-          - vlanId: 305
-            addresses:
-              - 10.1.5.100/24
-            dhcp: false
-            mtu: 1500
+#        vlans:
+#          - vlanId: 305
+#            addresses:
+#              - 10.1.5.100/24
+#            dhcp: false
+#            mtu: 1500
 
   - hostname: cp-1
     controlPlane: true
@@ -65,10 +65,12 @@ nodes:
           lacpRate: fast
           miimon: 100
         dhcp: true
-        vlans:
-          - vlanId: 305
-            dhcp: false
-            mtu: 1500
+#        vlans:
+#          - vlanId: 305
+#            addresses:
+#              - 10.1.5.101/24
+#            dhcp: false
+#            mtu: 1500
 
   - hostname: cp-2
     controlPlane: true
@@ -88,10 +90,10 @@ nodes:
           lacpRate: fast
           miimon: 100
         dhcp: true
-        vlans:
-          - vlanId: 305
-            dhcp: false
-            mtu: 1500
+#        vlans:
+#          - vlanId: 305
+#            dhcp: false
+#            mtu: 1500
 
   - hostname: cp-3
     controlPlane: true
@@ -111,10 +113,10 @@ nodes:
           lacpRate: fast
           miimon: 100
         dhcp: true
-        vlans:
-          - vlanId: 305
-            dhcp: false
-            mtu: 1500
+#        vlans:
+#          - vlanId: 305
+#            dhcp: false
+#            mtu: 1500
 
   - hostname: cp-4
     controlPlane: true
@@ -134,10 +136,10 @@ nodes:
           lacpRate: fast
           miimon: 100
         dhcp: true
-        vlans:
-          - vlanId: 305
-            dhcp: false
-            mtu: 1500
+#        vlans:
+#          - vlanId: 305
+#            dhcp: false
+#            mtu: 1500
 
   - hostname: cp-5
     controlPlane: true
@@ -157,10 +159,10 @@ nodes:
           lacpRate: fast
           miimon: 100
         dhcp: true
-        vlans:
-          - vlanId: 305
-            dhcp: false
-            mtu: 1500
+#        vlans:
+#          - vlanId: 305
+#            dhcp: false
+#            mtu: 1500
 
   - hostname: wr-0
     controlPlane: false
@@ -180,10 +182,10 @@ nodes:
           lacpRate: fast
           miimon: 100
         dhcp: true
-        vlans:
-          - vlanId: 305
-            dhcp: false
-            mtu: 1500
+#        vlans:
+#          - vlanId: 305
+#            dhcp: false
+#            mtu: 1500
 
   - hostname: wr-1
     controlPlane: false
@@ -203,10 +205,10 @@ nodes:
           lacpRate: fast
           miimon: 100
         dhcp: true
-        vlans:
-          - vlanId: 305
-            dhcp: false
-            mtu: 1500
+#        vlans:
+#          - vlanId: 305
+#            dhcp: false
+#            mtu: 1500
 
 controlPlane:
   nodeLabels:
