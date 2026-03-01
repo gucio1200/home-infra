@@ -49,7 +49,7 @@ resources:
   - loft-sh.yaml
   - grafana.yaml
   - intel.yaml
-#  - crunchydata.yaml
+  - crunchydata.yaml
   - kubernetes-csi-addons.yaml
   - wireguard-operator.yaml
   - traefik.yaml
