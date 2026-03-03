@@ -45,7 +45,7 @@ radarr:
     delete_old_custom_formats: true
     replace_existing_custom_formats: true
     include:
-      - template: radarr-quality-definition-sqp-streaming
+#      - template: radarr-quality-definition-sqp-streaming
       - template: radarr-quality-profile-sqp-1-2160p-default
       - template: radarr-custom-formats-sqp-1-2160p
     quality_profiles:
