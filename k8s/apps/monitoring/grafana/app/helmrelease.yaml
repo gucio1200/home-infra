@@ -219,7 +219,7 @@ spec:
           gnetId: 22896
           revision: 1
           datasource:
-            - { name: DS_PROMETHEUS, value: Prometheus }
+            - { name: DS_DEV_TEST_K8S, value: Prometheus }
         volsync:
           # renovate: depName="VolSync Dashboard"
           gnetId: 21356
