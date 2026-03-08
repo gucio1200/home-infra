@@ -96,3 +96,15 @@ data:
           icon: sh-yamlresume.png
           name: Yamaha
           siteMonitor: http://yamaha.dom.lan/
+      - QNAP:
+          href: http://qnap.dom.lan:8080/
+          group: Media
+          description: NAS Interface
+          icon: sh-qnap.png
+          name: QNAP NAS
+          siteMonitor: http://qnap.dom.lan:8080/
+          widget:
+            type: qnap
+            url: http://qnap.dom.lan:8080
+            username: {{HOMEPAGE_VAR_QNAP_USER}}
+            password: {{HOMEPAGE_VAR_QNAP_PASS}}
