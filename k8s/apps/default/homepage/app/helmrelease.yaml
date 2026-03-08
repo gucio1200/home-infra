@@ -21,6 +21,9 @@ spec:
               tag: v1.10.1
             env:
               HOMEPAGE_ALLOWED_HOSTS: &host "apps.k8sj.io"
+            envFrom:
+              - secretRef:
+                  name: homepage-secret
             resources:
               requests:
                 memory: 10Mi
