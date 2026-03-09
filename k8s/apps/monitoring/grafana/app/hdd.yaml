@@ -1,0 +1,2647 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: azure-container-storage-dashboard
+  namespace: monitoring
+  labels:
+    grafana_dashboard: "1"
+spec:
+data:
+  azure-container-storage.json: |-
+    {
+      "__inputs": [],
+      "__elements": {},
+      "__requires": [
+        {
+          "type": "grafana",
+          "id": "grafana",
+          "name": "Grafana",
+          "version": "10.4.19"
+        },
+        {
+          "type": "datasource",
+          "id": "prometheus",
+          "name": "Prometheus",
+          "version": "1.0.0"
+        },
+        {
+          "type": "panel",
+          "id": "stat",
+          "name": "Stat",
+          "version": ""
+        },
+        {
+          "type": "panel",
+          "id": "table",
+          "name": "Table",
+          "version": ""
+        },
+        {
+          "type": "panel",
+          "id": "text",
+          "name": "Text",
+          "version": ""
+        },
+        {
+          "type": "panel",
+          "id": "timeseries",
+          "name": "Time series",
+          "version": ""
+        }
+      ],
+      "description": "The dashboard can be used to display the metrics for the local CSI driver and ESAN CSI driver (Will be added soon).  The dashboard displays the data plane metrics of the volumes in the cluster.",
+      "editable": true,
+      "id": null,
+      "links": [],
+      "panels": [
+        {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 0
+          },
+          "id": 1,
+          "panels": [],
+          "title": "Overview",
+          "type": "row"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prom_ds}"
+          },
+          "description": "",
+          "gridPos": {
+            "h": 4,
+            "w": 24,
+            "x": 0,
+            "y": 1
+          },
+          "id": 30,
+          "options": {
+            "code": {
+              "language": "plaintext",
+              "showLineNumbers": false,
+              "showMiniMap": false
+            },
+            "content": "# Welcome to the Azure Container Storage dashboard\nYou can use this dashboard to view the metrics emitted by your Azure Container Storage enabled AKS clusters. This dashboard is compatible with version 2.x.\n\nFollow the documentation [here](https://learn.microsoft.com/en-us/azure/azure-monitor/containers/kubernetes-monitoring-enable?tabs=cli) to start viewing metrics",
+            "mode": "markdown"
+          },
+          "type": "text"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prom_ds}"
+          },
+          "description": "Shows total volumes active in the cluster",
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 3,
+            "x": 0,
+            "y": 5
+          },
+          "id": 3,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prom_ds}"
+              },
+              "editorMode": "code",
+              "expr": "count(disk_read_bytes_total{cluster=~\"$cluster\", provisioner=~\"$storagetype\"})",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Volume Count",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prom_ds}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "ops"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 3,
+            "x": 3,
+            "y": 5
+          },
+          "id": 2,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prom_ds}"
+              },
+              "editorMode": "code",
+              "expr": "sum(rate(disk_read_operations_completed_total{cluster=~\"$cluster\", provisioner=~\"$storagetype\"}[$__rate_interval]))",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Read IOPS",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prom_ds}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "ops"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 3,
+            "x": 6,
+            "y": 5
+          },
+          "id": 34,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prom_ds}"
+              },
+              "editorMode": "code",
+              "expr": "sum(rate(disk_write_operations_completed_total{cluster=~\"$cluster\", provisioner=~\"$storagetype\"}[$__rate_interval]))",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Write IOPS",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prom_ds}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "Bps"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 3,
+            "x": 9,
+            "y": 5
+          },
+          "id": 4,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prom_ds}"
+              },
+              "editorMode": "code",
+              "expr": "sum(rate(disk_read_bytes_total{cluster=~\"$cluster\", provisioner=~\"$storagetype\"}[$__rate_interval]))",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Read Throughput",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prom_ds}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "Bps"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 12,
+            "y": 5
+          },
+          "id": 5,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prom_ds}"
+              },
+              "editorMode": "code",
+              "expr": "sum(rate(disk_written_bytes_total{cluster=~\"$cluster\",provisioner=~\"$storagetype\"}[$__rate_interval]))",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Write Throughput",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prom_ds}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "orange",
+                    "value": 0.02
+                  },
+                  {
+                    "color": "red",
+                    "value": 0.05
+                  }
+                ]
+              },
+              "unit": "s"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 16,
+            "y": 5
+          },
+          "id": 6,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prom_ds}"
+              },
+              "editorMode": "code",
+              "expr": "sum(rate(disk_read_operations_time_seconds_total{cluster=~\"$cluster\", provisioner=~\"$storagetype\"}[$__rate_interval])) / clamp_min(sum(rate(disk_read_operations_completed_total{cluster=~\"$cluster\",provisioner=~\"$storagetype\"}[$__rate_interval])), 1e-9)",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Avg Read Latency",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prom_ds}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "orange",
+                    "value": 0.02
+                  },
+                  {
+                    "color": "red",
+                    "value": 0.05
+                  }
+                ]
+              },
+              "unit": "s"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 20,
+            "y": 5
+          },
+          "id": 7,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prom_ds}"
+              },
+              "editorMode": "code",
+              "expr": "sum(rate(disk_write_operations_time_seconds_total{cluster=~\"$cluster\",provisioner=~\"$storagetype\"}[$__rate_interval])) / clamp_min(sum(rate(disk_write_operations_completed_total{cluster=~\"$cluster\",provisioner=~\"$storagetype\"}[$__rate_interval])), 1e-9)",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Avg Write Latency",
+          "type": "stat"
+        },
+        {
+          "collapsed": true,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 8
+          },
+          "id": 18,
+          "panels": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prom_ds}"
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "ops"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 0,
+                "y": 9
+              },
+              "id": 19,
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "right",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "targets": [
+                {
+                  "datasource": {
+                    "type": "prometheus",
+                    "uid": "${prom_ds}"
+                  },
+                  "editorMode": "code",
+                  "expr": "topk(10, sum by (pv) (rate(disk_read_operations_completed_total{cluster=~\"$cluster\", provisioner=~\"$storagetype\"}[$__rate_interval])))",
+                  "legendFormat": "{{pv}}",
+                  "range": true,
+                  "refId": "T"
+                }
+              ],
+              "title": "Top 10 PVs by Read IOPS",
+              "type": "timeseries"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prom_ds}"
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "Bps"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 12,
+                "y": 9
+              },
+              "id": 20,
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "right",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "targets": [
+                {
+                  "datasource": {
+                    "type": "prometheus",
+                    "uid": "${prom_ds}"
+                  },
+                  "editorMode": "code",
+                  "expr": "topk(10, sum by (pv) (rate(disk_written_bytes_total{cluster=~\"$cluster\", provisioner=~\"$storagetype\"}[$__rate_interval])))",
+                  "legendFormat": "{{pv}}",
+                  "range": true,
+                  "refId": "T"
+                }
+              ],
+              "title": "Top 10 PVs by Write Throughput",
+              "type": "timeseries"
+            }
+          ],
+          "title": "Top-N PVs",
+          "type": "row"
+        },
+        {
+          "collapsed": true,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 9
+          },
+          "id": 8,
+          "panels": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prom_ds}"
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "ops"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 0,
+                "y": 10
+              },
+              "id": 9,
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "targets": [
+                {
+                  "datasource": {
+                    "type": "prometheus",
+                    "uid": "${prom_ds}"
+                  },
+                  "editorMode": "code",
+                  "expr": "sum(rate(disk_read_operations_completed_total{cluster=~\"$cluster\",provisioner=~\"$storagetype\"}[$__rate_interval]))",
+                  "legendFormat": "Read",
+                  "range": true,
+                  "refId": "R"
+                },
+                {
+                  "datasource": {
+                    "type": "prometheus",
+                    "uid": "${prom_ds}"
+                  },
+                  "editorMode": "code",
+                  "expr": "sum(rate(disk_write_operations_completed_total{cluster=~\"$cluster\", provisioner=~\"$storagetype\"}[$__rate_interval]))",
+                  "legendFormat": "Write",
+                  "range": true,
+                  "refId": "W"
+                }
+              ],
+              "title": "IOPS (Read/Write)",
+              "type": "timeseries"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prom_ds}"
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "Bps"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 12,
+                "y": 10
+              },
+              "id": 10,
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "targets": [
+                {
+                  "datasource": {
+                    "type": "prometheus",
+                    "uid": "${prom_ds}"
+                  },
+                  "editorMode": "code",
+                  "expr": "sum(rate(disk_read_bytes_total{cluster=~\"$cluster\", provisioner=~\"$storagetype\"}[$__rate_interval]))",
+                  "legendFormat": "Read",
+                  "range": true,
+                  "refId": "R"
+                },
+                {
+                  "datasource": {
+                    "type": "prometheus",
+                    "uid": "${prom_ds}"
+                  },
+                  "editorMode": "code",
+                  "expr": "sum(rate(disk_written_bytes_total{cluster=~\"$cluster\", provisioner=~\"$storagetype\"}[$__rate_interval]))",
+                  "legendFormat": "Write",
+                  "range": true,
+                  "refId": "W"
+                }
+              ],
+              "title": "Throughput (Read/Write)",
+              "type": "timeseries"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prom_ds}"
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": null
+                      },
+                      {
+                        "color": "orange",
+                        "value": 0.02
+                      },
+                      {
+                        "color": "red",
+                        "value": 0.05
+                      }
+                    ]
+                  },
+                  "unit": "s"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 0,
+                "y": 18
+              },
+              "id": 11,
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "targets": [
+                {
+                  "datasource": {
+                    "type": "prometheus",
+                    "uid": "${prom_ds}"
+                  },
+                  "editorMode": "code",
+                  "expr": "sum(rate(disk_read_operations_time_seconds_total{cluster=~\"$cluster\", provisioner=~\"$storagetype\"}[$__rate_interval])) / clamp_min(sum(rate(disk_read_operations_completed_total{cluster=~\"$cluster\", provisioner=~\"$storagetype\"}[$__rate_interval])), 1e-9)",
+                  "legendFormat": "Read",
+                  "range": true,
+                  "refId": "RL"
+                },
+                {
+                  "datasource": {
+                    "type": "prometheus",
+                    "uid": "${prom_ds}"
+                  },
+                  "editorMode": "code",
+                  "expr": "sum(rate(disk_write_operations_time_seconds_total{cluster=~\"$cluster\", provisioner=~\"$storagetype\"}[$__rate_interval])) / clamp_min(sum(rate(disk_write_operations_completed_total{cluster=~\"$cluster\", provisioner=~\"$storagetype\"}[$__rate_interval])), 1e-9)",
+                  "legendFormat": "Write",
+                  "range": true,
+                  "refId": "WL"
+                }
+              ],
+              "title": "Latency (Read/Write)",
+              "type": "timeseries"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prom_ds}"
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "percent"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 8,
+                "w": 6,
+                "x": 12,
+                "y": 18
+              },
+              "id": 12,
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "targets": [
+                {
+                  "datasource": {
+                    "type": "prometheus",
+                    "uid": "${prom_ds}"
+                  },
+                  "editorMode": "code",
+                  "expr": "100 * avg(rate(disk_io_time_seconds_total{cluster=~\"$cluster\", provisioner=~\"$storagetype\"}[$__rate_interval]))",
+                  "legendFormat": "Avg busy %",
+                  "range": true,
+                  "refId": "U"
+                }
+              ],
+              "title": "Device Utilization (%)",
+              "type": "timeseries"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prom_ds}"
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "none"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 8,
+                "w": 6,
+                "x": 18,
+                "y": 18
+              },
+              "id": 13,
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "targets": [
+                {
+                  "datasource": {
+                    "type": "prometheus",
+                    "uid": "${prom_ds}"
+                  },
+                  "editorMode": "code",
+                  "expr": "avg(disk_io_now{cluster=~\"$cluster\", provisioner=~\"$storagetype\"})",
+                  "legendFormat": "Avg queue depth",
+                  "range": true,
+                  "refId": "QD"
+                }
+              ],
+              "title": "Queue Depth (in-flight I/Os)",
+              "type": "timeseries"
+            }
+          ],
+          "title": "Trends",
+          "type": "row"
+        },
+        {
+          "collapsed": true,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 10
+          },
+          "id": 21,
+          "panels": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prom_ds}"
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "ops"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 7,
+                "w": 12,
+                "x": 0,
+                "y": 12
+              },
+              "id": 22,
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "targets": [
+                {
+                  "datasource": {
+                    "type": "prometheus",
+                    "uid": "${prom_ds}"
+                  },
+                  "editorMode": "code",
+                  "expr": "sum(rate(disk_read_operations_completed_total{cluster=~\"$cluster\", pv=~\"$volume\", provisioner=~\"$storagetype\"}[$__rate_interval]))",
+                  "legendFormat": "Read",
+                  "range": true,
+                  "refId": "R"
+                },
+                {
+                  "datasource": {
+                    "type": "prometheus",
+                    "uid": "${prom_ds}"
+                  },
+                  "editorMode": "code",
+                  "expr": "sum(rate(disk_write_operations_completed_total{cluster=~\"$cluster\", pv=~\"$volume\", provisioner=~\"$storagetype\"}[$__rate_interval]))",
+                  "legendFormat": "Write",
+                  "range": true,
+                  "refId": "W"
+                }
+              ],
+              "title": "IOPS ($volume)",
+              "type": "timeseries"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prom_ds}"
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "Bps"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 7,
+                "w": 12,
+                "x": 12,
+                "y": 12
+              },
+              "id": 23,
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "targets": [
+                {
+                  "datasource": {
+                    "type": "prometheus",
+                    "uid": "${prom_ds}"
+                  },
+                  "editorMode": "code",
+                  "expr": "sum(rate(disk_read_bytes_total{cluster=~\"$cluster\", pv=~\"$volume\",provisioner=~\"$storagetype\"}[$__rate_interval]))",
+                  "legendFormat": "Read",
+                  "range": true,
+                  "refId": "R"
+                },
+                {
+                  "datasource": {
+                    "type": "prometheus",
+                    "uid": "${prom_ds}"
+                  },
+                  "editorMode": "code",
+                  "expr": "sum(rate(disk_written_bytes_total{cluster=~\"$cluster\", pv=~\"$volume\", provisioner=~\"$storagetype\"}[$__rate_interval]))",
+                  "legendFormat": "Write",
+                  "range": true,
+                  "refId": "W"
+                }
+              ],
+              "title": "Throughput ($volume)",
+              "type": "timeseries"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prom_ds}"
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": null
+                      },
+                      {
+                        "color": "orange",
+                        "value": 0.02
+                      },
+                      {
+                        "color": "red",
+                        "value": 0.05
+                      }
+                    ]
+                  },
+                  "unit": "s"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 7,
+                "w": 12,
+                "x": 0,
+                "y": 19
+              },
+              "id": 24,
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "targets": [
+                {
+                  "datasource": {
+                    "type": "prometheus",
+                    "uid": "${prom_ds}"
+                  },
+                  "editorMode": "code",
+                  "expr": "sum(rate(disk_read_operations_time_seconds_total{cluster=~\"$cluster\", pv=~\"$volume\", provisioner=~\"$storagetype\"}[$__rate_interval])) / clamp_min(sum(rate(disk_read_operations_completed_total{cluster=~\"$cluster\", pv=~\"$volume\", provisioner=~\"$storagetype\"}[$__rate_interval])), 1e-9)",
+                  "legendFormat": "Read",
+                  "range": true,
+                  "refId": "RL"
+                },
+                {
+                  "datasource": {
+                    "type": "prometheus",
+                    "uid": "${prom_ds}"
+                  },
+                  "editorMode": "code",
+                  "expr": "sum(rate(disk_write_operations_time_seconds_total{cluster=~\"$cluster\", pv=~\"$volume\", provisioner=~\"$storagetype\"}[$__rate_interval])) / clamp_min(sum(rate(disk_write_operations_completed_total{cluster=~\"$cluster\", pv=~\"$volume\", provisioner=~\"$storagetype\"}[$__rate_interval])), 1e-9)",
+                  "legendFormat": "Write",
+                  "range": true,
+                  "refId": "WL"
+                }
+              ],
+              "title": "Latency ($volume)",
+              "type": "timeseries"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prom_ds}"
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "percent"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 7,
+                "w": 12,
+                "x": 12,
+                "y": 19
+              },
+              "id": 25,
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "targets": [
+                {
+                  "datasource": {
+                    "type": "prometheus",
+                    "uid": "${prom_ds}"
+                  },
+                  "editorMode": "code",
+                  "expr": "100 * avg(rate(disk_io_time_seconds_total{cluster=~\"$cluster\", pv=~\"$volume\", provisioner=~\"$storagetype\"}[$__rate_interval]))",
+                  "legendFormat": "Busy %",
+                  "range": true,
+                  "refId": "U"
+                },
+                {
+                  "datasource": {
+                    "type": "prometheus",
+                    "uid": "${prom_ds}"
+                  },
+                  "editorMode": "code",
+                  "expr": "avg(disk_io_now{cluster=~\"$cluster\", pv=~\"$volume\", provisioner=~\"$storagetype\"})",
+                  "legendFormat": "Queue depth",
+                  "range": true,
+                  "refId": "QD"
+                }
+              ],
+              "title": "Utilization and Queue ($volume)",
+              "type": "timeseries"
+            }
+          ],
+          "title": "Volume $volume",
+          "type": "row"
+        },
+        {
+          "collapsed": true,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 11
+          },
+          "id": 26,
+          "panels": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prom_ds}"
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "ops"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 7,
+                "w": 12,
+                "x": 0,
+                "y": 27
+              },
+              "id": 27,
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "targets": [
+                {
+                  "datasource": {
+                    "type": "prometheus",
+                    "uid": "${prom_ds}"
+                  },
+                  "editorMode": "code",
+                  "expr": "sum(rate(disk_errors_total{cluster=~\"$cluster\", provisioner=~\"$storagetype\"}[$__rate_interval]))",
+                  "legendFormat": "Errors/s",
+                  "range": true,
+                  "refId": "A"
+                }
+              ],
+              "title": "Errors per second (cluster)",
+              "type": "timeseries"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prom_ds}"
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "ops"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 7,
+                "w": 12,
+                "x": 12,
+                "y": 27
+              },
+              "id": 28,
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "targets": [
+                {
+                  "datasource": {
+                    "type": "prometheus",
+                    "uid": "${prom_ds}"
+                  },
+                  "editorMode": "code",
+                  "expr": "sum(rate(disk_errors_total{cluster=~\"$cluster\", pv=~\"$volume\", provisioner=~\"$storagetype\"}[$__rate_interval]))",
+                  "legendFormat": "$volume",
+                  "range": true,
+                  "refId": "A"
+                }
+              ],
+              "title": "Errors per second ($volume)",
+              "type": "timeseries"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prom_ds}"
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "ops"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 8,
+                "w": 24,
+                "x": 0,
+                "y": 34
+              },
+              "id": 29,
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "right",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "targets": [
+                {
+                  "datasource": {
+                    "type": "prometheus",
+                    "uid": "${prom_ds}"
+                  },
+                  "editorMode": "code",
+                  "expr": "sum by (pv) (rate(disk_errors_total{cluster=~\"$cluster\", provisioner=~\"$storagetype\"}[$__rate_interval])) > 0",
+                  "legendFormat": "{{pv}}",
+                  "range": true,
+                  "refId": "A"
+                }
+              ],
+              "title": "Top 10 PVs by error rate",
+              "type": "timeseries"
+            }
+          ],
+          "title": "Errors",
+          "type": "row"
+        },
+        {
+          "collapsed": true,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 12
+          },
+          "id": 14,
+          "panels": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prom_ds}"
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "ops"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 7,
+                "w": 12,
+                "x": 0,
+                "y": 6
+              },
+              "id": 15,
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "targets": [
+                {
+                  "datasource": {
+                    "type": "prometheus",
+                    "uid": "${prom_ds}"
+                  },
+                  "editorMode": "code",
+                  "expr": "sum(rate(disk_reads_merged_total{cluster=~\"$cluster\", provisioner=~\"$storagetype\"}[$__rate_interval]))",
+                  "legendFormat": "Reads merged",
+                  "range": true,
+                  "refId": "RM"
+                },
+                {
+                  "datasource": {
+                    "type": "prometheus",
+                    "uid": "${prom_ds}"
+                  },
+                  "editorMode": "code",
+                  "expr": "sum(rate(disk_writes_merged_total{cluster=~\"$cluster\", provisioner=~\"$storagetype\"}[$__rate_interval]))",
+                  "legendFormat": "Writes merged",
+                  "range": true,
+                  "refId": "WM"
+                }
+              ],
+              "title": "Reads/Writes Merged per Second",
+              "type": "timeseries"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prom_ds}"
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  }
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 7,
+                "w": 12,
+                "x": 12,
+                "y": 6
+              },
+              "id": 16,
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "right",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "targets": [
+                {
+                  "datasource": {
+                    "type": "prometheus",
+                    "uid": "${prom_ds}"
+                  },
+                  "editorMode": "code",
+                  "expr": "sum(rate(disk_discard_operations_completed_total{cluster=~\"$cluster\", provisioner=~\"$storagetype\"}[$__rate_interval]))",
+                  "legendFormat": "Discard ops/s",
+                  "range": true,
+                  "refId": "DO"
+                },
+                {
+                  "datasource": {
+                    "type": "prometheus",
+                    "uid": "${prom_ds}"
+                  },
+                  "editorMode": "code",
+                  "expr": "512 * sum(rate(disk_discarded_sectors_total{cluster=~\"$cluster\", provisioner=~\"$storagetype\"}[$__rate_interval]))",
+                  "legendFormat": "Discard bytes/s",
+                  "range": true,
+                  "refId": "DB"
+                },
+                {
+                  "datasource": {
+                    "type": "prometheus",
+                    "uid": "${prom_ds}"
+                  },
+                  "editorMode": "code",
+                  "expr": "sum(rate(disk_discard_operations_time_seconds_total{cluster=~\"$cluster\", provisioner=~\"$storagetype\"}[$__rate_interval])) / clamp_min(sum(rate(disk_discard_operations_completed_total{cluster=~\"$cluster\", provisioner=~\"$storagetype\"}[$__rate_interval])), 1e-9)",
+                  "legendFormat": "Discard latency (s/op)",
+                  "range": true,
+                  "refId": "DL"
+                }
+              ],
+              "title": "Discards: Ops/s, Bytes/s, Latency",
+              "type": "timeseries"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prom_ds}"
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  }
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 7,
+                "w": 24,
+                "x": 0,
+                "y": 13
+              },
+              "id": 17,
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "right",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "targets": [
+                {
+                  "datasource": {
+                    "type": "prometheus",
+                    "uid": "${prom_ds}"
+                  },
+                  "editorMode": "code",
+                  "expr": "sum(rate(disk_flush_requests_total{cluster=~\"$cluster\", provisioner=~\"$storagetype\"}[$__rate_interval]))",
+                  "legendFormat": "Flush ops/s",
+                  "range": true,
+                  "refId": "FO"
+                },
+                {
+                  "datasource": {
+                    "type": "prometheus",
+                    "uid": "${prom_ds}"
+                  },
+                  "editorMode": "code",
+                  "expr": "sum(rate(disk_flush_requests_time_seconds_total{cluster=~\"$cluster\", provisioner=~\"$storagetype\"}[$__rate_interval])) / clamp_min(sum(rate(disk_flush_requests_total{cluster=~\"$cluster\", provisioner=~\"$storagetype\"}[$__rate_interval])), 1e-9)",
+                  "legendFormat": "Flush latency (s/op)",
+                  "range": true,
+                  "refId": "FL"
+                }
+              ],
+              "title": "Flush Requests: Ops/s and Latency",
+              "type": "timeseries"
+            }
+          ],
+          "title": "Advanced",
+          "type": "row"
+        },
+        {
+          "collapsed": true,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 13
+          },
+          "id": 35,
+          "panels": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${prom_ds}"
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "custom": {
+                    "align": "left",
+                    "cellOptions": {
+                      "type": "auto"
+                    },
+                    "filterable": true,
+                    "inspect": false
+                  },
+                  "links": [
+                    {
+                      "title": "",
+                      "url": "d/${__dashboard.uid}/azure-container-storage-dashboard?var-datasource=$datasource&var-cluster=$cluster&var-volume=${__data.fields.PV}&from=${__from}&to=${__to}"
+                    }
+                  ],
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  }
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 6,
+                "w": 24,
+                "x": 0,
+                "y": 21
+              },
+              "id": 33,
+              "options": {
+                "cellHeight": "sm",
+                "footer": {
+                  "countRows": true,
+                  "enablePagination": false,
+                  "fields": [
+                    "kube_volumeattachment_labels"
+                  ],
+                  "reducer": [
+                    "count"
+                  ],
+                  "show": false
+                },
+                "showHeader": true,
+                "sortBy": [
+                  {
+                    "desc": true,
+                    "displayName": "Pool type"
+                  }
+                ]
+              },
+              "repeatDirection": "h",
+              "targets": [
+                {
+                  "datasource": {
+                    "type": "prometheus",
+                    "uid": "${prom_ds}"
+                  },
+                  "disableTextWrap": false,
+                  "editorMode": "code",
+                  "exemplar": false,
+                  "expr": "disk_read_bytes_total{cluster=~\"$cluster\", provisioner=~\"$storagetype\"}",
+                  "format": "table",
+                  "fullMetaSearch": false,
+                  "includeNullMetadata": true,
+                  "instant": false,
+                  "legendFormat": "__auto",
+                  "range": true,
+                  "refId": "A",
+                  "useBackend": false
+                }
+              ],
+              "title": "PV - PVC - Namespace mappings",
+              "transformations": [
+                {
+                  "id": "organize",
+                  "options": {
+                    "excludeByName": {
+                      "Time": true,
+                      "Value": true,
+                      "__name__": true,
+                      "cluster": true,
+                      "device": true,
+                      "disktype": true,
+                      "instance": true,
+                      "job": true,
+                      "namespace": false,
+                      "pooltype": false,
+                      "pv": false,
+                      "pvc": false,
+                      "replicas": true,
+                      "storagepool": false
+                    },
+                    "includeByName": {},
+                    "indexByName": {
+                      "Time": 0,
+                      "Value": 13,
+                      "__name__": 1,
+                      "cluster": 2,
+                      "device": 3,
+                      "disktype": 4,
+                      "instance": 5,
+                      "job": 6,
+                      "namespace": 9,
+                      "pooltype": 11,
+                      "pv": 7,
+                      "pvc": 8,
+                      "replicas": 12,
+                      "storagepool": 10
+                    },
+                    "renameByName": {
+                      "__name__": "",
+                      "instance": "",
+                      "job": "",
+                      "namespace": "Namespace",
+                      "pooltype": "Pool type",
+                      "pv": "PV",
+                      "pvc": "PVC",
+                      "storagepool": "Storage Pool"
+                    }
+                  }
+                },
+                {
+                  "id": "groupBy",
+                  "options": {
+                    "fields": {
+                      "Name": {
+                        "operation": "groupby"
+                      },
+                      "Namespace": {
+                        "operation": "groupby"
+                      },
+                      "PV": {
+                        "operation": "groupby"
+                      },
+                      "PVC": {
+                        "operation": "groupby"
+                      },
+                      "Pool type": {
+                        "operation": "groupby"
+                      },
+                      "Pooltype": {
+                        "operation": "groupby"
+                      },
+                      "Storage Pool": {
+                        "operation": "groupby"
+                      },
+                      "Volume": {
+                        "operation": "groupby"
+                      },
+                      "device": {
+                        "aggregations": []
+                      },
+                      "name": {
+                        "operation": "groupby"
+                      },
+                      "sp name": {}
+                    }
+                  }
+                }
+              ],
+              "type": "table"
+            }
+          ],
+          "title": "PV-PVC Mappings",
+          "type": "row"
+        }
+      ],
+      "refresh": "10s",
+      "schemaVersion": 39,
+      "tags": [
+        "Azure-managed"
+      ],
+      "templating": {
+        "list": [
+          {
+            "current": {},
+            "description": "The name of the Azure Monitoring Workspace where Managed Prometheus dumps the telemetry data.",
+            "hide": 0,
+            "includeAll": false,
+            "label": "Prometheus Datasource",
+            "multi": false,
+            "name": "prom_ds",
+            "options": [],
+            "query": "prometheus",
+            "queryValue": "",
+            "refresh": 1,
+            "regex": "",
+            "skipUrlSync": false,
+            "type": "datasource"
+          },
+          {
+            "current": {},
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${prom_ds}"
+            },
+            "definition": "label_values(disk_read_bytes_total,cluster)",
+            "description": "The cluster name user needs to monitor telemetry from",
+            "hide": 0,
+            "includeAll": true,
+            "label": "cluster",
+            "multi": true,
+            "name": "cluster",
+            "options": [],
+            "query": {
+              "qryType": 1,
+              "query": "label_values(disk_read_bytes_total,cluster)",
+              "refId": "PrometheusVariableQueryEditor-VariableQuery"
+            },
+            "refresh": 1,
+            "regex": "",
+            "skipUrlSync": false,
+            "sort": 0,
+            "type": "query"
+          },
+          {
+            "current": {},
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${prom_ds}"
+            },
+            "definition": "label_values(disk_read_operations_completed_total{cluster=~\"$cluster\"},pv)",
+            "description": "The volume which the user needs to monitor specifically. The telemetry data for this volume is displayed in the row after the row named 'Trend' ",
+            "hide": 0,
+            "includeAll": true,
+            "label": "volume",
+            "multi": true,
+            "name": "volume",
+            "options": [],
+            "query": {
+              "qryType": 1,
+              "query": "label_values(disk_read_operations_completed_total{cluster=~\"$cluster\"},pv)",
+              "refId": "PrometheusVariableQueryEditor-VariableQuery"
+            },
+            "refresh": 1,
+            "regex": "",
+            "skipUrlSync": false,
+            "sort": 0,
+            "type": "query"
+          },
+          {
+            "current": {},
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${prom_ds}"
+            },
+            "definition": "label_values(disk_read_bytes_total,provisioner)",
+            "description": "The type of the storage the cluster is hosting. Either local volumes or SAN based remote volumes.",
+            "hide": 0,
+            "includeAll": true,
+            "label": "Storage Type",
+            "multi": true,
+            "name": "storagetype",
+            "options": [],
+            "query": {
+              "qryType": 1,
+              "query": "label_values(disk_read_bytes_total,provisioner)",
+              "refId": "PrometheusVariableQueryEditor-VariableQuery"
+            },
+            "refresh": 1,
+            "regex": "",
+            "skipUrlSync": false,
+            "sort": 0,
+            "type": "query"
+          }
+        ]
+      },
+      "time": {
+        "from": "now-12h",
+        "to": "now"
+      },
+      "timepicker": {},
+      "timezone": "browser",
+      "title": "Azure Container Storage v2",
+      "uid": "ContainerStorageV2",
+      "version": 20,
+      "gnetId": 24208
+    }
