@@ -5,4 +5,4 @@ namespace: monitoring
 resources:
   - ./ocirepository.yaml
   - ./helmrelease.yaml
-  - ./hdd.yaml
+#  - ./hdd.yaml
