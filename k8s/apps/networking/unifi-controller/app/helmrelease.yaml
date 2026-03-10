@@ -37,6 +37,7 @@ spec:
               PUID: "999"
               PGID: "999"
               JVM_MAX_HEAP_SIZE: "1024M"
+              DB_MONGO_LOCAL: "true"
 
             resources:
               requests:
