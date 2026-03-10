@@ -16,13 +16,12 @@ spec:
         type: statefulset
         annotations:
           reloader.stakater.com/auto: "true"
-        pod:
-          nodeSelector:
-            feature.node.kubernetes.io/cpu-cpuid.AVX: "true"
 
         replicas: 1
 
         pod:
+          nodeSelector:
+            feature.node.kubernetes.io/cpu-cpuid.AVX: "true"
           securityContext:
             runAsUser: &context 999
             runAsGroup: *context
