@@ -110,6 +110,6 @@ spec:
       qnap:
         type: nfs
         server: qnap.dom.lan
-        path: /Media
+        path: /Share
         globalMounts:
           - path: /storage/qnap
