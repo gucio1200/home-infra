@@ -110,7 +110,7 @@ spec:
       media:
         type: nfs
         server: qnap.dom.lan
-        path: /Media/Audiobooki
+        path: /Share/Audiobooki
         globalMounts:
           - path: /media
             readOnly: true

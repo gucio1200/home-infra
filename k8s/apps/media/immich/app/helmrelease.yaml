@@ -118,7 +118,7 @@ spec:
       upload:
         type: nfs
         server: qnap.dom.lan
-        path: /Media/IMMICH
+        path: /Share/IMMICH
         advancedMounts:
           server:
             app:
@@ -130,7 +130,7 @@ spec:
       photos:
         type: nfs
         server: qnap.dom.lan
-        path: /Media/Zdjecia
+        path: /Share/Zdjecia
         advancedMounts:
           server:
             app:
