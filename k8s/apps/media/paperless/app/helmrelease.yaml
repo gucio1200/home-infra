@@ -104,12 +104,12 @@ spec:
             port: 6379
 
     persistence:
-#      data:
-#        existingClaim: "{{ .Release.Name }}"
-#        advancedMounts:
-#          paperless:
-#            app:
-#              - path: /data/local
+      data:
+        existingClaim: "{{ .Release.Name }}"
+        advancedMounts:
+          paperless:
+            app:
+              - path: /data/local
       nas:
         type: nfs
         path: /skany
