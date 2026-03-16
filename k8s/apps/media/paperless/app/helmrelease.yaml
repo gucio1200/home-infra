@@ -112,8 +112,8 @@ spec:
               - path: /data/local
       nas:
         type: nfs
-        path: /volume1/apps/paperless
-        server: nfs2.dom.lan
+        path: /skany
+        server: qnap.dom.lan
         advancedMounts:
           paperless:
             app:
