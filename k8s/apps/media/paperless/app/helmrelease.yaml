@@ -34,9 +34,9 @@ spec:
               PAPERLESS_TASK_WORKERS: "2"
               # Configure folders
               PAPERLESS_CONSUMPTION_DIR: /data/nas/incoming
-              PAPERLESS_DATA_DIR: /data/local/data
+              PAPERLESS_DATA_DIR: /data/nas/data
               PAPERLESS_EXPORT_DIR: /data/nas/export
-              PAPERLESS_MEDIA_ROOT: /data/local/media
+              PAPERLESS_MEDIA_ROOT: /data/nas/media
               # Configure folder importer
               PAPERLESS_CONSUMER_POLLING: "60"
               PAPERLESS_CONSUMER_RECURSIVE: "true"
