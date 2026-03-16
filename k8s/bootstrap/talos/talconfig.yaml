@@ -385,6 +385,9 @@ controlPlane:
     # Custom sysctls
     - &sysctlPatch |-
       machine:
+        kernel:
+          modules:
+            - name: nbd
         sysctls:
           fs.inotify.max_queued_events: "65536"
           fs.inotify.max_user_instances: "8192"
