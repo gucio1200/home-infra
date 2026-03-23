@@ -27,6 +27,7 @@ spec:
       APP: *appname
       VOLSYNC_CLAIM: qbittorrent-config
       VOLSYNC_CAPACITY: 2Gi
+      VOLSYNC_ACCESSMODES: ReadWriteMany
       VOLSYNC_SNAP_ACCESSMODES: ReadWriteMany
       VOLSYNC_STORAGECLASS: ceph-filesystem
       VOLSYNC_SNAPSHOTCLASS: ceph-filesystem
