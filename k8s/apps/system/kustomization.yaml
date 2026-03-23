@@ -7,3 +7,4 @@ resources:
   # Flux-Kustomizations
   - ./volsync/ks.yaml
   - ./keda/ks.yaml
+  - ./kopia/ks.yaml
