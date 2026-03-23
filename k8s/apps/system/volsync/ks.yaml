@@ -4,10 +4,10 @@ kind: Kustomization
 metadata:
   name: cluster-apps-volsync-app
   namespace: flux-system
+spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: volsync
-spec:
   dependsOn:
     - name: cluster-apps-snapshot-controller
   path: ./k8s/apps/system/volsync/app
