@@ -86,6 +86,8 @@ spec:
         repo1-storage-verify-tls: "n"
         repo1-retention-full-type: "time"
         repo1-s3-uri-style: path
+        archive-timeout: "600"
+        archive-push-process-max: "4"
       manual:
         repoName: repo1
         options:
