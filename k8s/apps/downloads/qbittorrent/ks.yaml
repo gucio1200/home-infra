@@ -7,6 +7,9 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: downloads
+  components:
+    - ../../../../components/volsync
+    - ../../../../components/keda/nas-nfs-scaler
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
@@ -24,10 +27,5 @@ spec:
     - name: onepassword-connect
   postBuild:
     substitute:
-      APP: *appname
-      VOLSYNC_CLAIM: qbittorrent-config
+      APP: qbittorrent
       VOLSYNC_CAPACITY: 2Gi
-      VOLSYNC_ACCESSMODES: ReadWriteMany
-      VOLSYNC_SNAP_ACCESSMODES: ReadWriteMany
-      VOLSYNC_STORAGECLASS: ceph-filesystem
-      VOLSYNC_SNAPSHOTCLASS: ceph-filesystem
