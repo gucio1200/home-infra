@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: blackbox-exporter
   interval: 1h
-  path: "./k8a/apps/monitoring/blackbox-exporter/app"
+  path: "./k8s/apps/monitoring/blackbox-exporter/app"
   prune: true
   sourceRef:
     kind: GitRepository
