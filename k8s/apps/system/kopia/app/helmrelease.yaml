@@ -30,11 +30,11 @@ spec:
       kopia:
         pod:
           securityContext:
-            fsGroup: 100
+            fsGroup: 65534
             fsGroupChangePolicy: "OnRootMismatch"
-            runAsGroup: 100
+            runAsGroup: 65534
             runAsNonRoot: true
-            runAsUser: 100
+            runAsUser: 65534
         containers:
           app:
             image:
