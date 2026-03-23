@@ -1,0 +1,21 @@
+apiVersion: storage.kubestash.com/v1alpha1
+kind: BackupStorage
+metadata:
+  name: backup-nfs
+spec:
+  storage:
+    provider: local
+    local:
+      mountPath: /backups
+      nfs:
+        server: "qnap.dom.lan"
+        path: "/backups"
+  usagePolicy:
+    allowedNamespaces:
+      from: All
+  default: true
+  deletionPolicy: WipeOut
+  runtimeSettings:
+    pod:
+      securityContext:
+        fsGroup: 100

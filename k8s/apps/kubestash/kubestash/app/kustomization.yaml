@@ -5,3 +5,4 @@ namespace: media
 resources:
   - ./ocirepository.yaml
   - ./helmrelease.yaml
+  - ./backup.yaml
