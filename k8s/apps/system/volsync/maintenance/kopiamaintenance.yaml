@@ -1,0 +1,19 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.bjw-s.dev/volsync.backube/kopiamaintenance_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: KopiaMaintenance
+metadata:
+  name: kopia-daily-maintenance
+  namespace: volsync
+spec:
+  enabled: true
+  moverVolumes:
+    - mountPath: repository
+      volumeSource:
+        nfs:
+          path: /backups
+          server: qnap.dom.lan
+  repository:
+    repository: volsync-secret
+  trigger:
+    schedule: "30 3,15 * * *"
