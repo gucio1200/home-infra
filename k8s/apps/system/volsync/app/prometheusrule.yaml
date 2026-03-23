@@ -1,9 +1,9 @@
 ---
+# yaml-language-server: $schema=https://k8s-schemas.bjw-s.dev/monitoring.coreos.com/prometheusrule_v1.json
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   name: volsync
-  namespace: system
 spec:
   groups:
     - name: volsync.rules
@@ -12,7 +12,7 @@ spec:
           annotations:
             summary: VolSync component has disappeared from Prometheus target discovery.
           expr: |
-            absent(up{job=~".*volsync.*"} == 1)
+            absent(up{job="volsync-metrics"})
           for: 15m
           labels:
             severity: critical
