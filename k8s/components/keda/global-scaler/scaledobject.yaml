@@ -18,11 +18,6 @@ spec:
     - type: prometheus
       metadata:
         serverAddress: http://prometheus-operated.monitoring.svc.cluster.local:9090
-        query: |
-          min(
-            max_over_time(probe_success{instance="qnap.dom.lan:2049"}[1m]) *
-            max_over_time(probe_success{instance="nfs.dom.lan:2049"}[1m]) *
-            max_over_time(probe_success{instance="nfs2.dom.lan:2049"}[1m])
-          )
+        query: min(max_over_time(probe_success{instance=~"qnap.dom.lan:2049|nfs.dom.lan:2049|nfs2.dom.lan:2049"}[1m]))
         threshold: "1"
         ignoreNullValues: "0"
