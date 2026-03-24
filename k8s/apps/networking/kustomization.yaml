@@ -8,7 +8,7 @@ resources:
   # Flux-Kustomizations
   - ./external-dns/ks.yaml
   - ./multus/ks.yaml
-#  - ./unifi-controller/ks.yaml
+  - ./unifi-controller/ks.yaml
   - ./openspeedtest/ks.yaml
   - ./envoy-gateway/ks.yaml
   - ./cloudflare-tunnel/ks.yaml
