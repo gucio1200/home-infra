@@ -35,7 +35,7 @@ spec:
                 "ips": ["192.168.2.250/16"]
               }]
           securityContext:
-            runAsUser: 1000
+            runAsUser: 0
             runAsGroup: 1000
             runAsNonRoot: false
             fsGroup: 1000
@@ -69,12 +69,6 @@ spec:
               - "pa"
             env:
               PULSE_SERVER: "unix:/tmp/pulseaudio.socket"
-            securityContext:
-              runAsUser: 0
-              runAsGroup: 1000
-              runAsNonRoot: false
-              fsGroup: 1000
-              fsGroupChangePolicy: OnRootMismatch
             probes:
               liveness:
                 enabled: false
