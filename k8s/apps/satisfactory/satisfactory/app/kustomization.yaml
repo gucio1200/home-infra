@@ -5,4 +5,3 @@ kind: Kustomization
 namespace: satisfactory
 resources:
   - ./helmrelease.yaml
-  - ../../../../templates/volsync
