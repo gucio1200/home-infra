@@ -5,10 +5,9 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
-  - ./plex/ks.yaml
-  - ./immich/ks.yaml
+#  - ./plex/ks.yaml
+#  - ./immich/ks.yaml
   - ./audiobookshelf/ks.yaml
-  - ./tautulli/ks.yaml
-  - ./jellyseerr/ks.yaml
-  - ./paperless/ks.yaml
-#  - ./wallabag/ks.yaml
+#  - ./tautulli/ks.yaml
+#  - ./jellyseerr/ks.yaml
+#  - ./paperless/ks.yaml

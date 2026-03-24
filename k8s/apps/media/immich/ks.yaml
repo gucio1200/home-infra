@@ -6,6 +6,8 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: media
+  components:
+    - ../../../../components/keda/nas-nfs-scaler
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -20,3 +22,6 @@ spec:
   timeout: 5m
   dependsOn:
     - name: cluster-apps-rook-ceph-cluster
+  postBuild:
+    substitute:
+      APP: immich
