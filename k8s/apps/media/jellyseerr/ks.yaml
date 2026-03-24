@@ -8,7 +8,6 @@ spec:
   targetNamespace: media
   components:
     - ../../../../components/volsync
-    - ../../../../components/keda/nas-nfs-scaler
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname

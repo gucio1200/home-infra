@@ -9,7 +9,7 @@ spec:
   targetNamespace: downloads
   components:
     - ../../../../components/volsync
-    - ../../../../components/keda/nas-nfs-scaler
+    - ../../../../components/keda/nfs-scaler
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname

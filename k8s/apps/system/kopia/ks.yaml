@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: kopia
   components:
-    - ../../../../components/keda/nas-nfs-scaler
+    - ../../../../components/keda/qnap-scaler
   dependsOn:
     - name: cluster-apps-volsync-app
       namespace: flux-system

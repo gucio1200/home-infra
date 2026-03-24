@@ -8,6 +8,7 @@ spec:
   targetNamespace: home-automation
   components:
     - ../../../../components/volsync
+    - ../../../../components/keda/nfs2-scaler
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
