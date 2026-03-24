@@ -6,6 +6,8 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: networking
+  components:
+    - ../../../../components/volsync
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
