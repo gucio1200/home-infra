@@ -118,7 +118,7 @@ spec:
           gethomepage.dev/group: Kubernetes
           gethomepage.dev/icon: sh-kopia.png
           gethomepage.dev/name: Kopia
-          gethomepage.dev/app: Kopia
+          gethomepage.dev/app: kopia
         hostnames:
           - kopia.k8sj.io
         parentRefs:
