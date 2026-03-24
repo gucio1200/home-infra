@@ -6,7 +6,6 @@ resources:
   - ./ocirepository.yaml
   - ./helmrelease.yaml
   - ./externalsecrets.yaml
-  - ../../../../templates/volsync
 configMapGenerator:
   - name: frigate-config
     files:
