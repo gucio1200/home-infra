@@ -21,3 +21,9 @@ spec:
         query: max_over_time(probe_success{instance=~"qnap.dom.lan:2049"}[1m])
         threshold: "1"
         ignoreNullValues: "0"
+    - type: prometheus
+      metadata:
+        serverAddress: http://prometheus-operated.monitoring.svc.cluster.local:9090
+        query: max_over_time(probe_success{instance=~"nfs.dom.lan:2049"}[1m])
+        threshold: "1"
+        ignoreNullValues: "0"
