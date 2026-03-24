@@ -6,8 +6,6 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: media
-  components:
-    - ../../../../components/keda/nas-nfs-scaler
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
