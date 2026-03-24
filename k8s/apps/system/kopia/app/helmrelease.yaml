@@ -112,6 +112,13 @@ spec:
                 subPath: tmp
     route:
       app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Kopia
+          gethomepage.dev/group: Kubernetes
+          gethomepage.dev/icon: sh-kopia.png
+          gethomepage.dev/name: Kopia
+          gethomepage.dev/app: Kopia
         hostnames:
           - kopia.k8sj.io
         parentRefs:
