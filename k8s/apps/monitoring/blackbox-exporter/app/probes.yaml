@@ -3,7 +3,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: Probe
 metadata:
-  name: nfs
+  name: qnap
 spec:
   module: tcp_connect
   prober:
@@ -18,7 +18,7 @@ spec:
 apiVersion: monitoring.coreos.com/v1
 kind: Probe
 metadata:
-  name: synology
+  name: nfs
 spec:
   module: tcp_connect
   prober:
@@ -27,3 +27,18 @@ spec:
     staticConfig:
       static:
         - nfs.dom.lan:2049
+
+---
+# yaml-language-server: $schema=https://k8s-schemas.bjw-s.dev/monitoring.coreos.com/probe_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: Probe
+metadata:
+  name: nfs2
+spec:
+  module: tcp_connect
+  prober:
+    url: blackbox-exporter.monitoring.svc.cluster.local:9115
+  targets:
+    staticConfig:
+      static:
+        - nfs2.dom.lan:2049
