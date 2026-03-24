@@ -5,13 +5,13 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
-#  - ./esphome/ks.yaml
+  - ./esphome/ks.yaml
   - ./home-assistant/ks.yaml
-#  - ./mosquitto/ks.yaml
-#  - ./node-red/ks.yaml
-#  - ./music-assistant/ks.yaml
-#  - ./go2rtc/ks.yaml
-#  - ./frigate/ks.yaml
-#  - ./ledfx/ks.yaml
-#  - ./zigbee/ks.yaml
-#  - ./matter/ks.yaml
+  - ./mosquitto/ks.yaml
+  - ./node-red/ks.yaml
+  - ./music-assistant/ks.yaml
+  - ./go2rtc/ks.yaml
+  - ./frigate/ks.yaml
+  - ./ledfx/ks.yaml
+  - ./zigbee/ks.yaml
+  - ./matter/ks.yaml
