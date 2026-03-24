@@ -5,4 +5,3 @@ namespace: media
 resources:
   - ./ocirepository.yaml
   - ./helmrelease.yaml
-  - ../../../../templates/volsync
