@@ -20,7 +20,7 @@ spec:
   values:
     controllers:
       go2rtc:
-        replicas: 2
+        replicas: 1
         annotations:
           reloader.stakater.com/auto: "true"
           descheduler.alpha.kubernetes.io/evict: "false"
