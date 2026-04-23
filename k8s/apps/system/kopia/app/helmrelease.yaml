@@ -46,8 +46,9 @@ spec:
             envFrom:
               - secretRef:
                   name: kopia-secret
-            args:
-              - --without-password
+            command: ["sleep", "infinity"]
+#            args:
+#              - --without-password
             probes:
               liveness:
                 enabled: false
