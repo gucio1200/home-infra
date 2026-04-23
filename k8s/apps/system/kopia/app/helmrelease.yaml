@@ -43,6 +43,7 @@ spec:
             env:
               KOPIA_WEB_ENABLED: true
               KOPIA_WEB_PORT: &port 8080
+              KOPIA_IGNORE_MALFORMED_MANIFEST_CONTENTS: 1
             envFrom:
               - secretRef:
                   name: kopia-secret
