@@ -50,13 +50,13 @@ spec:
               - --without-password
             probes:
               liveness:
-                enabled: true
+                enabled: false
                 spec:
                   periodSeconds: 30
                   timeoutSeconds: 5
                   failureThreshold: 5
               readiness:
-                enabled: true
+                enabled: false
                 custom: true
                 spec:
                   httpGet:
@@ -66,7 +66,7 @@ spec:
                   timeoutSeconds: 5
                   failureThreshold: 5
               startup:
-                enabled: true
+                enabled: false
                 spec:
                   failureThreshold: 30
                   periodSeconds: 10
