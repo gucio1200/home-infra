@@ -46,18 +46,18 @@ spec:
             envFrom:
               - secretRef:
                   name: kopia-secret
-            command: ["sleep", "infinity"]
-#            args:
-#              - --without-password
+#            command: ["sleep", "infinity"]
+            args:
+              - --without-password
             probes:
               liveness:
-                enabled: false
+                enabled: true
                 spec:
                   periodSeconds: 30
                   timeoutSeconds: 5
                   failureThreshold: 5
               readiness:
-                enabled: false
+                enabled: true
                 custom: true
                 spec:
                   httpGet:
@@ -67,7 +67,7 @@ spec:
                   timeoutSeconds: 5
                   failureThreshold: 5
               startup:
-                enabled: false
+                enabled: true
                 spec:
                   failureThreshold: 30
                   periodSeconds: 10
