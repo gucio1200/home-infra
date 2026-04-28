@@ -46,7 +46,9 @@ objects:
     - dog
     - cat
     - bicycle
+    - motorcycle
     - car
+    - plate
 cameras:
 #  camera_1:
 #    detect:
