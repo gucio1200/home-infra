@@ -59,6 +59,17 @@ model_list:
       api_key: os.environ/OPENCODE_GO_API_KEY
       drop_params: true
 
+  - model_name: gemini-3.1-pro
+    model_info:
+      max_input_tokens: 1048576
+      max_output_tokens: 65536
+      supports_function_calling: true
+      supports_prompt_caching: true
+    litellm_params:
+      model: gemini/gemini-3.1-pro
+      api_key: os.environ/GEMINI_API_KEY
+      drop_params: true
+
 general_settings:
   health_check_endpoint: /v1/health
 
@@ -85,3 +96,4 @@ environment:
   - OPENCODE_GO_API_KEY
   - REDIS_HOST
   - REDIS_PORT
+  - GEMINI_API_KEY
