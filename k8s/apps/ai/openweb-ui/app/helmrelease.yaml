@@ -61,7 +61,7 @@ spec:
 
     route:
       app:
-        hostnames: ["{{ .Release.Name }}.k8sj.io"]
+        hostnames: ["chat.k8sj.io"]
         parentRefs:
           - name: envoy-internal
             namespace: networking
