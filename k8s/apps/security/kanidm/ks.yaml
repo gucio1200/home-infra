@@ -13,7 +13,6 @@ spec:
     - ../../../../components/volsync
   dependsOn:
     - name: cluster-apps-volsync-app
-      namespace: flux-system
   interval: 1h
   path: ./k8s/apps/security/kanidm/app
   postBuild:
@@ -23,6 +22,5 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-    namespace: flux-system
   targetNamespace: security
   timeout: 5m
