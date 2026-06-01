@@ -21,4 +21,4 @@ resources:
   - selfhosted
   - downloads
   - security
-#  - ai
+  - ai
