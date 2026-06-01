@@ -20,5 +20,5 @@ resources:
   - satisfactory
   - selfhosted
   - downloads
-  - security
+#  - security
 #  - ai
