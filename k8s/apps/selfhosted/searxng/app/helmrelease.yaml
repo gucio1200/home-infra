@@ -145,9 +145,9 @@ spec:
               SEARXNG_BASE_URL: https://search.k8sj.io
               SEARXNG_PORT: &httpPort 8080
               SEARXNG_VALKEY_URL: "redis://searxng-dragonfly:6379"
-#            envFrom:
-#              - secretRef:
-#                  name: searxng-secret
+            envFrom:
+              - secretRef:
+                  name: searxng-secret
             probes:
               liveness:
                 enabled: true
