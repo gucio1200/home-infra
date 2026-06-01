@@ -15,3 +15,5 @@ spec:
         name: crunchy-userinit
   values:
     fullnameOverride: crunchy-userinit-controller
+    log:
+      debug: true
