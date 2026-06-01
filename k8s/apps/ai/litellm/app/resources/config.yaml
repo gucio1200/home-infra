@@ -23,14 +23,14 @@ model_list:
       api_key: os.environ/OPENCODE_GO_API_KEY
       drop_params: true
 
-  - model_name: qwen-3.7-max
+  - model_name: qwen3.7-max
     model_info:
       max_input_tokens: 204800
       max_output_tokens: 131072
       supports_function_calling: true
       supports_prompt_caching: true
     litellm_params:
-      model: dashscope/qwen3.7-max
+      model: openai/qwen3.7-max
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_GO_API_KEY
       drop_params: true
