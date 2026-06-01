@@ -16,5 +16,5 @@ spec:
     grafanaDashboard:
       enabled: true
       grafanaOperator:
-        enabled: true
+        enabled: flase
       folder: Dragonfly
