@@ -6,3 +6,4 @@ resources:
   - ./namespace.yaml
   # Flux-Kustomizations
   - ./n8n/ks.yaml
+  - ./searxng/ks.yaml
