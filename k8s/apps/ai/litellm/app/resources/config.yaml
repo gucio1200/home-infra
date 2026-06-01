@@ -23,6 +23,30 @@ model_list:
       api_key: os.environ/OPENCODE_GO_API_KEY
       drop_params: true
 
+  - model_name: qwen-3.7-max
+    model_info:
+      max_input_tokens: 204800
+      max_output_tokens: 131072
+      supports_function_calling: true
+      supports_prompt_caching: true
+    litellm_params:
+      model: dashscope/qwen-3.7-max
+      api_base: https://opencode.ai/zen/go/v1
+      api_key: os.environ/OPENCODE_GO_API_KEY
+      drop_params: true
+
+  - model_name: deepseek-v4-pro
+    model_info:
+      max_input_tokens: 204800
+      max_output_tokens: 65536
+      supports_function_calling: true
+      supports_prompt_caching: true
+    litellm_params:
+      model: deepseek/deepseek-v4-pro
+      api_base: https://opencode.ai/zen/go/v1
+      api_key: os.environ/OPENCODE_GO_API_KEY
+      drop_params: true
+
   - model_name: qwen3.6-plus
     model_info:
       max_input_tokens: 991808
