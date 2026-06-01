@@ -23,7 +23,7 @@ spec:
               TZ: ${TIMEZONE}
               LITELLM_LOG: INFO
               LITELLM_MODE: PRODUCTION
-              REDIS_HOST: litellm-redis
+              REDIS_HOST: litellm-dragonfly
               REDIS_PORT: 6379
             envFrom:
               - secretRef:
