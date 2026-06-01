@@ -140,11 +140,13 @@ spec:
           main:
             image:
               repository: ghcr.io/searxng/searxng
-              tag: 2025.11.18-576c8ca99@sha256:91da34403fc1d2c7ac23d1459af87870d87810b7d50b0c6a4585ab78846cb534
+              tag: 2026.5.31-300695de5@sha256:75e85884da87a717655d6313421c8fb42aede84219b06873311179ae830ab396
             env:
               SEARXNG_BASE_URL: https://search.k8sj.io
               SEARXNG_PORT: &httpPort 8080
               SEARXNG_VALKEY_URL: "valkey://searxng-dragonfly:6379/0"
+              UWSGI_WORKERS: 1
+              UWSGI_THREADS: 4
             envFrom:
               - secretRef:
                   name: searxng-secret
