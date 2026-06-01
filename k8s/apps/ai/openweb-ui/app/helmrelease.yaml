@@ -21,12 +21,21 @@ spec:
               tag: v0.9.5
             env:
               # Open-webui settings
-              ENABLE_OPENAI_API: "False"
-              ENABLE_OLLAMA_API: "True"
+              WEBUI_URL: https://chat.k8sj.io
+              CORS_ALLOW_ORIGIN: https://chat.k8sj.io
+              OPENAI_API_BASE_URL: http://litellm:4000/v1
+              ENABLE_OPENAI_API: "True"
+              ENABLE_OLLAMA_API: "False"
               OLLAMA_BASE_URL: http://ollama:11434
-              ENABLE_RAG_WEB_SEARCH: false
-              ENABLE_SEARCH_QUERY: false
+              ENABLE_WEB_SEARCH: true
+              ENABLE_SEARCH_QUERY_GENERATION: true
+              WEBUI_SESSION_COOKIE_SAME_SITE: lax
+              WEBUI_SESSION_COOKIE_SECURE: true
+              # Searx
+              WEB_SEARCH_ENGINE: searxng
+              SEARXNG_QUERY_URL: http://searxng.selfhosted.svc.cluster.local:8080/search?q=<query>
               ENABLE_WEBSOCKET_SUPPORT: "true"
+              WEBSOCKET_MANAGER: redis
               # Auth
               DEFAULT_USER_ROLE: "admin"
               WEBUI_AUTH: false
@@ -34,6 +43,9 @@ spec:
               ENABLE_IMAGE_GENERATION: false
               IMAGE_SIZE: 400x400
               IMAGE_STEPS: 8
+            envFrom: &envFrom
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
             resources:
               requests:
                 cpu: 500m
@@ -53,3 +65,15 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: networking
+    persistence:
+      data:
+        existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - path: /app/backend/data
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          open-webui:
+            app:
+              - path: /tmp
+                subPath: tmp

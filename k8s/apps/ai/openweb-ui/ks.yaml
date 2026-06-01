@@ -3,17 +3,25 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: openweb-ui
+  name: &app openweb-ui
   namespace: flux-system
 spec:
   commonMetadata:
     labels:
-      app.kubernetes.io/name: openweb-ui
+      app.kubernetes.io/name: *app
   dependsOn:
     - name: cluster-apps-rook-ceph-cluster
+    - name: dragonfly-operator
   interval: 1h
   path: "./k8s/apps/ai/openweb-ui/app"
   prune: true
+  components:
+    - ../../../../components/volsync
+    - ../../../../components/dragonfly
+  postBuild:
+    substitute:
+      APP: *app
+      VOLSYNC_CAPACITY: 5Gi
   sourceRef:
     kind: GitRepository
     name: flux-system

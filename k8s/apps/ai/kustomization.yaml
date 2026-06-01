@@ -5,4 +5,4 @@ resources:
   - ./namespace.yaml
   - ./litellm/ks.yaml
 #  - ./ollama/ks.yaml
-#  - ./openweb-ui/ks.yaml
+  - ./openweb-ui/ks.yaml
