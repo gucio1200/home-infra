@@ -9,3 +9,4 @@ resources:
   - ./crunchy-postgres-operator/ks.yaml
 #  - ./emqx/ks.yaml
   - ./mosquitto/ks.yaml
+  - ./dragonfly-operator/ks.yaml
