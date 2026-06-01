@@ -32,7 +32,6 @@ sonarr:
         assign_scores_to:
           - name: WEB-1080p
           - name: WEB-2160p (Combined)
-
 radarr:
   radarr_main:
     base_url: http://radarr.downloads.svc.cluster.local:7878
