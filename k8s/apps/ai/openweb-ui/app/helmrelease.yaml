@@ -46,6 +46,8 @@ spec:
             envFrom: &envFrom
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
+              - secretRef:
+                  name: openweb-ui-db-secret
             resources:
               requests:
                 cpu: 500m
