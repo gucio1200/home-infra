@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/berriai/litellm-non_root
-              tag: v1.86.2@sha256:511b513bc68956793433d62c1812daff56984325543f6a15431c622823fd90cb
+              tag: v1.86.3@sha256:22fcb21ce1c43349caf3cf46c1d30455cd659931801f7839a16d26b8ef1a7757
             args: ["--config=/app/config.yaml"]
             env:
               TZ: ${TIMEZONE}
