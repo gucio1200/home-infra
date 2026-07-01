@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/open-webui/open-webui
-              tag: v0.10.1
+              tag: v0.10.2
             env:
               # Open-webui settings
               WEBUI_URL: https://chat.k8sj.io
