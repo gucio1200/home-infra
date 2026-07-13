@@ -113,3 +113,9 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /tmp
+      media:
+        type: nfs
+        server: qnap.dom.lan
+        path: /Share/Muzyka
+        globalMounts:
+          - path: /media
