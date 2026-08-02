@@ -98,8 +98,8 @@ spec:
               POSTGRES_DB: immich
               PGDATA: /var/lib/postgresql/data/pgdata
             image:
-              repository: registry.hub.docker.com/tensorchord/pgvecto-rs
-              tag: pg14-v0.2.0@sha256:739cdd626151ff1f796dc95a6591b55a714f341c737e27f045019ceabf8e8c52
+              repository: ghcr.io/immich-app/postgres
+              tag: 14-vectorchord0.4.3-pgvectors0.2.0
             resources:
               requests:
                 cpu: 10m
