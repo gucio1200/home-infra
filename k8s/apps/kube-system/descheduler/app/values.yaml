@@ -28,7 +28,7 @@ deschedulerPolicy:
               pods: 50
         - name: PodLifeTime
           args:
-            maxPodLifeTimeSeconds: 1800
+            maxPodLifeTimeSeconds: 900
             states:
               - Succeeded
         - name: RemoveFailedPods
