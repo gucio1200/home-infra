@@ -26,6 +26,11 @@ deschedulerPolicy:
               cpu: 50
               memory: 50
               pods: 50
+        - name: PodLifeTime
+          args:
+            maxPodLifeTimeSeconds: 1800
+            states:
+              - Succeeded
         - name: RemoveFailedPods
           args:
             reasons:
@@ -52,6 +57,7 @@ deschedulerPolicy:
             - RemovePodsViolatingTopologySpreadConstraint
         deschedule:
           enabled:
+            - PodLifeTime
             - RemoveFailedPods
             - RemovePodsViolatingInterPodAntiAffinity
             - RemovePodsViolatingNodeAffinity
