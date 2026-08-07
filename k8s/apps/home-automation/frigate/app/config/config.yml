@@ -23,23 +23,23 @@ birdseye:
 record:
   enabled: true
   continuous:
-    days: 3
-  motion:
     days: 7
+  motion:
+    days: 14
   alerts:
     retain:
-      days: 7
+      days: 14
       mode: active_objects
   detections:
     retain:
-      days: 14
+      days: 30
       mode: active_objects
 snapshots:
   enabled: true
   retain:
-    default: 14
+    default: 30
     objects:
-      person: 14
+      person: 30
 objects:
   track:
     - person
