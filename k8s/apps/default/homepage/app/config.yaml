@@ -16,7 +16,7 @@ data:
     title: Home
     favicon: https://github.com/walkxcode/dashboard-icons/blob/main/png/heimdall.png
     theme: dark
-    color: slate
+    color: zinc
     headerStyle: clean
     statusStyle: dot
     useEqualHeights: false
