@@ -46,6 +46,10 @@ spec:
             image:
               repository: ghcr.io/music-assistant/server
               tag: 2.10.0rc3
+            securityContext:
+              capabilities:
+                add:
+                  - NET_BIND_SERVICE
 #            command:
 #              - "/bin/sh"
 #              - "-c"
