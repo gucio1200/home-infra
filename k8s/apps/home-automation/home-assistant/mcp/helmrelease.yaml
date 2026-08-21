@@ -82,7 +82,7 @@ spec:
           - hass-mcp.k8sj.io
         parentRefs:
           - name: envoy-internal
-            namespace: network
+            namespace: networking
         rules:
           - backendRefs:
               - identifier: app
