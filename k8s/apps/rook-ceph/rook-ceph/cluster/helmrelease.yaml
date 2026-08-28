@@ -99,13 +99,24 @@ spec:
         ssl: false
         prometheusEndpoint: http://prometheus-operated.monitoring.svc.cluster.local:9090
 
+      healthCheck:
+        muteHealthWarning:
+          AUTH_INSECURE_ROTATING_SERVICE_KEY_TYPE:
+            policy: mute
+          AUTH_INSECURE_CLIENT_KEY_TYPE:
+            policy: mute
+          AUTH_INSECURE_KEYS_ALLOWED:
+            policy: mute
+          AUTH_INSECURE_KEYS_CREATABLE:
+            policy: mute
+
       storage:
         useAllNodes: true
         useAllDevices: false
         config:
           osdsPerDevice: "1"
         deviceFilter: "nvme0n1"
-        
+
 #      removeOSDsIfOutAndSafeToRemove: true
 
       resources:
