@@ -55,6 +55,10 @@ spec:
 
     cephClusterSpec:
       skipUpgradeChecks: true
+      security:
+        cephx:
+          csi:
+            keyType: aes
       healthCheck:
         muteHealthWarning:
           AUTH_INSECURE_ROTATING_SERVICE_KEY_TYPE:
