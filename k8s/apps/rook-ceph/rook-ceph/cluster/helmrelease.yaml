@@ -54,7 +54,7 @@ spec:
             namespace: networking
 
     cephClusterSpec:
-      skipUpgradeChecks: true
+      skipUpgradeChecks: false
       security:
         cephx:
           csi:
