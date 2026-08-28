@@ -55,7 +55,7 @@ spec:
 
     cephClusterSpec:
       cephVersion:
-        image: quay.io/ceph/ceph:v19.2.6 # pinned: chart default is v19.2.4, cluster already runs 19.2.6 (mon store has aes256k feature, cannot downgrade)
+        image: quay.io/ceph/ceph:v21.1.0 # pinned: chart default is v19.2.4, cluster already runs 19.2.6 (mon store has aes256k feature, cannot downgrade)
       skipUpgradeChecks: true
       security:
         cephx:
