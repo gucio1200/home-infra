@@ -57,6 +57,9 @@ spec:
       skipUpgradeChecks: false
       security:
         cephx:
+          daemon:
+            keyRotationPolicy: KeyGeneration
+            keyGeneration: 2
           csi:
             keyType: aes
       healthCheck:
