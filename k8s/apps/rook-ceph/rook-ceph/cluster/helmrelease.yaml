@@ -54,6 +54,7 @@ spec:
             namespace: networking
 
     cephClusterSpec:
+      skipUpgradeChecks: true
       healthCheck:
         muteHealthWarning:
           AUTH_INSECURE_ROTATING_SERVICE_KEY_TYPE:
