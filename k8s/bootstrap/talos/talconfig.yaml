@@ -4,8 +4,8 @@ clusterPodNets:
   - 10.244.0.0/16
 clusterSvcNets:
   - 10.96.0.0/12
-talosVersion: v1.11.6
-kubernetesVersion: v1.34.2
+talosVersion: v1.12.11
+kubernetesVersion: v1.35.8
 endpoint: "https://k8s.dom.lan:6443"
 
 cniConfig:
@@ -211,6 +211,8 @@ nodes:
 #            mtu: 1500
 
 controlPlane:
+  # Rendered into ResolverConfig (searchDomains.disableDefault) on Talos >= 1.12
+  disableSearchDomain: true
   nodeLabels:
     topology.kubernetes.io/region: *clusterName
     topology.kubernetes.io/zone: m
@@ -287,9 +289,14 @@ controlPlane:
               - system-upgrade
 
     # Disable default API server admission plugins.
+    # JSON6902 patches are not supported with the multi-document config
+    # talhelper generates for Talos >= 1.12, so use a strategic merge delete.
+    # `$$` escapes talhelper env substitution and renders as `$patch: delete`.
     - |-
-      - op: remove
-        path: /cluster/apiServer/admissionControl
+      cluster:
+        apiServer:
+          admissionControl:
+            $$patch: delete
 
     # Discovery configuration
     - &discoveryPatch |-
@@ -301,12 +308,6 @@ controlPlane:
               disabled: true
             service:
               disabled: false
-
-    # Disable search domain everywhere
-    - &aliasPatch |-
-      machine:
-        network:
-          disableSearchDomain: true
 
     # Disable Host DNS
     - &dnsPatch |-
@@ -396,6 +397,7 @@ controlPlane:
           net.core.wmem_max: "2500000"
 
 worker:
+  disableSearchDomain: true
   nodeLabels:
     topology.kubernetes.io/region: *clusterName
     topology.kubernetes.io/zone: w
@@ -404,7 +406,6 @@ worker:
 
   patches:
     - *discoveryPatch
-    - *aliasPatch
     - *dnsPatch
     - *prismPatch
     - *criPatch
