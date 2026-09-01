@@ -19,14 +19,14 @@ spec:
           app:
             image:
               repository: ghcr.io/paperless-ngx/paperless-ngx
-              tag: 2.20.15
+              tag: 3.1.2
             env:
               # Configure application
-#              PAPERLESS_SECRET_KEY:
-#                valueFrom:
-#                  secretKeyRef:
-#                    name: paperless-secret
-#                    key: PAPERLESS_SECRET_KEY
+              PAPERLESS_SECRET_KEY: # required since v3
+                valueFrom:
+                  secretKeyRef:
+                    name: paperless-secret
+                    key: PAPERLESS_SECRET_KEY
               PAPERLESS_AUTO_LOGIN_USERNAME: "gucio"
               PAPERLESS_URL: https://paperless.k8sj.io
               PAPERLESS_PORT: "8000"
@@ -39,13 +39,15 @@ spec:
               PAPERLESS_EXPORT_DIR: /data/nas/export
               PAPERLESS_MEDIA_ROOT: /data/nas/media
               # Configure folder importer
-              PAPERLESS_CONSUMER_POLLING: "120"
-              PAPERLESS_CONSUMER_POLLING_DELAY: "60"
+              PAPERLESS_CONSUMER_POLLING_INTERVAL: "120" # NFS share, inotify does not work
+              PAPERLESS_CONSUMER_STABILITY_DELAY: "60"
+              PAPERLESS_CONSUMER_DELETE_DUPLICATES: "true" # v3 accepts duplicates by default
               PAPERLESS_CONSUMER_RECURSIVE: "true"
               PAPERLESS_CONSUMER_SUBDIRS_AS_TAGS: "true"
               # Configure OCR
               PAPERLESS_OCR_LANGUAGES: nld
               PAPERLESS_OCR_LANGUAGE: nld
+              PAPERLESS_ARCHIVE_FILE_GENERATION: always # v3 default 'auto' skips archives for born-digital PDFs
               # Configure redis integration
               PAPERLESS_REDIS: redis://paperless-redis.media.svc.cluster.local:6379
               # Configure user permissions
