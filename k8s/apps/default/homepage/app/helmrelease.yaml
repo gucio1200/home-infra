@@ -9,6 +9,10 @@ spec:
     kind: OCIRepository
     name: homepage
   values:
+    defaultPodOptions:
+      # homepage needs the ServiceAccount token for its Kubernetes widgets;
+      # app-template 5.x stopped mounting it by default
+      automountServiceAccountToken: true
     controllers:
       main:
         pod:
