@@ -96,7 +96,9 @@ spec:
               POSTGRES_USER: immich
               POSTGRES_PASSWORD: immich
               POSTGRES_DB: immich
-              PGDATA: /var/lib/postgresql/data/pgdata
+              # PG16 cluster initialised into a new directory during the 14 -> 16 migration (2026-09-02);
+              # the old PG14 cluster stays in ./pgdata on the same PVC until it is removed manually.
+              PGDATA: /var/lib/postgresql/data/pgdata16
             image:
               repository: ghcr.io/immich-app/postgres
               tag: 16-vectorchord0.4.3-pgvectors0.2.0
