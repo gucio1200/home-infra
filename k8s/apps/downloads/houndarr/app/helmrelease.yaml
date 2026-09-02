@@ -1,0 +1,97 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: houndarr
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: houndarr
+  interval: 30m
+  values:
+    controllers:
+      houndarr:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          securityContext:
+            fsGroup: 2000
+            fsGroupChangePolicy: "OnRootMismatch"
+            runAsGroup: 2000
+            runAsNonRoot: true
+            runAsUser: 2000
+        containers:
+          app:
+            image:
+              repository: ghcr.io/av1155/houndarr
+              tag: v1.13.2@sha256:c7a21fb5ce8f37e2e9865a8f8bac5427d9bd699e6f0e4014a8b2da889f6dbdfb
+            env:
+              TZ: Europe/Warsaw
+              HOUNDARR_PORT: &port 8877
+              HOUNDARR_SECURE_COOKIES: "true"
+              HOUNDARR_TRUSTED_PROXIES: 10.244.0.0/16
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/health
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/health
+                    port: *port
+                  failureThreshold: 60
+                  periodSeconds: 10
+            resources:
+              requests:
+                cpu: 10m
+                memory: 128Mi
+              limits:
+                memory: 256Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+
+    service:
+      app:
+        controller: houndarr
+        ports:
+          http:
+            port: *port
+
+    route:
+      app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Missing and upgrade searches
+          gethomepage.dev/group: Downloads
+          gethomepage.dev/icon: sh-houndarr.png
+          gethomepage.dev/name: Houndarr
+          gethomepage.dev/app: houndarr
+        hostnames: ["{{ .Release.Name }}.k8sj.io"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+
+    persistence:
+      data:
+        existingClaim: houndarr
+        globalMounts:
+          - path: /data
+      tmpfs:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp

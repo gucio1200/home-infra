@@ -20,3 +20,5 @@ resources:
   - ./tqm/ks.yaml
   - ./protonvpn/ks.yaml
   - ./maintainerr/ks.yaml
+  - ./houndarr/ks.yaml
+  - ./lingarr/ks.yaml

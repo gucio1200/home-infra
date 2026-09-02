@@ -74,6 +74,11 @@ spec:
         - openwebui
       password:
         type: AlphaNumeric
+    - name: lingarr
+      databases:
+        - lingarr
+      password:
+        type: AlphaNumeric
 
   backups:
     pgbackrest:
