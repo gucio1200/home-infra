@@ -72,8 +72,8 @@ spec:
       repos:
         - name: repo1
           schedules:
-            full: "0 1 * * *"
-            differential: "0 * * * *"
+            full: "0 1 * * *" # Daily at 01:00
+            differential: "0 2-23 * * *" # Every hour except 01:00, so it never collides with the full backup
           s3:
             bucket: "crunchy-postgres"
             endpoint: "s3.dom.lan:9001"
