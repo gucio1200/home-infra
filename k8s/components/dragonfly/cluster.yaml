@@ -7,6 +7,8 @@ metadata:
 spec:
   image: ghcr.io/dragonflydb/dragonfly:v1.40.2
   replicas: ${DRAGONFLY_REPLICAS:=1}
+  nodeSelector:
+    feature.node.kubernetes.io/cpu-cpuid.AVX2: "true"
   env:
     - name: MAX_MEMORY
       valueFrom:
