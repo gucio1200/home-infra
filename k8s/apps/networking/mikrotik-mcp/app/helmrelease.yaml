@@ -1,0 +1,107 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: mikrotik-mcp
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: mikrotik-mcp
+  interval: 1h
+  values:
+    controllers:
+      mikrotik-mcp:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/jeff-nasseri/mikrotik-mcp
+              tag: 0.15.0@sha256:8f7a6a0eaed1727517a1e592024de27efe52bc54b95e8272ff9781f04a292463
+            env:
+              MIKROTIK_PORT: "22"
+              MIKROTIK_MCP__TRANSPORT: streamable-http
+              MIKROTIK_MCP__HOST: 0.0.0.0
+              MIKROTIK_MCP__PORT: &port 8000
+              MIKROTIK_MCP__ALLOWED_HOSTS: "mikrotik-mcp.k8sj.io, mikrotik-mcp.k8sj.io:*, mikrotik-mcp.networking.svc.cluster.local:*, mikrotik-mcp.networking.svc:*, mikrotik-mcp.networking:*, mikrotik-mcp:*"
+              TZ: Europe/Warsaw
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 256Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+    route:
+      app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: MikroTik MCP
+          gethomepage.dev/group: Security
+          gethomepage.dev/icon: sh-mikrotik.png
+          gethomepage.dev/name: MikroTik MCP
+          gethomepage.dev/app: mikrotik-mcp
+        hostnames:
+          - "{{ .Release.Name }}.k8sj.io"
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+        rules:
+          - matches:
+              - path:
+                  type: Exact
+                  value: /
+            filters:
+              - type: URLRewrite
+                urlRewrite:
+                  path:
+                    type: ReplaceFullPath
+                    replaceFullPath: /mcp
+            backendRefs:
+              - identifier: app
+                port: *port
+          - backendRefs:
+              - identifier: app
+                port: *port
+    persistence:
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
