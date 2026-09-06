@@ -68,18 +68,29 @@ spec:
           webrtc-udp:
             port: 8555
             protocol: UDP
+
+    rawResources:
       webrtc:
-        controller: frigate
-        type: LoadBalancer
-        annotations:
-          lbipam.cilium.io/ips: 172.16.99.107
-        ports:
-          webrtc-tcp:
-            port: 8555
-            protocol: TCP
-          webrtc-udp:
-            port: 8555
-            protocol: UDP
+        suffix: webrtc
+        manifest:
+          apiVersion: v1
+          kind: Service
+          metadata:
+            annotations:
+              lbipam.cilium.io/ips: 172.16.99.107
+          spec:
+            type: LoadBalancer
+            selector:
+              app.kubernetes.io/controller: frigate
+              app.kubernetes.io/instance: frigate
+              app.kubernetes.io/name: frigate
+            ports:
+              - name: webrtc-tcp
+                port: 8555
+                protocol: TCP
+              - name: webrtc-udp
+                port: 8555
+                protocol: UDP
 
     ingress:
       app:
