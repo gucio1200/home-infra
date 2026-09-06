@@ -127,6 +127,19 @@ spec:
           - name: envoy-external
             namespace: networking
         rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /media/local/llmvision
+            filters:
+              - type: URLRewrite
+                urlRewrite:
+                  path:
+                    type: ReplacePrefixMatch
+                    replacePrefixMatch: /local/llmvision
+            backendRefs:
+              - identifier: app
+                port: 8123
           - backendRefs:
               - identifier: app
                 port: 8123
@@ -162,6 +175,9 @@ spec:
           home-assistant:
             app:
               - path: /media
+              - path: /config/www/llmvision
+                subPath: llmvision
+                readOnly: true
       tmpfs:
         type: emptyDir
         advancedMounts:
