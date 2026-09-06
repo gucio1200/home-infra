@@ -121,12 +121,16 @@ spec:
           gethomepage.dev/icon: sh-home-assistant.png
           gethomepage.dev/name: Hass
           gethomepage.dev/app: home-assistant
+          gethomepage.dev/href: https://hass.k8sj.io
         hostnames:
           - hass.k8sj.io
         parentRefs:
           - name: envoy-external
             namespace: networking
         rules:
+          - backendRefs:
+              - identifier: app
+                port: 8123
           - matches:
               - path:
                   type: PathPrefix
@@ -138,9 +142,6 @@ spec:
                     type: ReplacePrefixMatch
                     replacePrefixMatch: /local/llmvision
             backendRefs:
-              - identifier: app
-                port: 8123
-          - backendRefs:
               - identifier: app
                 port: 8123
       code:
