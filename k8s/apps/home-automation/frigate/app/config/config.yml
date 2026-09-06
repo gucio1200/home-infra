@@ -52,25 +52,25 @@ objects:
 go2rtc:
   streams:
     camera_2:
-      - ffmpeg:rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.2/streaming/channels/103
+      - rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.2/Streaming/Channels/103#backchannel=0
     camera_2_hq:
-      - ffmpeg:rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.2/streaming/channels/101
+      - rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.2/Streaming/Channels/101#backchannel=0
     camera_3:
-      - ffmpeg:rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.3/streaming/channels/103
+      - rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.3/Streaming/Channels/103#backchannel=0
     camera_3_hq:
-      - ffmpeg:rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.3/streaming/channels/101
+      - rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.3/Streaming/Channels/101#backchannel=0
     camera_4:
-      - ffmpeg:rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.4/streaming/channels/103
+      - rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.4/Streaming/Channels/103#backchannel=0
     camera_4_hq:
-      - ffmpeg:rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.4/streaming/channels/101
+      - rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.4/Streaming/Channels/101#backchannel=0
     camera_5:
-      - ffmpeg:rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.5/streaming/channels/102
+      - rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.5/Streaming/Channels/102#backchannel=0
     camera_5_hq:
-      - ffmpeg:rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.5/streaming/channels/101
+      - rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.5/Streaming/Channels/101#backchannel=0
     camera_6:
-      - ffmpeg:rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.6/streaming/channels/102
+      - rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.6/Streaming/Channels/102#backchannel=0
     camera_6_hq:
-      - ffmpeg:rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.6/streaming/channels/101
+      - rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.6/Streaming/Channels/101#backchannel=0
   webrtc:
     candidates:
       - 172.16.99.107:8555
