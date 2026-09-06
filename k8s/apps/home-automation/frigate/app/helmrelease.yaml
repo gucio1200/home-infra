@@ -68,6 +68,18 @@ spec:
           webrtc-udp:
             port: 8555
             protocol: UDP
+      webrtc:
+        controller: frigate
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: 172.16.99.107
+        ports:
+          webrtc-tcp:
+            port: 8555
+            protocol: TCP
+          webrtc-udp:
+            port: 8555
+            protocol: UDP
 
     ingress:
       app:

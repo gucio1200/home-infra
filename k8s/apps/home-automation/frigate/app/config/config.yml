@@ -52,25 +52,29 @@ objects:
 go2rtc:
   streams:
     camera_2:
-      - rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_2_lq
+      - ffmpeg:rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.2/streaming/channels/103
     camera_2_hq:
-      - rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_2_hq
+      - ffmpeg:rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.2/streaming/channels/101
     camera_3:
-      - rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_3_lq
+      - ffmpeg:rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.3/streaming/channels/103
     camera_3_hq:
-      - rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_3_hq
+      - ffmpeg:rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.3/streaming/channels/101
     camera_4:
-      - rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_4_lq
+      - ffmpeg:rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.4/streaming/channels/103
     camera_4_hq:
-      - rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_4_hq
+      - ffmpeg:rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.4/streaming/channels/101
     camera_5:
-      - rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_5_lq
+      - ffmpeg:rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.5/streaming/channels/102
     camera_5_hq:
-      - rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_5_hq
+      - ffmpeg:rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.5/streaming/channels/101
     camera_6:
-      - rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_6_lq
+      - ffmpeg:rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.6/streaming/channels/102
     camera_6_hq:
-      - rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_6_hq
+      - ffmpeg:rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.6/streaming/channels/101
+  webrtc:
+    candidates:
+      - 172.16.99.107:8555
+      - stun:8555
 cameras:
 #  camera_1:
 #    detect:
@@ -102,10 +106,10 @@ cameras:
         - 0.018,0,0.268,0,0.267,0.049,0.017,0.046
     ffmpeg:
       inputs:
-        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_2_hq
+        - path: rtsp://127.0.0.1:8554/camera_2_hq
           roles:
             - record
-        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_2_lq
+        - path: rtsp://127.0.0.1:8554/camera_2
           roles:
             - detect
   camera_3:
@@ -130,10 +134,10 @@ cameras:
         - 0.003,0.614,0.173,0.488,0.286,0.388,0.391,0.275,0.437,0.22,0.456,0.232,0.408,0.317,0.428,0.4,0.475,0.464,0.522,0.455,0.58,0.449,0.7,0.349,0.724,0.361,0.615,0.469,0.656,0.579,0.732,0.654,0.933,0.58,0.999,0.536,0.998,0.65,0.854,0.785,0.744,0.861,0.622,0.927,0.492,0.979,0.411,0.996,0.078,1,0.025,0.982,0.002,0.972
     ffmpeg:
       inputs:
-        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_3_hq
+        - path: rtsp://127.0.0.1:8554/camera_3_hq
           roles:
             - record
-        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_3_lq
+        - path: rtsp://127.0.0.1:8554/camera_3
           roles:
             - detect
   camera_4:
@@ -160,10 +164,10 @@ cameras:
         - 0.018,0,0.268,0,0.267,0.049,0.017,0.046
     ffmpeg:
       inputs:
-        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_4_hq
+        - path: rtsp://127.0.0.1:8554/camera_4_hq
           roles:
             - record
-        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_4_lq
+        - path: rtsp://127.0.0.1:8554/camera_4
           roles:
             - detect
   camera_5:
@@ -183,10 +187,10 @@ cameras:
     ffmpeg:
       hwaccel_args: ""
       inputs:
-        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_5_hq
+        - path: rtsp://127.0.0.1:8554/camera_5_hq
           roles:
             - record
-        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_5_lq
+        - path: rtsp://127.0.0.1:8554/camera_5
           roles:
             - detect
   camera_6:
@@ -213,9 +217,9 @@ cameras:
     ffmpeg:
       hwaccel_args: ""
       inputs:
-        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_6_hq
+        - path: rtsp://127.0.0.1:8554/camera_6_hq
           roles:
             - record
-        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_6_lq
+        - path: rtsp://127.0.0.1:8554/camera_6
           roles:
             - detect
