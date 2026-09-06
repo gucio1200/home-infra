@@ -9,7 +9,6 @@ resources:
   - ./home-assistant/ks.yaml
   - ./node-red/ks.yaml
   - ./music-assistant/ks.yaml
-  - ./go2rtc/ks.yaml
   - ./frigate/ks.yaml
   - ./ledfx/ks.yaml
   - ./zigbee/ks.yaml
