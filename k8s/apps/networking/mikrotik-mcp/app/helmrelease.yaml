@@ -72,7 +72,7 @@ spec:
     route:
       app:
         annotations:
-          gethomepage.dev/enabled: "true"
+          gethomepage.dev/enabled: "false"
           gethomepage.dev/description: MikroTik MCP
           gethomepage.dev/group: Security
           gethomepage.dev/icon: sh-mikrotik.png
