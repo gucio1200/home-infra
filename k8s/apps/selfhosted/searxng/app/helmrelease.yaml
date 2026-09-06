@@ -207,6 +207,13 @@ spec:
           - path: /tmp
     route:
       app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: SearXNG
+          gethomepage.dev/group: AI
+          gethomepage.dev/icon: sh-searxng.png
+          gethomepage.dev/name: SearXNG
+          gethomepage.dev/app: searxng
         hostnames:
           - search.k8sj.io
         parentRefs:

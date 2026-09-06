@@ -64,6 +64,14 @@ spec:
             port: *port
     route:
       app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: LiteLLM
+          gethomepage.dev/group: AI
+          gethomepage.dev/icon: sh-litellm.png
+          gethomepage.dev/name: LiteLLM
+          gethomepage.dev/app: litellm
+          gethomepage.dev/href: https://litellm.k8sj.io/ui
         hostnames:
           - "{{ .Release.Name }}.k8sj.io"
         parentRefs:
