@@ -49,6 +49,28 @@ objects:
     - motorcycle
     - car
     - plate
+go2rtc:
+  streams:
+    camera_2:
+      - rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_2_lq
+    camera_2_hq:
+      - rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_2_hq
+    camera_3:
+      - rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_3_lq
+    camera_3_hq:
+      - rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_3_hq
+    camera_4:
+      - rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_4_lq
+    camera_4_hq:
+      - rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_4_hq
+    camera_5:
+      - rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_5_lq
+    camera_5_hq:
+      - rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_5_hq
+    camera_6:
+      - rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_6_lq
+    camera_6_hq:
+      - rtsp://go2rtc.home-automation.svc.cluster.local:554/camera_6_hq
 cameras:
 #  camera_1:
 #    detect:
@@ -67,6 +89,10 @@ cameras:
 #          roles:
 #            - record
   camera_2:
+    live:
+      streams:
+        camera_2: camera_2
+        camera_2_hq: camera_2_hq
     detect:
       enabled: true
       width: 1920
@@ -83,6 +109,10 @@ cameras:
           roles:
             - detect
   camera_3:
+    live:
+      streams:
+        camera_3: camera_3
+        camera_3_hq: camera_3_hq
     detect:
       enabled: true
       width: 1920
@@ -107,6 +137,10 @@ cameras:
           roles:
             - detect
   camera_4:
+    live:
+      streams:
+        camera_4: camera_4
+        camera_4_hq: camera_4_hq
     detect:
       enabled: true
       width: 1920
@@ -133,6 +167,10 @@ cameras:
           roles:
             - detect
   camera_5:
+    live:
+      streams:
+        camera_5: camera_5
+        camera_5_hq: camera_5_hq
     detect:
       enabled: true
       width: 1920
@@ -152,6 +190,10 @@ cameras:
           roles:
             - detect
   camera_6:
+    live:
+      streams:
+        camera_6: camera_6
+        camera_6_hq: camera_6_hq
     detect:
       enabled: true
       width: 1920
