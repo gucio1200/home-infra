@@ -70,6 +70,149 @@ model_list:
       api_key: os.environ/GEMINI_API_KEY
       drop_params: true
 
+  - model_name: kimi-k3
+    model_info:
+      supports_function_calling: true
+      supports_prompt_caching: true
+    litellm_params:
+      model: moonshot/kimi-k3
+      api_base: https://opencode.ai/zen/go/v1
+      api_key: os.environ/OPENCODE_GO_API_KEY
+      drop_params: true
+
+  - model_name: kimi-k2.7-code
+    model_info:
+      supports_function_calling: true
+      supports_prompt_caching: true
+    litellm_params:
+      model: moonshot/kimi-k2.7-code
+      api_base: https://opencode.ai/zen/go/v1
+      api_key: os.environ/OPENCODE_GO_API_KEY
+      drop_params: true
+
+  - model_name: glm-5.3
+    model_info:
+      supports_function_calling: true
+      supports_prompt_caching: true
+    litellm_params:
+      model: zai/glm-5.3
+      api_base: https://opencode.ai/zen/go/v1
+      api_key: os.environ/OPENCODE_GO_API_KEY
+      drop_params: true
+
+  - model_name: glm-5.3-flash
+    model_info:
+      supports_function_calling: true
+      supports_prompt_caching: true
+    litellm_params:
+      model: zai/glm-5.3-flash
+      api_base: https://opencode.ai/zen/go/v1
+      api_key: os.environ/OPENCODE_GO_API_KEY
+      drop_params: true
+
+  - model_name: deepseek-v4-flash
+    model_info:
+      supports_function_calling: true
+      supports_prompt_caching: true
+    litellm_params:
+      model: deepseek/deepseek-v4-flash
+      api_base: https://opencode.ai/zen/go/v1
+      api_key: os.environ/OPENCODE_GO_API_KEY
+      drop_params: true
+
+  - model_name: qwen3.8-max
+    model_info:
+      supports_function_calling: true
+      supports_prompt_caching: true
+    litellm_params:
+      model: dashscope/qwen3.8-max
+      api_base: https://opencode.ai/zen/go/v1
+      api_key: os.environ/OPENCODE_GO_API_KEY
+      drop_params: true
+
+  - model_name: qwen3.8-flash
+    model_info:
+      supports_function_calling: true
+      supports_prompt_caching: true
+    litellm_params:
+      model: dashscope/qwen3.8-flash
+      api_base: https://opencode.ai/zen/go/v1
+      api_key: os.environ/OPENCODE_GO_API_KEY
+      drop_params: true
+
+  - model_name: minimax-m3
+    model_info:
+      supports_function_calling: true
+      supports_prompt_caching: true
+    litellm_params:
+      model: minimax/minimax-m3
+      api_base: https://opencode.ai/zen/go/v1
+      api_key: os.environ/OPENCODE_GO_API_KEY
+      drop_params: true
+
+  - model_name: longcat-2.0
+    model_info:
+      supports_function_calling: true
+      supports_prompt_caching: true
+    litellm_params:
+      model: openai/longcat-2.0
+      api_base: https://opencode.ai/zen/go/v1
+      api_key: os.environ/OPENCODE_GO_API_KEY
+      drop_params: true
+
+  - model_name: mimo-v2.5
+    model_info:
+      supports_function_calling: true
+      supports_prompt_caching: true
+    litellm_params:
+      model: openai/mimo-v2.5
+      api_base: https://opencode.ai/zen/go/v1
+      api_key: os.environ/OPENCODE_GO_API_KEY
+      drop_params: true
+
+  - model_name: gemini-3.8-flash
+    model_info:
+      supports_function_calling: true
+      supports_prompt_caching: true
+    litellm_params:
+      model: gemini/gemini-3.8-flash
+      api_key: os.environ/GEMINI_API_KEY
+      drop_params: true
+
+  - model_name: gemini-3.7-flash
+    model_info:
+      supports_function_calling: true
+      supports_prompt_caching: true
+    litellm_params:
+      model: gemini/gemini-3.7-flash
+      api_key: os.environ/GEMINI_API_KEY
+      drop_params: true
+
+  - model_name: gemini-3.5-flash-lite
+    model_info:
+      supports_function_calling: true
+      supports_prompt_caching: true
+    litellm_params:
+      model: gemini/gemini-3.5-flash-lite
+      api_key: os.environ/GEMINI_API_KEY
+      drop_params: true
+
+  - model_name: gemini-embedding-2
+    model_info:
+      mode: embedding
+    litellm_params:
+      model: gemini/gemini-embedding-2-preview
+      api_key: os.environ/GEMINI_API_KEY
+      drop_params: true
+
+  - model_name: gemini-3.1-flash-image
+    model_info:
+      mode: chat
+    litellm_params:
+      model: gemini/gemini-3.1-flash-image
+      api_key: os.environ/GEMINI_API_KEY
+      drop_params: true
+
 general_settings:
   health_check_endpoint: /v1/health
 
