@@ -9,6 +9,19 @@ spec:
     kind: OCIRepository
     name: multus
   interval: 30m
+  # The chart hardcodes its tolerations, so the readiness taint from multus-controller must be added after rendering.
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              kind: DaemonSet
+              name: multus
+            patch: |
+              - op: add
+                path: /spec/template/spec/tolerations/-
+                value:
+                  operator: Exists
+                  effect: NoSchedule
   values:
     multus:
       resources:
