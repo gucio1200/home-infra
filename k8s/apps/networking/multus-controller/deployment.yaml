@@ -21,6 +21,9 @@ rules:
   - apiGroups: [""]
     resources: ["pods"]
     verbs: ["get", "list", "watch"]
+  - apiGroups: ["events.k8s.io"]
+    resources: ["events"]
+    verbs: ["create", "patch"]
 
 ---
 # Binding needs to point to the ServiceAccount in 'networking'
@@ -91,6 +94,15 @@ spec:
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                topologyKey: kubernetes.io/hostname
+                labelSelector:
+                  matchLabels:
+                    app: multus-controller
       containers:
         - name: controller
           image: unixology/multus-ct:f0fb4e8
@@ -100,9 +112,11 @@ spec:
               name: http-metrics
           env:
             - name: RUST_LOG
-              value: "info,multus_controller=debug"
+              value: "info,multus_ct=debug"
             - name: MULTUS_LABEL_SELECTOR
               value: "app.kubernetes.io/name=multus"
+            - name: TAINT_KEY
+              value: "multus.network.k8s.io/readiness"
             - name: NAMESPACE
               valueFrom:
                 fieldRef:
@@ -140,6 +154,9 @@ spec:
           effect: NoSchedule
         - key: CriticalAddonsOnly
           operator: Exists
+        - key: multus.network.k8s.io/readiness
+          operator: Exists
+          effect: NoSchedule
 
 ---
 # 5. Service
