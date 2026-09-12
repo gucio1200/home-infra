@@ -91,6 +91,9 @@ cameras:
       enabled: true
       width: 640
       height: 480
+    motion:
+      mask:
+        - 0.461,0,0.463,0.063,0,0.069,0.001,0.004
     ffmpeg:
       output_args:
         record: preset-record-generic-audio-aac
