@@ -71,6 +71,12 @@ go2rtc:
       - rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.6/Streaming/Channels/102#backchannel=0
     camera_6_hq:
       - rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.6/Streaming/Channels/101#backchannel=0
+    doorbell:
+      - "ffmpeg:http://192.168.5.100/flv?port=1935&app=bcs&stream=channel0_main.bcs&user={FRIGATE_REOLINK_USER}&password={FRIGATE_REOLINK_PASSWORD}#video=copy#audio=copy#audio=opus"
+      - rtsp://{FRIGATE_REOLINK_USER}:{FRIGATE_REOLINK_PASSWORD}@192.168.5.100:554/Preview_01_sub
+    doorbell_sub:
+      - "ffmpeg:http://192.168.5.100/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user={FRIGATE_REOLINK_USER}&password={FRIGATE_REOLINK_PASSWORD}#video=copy#audio=copy#audio=opus"
+      - rtsp://{FRIGATE_REOLINK_USER}:{FRIGATE_REOLINK_PASSWORD}@192.168.5.100:554/Preview_01_sub
   webrtc:
     candidates:
       - 172.16.99.107:8555
@@ -221,5 +227,26 @@ cameras:
           roles:
             - record
         - path: rtsp://127.0.0.1:8554/camera_6
+          roles:
+            - detect
+  doorbell:
+    live:
+      streams:
+        doorbell: doorbell
+        doorbell_sub: doorbell_sub
+    detect:
+      enabled: true
+      width: 640
+      height: 480
+    ffmpeg:
+      output_args:
+        record: preset-record-generic-audio-aac
+      inputs:
+        - path: rtsp://127.0.0.1:8554/doorbell
+          input_args: preset-rtsp-restream
+          roles:
+            - record
+        - path: rtsp://127.0.0.1:8554/doorbell_sub
+          input_args: preset-rtsp-restream
           roles:
             - detect
