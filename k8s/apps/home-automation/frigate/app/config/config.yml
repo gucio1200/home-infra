@@ -53,9 +53,10 @@ go2rtc:
   streams:
     doorbell:
       - "ffmpeg:http://192.168.5.100/flv?port=1935&app=bcs&stream=channel0_main.bcs&user={FRIGATE_REOLINK_USER}&password={FRIGATE_REOLINK_PASSWORD}#video=copy#audio=copy#audio=opus"
-      - rtsp://{FRIGATE_REOLINK_USER}:{FRIGATE_REOLINK_PASSWORD}@192.168.5.100:554/Preview_01_sub
     doorbell_sub:
       - "ffmpeg:http://192.168.5.100/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user={FRIGATE_REOLINK_USER}&password={FRIGATE_REOLINK_PASSWORD}#video=copy#audio=copy#audio=opus"
+    doorbell_talk:
+      - rtsp://127.0.0.1:8554/doorbell?video&audio=opus&audio=aac
       - rtsp://{FRIGATE_REOLINK_USER}:{FRIGATE_REOLINK_PASSWORD}@192.168.5.100:554/Preview_01_sub
     camera_2:
       - rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.2/Streaming/Channels/103#backchannel=0
@@ -87,6 +88,7 @@ cameras:
       streams:
         doorbell: doorbell
         doorbell_sub: doorbell_sub
+        doorbell_talk: doorbell_talk
     detect:
       enabled: true
       width: 640
