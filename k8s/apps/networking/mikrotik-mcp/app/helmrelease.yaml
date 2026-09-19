@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/jeff-nasseri/mikrotik-mcp
-              tag: 0.19.2@sha256:8fb599eda7bd6748fce74ebcb2e45f1ad9b4be84beb1b914d3ecce4c30c761e8
+              tag: 0.19.3@sha256:7af02c3827851f29b2596975866cb48317e30757bca755393941b580186fd038
             env:
               MIKROTIK_PORT: "22"
               MIKROTIK_MCP__TRANSPORT: streamable-http
