@@ -15,8 +15,22 @@ MAX_CTXT_DELTA="${MAX_CTXT_DELTA:-10}"
 INTERVAL_SECONDS="${INTERVAL_SECONDS:-30}"
 DRY_RUN="${DRY_RUN:-false}"
 STATE_DIR="${STATE_DIR:-/state}"
+# dotfile, so the per-process state cleanup glob never touches it
+HEARTBEAT_FILE="$STATE_DIR/.heartbeat"
+
+# liveness probe: the loop must have completed a pass recently
+if [ "${1:-}" = "healthcheck" ]; then
+  last=$(cat "$HEARTBEAT_FILE" 2>/dev/null)
+  [ -n "$last" ] || exit 1
+  [ $(( $(date +%s) - last )) -le $(( INTERVAL_SECONDS * 3 + 30 )) ]
+  exit
+fi
 
 log() { echo "$(date -u +%Y-%m-%dT%H:%M:%SZ) $*"; }
+
+heartbeat() {
+  date +%s > "$HEARTBEAT_FILE.tmp" && mv "$HEARTBEAT_FILE.tmp" "$HEARTBEAT_FILE"
+}
 
 # "<state> <starttime in clock ticks>", fields 3 and 22 of /proc/<pid>/stat
 proc_stat() {
@@ -58,6 +72,7 @@ if [ "$wchan_ok" != "true" ]; then
 fi
 
 mkdir -p "$STATE_DIR"
+heartbeat
 log "started min_age=${MIN_AGE_SECONDS}s confirm=${CONFIRM_SECONDS}s max_ctxt_delta=$MAX_CTXT_DELTA interval=${INTERVAL_SECONDS}s dry_run=$DRY_RUN"
 
 while :; do
@@ -154,5 +169,6 @@ while :; do
     esac
   done
 
+  heartbeat
   sleep "$INTERVAL_SECONDS"
 done
