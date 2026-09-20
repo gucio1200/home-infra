@@ -15,4 +15,5 @@ resources:
   - ./external-secrets
   - ./snapshot-controller/ks.yaml
   - ./spegel/ks.yaml
+  - ./nfs-mount-watchdog/ks.yaml
 #  - generic-device-plugin/ks.yaml

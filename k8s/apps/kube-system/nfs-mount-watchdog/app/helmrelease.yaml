@@ -1,0 +1,65 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: nfs-mount-watchdog
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: nfs-mount-watchdog
+  interval: 30m
+  values:
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      hostPID: true
+      priorityClassName: system-node-critical
+      tolerations:
+        - operator: Exists
+    controllers:
+      nfs-mount-watchdog:
+        type: daemonset
+        annotations:
+          configmap.reloader.stakater.com/reload: nfs-mount-watchdog-scripts
+        containers:
+          app:
+            image:
+              repository: docker.io/library/busybox
+              tag: 1.37.0@sha256:9db7b59979c38555a39def84a31fb98b5296952f9e3afd4f6f11f05b07adfab0
+            command:
+              - /bin/sh
+              - /scripts/watchdog.sh
+            env:
+              MIN_AGE_SECONDS: "300"
+              CONFIRM_SECONDS: "120"
+              MAX_CTXT_DELTA: "10"
+              INTERVAL_SECONDS: "30"
+              DRY_RUN: "false"
+            securityContext:
+              runAsUser: 0
+              runAsNonRoot: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+                add:
+                  - SYS_PTRACE
+            resources:
+              requests:
+                cpu: 5m
+                memory: 8Mi
+              limits:
+                memory: 32Mi
+    persistence:
+      scripts:
+        type: configMap
+        name: nfs-mount-watchdog-scripts
+        globalMounts:
+          - path: /scripts
+            readOnly: true
+      state:
+        type: emptyDir
+        medium: Memory
+        sizeLimit: 1Mi
+        globalMounts:
+          - path: /state
