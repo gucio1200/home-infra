@@ -1,0 +1,81 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: esphome-mcp
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: esphome-mcp
+  interval: 1h
+  values:
+    controllers:
+      esphome-mcp:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/loryanstrant/esphome-mcp
+              tag: 2026.08.2@sha256:a3a9fc223c6005bbe395e71a8fc64d6a9e09731e77c8ef945eeb61628f5e5d05
+            env:
+              ESPHOME_DASHBOARD_URL: http://esphome.home-automation.svc.cluster.local:6052
+              FASTMCP_CHECK_FOR_UPDATES: "off"
+              LOG_LEVEL: INFO
+              TZ: Europe/Warsaw
+            probes:
+              liveness:
+                enabled: true
+                spec:
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+                  failureThreshold: 5
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  exec:
+                    command:
+                      - python
+                      - /app/healthcheck.py
+                  periodSeconds: 30
+                  timeoutSeconds: 15
+                  failureThreshold: 3
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 256Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+    service:
+      app:
+        ports:
+          http:
+            port: &port 8080
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.k8sj.io"
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
+    persistence:
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp

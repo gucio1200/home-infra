@@ -27,3 +27,21 @@ spec:
       APP_GID: "0"
       VOLSYNC_CLAIM: esphome-config
       VOLSYNC_CAPACITY: 5Gi
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: esphome-mcp
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: esphome
+  interval: 10m
+  path: "./k8s/apps/home-automation/esphome/mcp"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  targetNamespace: home-automation
+  wait: false
