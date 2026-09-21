@@ -7,3 +7,4 @@ resources:
   - ./mcpgroup.yaml
   - ./embeddingserver.yaml
   - ./virtualmcpserver.yaml
+  - ./mcpserverentry.yaml
