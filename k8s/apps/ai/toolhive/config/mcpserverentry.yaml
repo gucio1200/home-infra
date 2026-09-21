@@ -1,0 +1,44 @@
+---
+apiVersion: toolhive.stacklok.dev/v1beta1
+kind: MCPServerEntry
+metadata:
+  name: hass
+spec:
+  groupRef:
+    name: mcp-tools
+  remoteUrl: http://home-assistant-mcp.home-automation.svc.cluster.local/mcp
+  transport: streamable-http
+  allowPrivateEndpoint: true
+---
+apiVersion: toolhive.stacklok.dev/v1beta1
+kind: MCPServerEntry
+metadata:
+  name: esphome
+spec:
+  groupRef:
+    name: mcp-tools
+  remoteUrl: http://esphome-mcp.home-automation.svc.cluster.local:8080/mcp
+  transport: streamable-http
+  allowPrivateEndpoint: true
+---
+apiVersion: toolhive.stacklok.dev/v1beta1
+kind: MCPServerEntry
+metadata:
+  name: mikrotik
+spec:
+  groupRef:
+    name: mcp-tools
+  remoteUrl: http://mikrotik-mcp.networking.svc.cluster.local:8000/mcp
+  transport: streamable-http
+  allowPrivateEndpoint: true
+---
+apiVersion: toolhive.stacklok.dev/v1beta1
+kind: MCPServerEntry
+metadata:
+  name: grafana
+spec:
+  groupRef:
+    name: mcp-tools
+  remoteUrl: http://mcp-grafana.monitoring.svc.cluster.local:8000/mcp
+  transport: streamable-http
+  allowPrivateEndpoint: true
