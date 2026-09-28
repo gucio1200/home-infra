@@ -15,7 +15,7 @@ spec:
           app:
             image:
               repository: ghcr.io/loryanstrant/esphome-mcp
-              tag: 2026.08.2@sha256:a3a9fc223c6005bbe395e71a8fc64d6a9e09731e77c8ef945eeb61628f5e5d05
+              tag: 2026.09.0@sha256:1bcc357d9630c49e3b55766c427e0323c5e686c5f41fc1cf37c6b1ce329f253e
             env:
               ESPHOME_DASHBOARD_URL: http://esphome.home-automation.svc.cluster.local:6052
               FASTMCP_CHECK_FOR_UPDATES: "off"
