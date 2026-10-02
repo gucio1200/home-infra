@@ -46,6 +46,16 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: *port
+                  periodSeconds: 5
+                  timeoutSeconds: 1
+                  failureThreshold: 60
             resources:
               requests:
                 cpu: 15m
