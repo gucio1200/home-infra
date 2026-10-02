@@ -60,8 +60,10 @@ spec:
             name: pgo-s3-creds
       global:
         archive-push-queue-max: 4GiB
+        io-timeout: "300"
         repo1-retention-full: "14"
         repo1-retention-full-type: time
+        repo1-retention-diff: "24"
         repo1-path: /home-assistant/repo1
         repo1-s3-uri-style: path
         repo1-storage-verify-tls: "n"
