@@ -32,7 +32,8 @@ spec:
         synchronous_commit: "on"
   instances:
     - name: postgres
-      replicas: 1
+      # A second instance lets Patroni fail over within seconds instead of the recorder losing the database
+      replicas: 2
       dataVolumeClaimSpec:
         accessModes:
           - ReadWriteOnce
@@ -42,12 +43,13 @@ spec:
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 1
+          - weight: 100
             podAffinityTerm:
               topologyKey: kubernetes.io/hostname
               labelSelector:
                 matchLabels:
-                  postgres-operator.crunchydata.com/cluster: home-assistant
+                  postgres-operator.crunchydata.com/cluster: assistant
+                  postgres-operator.crunchydata.com/instance-set: postgres
   users:
     - name: home-assistant
       databases:
