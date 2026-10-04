@@ -41,12 +41,14 @@ spec:
               JVM_MAX_HEAP_SIZE: "1024M"
               DB_MONGO_LOCAL: "true"
 
+            # The limit must fit the 1 GiB heap, ~0.5 GiB of JVM native memory and the
+            # embedded MongoDB (~350 MiB); at 1024Mi the container was OOMKilled every ~4 h
             resources:
               requests:
                 cpu: 12m
-                memory: 764Mi
+                memory: 1536Mi
               limits:
-                memory: 1024Mi
+                memory: 2560Mi
 
     service:
       app:
