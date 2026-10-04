@@ -97,6 +97,7 @@ spec:
         repo1-retention-full-type: "time"
         repo1-s3-uri-style: path
         archive-timeout: "600"
+        io-timeout: "300" # MinIO on the QNAP stalls >60s while the assistant cluster backs up
       manual:
         repoName: repo1
         options:
