@@ -85,6 +85,9 @@ spec:
           - path: /app/config.yaml
             subPath: config.yaml
             readOnly: true
+          - path: /app/opencode_session.py
+            subPath: opencode_session.py
+            readOnly: true
       tmpfs:
         type: emptyDir
         globalMounts:

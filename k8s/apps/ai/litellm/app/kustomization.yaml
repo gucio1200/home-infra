@@ -9,5 +9,6 @@ configMapGenerator:
   - name: litellm-configmap
     files:
       - config.yaml=./resources/config.yaml
+      - opencode_session.py=./resources/opencode_session.py
 generatorOptions:
   disableNameSuffixHash: true
