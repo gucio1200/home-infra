@@ -42,3 +42,20 @@ spec:
   remoteUrl: http://mcp-grafana.monitoring.svc.cluster.local:8000/mcp
   transport: streamable-http
   allowPrivateEndpoint: true
+---
+apiVersion: toolhive.stacklok.dev/v1beta1
+kind: MCPServerEntry
+metadata:
+  name: kodi
+spec:
+  groupRef:
+    name: mcp-tools
+  remoteUrl: http://kodi-mcp.ai.svc.cluster.local:5720/mcp
+  transport: streamable-http
+  allowPrivateEndpoint: true
+  headerForward:
+    addHeadersFromSecret:
+      - headerName: X-MCP-Password
+        valueSecretRef:
+          name: kodi-mcp-secret
+          key: KODIMCP_Server__Password

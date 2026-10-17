@@ -1,0 +1,107 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kodi-mcp
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: kodi-mcp
+  interval: 1h
+  values:
+    controllers:
+      kodi-mcp:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          download:
+            image:
+              repository: docker.io/library/alpine
+              tag: 3.23@sha256:85fe1e81d6758c208f3e1eed4338a1997e19d4be002d4dd32d3100c9a8c010a0
+            command: ["/bin/sh", "-ec"]
+            args:
+              - |
+                wget -qO /tmp/kodimcpsharp.zip "https://github.com/Wixely/KodiMCPSharp/releases/download/$KODIMCPSHARP_VERSION/KodiMCPSharp-$KODIMCPSHARP_VERSION-linux-x64.zip"
+                echo "$KODIMCPSHARP_SHA256  /tmp/kodimcpsharp.zip" | sha256sum -c -
+                unzip -o /tmp/kodimcpsharp.zip KodiMCPSharp -d /app
+                chmod 0755 /app/KodiMCPSharp
+                rm -f /tmp/kodimcpsharp.zip
+            env:
+              # renovate: depName=Wixely/KodiMCPSharp datasource=github-release-attachments
+              KODIMCPSHARP_VERSION: v0.2.1
+              KODIMCPSHARP_SHA256: 076288a1013c545504ed4354343bbd30988d70881bb3c6e71ae0dc3629c1c2a5
+            securityContext: &securityContext
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+        containers:
+          app:
+            image:
+              repository: mcr.microsoft.com/dotnet/runtime-deps
+              tag: 10.0-noble-chiseled-extra@sha256:b9f2fd17cfd23c997453e83adeaf2f2d20561f9754eb3ed5dbc97bd06867c377
+            command: ["/app/KodiMCPSharp"]
+            workingDir: /app
+            env:
+              DOTNET_BUNDLE_EXTRACT_BASE_DIR: /tmp
+              TZ: Europe/Warsaw
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /healthz
+                    port: &port 5720
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /readyz
+                    port: *port
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+            securityContext: *securityContext
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 256Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+    persistence:
+      app:
+        type: emptyDir
+        globalMounts:
+          - path: /app
+      config:
+        type: configMap
+        name: kodi-mcp-configmap
+        advancedMounts:
+          kodi-mcp:
+            app:
+              - path: /app/KodiMCPSharp.json
+                subPath: KodiMCPSharp.json
+                readOnly: true
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
