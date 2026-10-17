@@ -1,0 +1,72 @@
+{
+  "Server": {
+    "Host": "0.0.0.0",
+    "Port": 5720,
+    "Path": "/mcp",
+    "Password": ""
+  },
+  "Kodi": {
+    "DefaultAlias": "salon",
+    "ReadOnly": false,
+    "Controls": {
+      "AllowPlayback": true,
+      "AllowPlayerControl": true,
+      "AllowSeek": true,
+      "AllowVolume": true,
+      "AllowStreamSelection": true,
+      "AllowPlaybackModes": true,
+      "AllowPlaylists": true,
+      "AllowFullscreenVideo": true,
+      "AllowWatchState": true,
+      "AllowFavourites": true,
+      "AllowLibraryScan": true,
+      "AllowLibraryClean": false,
+      "AllowPvrPlayback": false
+    },
+    "RequestTimeoutSeconds": 10,
+    "MaximumResponseBytes": 2097152,
+    "MaximumPageSize": 50,
+    "Handles": {
+      "LifetimeMinutes": 15,
+      "Capacity": 5000
+    },
+    "LearnedRoutes": {
+      "Directory": "/app/kodimcpsharp_data/addon-routes",
+      "AllowWrite": false,
+      "MaximumRoutesPerAddon": 100
+    },
+    "Pvr": {
+      "Enabled": false
+    },
+    "PlaybackNotifications": {
+      "Enabled": false,
+      "Capacity": 200,
+      "ReconnectDelaySeconds": 5
+    },
+    "Instances": [
+      {
+        "Enabled": true,
+        "Alias": "salon",
+        "Endpoint": "http://kodi.dom.lan/jsonrpc",
+        "WebSocketEndpoint": "ws://kodi.dom.lan:9090/jsonrpc",
+        "Username": "",
+        "Password": "",
+        "AllowInvalidTlsCertificate": false
+      }
+    ]
+  },
+  "Serilog": {
+    "MinimumLevel": {
+      "Default": "Information",
+      "Override": {
+        "Microsoft": "Warning",
+        "System.Net.Http.HttpClient": "Warning"
+      }
+    },
+    "WriteTo": [
+      {
+        "Name": "Console"
+      }
+    ]
+  }
+}
