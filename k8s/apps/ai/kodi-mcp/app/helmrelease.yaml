@@ -38,7 +38,7 @@ spec:
           app:
             image:
               repository: mcr.microsoft.com/dotnet/runtime-deps
-              tag: 10.0-noble-chiseled-extra@sha256:b9f2fd17cfd23c997453e83adeaf2f2d20561f9754eb3ed5dbc97bd06867c377
+              tag: 10.0-noble-chiseled-extra@sha256:ca9e4a528c6621e61243a8f7eb8cffd3e429bd504b93a067f417a538bf688ceb
             command: ["/app/KodiMCPSharp"]
             workingDir: /app
             env:
