@@ -28,3 +28,4 @@ spec:
       APP_UID: "1000"
       APP_GID: "1000"
       VOLSYNC_CLAIM: music-assistant-config
+      VOLSYNC_CAPACITY: 10Gi
