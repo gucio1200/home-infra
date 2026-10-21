@@ -2,6 +2,7 @@ replicas: 3
 kind: Deployment
 deschedulerPolicyAPIVersion: descheduler/v1alpha2
 deschedulerPolicy:
+  maxNoOfPodsToEvictPerNode: 2
   profiles:
     - name: Default
       pluginConfig:
@@ -33,13 +34,24 @@ deschedulerPolicy:
           args:
             podRestartThreshold: 5
             includingInitContainers: true
+            namespaces: &protectedNamespaces
+              exclude:
+                - database
+                - home-automation
         - name: RemovePodsViolatingInterPodAntiAffinity
+          args:
+            namespaces: *protectedNamespaces
         - name: RemovePodsViolatingNodeAffinity
           args:
             nodeAffinityType:
               - requiredDuringSchedulingIgnoredDuringExecution
+            namespaces: *protectedNamespaces
         - name: RemovePodsViolatingNodeTaints
+          args:
+            namespaces: *protectedNamespaces
         - name: RemovePodsViolatingTopologySpreadConstraint
+          args:
+            namespaces: *protectedNamespaces
       plugins:
         balance:
           enabled:
