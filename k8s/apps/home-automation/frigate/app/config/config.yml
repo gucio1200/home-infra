@@ -95,7 +95,10 @@ cameras:
       height: 480
     motion:
       mask:
-        - 0.461,0,0.463,0.063,0,0.069,0.001,0.004
+        motion_mask_1:
+          friendly_name: Motion Mask 1
+          enabled: true
+          coordinates: 0.461,0,0.463,0.063,0,0.069,0.001,0.004
     ffmpeg:
       output_args:
         record: preset-record-generic-audio-aac
@@ -135,7 +138,10 @@ cameras:
       height: 1080
     motion:
       mask:
-        - 0.018,0,0.268,0,0.267,0.049,0.017,0.046
+        motion_mask_1:
+          friendly_name: Motion Mask 1
+          enabled: true
+          coordinates: 0.018,0,0.268,0,0.267,0.049,0.017,0.046
     ffmpeg:
       inputs:
         - path: rtsp://127.0.0.1:8554/camera_2_hq
@@ -157,13 +163,28 @@ cameras:
       filters:
         person:
           mask:
-            - 0.128,0.269,0.113,0.557,0.19,0.533,0.248,0.343,0.22,0.246,0.172,0.251,0.129,0.269
-            - 0.561,0.342,0.587,0.357,0.59,0.282,0.565,0.273
+            object_mask_1:
+              friendly_name: Object Mask 1 (person)
+              enabled: true
+              coordinates: 0.128,0.269,0.113,0.557,0.19,0.533,0.248,0.343,0.22,0.246,0.172,0.251,0.129,0.269
+            object_mask_2:
+              friendly_name: Object Mask 2 (person)
+              enabled: true
+              coordinates: 0.561,0.342,0.587,0.357,0.59,0.282,0.565,0.273
     motion:
       mask:
-        - 0.018,0,0.268,0,0.267,0.049,0.017,0.046
-        - 0,0.369,0,0,0.054,0.011,0.059,0.133,0.072,0.118,0.106,0.151,0.111,0.2,0.104,0.277,0.123,0.265,0.141,0.261,0.177,0.254,0.211,0.237,0.221,0.272,0.247,0.343,0.208,0.522,0.08,0.589,0,0.869
-        - 0.003,0.614,0.173,0.488,0.286,0.388,0.391,0.275,0.437,0.22,0.456,0.232,0.408,0.317,0.428,0.4,0.475,0.464,0.522,0.455,0.58,0.449,0.7,0.349,0.724,0.361,0.615,0.469,0.656,0.579,0.732,0.654,0.933,0.58,0.999,0.536,0.998,0.65,0.854,0.785,0.744,0.861,0.622,0.927,0.492,0.979,0.411,0.996,0.078,1,0.025,0.982,0.002,0.972
+        motion_mask_1:
+          friendly_name: Motion Mask 1
+          enabled: true
+          coordinates: 0.018,0,0.268,0,0.267,0.049,0.017,0.046
+        motion_mask_2:
+          friendly_name: Motion Mask 2
+          enabled: true
+          coordinates: 0,0.369,0,0,0.054,0.011,0.059,0.133,0.072,0.118,0.106,0.151,0.111,0.2,0.104,0.277,0.123,0.265,0.141,0.261,0.177,0.254,0.211,0.237,0.221,0.272,0.247,0.343,0.208,0.522,0.08,0.589,0,0.869
+        motion_mask_3:
+          friendly_name: Motion Mask 3
+          enabled: true
+          coordinates: 0.003,0.614,0.173,0.488,0.286,0.388,0.391,0.275,0.437,0.22,0.456,0.232,0.408,0.317,0.428,0.4,0.475,0.464,0.522,0.455,0.58,0.449,0.7,0.349,0.724,0.361,0.615,0.469,0.656,0.579,0.732,0.654,0.933,0.58,0.999,0.536,0.998,0.65,0.854,0.785,0.744,0.861,0.622,0.927,0.492,0.979,0.411,0.996,0.078,1,0.025,0.982,0.002,0.972
     ffmpeg:
       inputs:
         - path: rtsp://127.0.0.1:8554/camera_3_hq
@@ -185,15 +206,30 @@ cameras:
       filters:
         car:
           mask:
-            - 0.143,1,0.389,0.378,0.726,0.378,0.973,1
-            - 0,0.31,0.396,0.366,0.141,1,0.002,1
+            object_mask_1:
+              friendly_name: Object Mask 1 (car)
+              enabled: true
+              coordinates: 0.143,1,0.389,0.378,0.726,0.378,0.973,1
+            object_mask_2:
+              friendly_name: Object Mask 2 (car)
+              enabled: true
+              coordinates: 0,0.31,0.396,0.366,0.141,1,0.002,1
         person:
           mask:
-            - 0.785,0.635,0.847,0.781,0.912,0.608,0.849,0.481
-            - 0.394,0.188,0.393,0.231,0.414,0.225,0.411,0.18
+            object_mask_1:
+              friendly_name: Object Mask 1 (person)
+              enabled: true
+              coordinates: 0.785,0.635,0.847,0.781,0.912,0.608,0.849,0.481
+            object_mask_2:
+              friendly_name: Object Mask 2 (person)
+              enabled: true
+              coordinates: 0.394,0.188,0.393,0.231,0.414,0.225,0.411,0.18
     motion:
       mask:
-        - 0.018,0,0.268,0,0.267,0.049,0.017,0.046
+        motion_mask_1:
+          friendly_name: Motion Mask 1
+          enabled: true
+          coordinates: 0.018,0,0.268,0,0.267,0.049,0.017,0.046
     ffmpeg:
       inputs:
         - path: rtsp://127.0.0.1:8554/camera_4_hq
@@ -215,7 +251,10 @@ cameras:
       threshold: 50
       contour_area: 35
       mask:
-        - 0.015,0,0.015,0.083,0.265,0.083,0.265,0
+        motion_mask_1:
+          friendly_name: Motion Mask 1
+          enabled: true
+          coordinates: 0.015,0,0.015,0.083,0.265,0.083,0.265,0
     ffmpeg:
       hwaccel_args: ""
       inputs:
@@ -238,14 +277,26 @@ cameras:
       filters:
         car:
           mask:
-            - 0.616,0.27,0.793,0.856,0.828,0.654,0.839,0.547,0.709,0.248,0.658,0.26
-            - 0.318,0.601,0.347,0.66,0.374,0.691,0.407,0.681,0.542,0.634,0.546,0.403,0.497,0.302,0.453,0.289,0.451,0.178,0.322,0.183,0.303,0.282
-            - 0.557,0.329,0.549,0.653,0.308,0.743,0.302,0.993,0.849,1,0.612,0.295
+            object_mask_1:
+              friendly_name: Object Mask 1 (car)
+              enabled: true
+              coordinates: 0.616,0.27,0.793,0.856,0.828,0.654,0.839,0.547,0.709,0.248,0.658,0.26
+            object_mask_2:
+              friendly_name: Object Mask 2 (car)
+              enabled: true
+              coordinates: 0.318,0.601,0.347,0.66,0.374,0.691,0.407,0.681,0.542,0.634,0.546,0.403,0.497,0.302,0.453,0.289,0.451,0.178,0.322,0.183,0.303,0.282
+            object_mask_3:
+              friendly_name: Object Mask 3 (car)
+              enabled: true
+              coordinates: 0.557,0.329,0.549,0.653,0.308,0.743,0.302,0.993,0.849,1,0.612,0.295
     motion:
       threshold: 40
       contour_area: 25
       mask:
-        - 0.015,0,0.015,0.083,0.265,0.083,0.265,0
+        motion_mask_1:
+          friendly_name: Motion Mask 1
+          enabled: true
+          coordinates: 0.015,0,0.015,0.083,0.265,0.083,0.265,0
     ffmpeg:
       hwaccel_args: ""
       inputs:
@@ -255,3 +306,4 @@ cameras:
         - path: rtsp://127.0.0.1:8554/camera_6
           roles:
             - detect
+version: 0.18-0
