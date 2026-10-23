@@ -92,12 +92,13 @@ spec:
       target:
         kind: Deployment
         name: "kustomize-controller"
-    # Enable drift detection for HelmReleases and set the log level to debug
+    # Enable drift detection and retry failed upgrades for HelmReleases, and set the log level to debug
     # https://fluxcd.io/flux/components/helm/helmreleases/#drift-detection
+    # https://fluxcd.io/flux/components/helm/helmreleases/#upgrade-strategy
     - patch: |
         - op: add
           path: /spec/template/spec/containers/0/args/-
-          value: --feature-gates=DetectDrift=true,CorrectDrift=false
+          value: --feature-gates=DetectDrift=true,CorrectDrift=false,DefaultToRetryOnFailure=true,CancelHealthCheckOnNewRevision=true
         - op: add
           path: /spec/template/spec/containers/0/args/-
           value: --log-level=debug
