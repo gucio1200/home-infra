@@ -387,8 +387,6 @@ modules:
         labelname: attributeId
         oid: 1.3.6.1.4.1.55062.1.10.3.1.4
         type: gauge
-      - labels: []
-        labelname: smartIndex
     - name: qnapSmartAttrValue
       oid: 1.3.6.1.4.1.55062.1.10.3.1.5
       type: gauge
