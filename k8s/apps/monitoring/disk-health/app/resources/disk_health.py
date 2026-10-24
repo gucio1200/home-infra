@@ -140,23 +140,39 @@ def qnap_disks():
             "host": host,
             "group": host,
             "disk": f"Slot {m['diskSlot']}",
+            "index": int(m["diskIndex"]),
             "model": model,
             "serial": m.get("diskSerial", ""),
             "type": "NVMe" if "PC711" in model or "nvme" in model.lower() else "HDD",
             "status_ok": v,
             "temperature": temps.get((m["instance"], m["diskSlot"])),
         }))
-    smart, nvme = {}, {}
-    for m, v in query('qnapSmartAttrRaw{attribute=~"Percentage Used|Media and Data Integrity Errors|Reallocated_Sector_Ct|Retired_Block_Count|Current_Pending_Sector|Uncorrectable_Sector_Count|Offline_Uncorrectable"}'):
-        if m["device"].startswith("/dev/nvme"):
-            nvme[m["attribute"]] = v
+    smart, nvme, first_row = {}, {}, {}
+    for m, v in query("qnapSmartAttrRaw"):
+        dev = m["device"]
+        if m.get("smartIndex"):
+            first_row[dev] = min(first_row.get(dev, 1e9), int(m["smartIndex"]))
+        if dev.startswith("/dev/nvme"):
+            nvme.setdefault(dev, {})[m["attribute"]] = v
         else:
-            smart.setdefault(m["device"], {})[m["attributeId"]] = v
-    nvme_disks = [d for d in disks if d["type"] == "NVMe"]
-    if len(nvme_disks) == 1 and nvme:
-        d = nvme_disks[0]
-        d["life_used"] = nvme.get("Percentage Used")
-        d["media_errors"] = nvme.get("Media and Data Integrity Errors")
+            smart.setdefault(dev, {})[m["attributeId"]] = v
+    order = sorted(first_row, key=first_row.get)
+    slots = sorted(disks, key=lambda d: d["index"])
+    if len(order) != len(slots) or any(dev.startswith("/dev/nvme") != (d["type"] == "NVMe") for dev, d in zip(order, slots)):
+        order = []
+        nvme_slots = [d for d in slots if d["type"] == "NVMe"]
+        if len(nvme) == 1 and len(nvme_slots) == 1:
+            order, slots = list(nvme), nvme_slots
+    for dev, d in zip(order, slots):
+        d["device"] = dev.removeprefix("/dev/")
+        if dev in nvme:
+            d["life_used"] = nvme[dev].get("Percentage Used")
+            d["media_errors"] = nvme[dev].get("Media and Data Integrity Errors")
+        else:
+            a = smart.pop(dev, {})
+            d["reallocated"] = a.get("5")
+            d["pending"] = a.get("197")
+            d["uncorrectable"] = a.get("198")
         judge(d)
     notes = []
     for dev, a in sorted(smart.items()):
