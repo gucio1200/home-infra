@@ -249,7 +249,7 @@ def discovery(mqtt, d):
     if d.get("life_used") is not None:
         entities.append(("life_used", {"name": "Wear", "value_template": "{{ value_json.life_used }}", "unit_of_measurement": "%", "state_class": "measurement", "icon": "mdi:gauge"}))
     if d.get("reallocated") is not None or d.get("bad_sectors") is not None:
-        entities.append(("bad_sectors", {"name": "Bad sectors", "value_template": "{{ value_json.reallocated if value_json.reallocated is not none else value_json.bad_sectors }}", "state_class": "measurement", "icon": "mdi:alert-octagon-outline"}))
+        entities.append(("bad_sectors", {"name": "Bad sectors", "value_template": "{{ value_json.get('reallocated') if value_json.get('reallocated') is not none else value_json.get('bad_sectors') }}", "state_class": "measurement", "icon": "mdi:alert-octagon-outline"}))
     for obj, cfg in entities:
         cfg.update({"unique_id": f"{uid}_{obj}", "state_topic": state_topic, "device": device, "expire_after": 1800})
         mqtt.publish(f"homeassistant/sensor/{uid}/{obj}/config", json.dumps(cfg))
