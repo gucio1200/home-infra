@@ -1,0 +1,42 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: snmp-exporter
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: snmp-exporter
+  interval: 30m
+  values:
+    fullnameOverride: snmp-exporter
+    extraArgs:
+      - --config.file=/config/snmp.yaml
+      - --config.file=/auths/auths.yaml
+    extraConfigmapMounts:
+      - name: modules
+        mountPath: /config
+        configMap: snmp-exporter-modules
+        readOnly: true
+        defaultMode: 420
+    extraSecretMounts:
+      - name: auths
+        mountPath: /auths
+        secretName: snmp-exporter-auths
+        readOnly: true
+        defaultMode: 420
+    serviceMonitor:
+      enabled: false
+    selfMonitor:
+      enabled: false
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              kind: Deployment
+              name: snmp-exporter
+            patch: |
+              - op: add
+                path: /metadata/annotations
+                value:
+                  reloader.stakater.com/auto: "true"

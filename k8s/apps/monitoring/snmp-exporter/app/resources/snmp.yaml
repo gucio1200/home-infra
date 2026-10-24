@@ -1,0 +1,504 @@
+modules:
+  synology:
+    walk:
+    - 1.3.6.1.4.1.6574.1
+    - 1.3.6.1.4.1.6574.2
+    - 1.3.6.1.4.1.6574.3
+    metrics:
+    - name: systemStatus
+      oid: 1.3.6.1.4.1.6574.1.1
+      type: gauge
+    - name: temperature
+      oid: 1.3.6.1.4.1.6574.1.2
+      type: gauge
+    - name: powerStatus
+      oid: 1.3.6.1.4.1.6574.1.3
+      type: gauge
+    - name: systemFanStatus
+      oid: 1.3.6.1.4.1.6574.1.4.1
+      type: gauge
+    - name: cpuFanStatus
+      oid: 1.3.6.1.4.1.6574.1.4.2
+      type: gauge
+    - name: modelName
+      oid: 1.3.6.1.4.1.6574.1.5.1
+      type: DisplayString
+    - name: serialNumber
+      oid: 1.3.6.1.4.1.6574.1.5.2
+      type: DisplayString
+    - name: version
+      oid: 1.3.6.1.4.1.6574.1.5.3
+      type: DisplayString
+    - name: upgradeAvailable
+      oid: 1.3.6.1.4.1.6574.1.5.4
+      type: gauge
+    - name: controllerNumber
+      oid: 1.3.6.1.4.1.6574.1.6
+      type: gauge
+    - name: diskIndex
+      oid: 1.3.6.1.4.1.6574.2.1.1.1
+      type: gauge
+      indexes:
+      - labelname: diskIndex
+        type: gauge
+      lookups:
+      - labels:
+        - diskIndex
+        labelname: diskID
+        oid: 1.3.6.1.4.1.6574.2.1.1.2
+        type: DisplayString
+      - labels: []
+        labelname: diskIndex
+    - name: diskID
+      oid: 1.3.6.1.4.1.6574.2.1.1.2
+      type: OctetString
+      indexes:
+      - labelname: diskIndex
+        type: gauge
+      lookups:
+      - labels:
+        - diskIndex
+        labelname: diskID
+        oid: 1.3.6.1.4.1.6574.2.1.1.2
+        type: DisplayString
+      - labels: []
+        labelname: diskIndex
+    - name: diskModel
+      oid: 1.3.6.1.4.1.6574.2.1.1.3
+      type: DisplayString
+      indexes:
+      - labelname: diskIndex
+        type: gauge
+      lookups:
+      - labels:
+        - diskIndex
+        labelname: diskID
+        oid: 1.3.6.1.4.1.6574.2.1.1.2
+        type: DisplayString
+      - labels: []
+        labelname: diskIndex
+    - name: diskType
+      oid: 1.3.6.1.4.1.6574.2.1.1.4
+      type: DisplayString
+      indexes:
+      - labelname: diskIndex
+        type: gauge
+      lookups:
+      - labels:
+        - diskIndex
+        labelname: diskID
+        oid: 1.3.6.1.4.1.6574.2.1.1.2
+        type: DisplayString
+      - labels: []
+        labelname: diskIndex
+    - name: diskStatus
+      oid: 1.3.6.1.4.1.6574.2.1.1.5
+      type: gauge
+      indexes:
+      - labelname: diskIndex
+        type: gauge
+      lookups:
+      - labels:
+        - diskIndex
+        labelname: diskID
+        oid: 1.3.6.1.4.1.6574.2.1.1.2
+        type: DisplayString
+      - labels: []
+        labelname: diskIndex
+    - name: diskTemperature
+      oid: 1.3.6.1.4.1.6574.2.1.1.6
+      type: gauge
+      indexes:
+      - labelname: diskIndex
+        type: gauge
+      lookups:
+      - labels:
+        - diskIndex
+        labelname: diskID
+        oid: 1.3.6.1.4.1.6574.2.1.1.2
+        type: DisplayString
+      - labels: []
+        labelname: diskIndex
+    - name: diskRole
+      oid: 1.3.6.1.4.1.6574.2.1.1.7
+      type: OctetString
+      indexes:
+      - labelname: diskIndex
+        type: gauge
+      lookups:
+      - labels:
+        - diskIndex
+        labelname: diskID
+        oid: 1.3.6.1.4.1.6574.2.1.1.2
+        type: DisplayString
+      - labels: []
+        labelname: diskIndex
+    - name: diskRetry
+      oid: 1.3.6.1.4.1.6574.2.1.1.8
+      type: gauge
+      indexes:
+      - labelname: diskIndex
+        type: gauge
+      lookups:
+      - labels:
+        - diskIndex
+        labelname: diskID
+        oid: 1.3.6.1.4.1.6574.2.1.1.2
+        type: DisplayString
+      - labels: []
+        labelname: diskIndex
+    - name: diskBadSector
+      oid: 1.3.6.1.4.1.6574.2.1.1.9
+      type: gauge
+      indexes:
+      - labelname: diskIndex
+        type: gauge
+      lookups:
+      - labels:
+        - diskIndex
+        labelname: diskID
+        oid: 1.3.6.1.4.1.6574.2.1.1.2
+        type: DisplayString
+      - labels: []
+        labelname: diskIndex
+    - name: diskIdentifyFail
+      oid: 1.3.6.1.4.1.6574.2.1.1.10
+      type: gauge
+      indexes:
+      - labelname: diskIndex
+        type: gauge
+      lookups:
+      - labels:
+        - diskIndex
+        labelname: diskID
+        oid: 1.3.6.1.4.1.6574.2.1.1.2
+        type: DisplayString
+      - labels: []
+        labelname: diskIndex
+    - name: diskRemainLife
+      oid: 1.3.6.1.4.1.6574.2.1.1.11
+      type: gauge
+      indexes:
+      - labelname: diskIndex
+        type: gauge
+      lookups:
+      - labels:
+        - diskIndex
+        labelname: diskID
+        oid: 1.3.6.1.4.1.6574.2.1.1.2
+        type: DisplayString
+      - labels: []
+        labelname: diskIndex
+    - name: diskName
+      oid: 1.3.6.1.4.1.6574.2.1.1.12
+      type: OctetString
+      indexes:
+      - labelname: diskIndex
+        type: gauge
+      lookups:
+      - labels:
+        - diskIndex
+        labelname: diskID
+        oid: 1.3.6.1.4.1.6574.2.1.1.2
+        type: DisplayString
+      - labels: []
+        labelname: diskIndex
+    - name: diskHealthStatus
+      oid: 1.3.6.1.4.1.6574.2.1.1.13
+      type: gauge
+      indexes:
+      - labelname: diskIndex
+        type: gauge
+      lookups:
+      - labels:
+        - diskIndex
+        labelname: diskID
+        oid: 1.3.6.1.4.1.6574.2.1.1.2
+        type: DisplayString
+      - labels: []
+        labelname: diskIndex
+    - name: raidIndex
+      oid: 1.3.6.1.4.1.6574.3.1.1.1
+      type: gauge
+      indexes:
+      - labelname: raidIndex
+        type: gauge
+      lookups:
+      - labels:
+        - raidIndex
+        labelname: raidName
+        oid: 1.3.6.1.4.1.6574.3.1.1.2
+        type: DisplayString
+      - labels: []
+        labelname: raidIndex
+    - name: raidName
+      oid: 1.3.6.1.4.1.6574.3.1.1.2
+      type: DisplayString
+      indexes:
+      - labelname: raidIndex
+        type: gauge
+      lookups:
+      - labels:
+        - raidIndex
+        labelname: raidName
+        oid: 1.3.6.1.4.1.6574.3.1.1.2
+        type: DisplayString
+      - labels: []
+        labelname: raidIndex
+    - name: raidStatus
+      oid: 1.3.6.1.4.1.6574.3.1.1.3
+      type: gauge
+      indexes:
+      - labelname: raidIndex
+        type: gauge
+      lookups:
+      - labels:
+        - raidIndex
+        labelname: raidName
+        oid: 1.3.6.1.4.1.6574.3.1.1.2
+        type: DisplayString
+      - labels: []
+        labelname: raidIndex
+    - name: raidFreeSize
+      oid: 1.3.6.1.4.1.6574.3.1.1.4
+      type: gauge
+      indexes:
+      - labelname: raidIndex
+        type: gauge
+      lookups:
+      - labels:
+        - raidIndex
+        labelname: raidName
+        oid: 1.3.6.1.4.1.6574.3.1.1.2
+        type: DisplayString
+      - labels: []
+        labelname: raidIndex
+    - name: raidTotalSize
+      oid: 1.3.6.1.4.1.6574.3.1.1.5
+      type: gauge
+      indexes:
+      - labelname: raidIndex
+        type: gauge
+      lookups:
+      - labels:
+        - raidIndex
+        labelname: raidName
+        oid: 1.3.6.1.4.1.6574.3.1.1.2
+        type: DisplayString
+      - labels: []
+        labelname: raidIndex
+    - name: raidHotspareCnt
+      oid: 1.3.6.1.4.1.6574.3.1.1.6
+      type: gauge
+      indexes:
+      - labelname: raidIndex
+        type: gauge
+      lookups:
+      - labels:
+        - raidIndex
+        labelname: raidName
+        oid: 1.3.6.1.4.1.6574.3.1.1.2
+        type: DisplayString
+      - labels: []
+        labelname: raidIndex
+  qnap:
+    walk:
+    - 1.3.6.1.4.1.55062.1.10.2.1
+    - 1.3.6.1.4.1.55062.1.10.3.1
+    - 1.3.6.1.4.1.55062.1.10.5.1
+    - 1.3.6.1.4.1.55062.1.10.9.1
+    metrics:
+    - name: qnapDiskStatus
+      oid: 1.3.6.1.4.1.55062.1.10.2.1.7
+      type: DisplayString
+      indexes:
+      - labelname: diskIndex
+        type: gauge
+      lookups:
+      - labels:
+        - diskIndex
+        labelname: diskSlot
+        oid: 1.3.6.1.4.1.55062.1.10.2.1.2
+        type: gauge
+      - labels:
+        - diskIndex
+        labelname: diskModel
+        oid: 1.3.6.1.4.1.55062.1.10.2.1.4
+        type: DisplayString
+      - labels:
+        - diskIndex
+        labelname: diskSerial
+        oid: 1.3.6.1.4.1.55062.1.10.2.1.5
+        type: DisplayString
+      regex_extracts:
+        ? ''
+        : - value: '1'
+            regex: ^Good$
+          - value: '0'
+            regex: .*
+    - name: qnapDiskTemperature
+      oid: 1.3.6.1.4.1.55062.1.10.2.1.8
+      type: gauge
+      indexes:
+      - labelname: diskIndex
+        type: gauge
+      lookups:
+      - labels:
+        - diskIndex
+        labelname: diskSlot
+        oid: 1.3.6.1.4.1.55062.1.10.2.1.2
+        type: gauge
+      - labels:
+        - diskIndex
+        labelname: diskModel
+        oid: 1.3.6.1.4.1.55062.1.10.2.1.4
+        type: DisplayString
+    - name: qnapDiskCapacityBytes
+      oid: 1.3.6.1.4.1.55062.1.10.2.1.9
+      type: gauge
+      indexes:
+      - labelname: diskIndex
+        type: gauge
+      lookups:
+      - labels:
+        - diskIndex
+        labelname: diskSlot
+        oid: 1.3.6.1.4.1.55062.1.10.2.1.2
+        type: gauge
+    - name: qnapSmartAttrRaw
+      oid: 1.3.6.1.4.1.55062.1.10.3.1.8
+      type: gauge
+      indexes:
+      - labelname: smartIndex
+        type: gauge
+      lookups:
+      - labels:
+        - smartIndex
+        labelname: device
+        oid: 1.3.6.1.4.1.55062.1.10.3.1.2
+        type: DisplayString
+      - labels:
+        - smartIndex
+        labelname: attribute
+        oid: 1.3.6.1.4.1.55062.1.10.3.1.3
+        type: DisplayString
+      - labels:
+        - smartIndex
+        labelname: attributeId
+        oid: 1.3.6.1.4.1.55062.1.10.3.1.4
+        type: gauge
+      - labels: []
+        labelname: smartIndex
+    - name: qnapSmartAttrValue
+      oid: 1.3.6.1.4.1.55062.1.10.3.1.5
+      type: gauge
+      indexes:
+      - labelname: smartIndex
+        type: gauge
+      lookups:
+      - labels:
+        - smartIndex
+        labelname: device
+        oid: 1.3.6.1.4.1.55062.1.10.3.1.2
+        type: DisplayString
+      - labels:
+        - smartIndex
+        labelname: attribute
+        oid: 1.3.6.1.4.1.55062.1.10.3.1.3
+        type: DisplayString
+      - labels:
+        - smartIndex
+        labelname: attributeId
+        oid: 1.3.6.1.4.1.55062.1.10.3.1.4
+        type: gauge
+      - labels: []
+        labelname: smartIndex
+    - name: qnapSmartAttrThreshold
+      oid: 1.3.6.1.4.1.55062.1.10.3.1.7
+      type: gauge
+      indexes:
+      - labelname: smartIndex
+        type: gauge
+      lookups:
+      - labels:
+        - smartIndex
+        labelname: device
+        oid: 1.3.6.1.4.1.55062.1.10.3.1.2
+        type: DisplayString
+      - labels:
+        - smartIndex
+        labelname: attribute
+        oid: 1.3.6.1.4.1.55062.1.10.3.1.3
+        type: DisplayString
+      - labels:
+        - smartIndex
+        labelname: attributeId
+        oid: 1.3.6.1.4.1.55062.1.10.3.1.4
+        type: gauge
+      - labels: []
+        labelname: smartIndex
+    - name: qnapRaidStatus
+      oid: 1.3.6.1.4.1.55062.1.10.5.1.4
+      type: DisplayString
+      indexes:
+      - labelname: raidIndex
+        type: gauge
+      lookups:
+      - labels:
+        - raidIndex
+        labelname: raidName
+        oid: 1.3.6.1.4.1.55062.1.10.5.1.3
+        type: DisplayString
+      - labels:
+        - raidIndex
+        labelname: raidLevel
+        oid: 1.3.6.1.4.1.55062.1.10.5.1.7
+        type: DisplayString
+      regex_extracts:
+        ? ''
+        : - value: '1'
+            regex: ^Ready$
+          - value: '0'
+            regex: .*
+    - name: qnapPoolStatus
+      oid: 1.3.6.1.4.1.55062.1.10.9.1.5
+      type: DisplayString
+      indexes:
+      - labelname: poolIndex
+        type: gauge
+      lookups:
+      - labels:
+        - poolIndex
+        labelname: poolName
+        oid: 1.3.6.1.4.1.55062.1.10.9.1.8
+        type: DisplayString
+      regex_extracts:
+        ? ''
+        : - value: '1'
+            regex: ^Ready$
+          - value: '0'
+            regex: .*
+    - name: qnapPoolCapacity
+      oid: 1.3.6.1.4.1.55062.1.10.9.1.3
+      type: gauge
+      indexes:
+      - labelname: poolIndex
+        type: gauge
+      lookups:
+      - labels:
+        - poolIndex
+        labelname: poolName
+        oid: 1.3.6.1.4.1.55062.1.10.9.1.8
+        type: DisplayString
+    - name: qnapPoolFree
+      oid: 1.3.6.1.4.1.55062.1.10.9.1.4
+      type: gauge
+      indexes:
+      - labelname: poolIndex
+        type: gauge
+      lookups:
+      - labels:
+        - poolIndex
+        labelname: poolName
+        oid: 1.3.6.1.4.1.55062.1.10.9.1.8
+        type: DisplayString
