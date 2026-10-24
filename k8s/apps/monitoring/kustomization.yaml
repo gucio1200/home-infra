@@ -12,3 +12,4 @@ resources:
   - ./unpoller/ks.yaml
   - ./blackbox-exporter/ks.yaml
   - ./snmp-exporter/ks.yaml
+  - ./disk-health/ks.yaml
