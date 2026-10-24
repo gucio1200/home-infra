@@ -219,13 +219,11 @@ class Mqtt:
 def discovery(mqtt, d):
     uid = f"diskhealth_{d['key']}"
     state_topic = f"diskhealth/{d['key']}/state"
-    device = {
-        "identifiers": [uid],
-        "name": f"{d['host']} {d['disk']}",
-        "model": d["model"] or None,
-        "serial_number": d["serial"] or None,
-        "manufacturer": d["host"],
-    }
+    device = {"identifiers": [uid], "name": f"{d['host']} {d['disk']}", "manufacturer": d["host"]}
+    if d["model"]:
+        device["model"] = d["model"]
+    if d["serial"]:
+        device["serial_number"] = d["serial"]
     entities = [
         ("status", {"name": "Status", "value_template": "{{ value_json.status }}", "json_attributes_topic": state_topic, "icon": "mdi:harddisk"}),
         ("temperature", {"name": "Temperature", "value_template": "{{ value_json.temperature }}", "device_class": "temperature", "unit_of_measurement": "°C", "state_class": "measurement"}),
@@ -235,7 +233,7 @@ def discovery(mqtt, d):
     if d.get("reallocated") is not None or d.get("bad_sectors") is not None:
         entities.append(("bad_sectors", {"name": "Bad sectors", "value_template": "{{ value_json.reallocated if value_json.reallocated is not none else value_json.bad_sectors }}", "state_class": "measurement", "icon": "mdi:alert-octagon-outline"}))
     for obj, cfg in entities:
-        cfg.update({"unique_id": f"{uid}_{obj}", "object_id": f"disk_{d['key']}_{obj}", "state_topic": state_topic, "device": device, "expire_after": 1800})
+        cfg.update({"unique_id": f"{uid}_{obj}", "state_topic": state_topic, "device": device, "expire_after": 1800})
         mqtt.publish(f"homeassistant/sensor/{uid}/{obj}/config", json.dumps(cfg))
     mqtt.publish(state_topic, json.dumps(d))
 
@@ -259,7 +257,7 @@ def summary(mqtt, disks, notes, storage):
         ("watch", "Disks to watch", "{{ value_json.watch }}", "mdi:harddisk-plus"),
     ):
         cfg = {
-            "name": name, "unique_id": f"diskhealth_summary_{obj}", "object_id": f"disk_health_{obj}",
+            "name": name, "unique_id": f"diskhealth_summary_{obj}",
             "state_topic": "diskhealth/summary/state", "value_template": tmpl, "json_attributes_topic": "diskhealth/summary/state",
             "state_class": "measurement", "icon": icon, "device": device, "expire_after": 1800,
         }
