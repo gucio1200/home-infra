@@ -168,11 +168,13 @@ def qnap_disks():
         if dev in nvme:
             d["life_used"] = nvme[dev].get("Percentage Used")
             d["media_errors"] = nvme[dev].get("Media and Data Integrity Errors")
+            d["power_on_hours"] = nvme[dev].get("Power On Hours")
         else:
             a = smart.pop(dev, {})
             d["reallocated"] = a.get("5")
             d["pending"] = a.get("197")
             d["uncorrectable"] = a.get("198")
+            d["power_on_hours"] = a.get("9")
         judge(d)
     notes = []
     for dev, a in sorted(smart.items()):
