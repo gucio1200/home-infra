@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: docker.io/library/python
-              tag: 3.13-alpine@sha256:bf12ecc0bea3f171d55145dd02c78b5eeb09f30ee2ac9cc2b4c9e4e8f5e30741
+              tag: 3.15-alpine@sha256:d44b1254cb92329418d164b22b20d86bbd3869d48e80e09e476531a409a728bb
             command:
               - python
               - /app/disk_health.py
