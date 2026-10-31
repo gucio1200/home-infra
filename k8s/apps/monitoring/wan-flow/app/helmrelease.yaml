@@ -1,0 +1,86 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: wan-flow
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: wan-flow
+  interval: 30m
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        runAsGroup: 65534
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      wan-flow:
+        annotations:
+          configmap.reloader.stakater.com/reload: wan-flow-config
+        containers:
+          app:
+            image:
+              repository: docker.io/library/telegraf
+              tag: 1.40.2-alpine
+            args:
+              - telegraf
+              - --config
+              - /config/telegraf.conf
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 10m
+                memory: 64Mi
+              limits:
+                memory: 256Mi
+    service:
+      app:
+        controller: wan-flow
+        ports:
+          http:
+            port: 9273
+      ipfix:
+        controller: wan-flow
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: 172.16.99.111
+        ports:
+          ipfix:
+            port: 2055
+            protocol: UDP
+    serviceMonitor:
+      app:
+        serviceName: wan-flow
+        endpoints:
+          - port: http
+            scheme: http
+            path: /metrics
+            interval: 30s
+            scrapeTimeout: 10s
+    persistence:
+      config:
+        type: configMap
+        name: wan-flow-config
+        globalMounts:
+          - path: /config
+            readOnly: true
