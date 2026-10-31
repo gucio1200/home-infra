@@ -17,6 +17,10 @@ spec:
   values:
     defaultPodOptions:
       automountServiceAccountToken: false
+      dnsPolicy: None
+      dnsConfig:
+        nameservers:
+          - 192.168.2.1
       securityContext:
         runAsNonRoot: true
         runAsUser: 65534
@@ -70,7 +74,7 @@ spec:
             protocol: UDP
     serviceMonitor:
       app:
-        serviceName: wan-flow
+        serviceName: wan-flow-app
         endpoints:
           - port: http
             scheme: http
