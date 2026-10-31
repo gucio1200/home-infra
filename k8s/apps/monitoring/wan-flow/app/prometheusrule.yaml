@@ -1,0 +1,16 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: wan-flow-rules
+spec:
+  groups:
+    - name: wan-flow.rules
+      rules:
+        - alert: WanFlowNoData
+          annotations:
+            summary: No IPFIX data from the router for 15 minutes; per-host WAN traffic is not being recorded.
+          expr: absent(wan_bytes_total) or sum(rate(wan_bytes_total[10m])) == 0
+          for: 15m
+          labels:
+            severity: warning
