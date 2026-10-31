@@ -5,6 +5,25 @@ metadata:
   name: wan-flow-rules
 spec:
   groups:
+    - name: wan-flow.records
+      interval: 30s
+      rules:
+        - record: wan:host_info
+          expr: |
+            topk by (ip) (1, group by (ip, host, kind) (label_replace(label_replace(label_replace(kube_node_info, "ip", "$1", "internal_ip", "(.*)"), "host", "$1", "node", "(.*)"), "kind", "k8s", "", "")))
+            or on (ip)
+            topk by (ip) (1, group by (ip, host, kind) (label_replace(label_replace(kube_service_status_load_balancer_ingress, "host", "$1", "service", "(.*)"), "kind", "k8s", "", "")))
+            or on (ip)
+            topk by (ip) (1, group by (ip, host, kind) (label_replace(label_replace(unpoller_client_uptime_seconds{name!~"([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}"}, "host", "$1", "name", "(.*)"), "kind", "client", "", "")))
+            or on (ip)
+            topk by (ip) (1, group by (ip, host, kind) (label_replace(label_replace(wan_bytes_total{name=~".+", name!~".*cluster\\.local\\.?"}, "host", "$1", "name", "([^.]+).*"), "kind", "client", "", "")))
+        - record: wan:host_bits:rate2m
+          expr: |
+            (sum by (ip, direction) (rate(wan_bytes_total[2m])) * 8) * on (ip) group_left (host, kind) wan:host_info
+            or on (ip, direction)
+            label_replace(label_replace(sum by (ip, direction) (rate(wan_bytes_total[2m])) * 8, "host", "$1", "ip", "(.*)"), "kind", "client", "", "")
+        - record: wan:kind_bits:rate2m
+          expr: sum by (kind, direction) (wan:host_bits:rate2m)
     - name: wan-flow.rules
       rules:
         - alert: WanFlowNoData
