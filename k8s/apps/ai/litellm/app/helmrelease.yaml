@@ -28,6 +28,10 @@ spec:
             envFrom:
               - secretRef:
                   name: litellm-secret
+              - secretRef:
+                  name: litellm-db-secret
+              - secretRef:
+                  name: litellm-salt-secret
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
@@ -44,6 +48,15 @@ spec:
                   periodSeconds: 10
                   failureThreshold: 3
               readiness: *probes
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: *port
+                  periodSeconds: 10
+                  failureThreshold: 60
             resources:
               requests:
                 cpu: 10m
