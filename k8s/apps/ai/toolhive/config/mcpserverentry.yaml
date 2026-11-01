@@ -59,3 +59,20 @@ spec:
         valueSecretRef:
           name: kodi-mcp-secret
           key: KODIMCP_Server__Password
+---
+apiVersion: toolhive.stacklok.dev/v1beta1
+kind: MCPServerEntry
+metadata:
+  name: kodi-ha
+spec:
+  groupRef:
+    name: mcp-ha
+  remoteUrl: http://kodi-mcp.ai.svc.cluster.local:5720/mcp
+  transport: streamable-http
+  allowPrivateEndpoint: true
+  headerForward:
+    addHeadersFromSecret:
+      - headerName: X-MCP-Password
+        valueSecretRef:
+          name: kodi-mcp-secret
+          key: KODIMCP_Server__Password

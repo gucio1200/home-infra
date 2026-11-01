@@ -18,3 +18,15 @@ spec:
     type: anonymous
   outgoingAuth:
     source: discovered
+---
+apiVersion: toolhive.stacklok.dev/v1beta1
+kind: VirtualMCPServer
+metadata:
+  name: mcp-gateway-ha
+spec:
+  groupRef:
+    name: mcp-ha
+  incomingAuth:
+    type: anonymous
+  outgoingAuth:
+    source: discovered
