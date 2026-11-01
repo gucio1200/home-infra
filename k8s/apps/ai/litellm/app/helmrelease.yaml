@@ -115,6 +115,9 @@ spec:
           - path: /app/opencode_session.py
             subPath: opencode_session.py
             readOnly: true
+          - path: /app/ha_assist_prompt.py
+            subPath: ha_assist_prompt.py
+            readOnly: true
       tmpfs:
         type: emptyDir
         globalMounts:

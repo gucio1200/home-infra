@@ -10,5 +10,6 @@ configMapGenerator:
     files:
       - config.yaml=./resources/config.yaml
       - opencode_session.py=./resources/opencode_session.py
+      - ha_assist_prompt.py=./resources/ha_assist_prompt.py
 generatorOptions:
   disableNameSuffixHash: true
