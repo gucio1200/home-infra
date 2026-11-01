@@ -15,8 +15,6 @@ spec:
         name: crunchy-userinit
   values:
     fullnameOverride: crunchy-userinit-controller
-    log:
-      debug: true
     extraEnv:
       - name: CRUI_PGO_VERSION
         value: v1beta1
