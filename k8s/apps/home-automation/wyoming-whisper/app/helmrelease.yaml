@@ -46,6 +46,10 @@ spec:
               - Kodi, Yamaha, pause, play, stop, resume, mute, unmute, volume up, volume down
               - --hass-refresh-seconds
               - "300"
+              - --beam-size
+              - "1"
+              - --cpu-threads
+              - "8"
             env:
               WYO_WHISPER_HASS_API: http://home-assistant-app.home-automation.svc.cluster.local:8123/api
             envFrom:
