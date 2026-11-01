@@ -226,6 +226,33 @@ model_list:
       drop_params: true
       timeout: 15
 
+  - model_name: claude-haiku-5-5
+    model_info:
+      supports_function_calling: true
+      supports_prompt_caching: true
+    litellm_params:
+      model: anthropic/claude-haiku-5-5
+      api_key: os.environ/ANTHROPIC_API_KEY
+      drop_params: true
+
+  - model_name: claude-sonnet-5-5
+    model_info:
+      supports_function_calling: true
+      supports_prompt_caching: true
+    litellm_params:
+      model: anthropic/claude-sonnet-5-5
+      api_key: os.environ/ANTHROPIC_API_KEY
+      drop_params: true
+
+  - model_name: claude-opus-5-5
+    model_info:
+      supports_function_calling: true
+      supports_prompt_caching: true
+    litellm_params:
+      model: anthropic/claude-opus-5-5
+      api_key: os.environ/ANTHROPIC_API_KEY
+      drop_params: true
+
   - model_name: gemini-embedding-2
     model_info:
       mode: embedding
@@ -276,3 +303,4 @@ environment:
   - REDIS_HOST
   - REDIS_PORT
   - GEMINI_API_KEY
+  - ANTHROPIC_API_KEY
