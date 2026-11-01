@@ -1,0 +1,16 @@
+api:
+  listen: :80
+  origin: "*"
+rtsp:
+  listen: :554
+webrtc:
+  listen: ":8555"
+  candidates:
+    - 172.16.99.106:8555
+  ice_servers: []
+  filters:
+    candidates: []
+    networks: [udp4, tcp4]
+streams:
+  vcore:
+    - "ffmpeg:http://192.168.0.21:8080/stream#video=h264"
