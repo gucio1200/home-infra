@@ -110,12 +110,12 @@ model_list:
       api_key: os.environ/OPENCODE_GO_API_KEY
       drop_params: true
 
-  - model_name: deepseek-v4-flash
+  - model_name: deepseek-v4.1-flash
     model_info:
       supports_function_calling: true
       supports_prompt_caching: true
     litellm_params:
-      model: deepseek/deepseek-v4-flash
+      model: deepseek/deepseek-v4.1-flash
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_GO_API_KEY
       drop_params: true
