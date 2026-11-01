@@ -20,6 +20,9 @@ spec:
     controllers:
       wyoming-whisper:
         strategy: Recreate
+        pod:
+          nodeSelector:
+            feature.node.kubernetes.io/cpu-cpuid.AVX2: "true"
         containers:
           app:
             image:
