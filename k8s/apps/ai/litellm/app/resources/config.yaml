@@ -221,7 +221,7 @@ model_list:
       supports_function_calling: true
       supports_prompt_caching: true
     litellm_params:
-      model: gemini/gemini-flash-latest
+      model: gemini/gemini-4-argon
       api_key: os.environ/GEMINI_API_KEY
       drop_params: true
       timeout: 15
