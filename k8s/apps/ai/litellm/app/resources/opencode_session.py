@@ -25,6 +25,14 @@ def is_opencode_group(model):
     )
 
 
+def fallback_groups(model):
+    from litellm.proxy.proxy_server import llm_router
+
+    if not model or llm_router is None:
+        return []
+    return [group for entry in llm_router.fallbacks or [] for group in entry.get(model) or []]
+
+
 def first_user_content(data):
     for message in data.get("messages") or []:
         if message.get("role") == "user":
@@ -34,7 +42,8 @@ def first_user_content(data):
 
 class OpenCodeSession(CustomLogger):
     async def async_pre_call_hook(self, user_api_key_dict, cache, data, call_type):
-        if not is_opencode_group(data.get("model")):
+        model = data.get("model")
+        if not any(is_opencode_group(group) for group in [model, *fallback_groups(model)]):
             return data
         request = data.get("proxy_server_request") or {}
         incoming = {k.lower(): v for k, v in (request.get("headers") or {}).items()}

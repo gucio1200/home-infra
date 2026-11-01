@@ -110,12 +110,12 @@ model_list:
       api_key: os.environ/OPENCODE_GO_API_KEY
       drop_params: true
 
-  - model_name: deepseek-v4-flash
+  - model_name: deepseek-v4.1-flash
     model_info:
       supports_function_calling: true
       supports_prompt_caching: true
     litellm_params:
-      model: deepseek/deepseek-v4-flash
+      model: deepseek/deepseek-v4.1-flash
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_GO_API_KEY
       drop_params: true
@@ -216,19 +216,56 @@ model_list:
       api_key: os.environ/GEMINI_API_KEY
       drop_params: true
 
+  - model_name: ha-assist
+    model_info:
+      supports_function_calling: true
+      supports_prompt_caching: true
+    litellm_params:
+      model: gemini/gemini-4-argon
+      api_key: os.environ/GEMINI_API_KEY
+      drop_params: true
+      timeout: 15
+
+  - model_name: claude-haiku-5-5
+    model_info:
+      supports_function_calling: true
+      supports_prompt_caching: true
+    litellm_params:
+      model: anthropic/claude-haiku-5-5
+      api_key: os.environ/ANTHROPIC_API_KEY
+      drop_params: true
+
+  - model_name: claude-sonnet-5-5
+    model_info:
+      supports_function_calling: true
+      supports_prompt_caching: true
+    litellm_params:
+      model: anthropic/claude-sonnet-5-5
+      api_key: os.environ/ANTHROPIC_API_KEY
+      drop_params: true
+
+  - model_name: claude-opus-5-5
+    model_info:
+      supports_function_calling: true
+      supports_prompt_caching: true
+    litellm_params:
+      model: anthropic/claude-opus-5-5
+      api_key: os.environ/ANTHROPIC_API_KEY
+      drop_params: true
+
   - model_name: gemini-embedding-2
     model_info:
       mode: embedding
     litellm_params:
-      model: gemini/gemini-embedding-2-preview
+      model: gemini/gemini-embedding-2
       api_key: os.environ/GEMINI_API_KEY
       drop_params: true
 
-  - model_name: gemini-3.1-flash-image
+  - model_name: gemini-nano-banana-2.1
     model_info:
       mode: chat
     litellm_params:
-      model: gemini/gemini-3.1-flash-image
+      model: gemini/gemini-nano-banana-2.1
       api_key: os.environ/GEMINI_API_KEY
       drop_params: true
 
@@ -239,6 +276,12 @@ router_settings:
   routing_strategy: simple-shuffle
   redis_url: os.environ/REDIS_URL
   redis_port: os.environ/REDIS_PORT
+  fallbacks:
+    - ha-assist:
+        - gpt-6-luna
+  model_group_retry_policy:
+    ha-assist:
+      DefaultRetries: 0
 
 litellm_settings:
   success_callback: ["prometheus"]
@@ -260,3 +303,4 @@ environment:
   - REDIS_HOST
   - REDIS_PORT
   - GEMINI_API_KEY
+  - ANTHROPIC_API_KEY
