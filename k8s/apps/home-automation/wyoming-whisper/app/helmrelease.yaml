@@ -27,7 +27,9 @@ spec:
               tag: 3.8.1@sha256:ba6fcb6056ebe237d15a325381763a80af2fc8fcedaa04f6a714a7375eb20d80
             args:
               - --model
-              - small.en
+              - medium.en
+              - --compute-type
+              - int8
               - --language
               - en
               - --data-dir
@@ -52,7 +54,7 @@ spec:
             resources:
               requests:
                 cpu: 500m
-                memory: 1Gi
+                memory: 2Gi
               limits:
                 memory: 3Gi
     service:
