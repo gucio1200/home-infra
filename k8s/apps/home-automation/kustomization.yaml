@@ -11,6 +11,8 @@ resources:
   - ./music-assistant/ks.yaml
   - ./frigate/ks.yaml
   - ./go2rtc/ks.yaml
+  - ./wyoming-whisper/ks.yaml
+  - ./wyoming-piper/ks.yaml
   - ./ledfx/ks.yaml
   - ./zigbee/ks.yaml
   - ./matter/ks.yaml

@@ -1,0 +1,74 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: wyoming-whisper
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: wyoming-whisper
+  interval: 30m
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    controllers:
+      wyoming-whisper:
+        strategy: Recreate
+        containers:
+          app:
+            image:
+              repository: docker.io/rhasspy/wyoming-whisper
+              tag: 3.8.1@sha256:ba6fcb6056ebe237d15a325381763a80af2fc8fcedaa04f6a714a7375eb20d80
+            args:
+              - --model
+              - medium.en
+              - --compute-type
+              - int8
+              - --language
+              - en
+              - --data-dir
+              - /data
+              - --download-dir
+              - /data
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: &port 10300
+                  initialDelaySeconds: 30
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+                  failureThreshold: 5
+              readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 500m
+                memory: 2Gi
+              limits:
+                memory: 3Gi
+    service:
+      app:
+        controller: wyoming-whisper
+        ports:
+          wyoming:
+            port: *port
+    persistence:
+      data:
+        type: persistentVolumeClaim
+        storageClass: ceph-block
+        accessMode: ReadWriteOnce
+        size: 4Gi
+        retain: true
+        globalMounts:
+          - path: /data
