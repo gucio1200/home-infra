@@ -75,6 +75,20 @@ spec:
         ports:
           http:
             port: *port
+    serviceMonitor:
+      app:
+        serviceName: litellm
+        endpoints:
+          - port: http
+            scheme: http
+            path: /metrics/
+            interval: 1m
+            scrapeTimeout: 30s
+            authorization:
+              type: Bearer
+              credentials:
+                name: litellm-secret
+                key: LITELLM_MASTER_KEY
     route:
       app:
         annotations:
