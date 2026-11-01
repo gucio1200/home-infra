@@ -34,6 +34,8 @@ spec:
           descheduler.alpha.kubernetes.io/evict: "false"
 
         pod:
+          nodeSelector:
+            feature.node.kubernetes.io/cpu-cpuid.AVX2: "true"
           annotations:
             k8s.v1.cni.cncf.io/networks: |
               [{
