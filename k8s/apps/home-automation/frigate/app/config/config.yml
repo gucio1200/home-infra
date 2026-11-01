@@ -78,6 +78,8 @@ go2rtc:
       - rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.6/Streaming/Channels/102#backchannel=0
     camera_6_hq:
       - rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.5.6/Streaming/Channels/101#backchannel=0
+    vcore:
+      - "ffmpeg:http://192.168.0.21:8080/stream#video=h264#hardware"
   webrtc:
     candidates:
       - 172.16.99.107:8555
@@ -304,6 +306,24 @@ cameras:
           roles:
             - record
         - path: rtsp://127.0.0.1:8554/camera_6
+          roles:
+            - detect
+  vcore:
+    live:
+      streams:
+        vcore: vcore
+    detect:
+      enabled: false
+      width: 1280
+      height: 960
+    record:
+      enabled: false
+    snapshots:
+      enabled: false
+    ffmpeg:
+      inputs:
+        - path: rtsp://127.0.0.1:8554/vcore
+          input_args: preset-rtsp-restream
           roles:
             - detect
 version: 0.18-0
