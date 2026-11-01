@@ -277,6 +277,7 @@ general_settings:
   use_x_forwarded_for: true
   mcp_trusted_proxy_ranges:
     - 10.244.0.0/16
+    - 192.168.0.0/16
   mcp_xff_num_trusted_hops: 1
 
 router_settings:
