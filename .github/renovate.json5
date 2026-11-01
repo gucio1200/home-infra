@@ -19,4 +19,13 @@
   "kubernetes": {
     "fileMatch": ["(k8s|lb)/.+\\.ya?ml$"]
   },
+  "packageRules": [
+    {
+      "description": "Hold LiteLLM releases for 3 days",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["docker.io/litellm/litellm-non_root", "litellm/litellm-non_root"],
+      "minimumReleaseAge": "3 days",
+      "internalChecksFilter": "strict"
+    }
+  ],
  }
