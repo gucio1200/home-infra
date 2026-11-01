@@ -20,6 +20,8 @@ spec:
     controllers:
       wyoming-whisper:
         strategy: Recreate
+        annotations:
+          reloader.stakater.com/auto: "true"
         pod:
           nodeSelector:
             feature.node.kubernetes.io/cpu-cpuid.AVX2: "true"
@@ -39,6 +41,11 @@ spec:
               - /data
               - --download-dir
               - /data
+            env:
+              WYO_WHISPER_HASS_API: http://home-assistant-app.home-automation.svc.cluster.local:8123/api
+            envFrom:
+              - secretRef:
+                  name: wyoming-whisper-secret
             probes:
               liveness: &probes
                 enabled: true
