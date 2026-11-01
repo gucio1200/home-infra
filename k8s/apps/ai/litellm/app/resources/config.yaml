@@ -216,19 +216,29 @@ model_list:
       api_key: os.environ/GEMINI_API_KEY
       drop_params: true
 
+  - model_name: ha-assist
+    model_info:
+      supports_function_calling: true
+      supports_prompt_caching: true
+    litellm_params:
+      model: gemini/gemini-flash-latest
+      api_key: os.environ/GEMINI_API_KEY
+      drop_params: true
+      timeout: 15
+
   - model_name: gemini-embedding-2
     model_info:
       mode: embedding
     litellm_params:
-      model: gemini/gemini-embedding-2-preview
+      model: gemini/gemini-embedding-2
       api_key: os.environ/GEMINI_API_KEY
       drop_params: true
 
-  - model_name: gemini-3.1-flash-image
+  - model_name: gemini-nano-banana-2.1
     model_info:
       mode: chat
     litellm_params:
-      model: gemini/gemini-3.1-flash-image
+      model: gemini/gemini-nano-banana-2.1
       api_key: os.environ/GEMINI_API_KEY
       drop_params: true
 
@@ -239,6 +249,12 @@ router_settings:
   routing_strategy: simple-shuffle
   redis_url: os.environ/REDIS_URL
   redis_port: os.environ/REDIS_PORT
+  fallbacks:
+    - ha-assist:
+        - gpt-6-luna
+  model_group_retry_policy:
+    ha-assist:
+      DefaultRetries: 0
 
 litellm_settings:
   success_callback: ["prometheus"]
