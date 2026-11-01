@@ -6,3 +6,10 @@ metadata:
   name: mcp-tools
 spec:
   description: Optimized MCP tools for AI assistants
+---
+apiVersion: toolhive.stacklok.dev/v1beta1
+kind: MCPGroup
+metadata:
+  name: mcp-ha
+spec:
+  description: MCP tools for the Home Assistant voice assistant
