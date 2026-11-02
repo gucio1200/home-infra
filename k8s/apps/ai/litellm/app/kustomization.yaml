@@ -11,5 +11,11 @@ configMapGenerator:
       - config.yaml=./resources/config.yaml
       - opencode_session.py=./resources/opencode_session.py
       - ha_assist_prompt.py=./resources/ha_assist_prompt.py
+  - name: assist-grafana-dashboard
+    files:
+      - assist-dashboard.json=./resources/assist-dashboard.json
+    options:
+      labels:
+        grafana_dashboard: "1"
 generatorOptions:
   disableNameSuffixHash: true
