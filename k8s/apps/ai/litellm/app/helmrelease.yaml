@@ -11,6 +11,10 @@ spec:
   values:
     controllers:
       litellm:
+        strategy: RollingUpdate
+        rollingUpdate:
+          maxUnavailable: 0
+          maxSurge: 1
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
