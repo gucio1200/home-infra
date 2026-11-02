@@ -228,9 +228,6 @@ model_list:
       cache_control_injection_points:
         - location: message
           role: system
-          control:
-            type: ephemeral
-            ttl: 1h
 
   - model_name: claude-haiku-5-5
     model_info:
