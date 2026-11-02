@@ -155,6 +155,10 @@ spec:
           gnetId: 11454
           revision: 14
           datasource: Prometheus
+        litellm:
+          url: https://raw.githubusercontent.com/BerriAI/litellm/main/cookbook/litellm_proxy_server/grafana_dashboard/dashboard_all_metrics/grafana_dashboard.json
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
         miniflux:
           url: https://raw.githubusercontent.com/miniflux/v2/main/contrib/grafana/dashboard.json
           datasource: Prometheus
