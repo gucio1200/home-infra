@@ -224,6 +224,10 @@ cameras:
               friendly_name: Object Mask 2 (person)
               enabled: true
               coordinates: 0.394,0.188,0.393,0.231,0.414,0.225,0.411,0.18
+            object_mask_3:
+              friendly_name: Object Mask 3 (person)
+              enabled: true
+              coordinates: 0.07,0.82,0.135,0.82,0.135,0.905,0.07,0.905
     motion:
       mask:
         motion_mask_1:
