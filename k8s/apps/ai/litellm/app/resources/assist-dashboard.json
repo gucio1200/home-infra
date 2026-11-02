@@ -1,0 +1,107 @@
+{
+  "uid": "assist-llm",
+  "title": "Asystent głosowy",
+  "tags": ["home-assistant", "litellm"],
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "editable": true,
+  "graphTooltip": 1,
+  "time": {"from": "now-30d", "to": "now"},
+  "refresh": "1h",
+  "panels": [
+    {
+      "id": 1,
+      "type": "timeseries",
+      "title": "Komendy obsłużone przez LLM (wywołania ha-assist na dzień)",
+      "gridPos": {"h": 9, "w": 24, "x": 0, "y": 0},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "interval": "1d",
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "expr": "sum(increase(litellm_proxy_total_requests_metric_total{requested_model=\"ha-assist\"}[$__interval]))",
+          "legendFormat": "wywołania"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "decimals": 0,
+          "min": 0,
+          "custom": {"drawStyle": "bars", "fillOpacity": 80, "lineWidth": 1}
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {"displayMode": "list", "placement": "bottom", "showLegend": true},
+        "tooltip": {"mode": "single", "sort": "none"}
+      }
+    },
+    {
+      "id": 2,
+      "type": "timeseries",
+      "title": "Koszt ha-assist na dzień",
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 9},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "interval": "1d",
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "expr": "sum(increase(litellm_spend_metric_total{requested_model=\"ha-assist\"}[$__interval]))",
+          "legendFormat": "USD"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD",
+          "decimals": 2,
+          "min": 0,
+          "custom": {"drawStyle": "bars", "fillOpacity": 80, "lineWidth": 1}
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {"displayMode": "list", "placement": "bottom", "showLegend": true},
+        "tooltip": {"mode": "single", "sort": "none"}
+      }
+    },
+    {
+      "id": 3,
+      "type": "timeseries",
+      "title": "Czas odpowiedzi LLM (ha-assist)",
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 9},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "interval": "1h",
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "expr": "histogram_quantile(0.5, sum by (le) (rate(litellm_request_total_latency_metric_bucket{requested_model=\"ha-assist\"}[$__interval])))",
+          "legendFormat": "mediana"
+        },
+        {
+          "refId": "B",
+          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "expr": "histogram_quantile(0.95, sum by (le) (rate(litellm_request_total_latency_metric_bucket{requested_model=\"ha-assist\"}[$__interval])))",
+          "legendFormat": "p95"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "decimals": 1,
+          "min": 0,
+          "custom": {"drawStyle": "line", "lineWidth": 2, "fillOpacity": 10, "spanNulls": true}
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {"displayMode": "list", "placement": "bottom", "showLegend": true},
+        "tooltip": {"mode": "multi", "sort": "none"}
+      }
+    }
+  ]
+}
