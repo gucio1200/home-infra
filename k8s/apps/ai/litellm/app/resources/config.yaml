@@ -69,6 +69,10 @@ model_list:
       model: gemini/gemini-3.1-pro-preview
       api_key: os.environ/GEMINI_API_KEY
       drop_params: true
+      additional_drop_params:
+        - temperature
+        - top_p
+        - top_k
 
   - model_name: kimi-k3
     model_info:
@@ -188,6 +192,10 @@ model_list:
       model: gemini/gemini-3.8-flash
       api_key: os.environ/GEMINI_API_KEY
       drop_params: true
+      additional_drop_params:
+        - temperature
+        - top_p
+        - top_k
 
   - model_name: gemini-3.7-flash
     model_info:
@@ -197,6 +205,10 @@ model_list:
       model: gemini/gemini-3.7-flash
       api_key: os.environ/GEMINI_API_KEY
       drop_params: true
+      additional_drop_params:
+        - temperature
+        - top_p
+        - top_k
 
   - model_name: gemini-3.5-flash-lite
     model_info:
@@ -206,6 +218,10 @@ model_list:
       model: gemini/gemini-3.5-flash-lite
       api_key: os.environ/GEMINI_API_KEY
       drop_params: true
+      additional_drop_params:
+        - temperature
+        - top_p
+        - top_k
 
   - model_name: gemini-4-argon
     model_info:
@@ -215,6 +231,10 @@ model_list:
       model: gemini/gemini-4-argon
       api_key: os.environ/GEMINI_API_KEY
       drop_params: true
+      additional_drop_params:
+        - temperature
+        - top_p
+        - top_k
 
   - model_name: ha-assist
     model_info:
@@ -275,6 +295,9 @@ model_list:
 general_settings:
   health_check_endpoint: /v1/health
   use_x_forwarded_for: true
+  trusted_proxy_ranges:
+    - 10.244.0.0/16
+    - 192.168.0.0/16
   mcp_trusted_proxy_ranges:
     - 10.244.0.0/16
     - 192.168.0.0/16
