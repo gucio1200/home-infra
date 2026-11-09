@@ -17,9 +17,7 @@ detect:
   width: 1920
   height: 1080
 birdseye:
-  mode: continuous
-  enabled: True
-  restream: True
+  enabled: false
 record:
   enabled: true
   continuous:
