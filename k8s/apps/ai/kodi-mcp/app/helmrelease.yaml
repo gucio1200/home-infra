@@ -28,8 +28,8 @@ spec:
                 rm -f /tmp/kodimcpsharp.zip
             env:
               # renovate: depName=Wixely/KodiMCPSharp datasource=github-release-attachments
-              KODIMCPSHARP_VERSION: v0.2.1
-              KODIMCPSHARP_SHA256: 076288a1013c545504ed4354343bbd30988d70881bb3c6e71ae0dc3629c1c2a5
+              KODIMCPSHARP_VERSION: v0.2.4
+              KODIMCPSHARP_SHA256: a551ff390bdb1256e8ddbc0124ba38d412fa7ce4a274e94268928d38f8515e07
             securityContext: &securityContext
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
