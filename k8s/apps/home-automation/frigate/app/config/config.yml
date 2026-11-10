@@ -6,9 +6,17 @@ mqtt:
 database:
   path: /data/frigate.db
 detectors:
-  coral:
-    type: edgetpu
-    device: usb
+  ov:
+    type: openvino
+    device: GPU
+model:
+  model_type: yolo-generic
+  width: 320
+  height: 320
+  input_tensor: nchw
+  input_dtype: float
+  path: /data/models/yolov9-s-320.onnx
+  labelmap_path: /labelmap/coco-80.txt
 ffmpeg:
 #  global_args: ["-hide_banner", "-loglevel", "warning"]
   hwaccel_args: preset-intel-qsv-h264 #preset-vaapi #preset-intel-qsv-h264
