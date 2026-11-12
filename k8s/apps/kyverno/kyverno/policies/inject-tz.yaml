@@ -1,5 +1,5 @@
-apiVersion: kyverno.io/v1
-kind: ClusterPolicy
+apiVersion: policies.kyverno.io/v1
+kind: MutatingPolicy
 metadata:
   name: inject-timezone
   annotations:
@@ -11,55 +11,92 @@ metadata:
       environment variable so the container will have the correct
       time.
 spec:
-  rules:
-    - name: inject-timezone
-      match:
-        any:
-          - resources:
-              kinds:
-                - Pod
-      exclude:
-        any:
-          - resources:
-              annotations:
-                kyverno-no-tz: "true"
-          - resources:
-              selector:
-                matchLabels:
-                  app.kubernetes.io/created-by: volsync
-          - resources:
-              selector:
-                matchLabels:
-                  job-name: "?*"
-      mutate:
-        patchStrategicMerge:
-          spec:
-            initContainers:
-              - name: provide-timezone
-                image: quay.io/k8tz/k8tz:0.22.0@sha256:bf6247838f7011f5d6892fdf1e457058089c5a3da2698b2c6cb5f3a86d88b7cb
-                imagePullPolicy: IfNotPresent
-                resources:
-                  requests:
-                    cpu: 10m
-                    memory: 100Mi
-                volumeMounts:
-                  - mountPath: /mnt/zoneinfo
-                    name: timezone
-                args:
-                  - bootstrap
-            containers:
-              - (name): "*"
-                volumeMounts:
-                  - mountPath: /etc/localtime
-                    name: timezone
-                    readOnly: true
-                    subPath: &timezone Europe/Warsaw
-                  - mountPath: /usr/share/zoneinfo
-                    name: timezone
-                    readOnly: true
-                env:
-                  - name: TZ
-                    value: *timezone
-            volumes:
-              - name: timezone
-                emptyDir: {}
+  autogen:
+    podControllers:
+      controllers: []
+  evaluation:
+    useServerSideApply: true
+  matchConstraints:
+    resourceRules:
+      - apiGroups:
+          - ""
+        apiVersions:
+          - v1
+        operations:
+          - CREATE
+        resources:
+          - pods
+  matchConditions:
+    - name: no-opt-out-annotation
+      expression: >-
+        object.metadata.?annotations[?"kyverno-no-tz"].orValue("") != "true"
+    - name: not-created-by-volsync
+      expression: >-
+        object.metadata.?labels[?"app.kubernetes.io/created-by"].orValue("") != "volsync"
+    - name: not-a-job-pod
+      expression: >-
+        object.metadata.?labels[?"job-name"].orValue("") == ""
+  variables:
+    - name: timezone
+      expression: >-
+        "Europe/Warsaw"
+  mutations:
+    - patchType: ApplyConfiguration
+      applyConfiguration:
+        expression: >-
+          Object{
+            spec: Object.spec{
+              initContainers: [
+                Object.spec.initContainers{
+                  name: "provide-timezone",
+                  image: "quay.io/k8tz/k8tz:0.22.0@sha256:bf6247838f7011f5d6892fdf1e457058089c5a3da2698b2c6cb5f3a86d88b7cb",
+                  imagePullPolicy: "IfNotPresent",
+                  resources: Object.spec.initContainers.resources{
+                    requests: {
+                      "cpu": "10m",
+                      "memory": "100Mi"
+                    }
+                  },
+                  volumeMounts: [
+                    Object.spec.initContainers.volumeMounts{
+                      mountPath: "/mnt/zoneinfo",
+                      name: "timezone"
+                    }
+                  ],
+                  args: ["bootstrap"]
+                }
+              ] + object.spec.?initContainers.orValue([])
+                .filter(c, c.name != "provide-timezone")
+                .map(c, Object.spec.initContainers{name: c.name}),
+              containers: object.spec.containers.map(c,
+                Object.spec.containers{
+                  name: c.name,
+                  volumeMounts: [
+                    Object.spec.containers.volumeMounts{
+                      mountPath: "/etc/localtime",
+                      name: "timezone",
+                      readOnly: true,
+                      subPath: variables.timezone
+                    },
+                    Object.spec.containers.volumeMounts{
+                      mountPath: "/usr/share/zoneinfo",
+                      name: "timezone",
+                      readOnly: true
+                    }
+                  ],
+                  env: [
+                    Object.spec.containers.env{
+                      name: "TZ",
+                      value: variables.timezone
+                    }
+                  ]
+                }
+              ),
+              volumes: [
+                Object.spec.volumes{
+                  name: "timezone",
+                  emptyDir: Object.spec.volumes.emptyDir{}
+                }
+              ]
+            }
+          }
