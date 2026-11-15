@@ -84,6 +84,11 @@ spec:
         - litellm
       password:
         type: AlphaNumeric
+    - name: ghostfolio
+      databases:
+        - ghostfolio
+      password:
+        type: AlphaNumeric
 
   backups:
     pgbackrest:
