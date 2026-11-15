@@ -30,6 +30,7 @@ spec:
             env:
               TZ: Europe/Warsaw
               ROOT_URL: https://ghostfolio.k8sj.io
+              SSL_CERT_FILE: /etc/postgres-ca/ca.crt
               REDIS_HOST: 127.0.0.1
               REDIS_PORT: 6379
             envFrom:
