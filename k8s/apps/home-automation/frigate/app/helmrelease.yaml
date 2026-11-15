@@ -69,6 +69,16 @@ spec:
             port: 8555
             protocol: UDP
 
+    serviceMonitor:
+      app:
+        serviceName: frigate
+        endpoints:
+          - port: http
+            scheme: http
+            path: /api/metrics
+            interval: 30s
+            scrapeTimeout: 10s
+
     rawResources:
       webrtc:
         suffix: webrtc
