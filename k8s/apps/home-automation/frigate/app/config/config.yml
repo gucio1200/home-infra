@@ -105,6 +105,10 @@ cameras:
           friendly_name: Motion Mask 1
           enabled: true
           coordinates: 0.461,0,0.463,0.063,0,0.069,0.001,0.004
+        motion_mask_2:
+          friendly_name: Korony drzew
+          enabled: true
+          coordinates: 0,0,1,0,1,0.3,0,0.3
     ffmpeg:
       output_args:
         record: preset-record-generic-audio-aac
@@ -240,6 +244,10 @@ cameras:
           friendly_name: Motion Mask 1
           enabled: true
           coordinates: 0.018,0,0.268,0,0.267,0.049,0.017,0.046
+        motion_mask_2:
+          friendly_name: Las za płotem
+          enabled: true
+          coordinates: 0,0,1,0,1,0.11,0,0.18
     zones:
       cis:
         friendly_name: Cis
