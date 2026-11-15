@@ -183,6 +183,18 @@ cameras:
               friendly_name: Object Mask 2 (person)
               enabled: true
               coordinates: 0.561,0.342,0.587,0.357,0.59,0.282,0.565,0.273
+        bicycle:
+          mask:
+            object_mask_1:
+              friendly_name: Koła przy ławce
+              enabled: true
+              coordinates: 0.52,0.52,0.7,0.52,0.7,0.72,0.52,0.72
+        motorcycle:
+          mask:
+            object_mask_1:
+              friendly_name: Koła przy ławce
+              enabled: true
+              coordinates: 0.52,0.52,0.7,0.52,0.7,0.72,0.52,0.72
     motion:
       mask:
         motion_mask_1:
