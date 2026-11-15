@@ -98,6 +98,16 @@ spec:
           http:
             port: *port
 
+    persistence:
+      pg-ca:
+        type: secret
+        name: ghostfolio-pg-ca
+        advancedMounts:
+          ghostfolio:
+            app:
+              - path: /etc/postgres-ca
+                readOnly: true
+
     route:
       app:
         annotations:
