@@ -9,6 +9,9 @@ detectors:
   ov:
     type: openvino
     device: GPU
+  ov_2:
+    type: openvino
+    device: GPU
 model:
   model_type: yolo-generic
   width: 320
@@ -54,7 +57,6 @@ objects:
     - bicycle
     - motorcycle
     - car
-    - plate
 go2rtc:
   streams:
     doorbell:
@@ -224,6 +226,12 @@ cameras:
               friendly_name: Object Mask 2 (car)
               enabled: true
               coordinates: 0,0.31,0.396,0.366,0.141,1,0.002,1
+        motorcycle:
+          mask:
+            object_mask_1:
+              friendly_name: Podjazd (motocykl)
+              enabled: true
+              coordinates: 0.143,1,0.389,0.378,0.726,0.378,0.973,1
         person:
           mask:
             object_mask_1:
