@@ -115,6 +115,12 @@ spec:
         flux-control-plane:
           url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/control-plane.json
           datasource: Prometheus
+        frigate:
+          # renovate: depName="Frigate Monitoring Dashboard"
+          gnetId: 24165
+          revision: 1
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
         kubernetes-resources:
           # renovate: depName="Kubernetes / System / API Server"
           gnetId: 18394
