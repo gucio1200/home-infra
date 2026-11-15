@@ -76,3 +76,20 @@ spec:
         valueSecretRef:
           name: kodi-mcp-secret
           key: KODIMCP_Server__Password
+---
+apiVersion: toolhive.stacklok.dev/v1beta1
+kind: MCPServerEntry
+metadata:
+  name: ghostfolio
+spec:
+  groupRef:
+    name: mcp-tools
+  remoteUrl: https://ghostfolio.k8sj.io/mcp
+  transport: streamable-http
+  allowPrivateEndpoint: true
+  headerForward:
+    addHeadersFromSecret:
+      - headerName: Authorization
+        valueSecretRef:
+          name: ghostfolio-mcp-secret
+          key: AUTHORIZATION
