@@ -94,8 +94,80 @@ spec:
               limits:
                 memory: 128Mi
 
+      xtb-import:
+        type: cronjob
+        cronjob:
+          schedule: "*/10 * * * *"
+          concurrencyPolicy: Forbid
+          successfulJobsHistory: 1
+          failedJobsHistory: 2
+          backoffLimit: 0
+
+        pod:
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 100
+
+        containers:
+          app:
+            image:
+              repository: docker.io/dickwolff/export-to-ghostfolio
+              tag: 0.34.2
+            env:
+              HOME: /tmp
+              GHOSTFOLIO_ACCOUNT_ID: 50c0b6e2-2b57-4ddd-bdbf-8cc24280262b
+              GHOSTFOLIO_URL: https://ghostfolio.k8sj.io
+              GHOSTFOLIO_VALIDATE: "true"
+              GHOSTFOLIO_IMPORT: "true"
+              GHOSTFOLIO_SECRET:
+                valueFrom:
+                  secretKeyRef:
+                    name: ghostfolio-importer-secret
+                    key: GHOSTFOLIO_SECRET
+            resources:
+              requests:
+                cpu: 10m
+                memory: 128Mi
+              limits:
+                memory: 512Mi
+
+      coinbase-sync:
+        type: cronjob
+        cronjob:
+          schedule: "15 * * * *"
+          concurrencyPolicy: Forbid
+          successfulJobsHistory: 1
+          failedJobsHistory: 2
+          backoffLimit: 0
+
+        pod:
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+
+        containers:
+          app:
+            image:
+              repository: docker.io/olirafa/ghostcompanion
+              tag: 3.4.1
+            env:
+              HOME: /tmp
+              GHOSTFOLIO_BASE_URL: https://ghostfolio.k8sj.io
+            envFrom:
+              - secretRef:
+                  name: ghostfolio-coinbase-secret
+            resources:
+              requests:
+                cpu: 10m
+                memory: 128Mi
+              limits:
+                memory: 512Mi
+
     service:
       app:
+        controller: ghostfolio
         ports:
           http:
             port: *port
@@ -109,6 +181,23 @@ spec:
             app:
               - path: /etc/postgres-ca
                 readOnly: true
+      xtb:
+        type: nfs
+        server: qnap.dom.lan
+        path: /Share
+        advancedMounts:
+          xtb-import:
+            app:
+              - path: /var/tmp/e2g-input
+                subPath: Inwestycje/XTB/import
+              - path: /var/tmp/e2g-output
+                subPath: Inwestycje/XTB/przetworzone
+      e2g-cache:
+        type: emptyDir
+        advancedMounts:
+          xtb-import:
+            app:
+              - path: /var/tmp/e2g-cache
 
     route:
       app:
