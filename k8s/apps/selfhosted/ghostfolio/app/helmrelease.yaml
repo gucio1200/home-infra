@@ -198,6 +198,15 @@ spec:
           xtb-import:
             app:
               - path: /var/tmp/e2g-cache
+      ghostcompanion-patch:
+        type: configMap
+        name: ghostcompanion-coinbase-patch
+        advancedMounts:
+          coinbase-sync:
+            app:
+              - path: /app/ghostcompanion/core/provider/coinbase.py
+                subPath: coinbase.py
+                readOnly: true
 
     route:
       app:
