@@ -5,3 +5,9 @@ resources:
   - ./externalsecret.yaml
   - ./ocirepository.yaml
   - ./helmrelease.yaml
+configMapGenerator:
+  - name: ghostcompanion-coinbase-patch
+    files:
+      - ./ghostcompanion/coinbase.py
+generatorOptions:
+  disableNameSuffixHash: true

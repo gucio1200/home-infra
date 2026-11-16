@@ -26,6 +26,12 @@
       "matchPackageNames": ["docker.io/litellm/litellm-non_root", "litellm/litellm-non_root"],
       "minimumReleaseAge": "3 days",
       "internalChecksFilter": "strict"
+    },
+    {
+      "description": "ghostcompanion runs with a patched Coinbase provider",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["docker.io/olirafa/ghostcompanion", "olirafa/ghostcompanion"],
+      "prBodyNotes": ["The sync CronJob mounts k8s/apps/selfhosted/ghostfolio/app/ghostcompanion/coinbase.py over the image's Coinbase provider: rebase that file on this release before merging."]
     }
   ],
  }
