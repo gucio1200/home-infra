@@ -102,69 +102,79 @@ class CoinbaseProvider:
         )
 
     @cached_property
-    def _balances(self) -> dict[str, list[Decimal]]:
-        balances: dict[str, list[Decimal]] = {}
+    def _accounts_by_coin(self) -> dict[str, list[dict[str, Any]]]:
+        accounts: dict[str, list[dict[str, Any]]] = {}
         for account in self.coinbase_api.get_accounts():
-            balances.setdefault(account["currency"]["code"], []).append(
-                Decimal(account["balance"]["amount"])
-            )
-        return balances
+            accounts.setdefault(account["currency"]["code"], []).append(account)
+        return accounts
 
     def _balance_correction(
         self, coin: str, transactions: list[dict[str, Any]], trades: list[Trade]
     ) -> list[Trade]:
-        balances = self._balances.get(coin, [])
-        balance = sum(balances, Decimal("0"))
-        if not transactions:
-            if balance != 0:
+        accounts = self._accounts_by_coin.get(coin, [])
+        balance = sum(
+            (Decimal(x["balance"]["amount"]) for x in accounts), Decimal("0")
+        )
+        signs = {TransactionType.BUY: 1, TransactionType.SELL: -1}
+        moves = [
+            (x.executed_at, signs.get(x.transaction_type, 0) * x.quantity)
+            for x in trades
+        ] + [
+            (_parse_created_at(x), Decimal(x["amount"]["amount"]))
+            for x in transactions
+            if self._is_booked_send(x)
+        ]
+        booked = sum((quantity for _, quantity in moves), Decimal("0"))
+        exponents = [
+            int(x["currency"]["exponent"])
+            for x in accounts
+            if x["currency"].get("exponent") is not None
+        ]
+        unit = Decimal(1).scaleb(-max(exponents)) if exponents else None
+        if unit is None or not moves or abs(balance - booked) >= unit:
+            if balance != booked:
                 logger.warning(
-                    f"`{self.ACCOUNT_NAME}` holds {balance} {coin}, but has no"
-                    " transactions of it"
+                    f"`{self.ACCOUNT_NAME}` holds {balance} {coin}, but its"
+                    f" transactions add up to {booked}"
                 )
             return []
 
-        signs = {TransactionType.BUY: 1, TransactionType.SELL: -1}
-        booked = sum(
-            (signs.get(x.transaction_type, 0) * x.quantity for x in trades),
-            Decimal("0"),
-        ) + sum(
-            (
-                Decimal(x["amount"]["amount"])
-                for x in transactions
-                if self._is_booked_send(x)
+        currency = transactions[0]["native_amount"]["currency"]
+        corrections = []
+        held = Decimal("0")
+        for executed_at, quantity in sorted(moves, key=lambda x: (x[0], x[1] < 0)):
+            held += quantity
+            if held != 0 and abs(held) < unit:
+                corrections.append(
+                    self._adapt_correction(coin, currency, executed_at, -held)
+                )
+                held = Decimal("0")
+
+        if balance != held:
+            corrections.append(
+                self._adapt_correction(
+                    coin, currency, max(x[0] for x in moves), balance - held
+                )
+            )
+
+        return corrections
+
+    @staticmethod
+    def _adapt_correction(
+        coin: str, currency: str, after: datetime, quantity: Decimal
+    ) -> Trade:
+        return Trade(
+            currency=currency,
+            description=_BALANCE_CORRECTION_DESCRIPTION,
+            executed_at=after + timedelta(seconds=1),
+            fee=Decimal("0"),
+            quantity=abs(quantity),
+            symbol=coin,
+            transaction_type=(
+                TransactionType.BUY if quantity > 0 else TransactionType.SELL
             ),
-            Decimal("0"),
+            unit_price=Decimal("0"),
         )
-        difference = balance - booked
-        if difference == 0 or not balances:
-            return []
-
-        unit = Decimal(1).scaleb(min(x.as_tuple().exponent for x in balances))
-        if abs(difference) >= unit:
-            logger.warning(
-                f"`{self.ACCOUNT_NAME}` holds {balance} {coin}, but its transactions"
-                f" add up to {booked}"
-            )
-            return []
-
-        latest = max(
-            [_parse_created_at(x) for x in transactions]
-            + [x.executed_at for x in trades]
-        )
-        return [
-            Trade(
-                currency=transactions[0]["native_amount"]["currency"],
-                description=_BALANCE_CORRECTION_DESCRIPTION,
-                executed_at=latest + timedelta(seconds=1),
-                fee=Decimal("0"),
-                quantity=abs(difference),
-                symbol=coin,
-                transaction_type=(
-                    TransactionType.BUY if difference > 0 else TransactionType.SELL
-                ),
-                unit_price=Decimal("0"),
-            )
-        ]
 
     @staticmethod
     def _filter_not_traded_coins(
