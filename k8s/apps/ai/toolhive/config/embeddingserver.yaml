@@ -14,3 +14,7 @@ spec:
     spec:
       nodeSelector:
         feature.node.kubernetes.io/cpu-cpuid.AVX2: "true"
+  resourceOverrides:
+    statefulSet:
+      annotations:
+        toolhive.k8sj.io/reconcile-fix: non-empty-annotations
