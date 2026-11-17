@@ -64,6 +64,30 @@ spec:
         ports:
           http:
             port: *port
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.k8sj.io"
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+        rules:
+          - matches:
+              - path:
+                  type: Exact
+                  value: /
+            filters:
+              - type: URLRewrite
+                urlRewrite:
+                  path:
+                    type: ReplaceFullPath
+                    replaceFullPath: /mcp
+            backendRefs:
+              - identifier: app
+                port: *port
+          - backendRefs:
+              - identifier: app
+                port: *port
     persistence:
       data:
         type: emptyDir
