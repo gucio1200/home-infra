@@ -93,3 +93,25 @@ spec:
         valueSecretRef:
           name: ghostfolio-mcp-secret
           key: AUTHORIZATION
+---
+apiVersion: toolhive.stacklok.dev/v1beta1
+kind: MCPServerEntry
+metadata:
+  name: flux
+spec:
+  groupRef:
+    name: mcp-tools
+  remoteUrl: http://flux-mcp.ai.svc.cluster.local:8000/mcp
+  transport: streamable-http
+  allowPrivateEndpoint: true
+---
+apiVersion: toolhive.stacklok.dev/v1beta1
+kind: MCPServerEntry
+metadata:
+  name: kubesearch
+spec:
+  groupRef:
+    name: mcp-tools
+  remoteUrl: http://kubesearch-mcp.ai.svc.cluster.local:3000/mcp
+  transport: streamable-http
+  allowPrivateEndpoint: true
