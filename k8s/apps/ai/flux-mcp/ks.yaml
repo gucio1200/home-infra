@@ -8,8 +8,13 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/mcp-auth
   interval: 1h
   path: ./k8s/apps/ai/flux-mcp/app
+  postBuild:
+    substitute:
+      APP: *app
   prune: true
   sourceRef:
     kind: GitRepository
