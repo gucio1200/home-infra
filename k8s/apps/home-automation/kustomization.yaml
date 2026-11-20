@@ -7,7 +7,6 @@ resources:
   # Flux-Kustomizations
   - ./esphome/ks.yaml
   - ./home-assistant/ks.yaml
-  - ./mcp-auth/ks.yaml
   - ./node-red/ks.yaml
   - ./music-assistant/ks.yaml
   - ./frigate/ks.yaml

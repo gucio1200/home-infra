@@ -61,6 +61,7 @@ spec:
       app.kubernetes.io/name: toolhive-operator-config
   components:
     - ../../../../components/dragonfly
+    - ../../../../components/mcp-auth
   dependsOn:
     - name: toolhive-operator-crds
     - name: dragonfly-operator
@@ -74,6 +75,7 @@ spec:
   postBuild:
     substitute:
       APP: toolhive
+      MCP_AUTH_ROUTE: mcp-gateway
   prune: true
   sourceRef:
     kind: GitRepository

@@ -78,8 +78,6 @@ spec:
           gethomepage.dev/icon: sh-mikrotik.png
           gethomepage.dev/name: MikroTik MCP
           gethomepage.dev/app: mikrotik-mcp
-        labels:
-          mcp-auth: enabled
         hostnames:
           - "{{ .Release.Name }}.k8sj.io"
         parentRefs:

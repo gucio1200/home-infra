@@ -4,8 +4,6 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
   name: mcp-gateway
-  labels:
-    mcp-auth: enabled
 spec:
   hostnames:
     - mcp.k8sj.io

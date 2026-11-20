@@ -2,16 +2,15 @@
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: SecurityPolicy
 metadata:
-  name: mcp-auth
+  name: "${MCP_AUTH_ROUTE:-${APP}}-auth"
 spec:
-  targetSelectors:
+  targetRefs:
     - group: gateway.networking.k8s.io
       kind: HTTPRoute
-      matchLabels:
-        mcp-auth: enabled
+      name: "${MCP_AUTH_ROUTE:-${APP}}"
   apiKeyAuth:
     credentialRefs:
-      - name: mcp-api-key
+      - name: "${MCP_AUTH_ROUTE:-${APP}}-auth"
     extractFrom:
       - headers:
           - x-mcp-key
