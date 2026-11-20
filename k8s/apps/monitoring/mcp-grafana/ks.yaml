@@ -9,8 +9,13 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: mcp-grafana
+  components:
+    - ../../../../components/mcp-auth
   interval: 10m
   path: "./k8s/apps/monitoring/mcp-grafana/app"
+  postBuild:
+    substitute:
+      APP: mcp-grafana
   prune: true
   sourceRef:
     kind: GitRepository
