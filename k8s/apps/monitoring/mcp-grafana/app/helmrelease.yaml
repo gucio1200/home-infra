@@ -88,6 +88,8 @@ spec:
             port: &port 8000
     route:
       app:
+        labels:
+          mcp-auth: enabled
         hostnames:
           - "{{ .Release.Name }}.k8sj.io"
         parentRefs:

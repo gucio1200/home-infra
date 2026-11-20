@@ -8,3 +8,4 @@ resources:
 #  - ./ollama/ks.yaml
   - ./openweb-ui/ks.yaml
   - ./toolhive/ks.yaml
+  - ./mcp-auth/ks.yaml

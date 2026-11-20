@@ -77,6 +77,8 @@ spec:
             port: *port
     route:
       app:
+        labels:
+          mcp-auth: enabled
         hostnames:
           - "{{ .Release.Name }}.k8sj.io"
           - hass-mcp.k8sj.io

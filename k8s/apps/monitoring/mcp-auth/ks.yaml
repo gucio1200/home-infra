@@ -1,0 +1,23 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: mcp-auth-monitoring
+  namespace: flux-system
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: mcp-auth
+  dependsOn:
+    - name: envoy-gateway
+    - name: onepassword-connect
+  interval: 1h
+  path: "./k8s/components/mcp-auth"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: monitoring
+  timeout: 5m
+  wait: false
