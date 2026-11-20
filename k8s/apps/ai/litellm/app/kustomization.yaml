@@ -2,20 +2,23 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ./ocirepository.yaml
   - ./externalsecret.yaml
-  - ./helmrelease.yaml
+  - ./litellmproxy.yaml
+  - ./httproute.yaml
+  - ./servicemonitor.yaml
+  - ./virtualkeys.yaml
+  - ./models
+configurations:
+  - ./kustomizeconfig.yaml
 configMapGenerator:
-  - name: litellm-configmap
+  - name: litellm-hooks
     files:
-      - config.yaml=./resources/config.yaml
       - opencode_session.py=./resources/opencode_session.py
       - ha_assist_prompt.py=./resources/ha_assist_prompt.py
   - name: assist-grafana-dashboard
     files:
       - assist-dashboard.json=./resources/assist-dashboard.json
     options:
+      disableNameSuffixHash: true
       labels:
         grafana_dashboard: "1"
-generatorOptions:
-  disableNameSuffixHash: true

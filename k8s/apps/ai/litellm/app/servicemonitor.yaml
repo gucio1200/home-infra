@@ -1,0 +1,21 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: litellm-proxy
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: litellm
+      app.kubernetes.io/managed-by: litellm-operator
+  endpoints:
+    - port: http
+      scheme: http
+      path: /metrics/
+      interval: 1m
+      scrapeTimeout: 30s
+      authorization:
+        type: Bearer
+        credentials:
+          name: litellm-secret
+          key: LITELLM_MASTER_KEY

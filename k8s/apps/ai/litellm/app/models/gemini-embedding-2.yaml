@@ -1,0 +1,15 @@
+---
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: gemini-embedding-2
+spec:
+  modelName: gemini-embedding-2
+  params:
+    model: gemini/gemini-embedding-2
+    apiKeyRef:
+      name: litellm-secret
+      key: GEMINI_API_KEY
+    dropParams: true
+  info:
+    mode: embedding

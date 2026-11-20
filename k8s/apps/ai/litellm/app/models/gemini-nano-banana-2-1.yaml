@@ -1,0 +1,15 @@
+---
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: gemini-nano-banana-2-1
+spec:
+  modelName: gemini-nano-banana-2.1
+  params:
+    model: gemini/gemini-nano-banana-2.1
+    apiKeyRef:
+      name: litellm-secret
+      key: GEMINI_API_KEY
+    dropParams: true
+  info:
+    mode: chat

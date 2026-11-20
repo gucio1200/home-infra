@@ -1,0 +1,21 @@
+---
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: ha-assist
+spec:
+  modelName: ha-assist
+  params:
+    model: anthropic/claude-sonnet-5-5
+    apiKeyRef:
+      name: litellm-secret
+      key: ANTHROPIC_API_KEY
+    dropParams: true
+    additional:
+      timeout: 10
+      cache_control_injection_points:
+        - location: message
+          role: system
+  info:
+    supportsFunctionCalling: true
+    supportsPromptCaching: true

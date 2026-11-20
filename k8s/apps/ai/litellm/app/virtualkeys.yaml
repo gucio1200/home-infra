@@ -1,0 +1,18 @@
+---
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMVirtualKey
+metadata:
+  name: home-assistant
+spec:
+  proxyRef: litellm
+  secretName: litellm-key-home-assistant
+  keyAlias: home-assistant
+---
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMVirtualKey
+metadata:
+  name: llmvision
+spec:
+  proxyRef: litellm
+  secretName: litellm-key-llmvision
+  keyAlias: llmvision

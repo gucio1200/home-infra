@@ -1,0 +1,31 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./claude-haiku-5-5.yaml
+  - ./claude-opus-5-5.yaml
+  - ./claude-sonnet-5-5.yaml
+  - ./deepseek-v4-1-flash.yaml
+  - ./deepseek-v4-pro.yaml
+  - ./gemini-3-1-pro.yaml
+  - ./gemini-3-5-flash-lite.yaml
+  - ./gemini-3-7-flash.yaml
+  - ./gemini-3-8-flash.yaml
+  - ./gemini-4-argon.yaml
+  - ./gemini-embedding-2.yaml
+  - ./gemini-nano-banana-2-1.yaml
+  - ./glm-5-1.yaml
+  - ./glm-5-3-flash.yaml
+  - ./glm-5-3.yaml
+  - ./gpt-6-luna.yaml
+  - ./ha-assist.yaml
+  - ./kimi-k2-6.yaml
+  - ./kimi-k2-7-code.yaml
+  - ./kimi-k3.yaml
+  - ./longcat-2-0.yaml
+  - ./mimo-v2-5.yaml
+  - ./minimax-m2-7.yaml
+  - ./minimax-m3.yaml
+  - ./qwen3-6-plus.yaml
+  - ./qwen3-8-flash.yaml
+  - ./qwen3-8-max.yaml
