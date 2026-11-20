@@ -35,10 +35,15 @@ metadata:
   name: esphome-mcp
   namespace: flux-system
 spec:
+  components:
+    - ../../../../components/mcp-auth
   dependsOn:
     - name: esphome
   interval: 10m
   path: "./k8s/apps/home-automation/esphome/mcp"
+  postBuild:
+    substitute:
+      APP: esphome-mcp
   prune: true
   sourceRef:
     kind: GitRepository

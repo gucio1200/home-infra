@@ -41,6 +41,7 @@ metadata:
 spec:
   components:
     - ../../../../components/volsync
+    - ../../../../components/mcp-auth
   interval: 10m
   path: "./k8s/apps/home-automation/home-assistant/mcp"
   postBuild:

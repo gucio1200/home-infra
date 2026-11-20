@@ -9,10 +9,15 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/mcp-auth
   dependsOn:
     - name: onepassword-connect
   interval: 1h
   path: "./k8s/apps/networking/mikrotik-mcp/app"
+  postBuild:
+    substitute:
+      APP: *app
   prune: true
   sourceRef:
     kind: GitRepository

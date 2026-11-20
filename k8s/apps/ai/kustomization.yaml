@@ -8,5 +8,5 @@ resources:
   - ./kubesearch-mcp/ks.yaml
   - ./litellm/ks.yaml
 #  - ./ollama/ks.yaml
-  - ./openweb-ui/ks.yaml
+#  - ./openweb-ui/ks.yaml
   - ./toolhive/ks.yaml
