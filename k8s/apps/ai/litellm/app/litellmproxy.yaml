@@ -102,9 +102,8 @@ spec:
       ha-assist:
         DefaultRetries: 0
   callbacks:
-    success:
-      - prometheus
     callbacks:
+      - prometheus
       - opencode_session.proxy_handler_instance
       - ha_assist_prompt.proxy_handler_instance
   litellmSettings:
