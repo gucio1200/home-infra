@@ -1,0 +1,23 @@
+---
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: llm-vision
+spec:
+  modelName: llm-vision
+  params:
+    model: gemini/gemini-3.8-flash
+    apiKeyRef:
+      name: litellm-secret
+      key: GEMINI_API_KEY
+    dropParams: true
+    additional:
+      reasoning_effort: minimal
+      additional_drop_params:
+        - temperature
+        - top_p
+        - top_k
+  info:
+    supportsFunctionCalling: true
+    supportsPromptCaching: true
+    supportsVision: true

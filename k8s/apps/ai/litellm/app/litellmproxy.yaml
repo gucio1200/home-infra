@@ -98,6 +98,8 @@ spec:
       - ha-assist:
           - gpt-6-luna
           - gemini-4-argon
+      - llm-vision:
+          - claude-haiku-5-5
     model_group_retry_policy:
       ha-assist:
         DefaultRetries: 0

@@ -19,6 +19,7 @@ resources:
   - ./kimi-k2-6.yaml
   - ./kimi-k2-7-code.yaml
   - ./kimi-k3.yaml
+  - ./llm-vision.yaml
   - ./longcat-2-0.yaml
   - ./mimo-v2-5.yaml
   - ./minimax-m2-7.yaml
