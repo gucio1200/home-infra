@@ -7,6 +7,7 @@ spec:
   applyMode: file
   image: docker.io/litellm/litellm-non_root:v1.106.6@sha256:6363e53f135dafbf4a68fac25f77aec3f2b99be37665e8c5f623a952637c220b
   replicas: 1
+  automountServiceAccountToken: false
   apiAccess:
     masterKeyRef:
       name: litellm-secret
@@ -41,9 +42,9 @@ spec:
     httpGet:
       path: /
       port: 4000
-    initialDelaySeconds: 60
+    initialDelaySeconds: 120
     periodSeconds: 10
-    failureThreshold: 30
+    failureThreshold: 18
   readinessProbe:
     httpGet:
       path: /
