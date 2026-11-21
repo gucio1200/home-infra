@@ -162,7 +162,7 @@ spec:
           revision: 14
           datasource: Prometheus
         litellm:
-          url: https://raw.githubusercontent.com/BerriAI/litellm/main/cookbook/litellm_proxy_server/grafana_dashboard/dashboard_all_metrics/grafana_dashboard.json
+          url: https://raw.githubusercontent.com/BerriAI/litellm/main/litellm/integrations/prometheus_helpers/grafana_dashboards/dashboard_all_metrics/grafana_dashboard.json
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
         miniflux:
