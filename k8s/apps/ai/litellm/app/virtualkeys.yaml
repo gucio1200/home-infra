@@ -1,0 +1,26 @@
+---
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMVirtualKey
+metadata:
+  name: home-assistant
+spec:
+  proxyRef: litellm
+  secretName: litellm-key-home-assistant
+  keyAlias: home-assistant
+  models:
+    - ha-assist
+    - gpt-6-luna
+    - deepseek-v4.1-flash
+    - gemini-4-argon
+---
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMVirtualKey
+metadata:
+  name: llmvision
+spec:
+  proxyRef: litellm
+  secretName: litellm-key-llmvision
+  keyAlias: llmvision
+  models:
+    - gemini-3.8-flash
+    - gemini-4-argon

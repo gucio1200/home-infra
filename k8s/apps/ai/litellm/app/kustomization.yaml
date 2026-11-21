@@ -6,6 +6,7 @@ resources:
   - ./litellmproxy.yaml
   - ./httproute.yaml
   - ./servicemonitor.yaml
+  - ./virtualkeys.yaml
   - ./models
 configurations:
   - ./kustomizeconfig.yaml
