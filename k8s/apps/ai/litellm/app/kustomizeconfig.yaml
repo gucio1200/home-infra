@@ -1,0 +1,6 @@
+---
+nameReference:
+  - kind: ConfigMap
+    fieldSpecs:
+      - kind: LiteLLMProxy
+        path: spec/volumes/configMap/name

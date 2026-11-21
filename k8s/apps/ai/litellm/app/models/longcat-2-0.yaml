@@ -1,0 +1,17 @@
+---
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: longcat-2-0
+spec:
+  modelName: longcat-2.0
+  params:
+    model: openai/longcat-2.0
+    apiBase: https://opencode.ai/zen/go/v1
+    apiKeyRef:
+      name: litellm-secret
+      key: OPENCODE_GO_API_KEY
+    dropParams: true
+  info:
+    supportsFunctionCalling: true
+    supportsPromptCaching: true
