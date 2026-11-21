@@ -2,10 +2,10 @@
 apiVersion: litellm.home-operations.com/v1alpha1
 kind: LiteLLMVirtualKey
 metadata:
-  name: gucio
+  name: all
 spec:
   proxyRef: litellm
-  secretName: litellm-key-gucio
-  keyAlias: gucio
+  secretName: litellm-key-all
+  keyAlias: all
   models:
     - all-proxy-models
