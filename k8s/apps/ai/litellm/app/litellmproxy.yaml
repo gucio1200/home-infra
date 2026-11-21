@@ -35,7 +35,7 @@ spec:
   resources:
     requests:
       cpu: 10m
-      memory: 256Mi
+      memory: 1Gi
     limits:
       memory: 2Gi
   livenessProbe:
@@ -98,13 +98,14 @@ spec:
       - ha-assist:
           - gpt-6-luna
           - gemini-4-argon
+      - llm-vision:
+          - claude-haiku-5-5
     model_group_retry_policy:
       ha-assist:
         DefaultRetries: 0
   callbacks:
-    success:
-      - prometheus
     callbacks:
+      - prometheus
       - opencode_session.proxy_handler_instance
       - ha_assist_prompt.proxy_handler_instance
   litellmSettings:
