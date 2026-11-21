@@ -1,0 +1,17 @@
+---
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: gpt-6-luna
+spec:
+  modelName: gpt-6-luna
+  params:
+    model: openai/responses/gpt-6-luna
+    apiBase: https://opencode.ai/inference/go/openai/v1
+    apiKeyRef:
+      name: litellm-secret
+      key: OPENCODE_GO_API_KEY
+    dropParams: true
+  info:
+    supportsFunctionCalling: true
+    supportsPromptCaching: true

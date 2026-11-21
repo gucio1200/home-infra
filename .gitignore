@@ -4,3 +4,4 @@ infrastructure/talos/**/clusterconfig
 .decrypted~*.yaml
 ### KUBECONFIG ###
 provision
+__pycache__/

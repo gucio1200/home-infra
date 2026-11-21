@@ -1,0 +1,17 @@
+---
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: minimax-m3
+spec:
+  modelName: minimax-m3
+  params:
+    model: minimax/minimax-m3
+    apiBase: https://opencode.ai/zen/go/v1
+    apiKeyRef:
+      name: litellm-secret
+      key: OPENCODE_GO_API_KEY
+    dropParams: true
+  info:
+    supportsFunctionCalling: true
+    supportsPromptCaching: true

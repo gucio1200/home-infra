@@ -10,6 +10,7 @@ spec:
     - ../../../../components/dragonfly
   dependsOn:
     - name: dragonfly-operator
+    - name: litellm-operator
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
