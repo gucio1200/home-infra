@@ -65,7 +65,7 @@ spec:
             nameOverride: pnp
             image:
               repository: unixology/pnp
-              tag: "1a22df3"
+              tag: "37ae830"
             env:
               QBITTORRENT_HOST: http://127.0.0.1
               QBITTORRENT_PORT: 8080
@@ -78,10 +78,10 @@ spec:
                 enabled: false
             resources:
               requests:
-                cpu: 50m
-                memory: 64Mi
+                cpu: 5m
+                memory: 16Mi
               limits:
-                memory: 64Mi
+                memory: 32Mi
             securityContext:
               allowPrivilegeEscalation: false
               capabilities:
