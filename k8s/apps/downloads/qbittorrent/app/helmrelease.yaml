@@ -61,14 +61,24 @@ spec:
               capabilities:
                 drop:
                   - ALL
-          pnp:
+      pnp:
+        strategy: Recreate
+        pod:
+          securityContext:
+            runAsGroup: 2000
+            runAsNonRoot: true
+            runAsUser: 2000
+            seccompProfile:
+              type: RuntimeDefault
+        containers:
+          app:
             nameOverride: pnp
             image:
               repository: unixology/pnp
               tag: "37ae830"
             env:
-              QBITTORRENT_HOST: http://127.0.0.1
-              QBITTORRENT_PORT: 8080
+              QBITTORRENT_HOST: http://qbittorrent.downloads.svc.cluster.local
+              QBITTORRENT_PORT: *port
             probes:
               liveness:
                 enabled: false
@@ -93,6 +103,7 @@ spec:
               runAsUser: 2000
     service:
       app:
+        controller: qbittorrent
         forceRename: qbittorrent
         ports:
           http:
@@ -149,3 +160,7 @@ spec:
               - path: /storage/downloads
       tmp:
         type: emptyDir
+        advancedMounts:
+          qbittorrent:
+            app:
+              - path: /tmp
