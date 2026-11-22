@@ -75,7 +75,7 @@ spec:
             nameOverride: pnp
             image:
               repository: unixology/pnp
-              tag: "37ae830"
+              tag: "e10b212"
             env:
               QBITTORRENT_HOST: http://qbittorrent.downloads.svc.cluster.local
               QBITTORRENT_PORT: *port
