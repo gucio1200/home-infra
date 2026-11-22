@@ -15,6 +15,13 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         pod:
+          annotations:
+            k8s.v1.cni.cncf.io/networks: |-
+              [{
+                "name": "vpn-probe",
+                "namespace": "networking",
+                "ips": ["10.1.5.11/24"]
+              }]
           securityContext:
             fsGroup: 2000
             fsGroupChangePolicy: "OnRootMismatch"
@@ -26,7 +33,10 @@ spec:
             nameOverride: wg
             image:
               repository: unixology/wg
-              tag: "f194878"
+              tag: "1de8aa4"
+            env:
+              CHECK_URL: https://1.1.1.1/cdn-cgi/trace
+              REGENERATE_ON_START: "true"
             envFrom:
               - secretRef:
                   name: "protonvpn"

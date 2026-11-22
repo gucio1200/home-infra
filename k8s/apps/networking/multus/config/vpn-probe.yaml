@@ -1,0 +1,29 @@
+---
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: vpn-probe
+  namespace: networking
+spec:
+  config: |-
+    {
+      "cniVersion": "0.3.1",
+      "name": "vpn-probe",
+      "plugins": [
+        {
+          "type": "macvlan",
+          "master": "bond0",
+          "mode": "bridge",
+          "capabilities": {
+            "ips": true
+          },
+          "ipam": {
+            "type": "static",
+            "routes": [
+              {"dst": "1.1.1.1/32", "gw": "10.1.5.1"},
+              {"dst": "1.0.0.1/32", "gw": "10.1.5.1"}
+            ]
+          }
+        }
+      ]
+    }
