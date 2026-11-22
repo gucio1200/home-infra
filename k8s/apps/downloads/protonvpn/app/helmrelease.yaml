@@ -37,12 +37,17 @@ spec:
             nameOverride: wg
             image:
               repository: unixology/wg
-              tag: "eecc8b8"
+              tag: "37ae830"
             env:
               CHECK_URL: https://1.1.1.1/cdn-cgi/trace
               REGENERATE_ON_START: "true"
               SESSION_SECRET_NAME: &session protonvpn-session
               HTTP_ADDR: 0.0.0.0:8080
+              COUNTRIES: EUROPE
+              EXCLUDE_COUNTRIES: PL,RU
+              TIER: "2"
+              FEATURES: P2P,-SecureCore
+              MAX_LOAD: "80"
             envFrom:
               - secretRef:
                   name: "protonvpn"
@@ -62,10 +67,10 @@ spec:
                 enabled: false
             resources:
               requests:
-                cpu: 20m
-                memory: 32Mi
+                cpu: 5m
+                memory: 16Mi
               limits:
-                memory: 256Mi
+                memory: 64Mi
             securityContext:
               allowPrivilegeEscalation: false
               capabilities:
