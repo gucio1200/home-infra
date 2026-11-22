@@ -12,9 +12,13 @@ spec:
   values:
     controllers:
       protonvpn:
+        strategy: Recreate
         annotations:
           reloader.stakater.com/auto: "true"
+        serviceAccount:
+          identifier: protonvpn
         pod:
+          automountServiceAccountToken: true
           annotations:
             k8s.v1.cni.cncf.io/networks: |-
               [{
@@ -37,22 +41,31 @@ spec:
             env:
               CHECK_URL: https://1.1.1.1/cdn-cgi/trace
               REGENERATE_ON_START: "true"
+              SESSION_SECRET_NAME: &session protonvpn-session
+              HTTP_ADDR: 0.0.0.0:8080
             envFrom:
               - secretRef:
                   name: "protonvpn"
             probes:
-              liveness:
-                enabled: false
-              readiness:
-                enabled: false
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /healthz
+                    port: &port 8080
+                  periodSeconds: 30
+                  timeoutSeconds: 2
+                  failureThreshold: 3
+              readiness: *probes
               startup:
                 enabled: false
             resources:
               requests:
-                cpu: 50m
-                memory: 64Mi
+                cpu: 20m
+                memory: 32Mi
               limits:
-                memory: 64Mi
+                memory: 256Mi
             securityContext:
               allowPrivilegeEscalation: false
               capabilities:
@@ -62,3 +75,47 @@ spec:
               runAsGroup: 2000
               runAsNonRoot: true
               runAsUser: 2000
+    service:
+      app:
+        controller: protonvpn
+        ports:
+          http:
+            port: *port
+    serviceMonitor:
+      app:
+        serviceName: protonvpn
+        endpoints:
+          - port: http
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s
+    serviceAccount:
+      protonvpn: {}
+    rbac:
+      roles:
+        protonvpn:
+          type: Role
+          rules:
+            - apiGroups:
+                - ""
+              resources:
+                - secrets
+              resourceNames:
+                - *session
+              verbs:
+                - get
+                - patch
+            - apiGroups:
+                - ""
+              resources:
+                - secrets
+              verbs:
+                - create
+      bindings:
+        protonvpn:
+          type: RoleBinding
+          roleRef:
+            identifier: protonvpn
+          subjects:
+            - identifier: protonvpn
