@@ -33,7 +33,7 @@ spec:
             nameOverride: wg
             image:
               repository: unixology/wg
-              tag: "b4bf309"
+              tag: "1de8aa4"
             env:
               CHECK_URL: https://1.1.1.1/cdn-cgi/trace
               REGENERATE_ON_START: "true"
