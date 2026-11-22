@@ -1,0 +1,109 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: unifi-mcp
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: unifi-mcp
+  interval: 1h
+  values:
+    controllers:
+      unifi-mcp:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/sirkirby/unifi-network-mcp
+              tag: 0.50.2@sha256:998a13aca929db477158fd4efb94a6189ec8cc200f2fb391a61e8d888797c2a3
+            env:
+              UNIFI_MCP_HTTP_ENABLED: "true"
+              UNIFI_MCP_HOST: 0.0.0.0
+              UNIFI_MCP_PORT: &port 3000
+              UNIFI_MCP_ALLOWED_HOSTS: "unifi-mcp.k8sj.io,unifi-mcp.k8sj.io:*,unifi-mcp.networking.svc.cluster.local:*,unifi-mcp.networking.svc:*,unifi-mcp.networking:*,unifi-mcp:*"
+              UNIFI_NETWORK_HOST: unifi-controller.networking.svc.cluster.local
+              UNIFI_NETWORK_PORT: "8443"
+              UNIFI_NETWORK_SITE: default
+              UNIFI_NETWORK_CONTROLLER_TYPE: direct
+              UNIFI_NETWORK_SSL_FINGERPRINT: 27:DE:8C:61:0E:0C:39:55:D9:7D:1E:06:E1:24:1E:F6:78:64:C6:4F:01:31:9F:2F:94:72:08:2F:F6:37:E4:FE
+              UNIFI_POLICY_CREATE: "false"
+              UNIFI_POLICY_UPDATE: "false"
+              UNIFI_POLICY_DELETE: "false"
+              TZ: Europe/Warsaw
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: *port
+                  failureThreshold: 30
+                  periodSeconds: 5
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 128Mi
+              limits:
+                memory: 512Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.k8sj.io"
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+        rules:
+          - matches:
+              - path:
+                  type: Exact
+                  value: /
+            filters:
+              - type: URLRewrite
+                urlRewrite:
+                  path:
+                    type: ReplaceFullPath
+                    replaceFullPath: /mcp
+            backendRefs:
+              - identifier: app
+                port: *port
+          - backendRefs:
+              - identifier: app
+                port: *port
+    persistence:
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
