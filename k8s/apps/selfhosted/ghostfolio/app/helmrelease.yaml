@@ -112,25 +112,30 @@ spec:
         containers:
           app:
             image:
-              repository: docker.io/dickwolff/export-to-ghostfolio
-              tag: 0.34.2
+              repository: docker.io/library/python
+              tag: 3.15.2-alpine@sha256:0f9552bb28711333da16915ec146f5e6bb44a7fdac9ced15dc17c2e0206346dd
+            command:
+              - python
+              - -I
+              - /app/xtb_import.py
             env:
               HOME: /tmp
-              GHOSTFOLIO_ACCOUNT_ID: 50c0b6e2-2b57-4ddd-bdbf-8cc24280262b
+              TZ: Europe/Warsaw
+              PYTHONDONTWRITEBYTECODE: "1"
               GHOSTFOLIO_URL: https://ghostfolio.k8sj.io
-              GHOSTFOLIO_VALIDATE: "true"
-              GHOSTFOLIO_IMPORT: "true"
               GHOSTFOLIO_SECRET:
                 valueFrom:
                   secretKeyRef:
                     name: ghostfolio-importer-secret
                     key: GHOSTFOLIO_SECRET
+              XTB_INPUT_DIR: /data/import
+              XTB_OUTPUT_DIR: /data/przetworzone
             resources:
               requests:
                 cpu: 10m
-                memory: 128Mi
+                memory: 32Mi
               limits:
-                memory: 512Mi
+                memory: 128Mi
 
       coinbase-sync:
         type: cronjob
@@ -188,16 +193,19 @@ spec:
         advancedMounts:
           xtb-import:
             app:
-              - path: /var/tmp/e2g-input
+              - path: /data/import
                 subPath: Inwestycje/XTB/import
-              - path: /var/tmp/e2g-output
+              - path: /data/przetworzone
                 subPath: Inwestycje/XTB/przetworzone
-      e2g-cache:
-        type: emptyDir
+      xtb-import-script:
+        type: configMap
+        name: ghostfolio-xtb-import-script
         advancedMounts:
           xtb-import:
             app:
-              - path: /var/tmp/e2g-cache
+              - path: /app/xtb_import.py
+                subPath: xtb_import.py
+                readOnly: true
       ghostcompanion-patch:
         type: configMap
         name: ghostcompanion-coinbase-patch
