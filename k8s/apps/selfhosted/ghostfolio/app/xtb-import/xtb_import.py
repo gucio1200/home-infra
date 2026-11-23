@@ -30,6 +30,9 @@ DRY_RUN = os.environ.get("XTB_DRY_RUN", "").lower() in ("1", "true", "yes")
 MIN_FILE_AGE = float(os.environ.get("XTB_MIN_FILE_AGE_SECONDS", "30"))
 FX_FEE_RATE = float(os.environ.get("XTB_FX_FEE_RATE", "0.005"))
 SYMBOL_OVERRIDES = json.loads(os.environ.get("XTB_SYMBOL_OVERRIDES") or "{}")
+MANUAL_INTEREST = os.environ.get("XTB_INTEREST_SYMBOL", "GF_XTB_INTEREST")
+MANUAL_FEES = os.environ.get("XTB_FEES_SYMBOL", "GF_XTB_FEES")
+TAX_WINDOW = float(os.environ.get("XTB_TAX_MATCH_SECONDS", "86400"))
 
 EXCEL_EPOCH = datetime(1899, 12, 30, tzinfo=timezone.utc)
 XLSX_NS = {
@@ -227,14 +230,22 @@ def read_export(path):
     raise XtbError("nie znalazłem tabeli operacji gotówkowych (kolumny Type, Time, Amount, ID, Comment)")
 
 
+KINDS = (
+    ("BUY", ("purchase", "zakup", "kupno")),
+    ("SELL", ("sale", "sprzeda")),
+    ("TAX", ("tax", "podatek")),
+    ("DIVIDEND", ("dividend", "dywidend")),
+    ("INTEREST", ("interest", "odsetk", "oprocentowan")),
+    ("FEE", ("commission", "prowizj", "sec fee", "opłat")),
+    ("CASH", ("deposit", "wpłat", "withdraw", "wypłat", "transfer", "przelew")),
+)
+
+
 def classify(record):
     kind = record["type"].lower()
-    if "purchase" in kind:
-        return "BUY"
-    if "sale" in kind:
-        return "SELL"
-    if kind.startswith("deposit") or "withdraw" in kind or "transfer" in kind:
-        return "CASH"
+    for name, keys in KINDS:
+        if any(k in kind for k in keys):
+            return name
     raise XtbError(
         f"operacja ID {record['id']} ma typ {record['type']!r}, którego importer jeszcze nie obsługuje; "
         "nic z tego pliku nie zostało zapisane"
@@ -298,6 +309,57 @@ def build_activity(record, side, account, resolve):
     }
 
 
+def income_activity(record, kind, account, resolve, tax):
+    ticker = record["ticker"]
+    base = {
+        "accountId": account["id"],
+        "comment": f"XTB {record['id']} - {record['comment']}",
+        "currency": account["currency"],
+        "date": record["time"].strftime("%Y-%m-%dT%H:%M:%S.000Z"),
+    }
+    if kind == "FEE" or (kind == "DIVIDEND" and record["amount"] < 0):
+        symbol = resolve(ticker)[0] if ticker else MANUAL_FEES
+        return dict(base, dataSource="YAHOO" if ticker else "MANUAL", fee=round(abs(record["amount"]), 2), quantity=0, symbol=symbol, type="FEE", unitPrice=0)
+    if record["amount"] < 0:
+        raise XtbError(f"operacja ID {record['id']}: ujemna kwota {record['amount']} dla typu {record['type']!r}")
+    if kind == "DIVIDEND":
+        if not ticker:
+            raise XtbError(f"operacja ID {record['id']}: dywidenda bez tickera")
+        return dict(base, dataSource="YAHOO", fee=round(tax, 2), quantity=1, symbol=resolve(ticker)[0], type="DIVIDEND", unitPrice=round(record["amount"], 2))
+    return dict(base, dataSource="MANUAL", fee=round(tax, 2), quantity=1, symbol=MANUAL_INTEREST, type="INTEREST", unitPrice=round(record["amount"], 2))
+
+
+def build_activities(records, account, resolve):
+    kinds = {record["id"]: classify(record) for record in records}
+    taxes = [r for r in records if kinds[r["id"]] == "TAX"]
+    used = set()
+    activities = []
+    for record in records:
+        kind = kinds[record["id"]]
+        if kind in ("BUY", "SELL"):
+            activities.append(build_activity(record, kind, account, resolve))
+        elif kind in ("DIVIDEND", "INTEREST"):
+            tax = 0.0
+            if record["amount"] > 0:
+                near = [
+                    t for t in taxes
+                    if t["id"] not in used
+                    and t["ticker"] == record["ticker"]
+                    and abs((t["time"] - record["time"]).total_seconds()) <= TAX_WINDOW
+                ]
+                if near:
+                    match = min(near, key=lambda t: abs((t["time"] - record["time"]).total_seconds()))
+                    used.add(match["id"])
+                    tax = abs(match["amount"])
+            activities.append(income_activity(record, kind, account, resolve, tax))
+        elif kind == "FEE":
+            activities.append(income_activity(record, kind, account, resolve, 0.0))
+    for t in taxes:
+        if t["id"] not in used:
+            activities.append(income_activity(t, "FEE", account, resolve, 0.0))
+    return activities
+
+
 def pick_account(accounts, number, currency):
     if number:
         by_comment = [a for a in accounts if number in (a.get("comment") or "")]
@@ -338,11 +400,7 @@ def process(path, token, accounts, state):
     known = set(state["accounts"].get(key, {}).get("ids", []))
     new = [record for record in records if record["id"] not in known]
     resolve = make_resolver(token)
-    activities = []
-    for record in new:
-        side = classify(record)
-        if side in ("BUY", "SELL"):
-            activities.append(build_activity(record, side, account, resolve))
+    activities = build_activities(new, account, resolve)
     delta = round(sum(record["amount"] for record in new), 2)
     balance = round(float(account.get("balance") or 0) + delta, 2)
     imported = 0
