@@ -9,5 +9,8 @@ configMapGenerator:
   - name: ghostcompanion-coinbase-patch
     files:
       - ./ghostcompanion/coinbase.py
+  - name: ghostfolio-xtb-import-script
+    files:
+      - ./xtb-import/xtb_import.py
 generatorOptions:
   disableNameSuffixHash: true
