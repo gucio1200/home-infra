@@ -33,6 +33,8 @@ SYMBOL_OVERRIDES = json.loads(os.environ.get("XTB_SYMBOL_OVERRIDES") or "{}")
 MANUAL_INTEREST = os.environ.get("XTB_INTEREST_SYMBOL", "GF_XTB_INTEREST")
 MANUAL_FEES = os.environ.get("XTB_FEES_SYMBOL", "GF_XTB_FEES")
 TAX_WINDOW = float(os.environ.get("XTB_TAX_MATCH_SECONDS", "86400"))
+HA_WEBHOOK_URL = os.environ.get("XTB_HA_WEBHOOK_URL", "").rstrip("/")
+HA_WEBHOOK_ID = os.environ.get("XTB_HA_WEBHOOK_ID", "")
 
 EXCEL_EPOCH = datetime(1899, 12, 30, tzinfo=timezone.utc)
 XLSX_NS = {
@@ -419,11 +421,36 @@ def process(path, token, accounts, state):
         entry["ids"] = sorted(known | {record["id"] for record in new})
         save_state(state)
     skipped = len(activities) - imported if not DRY_RUN else 0
-    return (
+    note = (
         f"OK, konto {account['name']}: operacji w pliku {len(records)}, nowych {len(new)}, "
         f"transakcji zaimportowanych {imported}, pominiętych jako duplikaty {skipped}, "
         f"zmiana gotówki {delta:+.2f} {account['currency']}, saldo gotówki {balance:.2f} {account['currency']}"
     )
+    details = {
+        "account": account["name"],
+        "operations": len(new),
+        "imported": imported,
+        "skipped": skipped,
+        "cash": balance,
+        "currency": account["currency"],
+    }
+    return note, details
+
+
+def notify_home_assistant(payload):
+    if not HA_WEBHOOK_URL or not HA_WEBHOOK_ID or DRY_RUN:
+        return
+    request = urllib.request.Request(
+        f"{HA_WEBHOOK_URL}/{HA_WEBHOOK_ID}",
+        data=json.dumps(payload).encode(),
+        method="POST",
+        headers={"Content-Type": "application/json"},
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=15):
+            pass
+    except Exception as error:
+        print(f"Nie udało się powiadomić Home Assistanta: {type(error).__name__}", flush=True)
 
 
 def archive(path, stamp, note):
@@ -451,14 +478,18 @@ def main():
     failures = 0
     for path in files:
         stamp = datetime.now(LOCAL_TZ).strftime("%Y%m%d-%H%M%S")
+        status = "ok"
+        details = {}
         try:
-            note = process(path, token, accounts, state)
+            note, details = process(path, token, accounts, state)
         except (XtbError, ValueError, KeyError, zipfile.BadZipFile, ET.ParseError, UnicodeDecodeError) as error:
             failures += 1
+            status = "error"
             note = f"BŁĄD: {error}"
         print(f"{path.name}: {note}", flush=True)
         if not DRY_RUN:
             archive(path, stamp, note)
+        notify_home_assistant(dict(details, status=status, file=path.name, note=note))
     return 1 if failures else 0
 
 
