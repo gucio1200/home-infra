@@ -426,6 +426,8 @@ def process(path, token, accounts, state):
         f"transakcji zaimportowanych {imported}, pominiętych jako duplikaty {skipped}, "
         f"zmiana gotówki {delta:+.2f} {account['currency']}, saldo gotówki {balance:.2f} {account['currency']}"
     )
+    unit = "zł" if account["currency"] == "PLN" else account["currency"]
+    cash_text = f"{balance:,.2f}".replace(",", " ").replace(".", ",")
     details = {
         "account": account["name"],
         "operations": len(new),
@@ -433,6 +435,7 @@ def process(path, token, accounts, state):
         "skipped": skipped,
         "cash": balance,
         "currency": account["currency"],
+        "summary": f"OK · {account['name']} · nowe transakcje: {imported} · saldo {cash_text} {unit}",
     }
     return note, details
 
@@ -489,6 +492,7 @@ def main():
         print(f"{path.name}: {note}", flush=True)
         if not DRY_RUN:
             archive(path, stamp, note)
+        details.setdefault("summary", note[:250])
         notify_home_assistant(dict(details, status=status, file=path.name, note=note))
     return 1 if failures else 0
 
