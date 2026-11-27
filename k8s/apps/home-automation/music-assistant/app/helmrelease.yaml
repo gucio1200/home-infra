@@ -45,7 +45,7 @@ spec:
           app:
             image:
               repository: ghcr.io/music-assistant/server
-              tag: 2.10.13
+              tag: 2.10.14
             securityContext:
               capabilities:
                 add:
