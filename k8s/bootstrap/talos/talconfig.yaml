@@ -5,7 +5,7 @@ clusterPodNets:
 clusterSvcNets:
   - 10.96.0.0/12
 talosVersion: v1.13.13
-kubernetesVersion: v1.35.8
+kubernetesVersion: v1.36.7
 endpoint: "https://k8s.dom.lan:6443"
 
 cniConfig:
