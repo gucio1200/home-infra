@@ -17,7 +17,7 @@ spec:
           descheduler.alpha.kubernetes.io/evict: "false"
         pod:
           nodeSelector:
-            feature.node.kubernetes.io/coral: "true"
+            feature.node.kubernetes.io/cpu-cpuid.AVX2: "true"
             intel.feature.node.kubernetes.io/gpu: "true"
         containers:
           app:
