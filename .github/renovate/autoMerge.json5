@@ -19,9 +19,9 @@
       ignoreTests: false,
     },
     {
-      description: "Ceph image upgrades need a reviewed PR",
+      description: "Ceph image and CSI drivers chart upgrades need a reviewed PR",
       matchDatasources: ["docker"],
-      matchPackageNames: ["quay.io/ceph/ceph"],
+      matchPackageNames: ["quay.io/ceph/ceph", "ghcr.io/home-operations/charts-mirror/ceph-csi-drivers"],
       automerge: false,
     },
   ],
