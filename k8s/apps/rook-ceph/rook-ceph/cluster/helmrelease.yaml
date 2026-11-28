@@ -10,6 +10,8 @@ spec:
     name: rook-ceph-cluster
   interval: 1h
   timeout: 30m
+  driftDetection:
+    mode: warn
   values:
     cephImage:
       repository: quay.io/ceph/ceph
