@@ -6,15 +6,9 @@ metadata:
 spec:
   interval: 15m
   timeout: 20m
-  chart:
-    spec:
-      chart: cilium
-      version: 1.20.5
-      sourceRef:
-        kind: HelmRepository
-        name: cilium-charts
-        namespace: flux-system
-      interval: 15m
+  chartRef:
+    kind: OCIRepository
+    name: cilium
   install:
     createNamespace: false
     remediation:

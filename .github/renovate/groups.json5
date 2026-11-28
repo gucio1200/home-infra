@@ -28,6 +28,7 @@
       matchPackageNames: [
         "quay.io/cilium/cilium",
         "quay.io/cilium/operator-generic",
+        "quay.io/cilium/charts/cilium",
         "cilium",
       ],
       matchDatasources: ["helm", "docker"],

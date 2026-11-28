@@ -32,7 +32,6 @@ resources:
   - openldap.yaml
   - minio.yaml
   - pihole.yaml
-  - cilium.yaml
   - postfinance.yaml
   - rook-ceph.yaml
   - lwolf-charts.yaml
