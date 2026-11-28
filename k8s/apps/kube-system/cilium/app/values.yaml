@@ -11,7 +11,7 @@ bpfClockProbe: true
 bgpControlPlane:
   enabled: true
 cgroup:
-  automount:
+  autoMount:
     enabled: false
   hostRoot: /sys/fs/cgroup
 cni:
@@ -41,6 +41,7 @@ l2announcements:
 loadBalancer:
   algorithm: maglev
   mode: dsr
+  serviceTopology: true
 localRedirectPolicies:
   enabled: true
 operator:
