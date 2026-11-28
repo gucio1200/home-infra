@@ -16,5 +16,10 @@
       matchPackageNames: ["docker.io/kopia/kopia"],
       allowedVersions: "<999",
     },
+    {
+      matchDatasources: ["helm"],
+      matchPackageNames: ["intel-device-plugins-gpu", "intel-device-plugins-operator"],
+      allowedVersions: "!/^0\\.37\\.2$/",
+    },
   ],
 }
