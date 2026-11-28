@@ -182,6 +182,8 @@ spec:
       csi:
         readAffinity:
           enabled: true
+        cephfs:
+          kernelMountOptions: ms_mode=prefer-crc
 
     cephBlockPoolsVolumeSnapshotClass:
       enabled: true
