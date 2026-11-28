@@ -3,11 +3,36 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: ceph-csi-drivers
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   chartRef:
     kind: OCIRepository
     name: ceph-csi-drivers
   interval: 1h
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              group: csi.ceph.io
+              kind: Driver
+            patch: |
+              apiVersion: csi.ceph.io/v1
+              kind: Driver
+              metadata:
+                name: any
+                annotations:
+                  helm.sh/resource-policy: keep
+          - target:
+              group: csi.ceph.io
+              kind: OperatorConfig
+            patch: |
+              apiVersion: csi.ceph.io/v1
+              kind: OperatorConfig
+              metadata:
+                name: any
+                annotations:
+                  helm.sh/resource-policy: keep
   values:
     operatorConfig:
       namespace: rook-ceph
@@ -16,12 +41,13 @@ spec:
         imageSet:
           name: rook-csi-operator-image-set-configmap
         grpcTimeout: 150
+        snapshotPolicy: volumeSnapshot
         log:
           rotation:
             enabled: false
         nodePlugin:
           priorityClassName: system-node-critical
-          resources:
+          resources: &nodePluginResources
             plugin:
               requests:
                 cpu: 250m
@@ -54,7 +80,9 @@ spec:
             enabled: false
         nodePlugin:
           priorityClassName: system-node-critical
+          resources: *nodePluginResources
         controllerPlugin:
+          priorityClassName: system-cluster-critical
           replicas: 2
           resources:
             provisioner: &sidecar
@@ -90,7 +118,9 @@ spec:
             enabled: false
         nodePlugin:
           priorityClassName: system-node-critical
+          resources: *nodePluginResources
         controllerPlugin:
+          priorityClassName: system-cluster-critical
           replicas: 2
           resources:
             provisioner: *sidecar
