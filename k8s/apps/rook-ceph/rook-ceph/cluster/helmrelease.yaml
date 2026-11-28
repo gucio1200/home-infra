@@ -98,7 +98,7 @@ spec:
         count: 1
         modules:
           - name: rook
-            enabled: true
+            enabled: false
           - name: pg_autoscaler
             enabled: true
           - name: insights
