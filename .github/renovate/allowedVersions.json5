@@ -26,5 +26,10 @@
       matchPackageNames: ["ghcr.io/home-operations/charts-mirror/ceph-csi-drivers"],
       allowedVersions: "<1.1.0",
     },
+    {
+      matchDatasources: ["docker"],
+      matchPackageNames: ["quay.io/ceph/ceph"],
+      allowedVersions: "<21",
+    },
   ],
 }
