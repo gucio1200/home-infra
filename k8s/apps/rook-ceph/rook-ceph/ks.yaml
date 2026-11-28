@@ -22,6 +22,7 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-rook-ceph
+    - name: ceph-csi-drivers
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease

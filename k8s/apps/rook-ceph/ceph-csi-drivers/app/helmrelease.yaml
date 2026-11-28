@@ -1,0 +1,111 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ceph-csi-drivers
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: ceph-csi-drivers
+  interval: 1h
+  values:
+    operatorConfig:
+      namespace: rook-ceph
+      driverSpecDefaults:
+        clusterName: rook-ceph
+        imageSet:
+          name: rook-csi-operator-image-set-configmap
+        grpcTimeout: 150
+        log:
+          rotation:
+            enabled: false
+        nodePlugin:
+          priorityClassName: system-node-critical
+          resources:
+            plugin:
+              requests:
+                cpu: 250m
+                memory: 512Mi
+              limits:
+                memory: 1Gi
+            registrar:
+              requests:
+                cpu: 50m
+                memory: 128Mi
+              limits:
+                memory: 256Mi
+        controllerPlugin:
+          priorityClassName: system-cluster-critical
+          hostNetwork: true
+          replicas: 2
+          deploymentStrategy:
+            type: Recreate
+    drivers:
+      rbd:
+        enabled: true
+        name: rook-ceph.rbd.csi.ceph.com
+        clusterName: rook-ceph
+        imageSet:
+          name: rook-csi-operator-image-set-configmap
+        grpcTimeout: 150
+        snapshotPolicy: volumeSnapshot
+        log:
+          rotation:
+            enabled: false
+        nodePlugin:
+          priorityClassName: system-node-critical
+        controllerPlugin:
+          replicas: 2
+          resources:
+            provisioner: &sidecar
+              requests:
+                cpu: 100m
+                memory: 128Mi
+              limits:
+                memory: 256Mi
+            resizer: *sidecar
+            attacher: *sidecar
+            snapshotter: *sidecar
+            plugin:
+              requests:
+                memory: 512Mi
+              limits:
+                memory: 1Gi
+            omapGenerator:
+              requests:
+                cpu: 250m
+                memory: 512Mi
+              limits:
+                memory: 1Gi
+      cephfs:
+        enabled: true
+        name: rook-ceph.cephfs.csi.ceph.com
+        clusterName: rook-ceph
+        imageSet:
+          name: rook-csi-operator-image-set-configmap
+        grpcTimeout: 150
+        snapshotPolicy: volumeGroupSnapshot
+        log:
+          rotation:
+            enabled: false
+        nodePlugin:
+          priorityClassName: system-node-critical
+        controllerPlugin:
+          replicas: 2
+          resources:
+            provisioner: *sidecar
+            resizer: *sidecar
+            attacher: *sidecar
+            snapshotter: *sidecar
+            plugin:
+              requests:
+                cpu: 250m
+                memory: 512Mi
+              limits:
+                memory: 1Gi
+      nfs:
+        enabled: false
+        name: rook-ceph.nfs.csi.ceph.com
+      nvmeof:
+        enabled: false
+        name: rook-ceph.nvmeof.csi.ceph.com

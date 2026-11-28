@@ -33,7 +33,6 @@ resources:
   - minio.yaml
   - pihole.yaml
   - postfinance.yaml
-  - rook-ceph.yaml
   - lwolf-charts.yaml
   - node-feature-discovery.yaml
   - csi-driver-nfs.yaml
