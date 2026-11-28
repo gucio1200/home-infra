@@ -18,5 +18,11 @@
       matchPackageNames: ["kube-prometheus-stack"],
       ignoreTests: false,
     },
+    {
+      description: "Ceph image upgrades need a reviewed PR",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["quay.io/ceph/ceph"],
+      automerge: false,
+    },
   ],
 }

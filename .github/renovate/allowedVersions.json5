@@ -21,5 +21,10 @@
       matchPackageNames: ["intel-device-plugins-gpu", "intel-device-plugins-operator"],
       allowedVersions: "!/^0\\.37\\.2$/",
     },
+    {
+      matchDatasources: ["docker"],
+      matchPackageNames: ["ghcr.io/home-operations/charts-mirror/ceph-csi-drivers"],
+      allowedVersions: "<1.1.0",
+    },
   ],
 }
